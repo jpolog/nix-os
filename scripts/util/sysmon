@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Category: util
+# Description: Monitor system resources in real-time
+# Usage: sysmon
+# Examples:
+#   sysmon
+
+# Use bottom if available, otherwise fallback to htop/top
+if command -v btm >/dev/null 2>&1; then
+    exec btm
+elif command -v btop >/dev/null 2>&1; then
+    exec btop
+elif command -v htop >/dev/null 2>&1; then
+    exec htop
+else
+    exec top
+fi

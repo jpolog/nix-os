@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+# Category: system
+# Description: Update NixOS system and all flake inputs
+# Usage: update-system [--no-rebuild]
+# Examples:
+#   update-system              # Update and rebuild
+#   update-system --no-rebuild # Only update flake.lock
+
+set -euo pipefail
+
+FLAKE_DIR="${FLAKE_DIR:-$HOME/Projects/nix-omarchy/nix}"
+NO_REBUILD=false
+
+# Colors
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+YELLOW='\033[1;33m'
+NC='\033[0m'
+
+# Parse arguments
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --no-rebuild)
+            NO_REBUILD=true
+            shift
+            ;;
+        *)
+            echo "Unknown option: $1"
+            exit 1
+            ;;
+    esac
+done
+
+echo -e "${BLUE}🔄 Updating NixOS system...${NC}\n"
+
+cd "$FLAKE_DIR"
+
+# Update flake inputs
+echo -e "${YELLOW}📦 Updating flake inputs...${NC}"
+nix flake update
+
+# Show what will change
+echo -e "\n${YELLOW}📊 Checking for changes...${NC}"
+nix flake metadata
+
+if [[ "$NO_REBUILD" == "false" ]]; then
+    # Rebuild system
+    echo -e "\n${YELLOW}🔨 Rebuilding system...${NC}"
+    nh os switch
+    
+    # Show generation diff
+    echo -e "\n${YELLOW}📈 Changes in this generation:${NC}"
+    nvd diff /run/current-system result
+fi
+
+echo -e "\n${GREEN}✅ System update complete!${NC}"

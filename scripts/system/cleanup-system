@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+# Category: system
+# Description: Clean up old NixOS generations and optimize store
+# Usage: cleanup-system [--aggressive]
+# Examples:
+#   cleanup-system             # Standard cleanup (keep last 5 generations)
+#   cleanup-system --aggressive # Aggressive cleanup (keep last 3 generations)
+
+set -euo pipefail
+
+KEEP_GENERATIONS=5
+AGGRESSIVE=false
+
+# Colors
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+YELLOW='\033[1;33m'
+RED='\033[0;31m'
+NC='\033[0m'
+
+# Parse arguments
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --aggressive)
+            AGGRESSIVE=true
+            KEEP_GENERATIONS=3
+            shift
+            ;;
+        *)
+            echo "Unknown option: $1"
+            exit 1
+            ;;
+    esac
+done
+
+echo -e "${BLUE}🧹 Cleaning up NixOS system...${NC}\n"
+
+# Show current disk usage
+echo -e "${YELLOW}📊 Current disk usage:${NC}"
+df -h /nix/store
+
+# List generations
+echo -e "\n${YELLOW}📜 Current generations:${NC}"
+nix-env --list-generations --profile /nix/var/nix/profiles/system
+
+# Clean old generations
+echo -e "\n${YELLOW}🗑️  Removing old generations (keeping last $KEEP_GENERATIONS)...${NC}"
+sudo nix-env --delete-generations --profile /nix/var/nix/profiles/system "+$KEEP_GENERATIONS"
+
+# Clean user generations
+nix-env --delete-generations old
+
+# Garbage collect
+echo -e "\n${YELLOW}♻️  Running garbage collection...${NC}"
+if [[ "$AGGRESSIVE" == "true" ]]; then
+    sudo nix-collect-garbage -d
+else
+    sudo nix-collect-garbage
+fi
+
+# Optimize store
+echo -e "\n${YELLOW}⚡ Optimizing Nix store...${NC}"
+nix-store --optimize
+
+# Show new disk usage
+echo -e "\n${YELLOW}📊 New disk usage:${NC}"
+df -h /nix/store
+
+echo -e "\n${GREEN}✅ Cleanup complete!${NC}"

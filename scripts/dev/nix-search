@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+# Category: dev
+# Description: Search for Nix packages and show installation commands
+# Usage: nix-search <query>
+# Examples:
+#   nix-search python
+#   nix-search rust-analyzer
+
+set -euo pipefail
+
+if [[ $# -eq 0 ]]; then
+    echo "Usage: $0 <search-query>"
+    exit 1
+fi
+
+QUERY="$*"
+
+# Colors
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+CYAN='\033[0;36m'
+NC='\033[0m'
+
+echo -e "${BLUE}🔍 Searching for: $QUERY${NC}\n"
+
+# Search using nh if available, otherwise use nix search
+if command -v nh >/dev/null 2>&1; then
+    nh search "$QUERY" | head -20
+else
+    nix search nixpkgs "$QUERY" | head -40
+fi
+
+echo -e "\n${CYAN}💡 Installation options:${NC}"
+echo -e "  System-wide:  Add to environment.systemPackages in configuration.nix"
+echo -e "  User:         Add to home.packages in home-manager"
+echo -e "  Temporary:    nix shell nixpkgs#<package>"
+echo -e "  Try once:     , <command>"

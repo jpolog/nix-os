@@ -1,0 +1,91 @@
+#!/usr/bin/env bash
+# Category: util
+# Description: Quick system backup to external drive or cloud
+# Usage: quick-backup [--cloud]
+# Examples:
+#   quick-backup         # Backup to /mnt/backup
+#   quick-backup --cloud # Backup to configured cloud storage
+
+set -euo pipefail
+
+BACKUP_DEST="${BACKUP_DEST:-/mnt/backup}"
+CLOUD_BACKUP=false
+TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+
+# Parse arguments
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --cloud)
+            CLOUD_BACKUP=true
+            shift
+            ;;
+        *)
+            echo "Unknown option: $1"
+            exit 1
+            ;;
+    esac
+done
+
+# Colors
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+YELLOW='\033[1;33m'
+NC='\033[0m'
+
+echo -e "${BLUE}💾 Starting backup...${NC}\n"
+
+# Directories to backup
+BACKUP_DIRS=(
+    "$HOME/Documents"
+    "$HOME/Projects"
+    "$HOME/.config"
+    "$HOME/.ssh"
+)
+
+if [[ "$CLOUD_BACKUP" == "true" ]]; then
+    # Cloud backup using rclone
+    echo -e "${YELLOW}☁️  Backing up to cloud storage...${NC}"
+    
+    for dir in "${BACKUP_DIRS[@]}"; do
+        if [[ -d "$dir" ]]; then
+            echo "Syncing $dir..."
+            rclone sync "$dir" "remote:backup/$(basename $dir)" \
+                --progress \
+                --exclude ".git/" \
+                --exclude "node_modules/" \
+                --exclude "target/" \
+                --exclude ".direnv/"
+        fi
+    done
+else
+    # Local backup
+    if [[ ! -d "$BACKUP_DEST" ]]; then
+        echo "Backup destination not found: $BACKUP_DEST"
+        exit 1
+    fi
+    
+    BACKUP_DIR="$BACKUP_DEST/nixos_backup_$TIMESTAMP"
+    mkdir -p "$BACKUP_DIR"
+    
+    echo -e "${YELLOW}💿 Backing up to $BACKUP_DIR...${NC}"
+    
+    for dir in "${BACKUP_DIRS[@]}"; do
+        if [[ -d "$dir" ]]; then
+            echo "Backing up $dir..."
+            rsync -av \
+                --exclude ".git/" \
+                --exclude "node_modules/" \
+                --exclude "target/" \
+                --exclude ".direnv/" \
+                "$dir" "$BACKUP_DIR/"
+        fi
+    done
+    
+    # Backup NixOS configuration
+    echo "Backing up NixOS configuration..."
+    rsync -av "$HOME/Projects/nix-omarchy" "$BACKUP_DIR/"
+    
+    echo -e "\n${GREEN}✅ Backup complete: $BACKUP_DIR${NC}"
+fi
+
+echo -e "${GREEN}✅ Backup complete!${NC}"

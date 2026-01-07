@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# Category: dev
+# Description: Enhanced Nix REPL with useful imports and helpers
+# Usage: nix-repl-advanced
+# Examples:
+#   nix-repl-advanced
+
+set -euo pipefail
+
+# Create temporary file with prelude
+PRELUDE=$(mktemp)
+trap "rm -f $PRELUDE" EXIT
+
+cat > "$PRELUDE" << 'NIXREPL'
+# Import nixpkgs with current system
+pkgs = import <nixpkgs> {}
+# Current flake
+flake = builtins.getFlake (toString ./.)
+# Helper functions
+:p = x: builtins.trace (builtins.toJSON x) x
+:l = path: import path
+# Search for packages
+:s = name: builtins.filter (p: builtins.match ".*${name}.*" p != null) (builtins.attrNames pkgs)
+NIXREPL
+
+nix repl --file "$PRELUDE"

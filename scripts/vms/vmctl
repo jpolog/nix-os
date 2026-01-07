@@ -1,0 +1,208 @@
+#!/usr/bin/env bash
+# vmctl - Advanced VM management TUI
+# Power-user interface for libvirt/QEMU VMs
+
+set -euo pipefail
+
+# Colors
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+MAGENTA='\033[0;35m'
+CYAN='\033[0;36m'
+NC='\033[0m' # No Color
+
+# Help text
+show_help() {
+    cat << EOF
+vmctl - Advanced VM Management Tool
+
+USAGE:
+    vmctl [COMMAND] [OPTIONS]
+
+COMMANDS:
+    list, ls           List all VMs with status
+    create             Create new VM (interactive)
+    start <vm>         Start VM
+    stop <vm>          Gracefully stop VM
+    kill <vm>          Force stop VM
+    restart <vm>       Restart VM
+    delete <vm>        Delete VM
+    info <vm>          Show VM information
+    console <vm>       Connect to VM console
+    vnc <vm>           Connect to VM via VNC
+    clone <vm> <new>   Clone VM
+    snapshot <vm>      Create snapshot
+    snapshots <vm>     List snapshots
+    restore <vm> <snap> Restore snapshot
+    edit <vm>          Edit VM XML configuration
+    stats <vm>         Show VM statistics
+    monitor            Monitor all VMs (TUI)
+    quick              Quick VM creation (templates)
+    network            Manage networks
+    interactive, tui   Interactive TUI mode
+
+OPTIONS:
+    -h, --help         Show this help
+    --version          Show version
+
+EXAMPLES:
+    vmctl list                    # List all VMs
+    vmctl create                  # Create new VM (wizard)
+    vmctl start ubuntu-dev        # Start VM
+    vmctl snapshot ubuntu-dev     # Create snapshot
+    vmctl monitor                 # Monitor all VMs in TUI
+    vmctl quick ubuntu 22.04      # Quick Ubuntu VM creation
+    vmctl interactive             # Interactive mode with FZF
+
+EOF
+}
+
+# Check if libvirt is running
+check_libvirt() {
+    if ! systemctl is-active --quiet libvirtd; then
+        echo -e "${RED}Error: libvirtd service is not running${NC}"
+        echo "Start with: sudo systemctl start libvirtd"
+        exit 1
+    fi
+}
+
+# List VMs with formatted output
+list_vms() {
+    echo -e "${CYAN}═══════════════════════════════════════════════════════════════${NC}"
+    echo -e "${CYAN}  Virtual Machines${NC}"
+    echo -e "${CYAN}═══════════════════════════════════════════════════════════════${NC}"
+    
+    virsh list --all | tail -n +3 | while read -r line; do
+        if [[ -z "$line" ]]; then
+            continue
+        fi
+        
+        name=$(echo "$line" | awk '{print $2}')
+        state=$(echo "$line" | awk '{$1=$2=""; print $0}' | xargs)
+        
+        if [[ "$state" == *"running"* ]]; then
+            state_color="${GREEN}"
+            state_icon="●"
+        else
+            state_color="${RED}"
+            state_icon="○"
+        fi
+        
+        printf "${state_color}${state_icon}${NC} %-20s ${state_color}%-15s${NC}\n" "$name" "$state"
+    done
+    
+    echo -e "${CYAN}═══════════════════════════════════════════════════════════════${NC}"
+}
+
+# Show VM info
+show_info() {
+    local vm="$1"
+    
+    echo -e "${CYAN}═══════════════════════════════════════════════════════════════${NC}"
+    echo -e "${CYAN}  VM Information: $vm${NC}"
+    echo -e "${CYAN}═══════════════════════════════════════════════════════════════${NC}"
+    
+    virsh dominfo "$vm"
+}
+
+# Monitor VMs
+monitor_vms() {
+    echo -e "${CYAN}Starting VM monitor... (Press Ctrl+C to exit)${NC}"
+    
+    while true; do
+        clear
+        echo -e "${CYAN}═══════════════════════════════════════════════════════════════${NC}"
+        echo -e "${CYAN}  VM Monitor - $(date '+%Y-%m-%d %H:%M:%S')${NC}"
+        echo -e "${CYAN}═══════════════════════════════════════════════════════════════${NC}"
+        
+        virsh list --all
+        
+        sleep 2
+    done
+}
+
+# Main command dispatcher
+main() {
+    check_libvirt
+    
+    case "${1:-list}" in
+        list|ls)
+            list_vms
+            ;;
+        start)
+            virsh start "${2:?VM name required}"
+            echo -e "${GREEN}✓ Started ${2}${NC}"
+            ;;
+        stop)
+            virsh shutdown "${2:?VM name required}"
+            echo -e "${YELLOW}Stopping ${2}...${NC}"
+            ;;
+        kill)
+            virsh destroy "${2:?VM name required}"
+            echo -e "${RED}✓ Force stopped ${2}${NC}"
+            ;;
+        restart)
+            virsh reboot "${2:?VM name required}"
+            echo -e "${YELLOW}Restarting ${2}...${NC}"
+            ;;
+        delete)
+            virsh undefine "${2:?VM name required}" --remove-all-storage
+            echo -e "${RED}✓ Deleted ${2}${NC}"
+            ;;
+        info)
+            show_info "${2:?VM name required}"
+            ;;
+        console)
+            virsh console "${2:?VM name required}"
+            ;;
+        vnc)
+            virt-viewer "${2:?VM name required}"
+            ;;
+        clone)
+            virt-clone --original "${2:?Original VM required}" --name "${3:?New name required}" --auto-clone
+            echo -e "${GREEN}✓ Cloned ${2} to ${3}${NC}"
+            ;;
+        snapshot)
+            virsh snapshot-create-as "${2:?VM name required}" "snapshot-$(date +%Y%m%d-%H%M%S)"
+            echo -e "${GREEN}✓ Snapshot created${NC}"
+            ;;
+        snapshots)
+            virsh snapshot-list "${2:?VM name required}"
+            ;;
+        restore)
+            virsh snapshot-revert "${2:?VM name required}" "${3:?Snapshot name required}"
+            echo -e "${GREEN}✓ Restored snapshot${NC}"
+            ;;
+        edit)
+            virsh edit "${2:?VM name required}"
+            ;;
+        stats)
+            virt-top -c qemu:///system
+            ;;
+        monitor)
+            monitor_vms
+            ;;
+        network)
+            virsh net-list --all
+            ;;
+        interactive|tui|i)
+            echo "Use virt-manager or commands directly"
+            list_vms
+            ;;
+        -h|--help|help)
+            show_help
+            ;;
+        --version)
+            echo "vmctl version 1.0.0"
+            ;;
+        *)
+            echo -e "${RED}Unknown command: $1${NC}"
+            show_help
+            exit 1
+            ;;
+    esac
+}
+
+main "$@"

@@ -1,0 +1,355 @@
+#!/usr/bin/env bash
+# Port Management Utility
+# Provides easy port management and conflict detection
+
+set -euo pipefail
+
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
+PORT_REGISTRY="/etc/port-registry.yaml"
+
+# Print colored output
+print_color() {
+    local color=$1
+    shift
+    echo -e "${color}$*${NC}"
+}
+
+# Show help
+show_help() {
+    cat << EOF
+Port Management Utility
+
+Usage: portctl <command> [options]
+
+Commands:
+    list                List all active ports
+    find <port>         Find what's using a specific port
+    kill <port>         Kill process using a port
+    check <port>        Check if port is available
+    registry            Show port registry
+    search <service>    Search for service in registry
+    range <start-end>   Show ports in range
+    recommend <type>    Recommend next available port for type
+    
+Examples:
+    portctl list
+    portctl find 3000
+    portctl kill 8080
+    portctl check 5432
+    portctl search postgres
+    portctl range 3000-3999
+    portctl recommend frontend
+
+EOF
+}
+
+# List all active ports
+list_ports() {
+    print_color "$BLUE" "Active Network Connections:"
+    echo ""
+    
+    # Use ss for better performance
+    ss -tulpn 2>/dev/null | grep LISTEN || true
+    
+    echo ""
+    print_color "$BLUE" "Summary by Port Range:"
+    echo ""
+    
+    # Frontend (3000-3999)
+    local frontend_count=$(ss -tuln 2>/dev/null | awk '$5 ~ /:3[0-9]{3}$/ {print $5}' | wc -l)
+    print_color "$GREEN" "Frontend (3000-3999): $frontend_count ports"
+    
+    # Backend (4000-4999)
+    local backend_count=$(ss -tuln 2>/dev/null | awk '$5 ~ /:4[0-9]{3}$/ {print $5}' | wc -l)
+    print_color "$GREEN" "Backend (4000-4999): $backend_count ports"
+    
+    # Database (5000-5999)
+    local db_count=$(ss -tuln 2>/dev/null | awk '$5 ~ /:5[0-9]{3}$/ {print $5}' | wc -l)
+    print_color "$GREEN" "Database (5000-5999): $db_count ports"
+    
+    # Other
+    local other_count=$(ss -tuln 2>/dev/null | grep LISTEN | wc -l)
+    print_color "$GREEN" "Other: $((other_count - frontend_count - backend_count - db_count)) ports"
+}
+
+# Find what's using a specific port
+find_port() {
+    local port=$1
+    
+    print_color "$BLUE" "Checking port $port..."
+    echo ""
+    
+    # Try lsof first
+    if command -v lsof &> /dev/null; then
+        local result=$(lsof -i ":$port" 2>/dev/null || true)
+        if [ -n "$result" ]; then
+            print_color "$GREEN" "Process using port $port:"
+            echo "$result"
+            return 0
+        fi
+    fi
+    
+    # Fallback to ss
+    local result=$(ss -tulpn 2>/dev/null | grep ":$port " || true)
+    if [ -n "$result" ]; then
+        print_color "$GREEN" "Port $port is in use:"
+        echo "$result"
+        return 0
+    fi
+    
+    print_color "$YELLOW" "Port $port is not in use"
+    return 1
+}
+
+# Kill process using a port
+kill_port() {
+    local port=$1
+    
+    print_color "$BLUE" "Finding process on port $port..."
+    
+    # Get PID using lsof
+    local pid=$(lsof -ti ":$port" 2>/dev/null || true)
+    
+    if [ -z "$pid" ]; then
+        # Fallback: try ss and extract PID
+        pid=$(ss -tulpn 2>/dev/null | grep ":$port " | sed -n 's/.*pid=\([0-9]*\).*/\1/p' | head -1)
+    fi
+    
+    if [ -z "$pid" ]; then
+        print_color "$YELLOW" "No process found on port $port"
+        return 1
+    fi
+    
+    # Get process info
+    local process_info=$(ps -p "$pid" -o comm= 2>/dev/null || echo "unknown")
+    
+    print_color "$YELLOW" "Found process: $process_info (PID: $pid)"
+    read -p "Kill this process? [y/N] " -n 1 -r
+    echo
+    
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        kill "$pid" 2>/dev/null && print_color "$GREEN" "Process killed" || print_color "$RED" "Failed to kill process"
+    else
+        print_color "$YELLOW" "Cancelled"
+    fi
+}
+
+# Check if port is available
+check_port() {
+    local port=$1
+    
+    if lsof -i ":$port" &> /dev/null || ss -tuln 2>/dev/null | grep -q ":$port "; then
+        print_color "$RED" "Port $port is IN USE"
+        find_port "$port"
+        return 1
+    else
+        print_color "$GREEN" "Port $port is AVAILABLE"
+        return 0
+    fi
+}
+
+# Show port registry
+show_registry() {
+    if [ -f "$PORT_REGISTRY" ]; then
+        print_color "$BLUE" "Port Registry:"
+        echo ""
+        
+        if command -v bat &> /dev/null; then
+            bat --style=plain "$PORT_REGISTRY"
+        else
+            cat "$PORT_REGISTRY"
+        fi
+    else
+        print_color "$RED" "Port registry not found at $PORT_REGISTRY"
+    fi
+}
+
+# Search registry for service
+search_registry() {
+    local query=$1
+    
+    if [ ! -f "$PORT_REGISTRY" ]; then
+        print_color "$RED" "Port registry not found"
+        return 1
+    fi
+    
+    print_color "$BLUE" "Searching for: $query"
+    echo ""
+    
+    grep -i "$query" "$PORT_REGISTRY" || print_color "$YELLOW" "No matches found"
+}
+
+# Show ports in range
+show_range() {
+    local range=$1
+    local start=$(echo "$range" | cut -d'-' -f1)
+    local end=$(echo "$range" | cut -d'-' -f2)
+    
+    print_color "$BLUE" "Ports in range $start-$end:"
+    echo ""
+    
+    ss -tuln 2>/dev/null | awk -v s="$start" -v e="$end" '
+        $5 ~ /:[0-9]+$/ {
+            port = $5
+            sub(/.*:/, "", port)
+            if (port >= s && port <= e) print $0
+        }
+    '
+}
+
+# Recommend next available port for type
+recommend_port() {
+    local type=$1
+    
+    case "$type" in
+        frontend|front|fe)
+            local start=3000
+            local end=3999
+            local category="Frontend"
+            ;;
+        backend|back|be|api)
+            local start=4000
+            local end=4999
+            local category="Backend"
+            ;;
+        database|db)
+            local start=5000
+            local end=5999
+            local category="Database"
+            ;;
+        messaging|queue|mq)
+            local start=6000
+            local end=6999
+            local category="Messaging"
+            ;;
+        devops|ci|cd)
+            local start=7000
+            local end=7999
+            local category="DevOps"
+            ;;
+        container|docker|k8s)
+            local start=8000
+            local end=8999
+            local category="Containers"
+            ;;
+        test|testing|mock)
+            local start=9000
+            local end=9999
+            local category="Testing"
+            ;;
+        *)
+            print_color "$RED" "Unknown type: $type"
+            echo "Valid types: frontend, backend, database, messaging, devops, container, testing"
+            return 1
+            ;;
+    esac
+    
+    print_color "$BLUE" "Finding available port for $category ($start-$end)..."
+    echo ""
+    
+    # Get all used ports in range
+    local used_ports=$(ss -tuln 2>/dev/null | awk -v s="$start" -v e="$end" '
+        $5 ~ /:[0-9]+$/ {
+            port = $5
+            sub(/.*:/, "", port)
+            if (port >= s && port <= e) print port
+        }
+    ' | sort -n)
+    
+    # Find first available port
+    for ((port=start; port<=end; port++)); do
+        if ! echo "$used_ports" | grep -q "^$port$"; then
+            print_color "$GREEN" "Recommended port: $port"
+            
+            # Check registry for standard assignment
+            if grep -q "port: $port" "$PORT_REGISTRY" 2>/dev/null; then
+                echo ""
+                print_color "$YELLOW" "Registry info:"
+                grep -A2 "port: $port" "$PORT_REGISTRY" | head -3
+            fi
+            return 0
+        fi
+    done
+    
+    print_color "$RED" "No available ports in range $start-$end"
+    return 1
+}
+
+# Main command dispatcher
+main() {
+    if [ $# -eq 0 ]; then
+        show_help
+        exit 0
+    fi
+    
+    local command=$1
+    shift
+    
+    case "$command" in
+        list|ls)
+            list_ports
+            ;;
+        find|f)
+            if [ $# -eq 0 ]; then
+                print_color "$RED" "Error: Port number required"
+                exit 1
+            fi
+            find_port "$1"
+            ;;
+        kill|k)
+            if [ $# -eq 0 ]; then
+                print_color "$RED" "Error: Port number required"
+                exit 1
+            fi
+            kill_port "$1"
+            ;;
+        check|c)
+            if [ $# -eq 0 ]; then
+                print_color "$RED" "Error: Port number required"
+                exit 1
+            fi
+            check_port "$1"
+            ;;
+        registry|reg|r)
+            show_registry
+            ;;
+        search|s)
+            if [ $# -eq 0 ]; then
+                print_color "$RED" "Error: Search query required"
+                exit 1
+            fi
+            search_registry "$*"
+            ;;
+        range)
+            if [ $# -eq 0 ]; then
+                print_color "$RED" "Error: Port range required (e.g., 3000-3999)"
+                exit 1
+            fi
+            show_range "$1"
+            ;;
+        recommend|rec)
+            if [ $# -eq 0 ]; then
+                print_color "$RED" "Error: Service type required"
+                exit 1
+            fi
+            recommend_port "$1"
+            ;;
+        help|h|-h|--help)
+            show_help
+            ;;
+        *)
+            print_color "$RED" "Unknown command: $command"
+            echo ""
+            show_help
+            exit 1
+            ;;
+    esac
+}
+
+main "$@"

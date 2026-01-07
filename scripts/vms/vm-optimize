@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+# vm-optimize - Optimize VM performance
+
+set -euo pipefail
+
+VM_NAME="${1:?VM name required}"
+
+echo "Optimizing VM: $VM_NAME"
+
+cat << 'EOF'
+╔══════════════════════════════════════════════════════════════╗
+║                   VM Optimization Guide                      ║
+╚══════════════════════════════════════════════════════════════╝
+
+1. CPU Optimization:
+   • Use host-passthrough or host-model CPU mode
+   • Pin vCPUs to physical cores
+
+2. Memory Optimization:
+   • Use hugepages for better performance
+   • Set memory backing with hugepages
+
+3. Disk Optimization:
+   • Use virtio-scsi instead of IDE
+   • Enable discard/trim support
+   • Use native AIO mode
+
+4. Network Optimization:
+   • Use virtio network driver
+   • Enable multiqueue networking
+
+5. Graphics:
+   • Use virtio-gpu for Linux guests
+   • Use QXL for SPICE
+
+Edit VM with: virsh edit $VM_NAME
+
+EOF

@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+# Category: util
+# Description: Profile system performance and generate reports
+# Usage: perf-profile <command>
+# Examples:
+#   perf-profile ls -la
+#   perf-profile python script.py
+
+set -euo pipefail
+
+if [[ $# -eq 0 ]]; then
+    echo "Usage: perf-profile <command>"
+    exit 1
+fi
+
+# Colors
+CYAN='\033[0;36m'
+GREEN='\033[0;32m'
+NC='\033[0m'
+
+echo -e "${CYAN}📊 Profiling: $*${NC}\n"
+
+# Run with perf
+perf record -g -- "$@"
+
+echo -e "\n${GREEN}✅ Profiling complete${NC}"
+echo -e "${CYAN}Generating report...${NC}\n"
+
+# Generate report
+perf report
+
+# Generate flamegraph if available
+if command -v flamegraph >/dev/null 2>&1; then
+    echo -e "\n${CYAN}Generating flamegraph...${NC}"
+    perf script | flamegraph > flamegraph.svg
+    echo -e "${GREEN}✅ Flamegraph saved to flamegraph.svg${NC}"
+fi
+
+# Cleanup
+rm -f perf.data

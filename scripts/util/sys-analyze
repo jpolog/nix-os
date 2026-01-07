@@ -1,0 +1,82 @@
+#!/usr/bin/env bash
+# Category: util
+# Description: Comprehensive system analysis and diagnostics
+# Usage: sys-analyze [--full]
+# Examples:
+#   sys-analyze
+#   sys-analyze --full
+
+set -euo pipefail
+
+FULL=false
+if [[ "${1:-}" == "--full" ]]; then
+    FULL=true
+fi
+
+# Colors
+CYAN='\033[0;36m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m'
+
+header() {
+    echo -e "\n${CYAN}=== $1 ===${NC}\n"
+}
+
+header "System Information"
+inxi -Fxxxz
+
+header "CPU Information"
+lscpu | head -20
+
+header "Memory Usage"
+free -h
+
+header "Disk Usage"
+df -h | grep -E '^/dev/'
+
+header "Disk I/O Stats"
+iostat -x 1 2
+
+header "Top Processes by CPU"
+ps aux --sort=-%cpu | head -11
+
+header "Top Processes by Memory"
+ps aux --sort=-%mem | head -11
+
+header "Network Connections"
+ss -tunap | head -20
+
+header "Systemd Failed Units"
+systemctl --failed
+
+header "Recent Journal Errors"
+journalctl -p err -n 20 --no-pager
+
+header "NixOS Generation"
+nixos-version --json | jq
+
+if [[ "$FULL" == "true" ]]; then
+    header "Full System Logs"
+    journalctl -b --no-pager | tail -100
+    
+    header "Hardware Info"
+    lshw -short
+    
+    header "PCI Devices"
+    lspci
+    
+    header "USB Devices"
+    lsusb
+    
+    header "Kernel Modules"
+    lsmod | head -20
+    
+    header "Network Interfaces"
+    ip -s link
+    
+    header "Firewall Status"
+    sudo iptables -L -n -v
+fi
+
+echo -e "\n${GREEN}✅ Analysis complete${NC}"

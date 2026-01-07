@@ -1,0 +1,333 @@
+#!/usr/bin/env bash
+# Category: dev
+# Description: Create a new development environment with common tools
+# Usage: dev-env <project-name> <type>
+# Examples:
+#   dev-env myproject python
+#   dev-env webapp node
+#   dev-env api rust
+#   dev-env infra terraform
+
+set -euo pipefail
+
+if [[ $# -lt 2 ]]; then
+    echo "Usage: $0 <project-name> <type>"
+    echo "Types: python, node, rust, go, terraform, docker"
+    exit 1
+fi
+
+PROJECT_NAME="$1"
+ENV_TYPE="$2"
+
+# Colors
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+YELLOW='\033[1;33m'
+NC='\033[0m'
+
+echo -e "${BLUE}🚀 Creating $ENV_TYPE development environment for $PROJECT_NAME...${NC}\n"
+
+# Create project directory
+mkdir -p "$PROJECT_NAME"
+cd "$PROJECT_NAME"
+
+# Create .envrc based on type
+case "$ENV_TYPE" in
+    python)
+        cat > .envrc << 'EOF'
+use flake .#python
+
+# Python-specific
+export PYTHONUNBUFFERED=1
+export PIPENV_VENV_IN_PROJECT=1
+
+# Auto-activate virtualenv if exists
+layout python
+EOF
+        
+        cat > flake.nix << 'EOF'
+{
+  description = "Python development environment";
+  
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+  
+  outputs = { self, nixpkgs }:
+    let
+      system = "x86_64-linux";
+      pkgs = nixpkgs.legacyPackages.${system};
+    in {
+      devShells.${system}.default = pkgs.mkShell {
+        buildInputs = with pkgs; [
+          python312
+          python312Packages.pip
+          python312Packages.virtualenv
+          python312Packages.ipython
+          ruff
+          pyright
+        ];
+        
+        shellHook = ''
+          echo "Python development environment loaded"
+          python --version
+        '';
+      };
+    };
+}
+EOF
+        echo -e "${GREEN}✓${NC} Created Python environment"
+        ;;
+        
+    node)
+        cat > .envrc << 'EOF'
+use flake .#node
+
+# Node-specific
+export NODE_ENV=development
+EOF
+        
+        cat > flake.nix << 'EOF'
+{
+  description = "Node.js development environment";
+  
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+  
+  outputs = { self, nixpkgs }:
+    let
+      system = "x86_64-linux";
+      pkgs = nixpkgs.legacyPackages.${system};
+    in {
+      devShells.${system}.default = pkgs.mkShell {
+        buildInputs = with pkgs; [
+          nodejs_22
+          nodePackages.npm
+          nodePackages.pnpm
+          nodePackages.typescript
+          nodePackages.typescript-language-server
+          nodePackages.prettier
+        ];
+        
+        shellHook = ''
+          echo "Node.js development environment loaded"
+          node --version
+          npm --version
+        '';
+      };
+    };
+}
+EOF
+        
+        npm init -y
+        echo -e "${GREEN}✓${NC} Created Node.js environment"
+        ;;
+        
+    rust)
+        cat > .envrc << 'EOF'
+use flake .#rust
+
+# Rust-specific
+export RUST_BACKTRACE=1
+EOF
+        
+        cat > flake.nix << 'EOF'
+{
+  description = "Rust development environment";
+  
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+  
+  outputs = { self, nixpkgs }:
+    let
+      system = "x86_64-linux";
+      pkgs = nixpkgs.legacyPackages.${system};
+    in {
+      devShells.${system}.default = pkgs.mkShell {
+        buildInputs = with pkgs; [
+          rustc
+          cargo
+          rustfmt
+          rust-analyzer
+          clippy
+        ];
+        
+        shellHook = ''
+          echo "Rust development environment loaded"
+          rustc --version
+          cargo --version
+        '';
+      };
+    };
+}
+EOF
+        
+        cargo init --name "$PROJECT_NAME"
+        echo -e "${GREEN}✓${NC} Created Rust environment"
+        ;;
+        
+    go)
+        cat > .envrc << 'EOF'
+use flake .#go
+
+# Go-specific
+export GOPATH=$PWD/.go
+export PATH=$GOPATH/bin:$PATH
+EOF
+        
+        cat > flake.nix << 'EOF'
+{
+  description = "Go development environment";
+  
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+  
+  outputs = { self, nixpkgs }:
+    let
+      system = "x86_64-linux";
+      pkgs = nixpkgs.legacyPackages.${system};
+    in {
+      devShells.${system}.default = pkgs.mkShell {
+        buildInputs = with pkgs; [
+          go
+          gopls
+          gotools
+          go-tools
+        ];
+        
+        shellHook = ''
+          echo "Go development environment loaded"
+          go version
+        '';
+      };
+    };
+}
+EOF
+        
+        go mod init "$PROJECT_NAME"
+        echo -e "${GREEN}✓${NC} Created Go environment"
+        ;;
+        
+    terraform)
+        cat > .envrc << 'EOF'
+use flake .#terraform
+EOF
+        
+        cat > flake.nix << 'EOF'
+{
+  description = "Terraform development environment";
+  
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+  
+  outputs = { self, nixpkgs }:
+    let
+      system = "x86_64-linux";
+      pkgs = nixpkgs.legacyPackages.${system};
+    in {
+      devShells.${system}.default = pkgs.mkShell {
+        buildInputs = with pkgs; [
+          terraform
+          terraform-ls
+          tflint
+          terragrunt
+          awscli2
+        ];
+        
+        shellHook = ''
+          echo "Terraform development environment loaded"
+          terraform version
+        '';
+      };
+    };
+}
+EOF
+        
+        cat > main.tf << 'EOF'
+terraform {
+  required_version = ">= 1.0"
+  
+  required_providers {
+    # Add your providers here
+  }
+}
+EOF
+        echo -e "${GREEN}✓${NC} Created Terraform environment"
+        ;;
+        
+    docker)
+        cat > .envrc << 'EOF'
+use flake .#docker
+EOF
+        
+        cat > flake.nix << 'EOF'
+{
+  description = "Docker development environment";
+  
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+  
+  outputs = { self, nixpkgs }:
+    let
+      system = "x86_64-linux";
+      pkgs = nixpkgs.legacyPackages.${system};
+    in {
+      devShells.${system}.default = pkgs.mkShell {
+        buildInputs = with pkgs; [
+          docker-compose
+          lazydocker
+          dive
+          kubectl
+          k9s
+        ];
+        
+        shellHook = ''
+          echo "Docker development environment loaded"
+          docker --version
+        '';
+      };
+    };
+}
+EOF
+        
+        cat > docker-compose.yml << 'EOF'
+version: '3.8'
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/app
+EOF
+        echo -e "${GREEN}✓${NC} Created Docker environment"
+        ;;
+        
+    *)
+        echo "Unknown environment type: $ENV_TYPE"
+        exit 1
+        ;;
+esac
+
+# Create .gitignore
+cat > .gitignore << 'EOF'
+# Nix
+result
+result-*
+.direnv/
+
+# Environment
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+EOF
+
+# Initialize git
+git init
+git add .
+git commit -m "Initial commit: $ENV_TYPE project setup"
+
+echo -e "\n${GREEN}✅ Development environment created!${NC}"
+echo -e "${YELLOW}Next steps:${NC}"
+echo -e "  1. cd $PROJECT_NAME"
+echo -e "  2. direnv allow"
+echo -e "  3. Start developing!"

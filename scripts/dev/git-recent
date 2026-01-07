@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Category: dev
+# Description: Show recent branches and quickly switch with fzf
+# Usage: git-recent
+# Examples:
+#   git-recent
+
+set -euo pipefail
+
+# Get recent branches
+git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)|%(committerdate:relative)|%(authorname)' | \
+    head -20 | \
+    column -t -s '|' | \
+    fzf --preview 'git log --color=always --oneline --graph {}' \
+        --preview-window=right:60% | \
+    awk '{print $1}' | \
+    xargs -r git checkout
