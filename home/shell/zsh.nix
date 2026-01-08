@@ -25,7 +25,7 @@
       zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
       zstyle ':completion:*' menu select
       zstyle ':completion:*' list-colors "''${(s.:.)LS_COLORS}"
-      zstyle ':completion:*' group-name ''
+      zstyle ':completion:*' group-name '
       zstyle ':completion:*:descriptions' format '%F{cyan}-- %d --%f'
       zstyle ':completion:*' use-cache yes
       zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/zcompcache"
@@ -299,7 +299,8 @@
       function zle-keymap-select {
         if [[ ''${KEYMAP} == vicmd ]] || [[ $1 = 'block' ]]; then
           echo -ne '\e[1 q'
-        elif [[ ''${KEYMAP} == main ]] || [[ ''${KEYMAP} == viins ]] || [[ ''${KEYMAP} = '' ]] || [[ $1 = 'beam' ]]; then
+	elif [[ ''${KEYMAP} == main ]] || [[ ''${KEYMAP} == viins ]] || [[ -z ''${KEYMAP} ]] || [[ $1 = 'beam' ]]; then
+
           echo -ne '\e[5 q'
         fi
       }

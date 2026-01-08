@@ -55,7 +55,7 @@
       python = {
         symbol = " ";
         style = "yellow bold";
-        format = "via [${symbol}${pyenv_prefix}(${version} )(\\($virtualenv\\) )]($style)";
+	format = "via [\${symbol}\${pyenv_prefix}(\${version} )(\\(\${virtualenv}\\) )](\$style)";
       };
 
       rust = {

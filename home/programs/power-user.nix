@@ -3,10 +3,6 @@
 {
   # Advanced power-user home configuration
   
-  imports = [
-    ./power-user-functions.nix
-  ];
-  
   # Additional power-user packages
   home.packages = with pkgs; [
     # Terminal emulators (alternatives)

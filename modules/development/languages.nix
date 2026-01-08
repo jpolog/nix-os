@@ -35,10 +35,8 @@
     
     # Other
     zig
-  ];
 
-  # Language servers (for IDE support)
-  environment.systemPackages = with pkgs; [
+    # Language servers (for IDE support)
     # LSP servers
     nil  # Nix
     pyright  # Python

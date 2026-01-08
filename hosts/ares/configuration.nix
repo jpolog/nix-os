@@ -11,7 +11,7 @@
 
   # System Information
   networking.hostName = "ares";
-  system.stateVersion = "24.11";
+  system.stateVersion = "25.11";
 
   # Bootloader
   boot = {
@@ -32,7 +32,7 @@
 
   # Nix Settings
   nix = {
-    package = pkgs.nixFlakes;
+    package = pkgs.nix;
     settings = {
       substituters = [
         "https://cache.nixos.org"

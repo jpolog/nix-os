@@ -12,7 +12,7 @@
     ./secrets.nix
     ./scripts.nix
     ./power-user.nix
-    ./gaming-isolated.nix
+    #./gaming-isolated.nix
     ./virtualization.nix
     ./port-management.nix
   ];

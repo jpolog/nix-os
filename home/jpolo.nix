@@ -11,7 +11,7 @@
   home = {
     username = "jpolo";
     homeDirectory = "/home/jpolo";
-    stateVersion = "24.11";
+    stateVersion = "25.11";
 
     # User packages
     packages = with pkgs; [
@@ -21,24 +21,19 @@
       
       # Development
       vscode
-      vscodium  # Open source VSCode
       
       # Communication
       discord
       telegram-desktop
-      slack
+      #slack
       zoom-us
       
       # Media
       mpv
       vlc
-      spotify
-      spotifywm  # Spotify with window manager support
       
       # Graphics
       gimp
-      inkscape
-      krita
       
       # Utilities
       kitty
@@ -91,7 +86,6 @@
       
       # Password manager
       bitwarden
-      keepassxc
       
       # Network
       networkmanagerapplet
