@@ -40,6 +40,32 @@ with lib;
     users.groups.docker = mkIf config.profiles.development.tools.docker.enable {};
 
     environment.systemPackages = with pkgs;
+      # Base development tools (always included)
+      [
+        # Version control
+        gh
+        lazygit
+        tig
+        
+        # Terminal tools
+        tmux
+        zoxide
+        fzf
+        
+        # Text processing
+        jq
+        yq-go
+        
+        # Build essentials
+        gnumake
+        cmake
+      ]
+      ++
+      # Docker tools
+      (optionals config.profiles.development.tools.docker.enable [
+        docker-compose
+      ])
+      ++
       # Python
       (optionals config.profiles.development.languages.python.enable [
         python312

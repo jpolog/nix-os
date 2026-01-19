@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -13,7 +13,73 @@ with lib;
   };
 
   config = mkIf config.profiles.desktop.enable {
-    # Desktop profile is enabled
-    # The actual desktop configuration comes from ../desktop modules
+    # Install desktop packages
+    environment.systemPackages = with pkgs; [
+      # Browsers
+      firefox
+      chromium
+      
+      # Terminals
+      kitty
+      alacritty
+      
+      # Editors
+      neovim
+      
+      # File managers
+      thunar
+      thunar-volman
+      thunar-archive-plugin
+      ranger
+      yazi
+      
+      # Document viewers
+      zathura
+      
+      # Image viewers
+      imv
+      feh
+      
+      # Wayland utilities
+      wl-clipboard
+      cliphist
+      hyprpicker
+      brightnessctl
+      
+      # Screenshots
+      grim
+      slurp
+      grimblast
+      swappy
+      
+      # Password managers
+      bitwarden-desktop
+      
+      # Network
+      networkmanagerapplet
+      blueman
+      
+      # Audio control
+      pavucontrol
+      pwvucontrol
+      
+      # OSD
+      swayosd
+      
+      # Office suite
+      libreoffice-fresh
+      
+      # Note taking
+      obsidian
+      
+      # Calculator
+      qalculate-gtk
+      
+      # System info
+      fastfetch
+      
+      # App launcher
+      walker
+    ];
   };
 }

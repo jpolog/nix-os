@@ -108,17 +108,31 @@
 
         # Apply overlays
         { nixpkgs.overlays = overlays; }
-
-        # Home Manager
+        
+        # Home Manager NixOS module
         home-manager.nixosModules.home-manager
         {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.extraSpecialArgs = { 
-            inherit inputs firefox-addons;
-            flakePath = "/etc/nixos";  # For referencing dev shells
+          home-manager = {
+            useGlobalPkgs = true;
+            useUserPackages = true;
+            extraSpecialArgs = { 
+              inherit inputs; 
+              flakePath = /etc/nixos;  # Pass flake path to home-manager modules
+            };
+            
+            # Shared home-manager modules for all users
+            sharedModules = [
+              ./home/profiles
+              ./home/hyprland
+              ./home/programs
+              ./home/services
+              ./home/shell
+            ];
+            
+            # Make home-manager activation more verbose and resilient
+            verbose = true;
+            backupFileExtension = "hm-backup";
           };
-          home-manager.backupFileExtension = "backup";
         }
       ];
 

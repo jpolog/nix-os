@@ -8,29 +8,8 @@ with lib;
   };
 
   config = mkIf config.home.profiles.base.enable {
-    # Essential tools every user should have
-    home.packages = with pkgs; [
-      # Core utilities
-      wget
-      curl
-      tree
-      file
-      
-      # Archive tools
-      unzip
-      zip
-      p7zip
-      unrar
-      
-      # Modern CLI replacements
-      eza      # Better ls
-      bat      # Better cat
-      ripgrep  # Better grep
-      fd       # Better find
-      
-      # System monitoring
-      btop     # Best modern monitoring tool
-    ];
+    # NO package installation - packages installed by system profile!
+    # Only configuration here
 
     # Essential session variables
     home.sessionVariables = {
@@ -57,5 +36,11 @@ with lib;
         publicShare = "${config.home.homeDirectory}/Public";
       };
     };
+    
+    # Git, Zsh, Starship are configured in home/programs/ and home/shell/
+    # No need to configure here - they're loaded via sharedModules
+    
+    # Bash as fallback
+    programs.bash.enable = true;
   };
 }

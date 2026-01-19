@@ -32,11 +32,11 @@ with lib;
       # Productivity
       (optionals config.home.profiles.personal.productivity.enable [
         timewarrior
-        taskwarrior
+        taskwarrior3
         taskwarrior-tui
         rclone
         syncthing
-        transmission-gtk
+        transmission_4-gtk
         calibre
       ])
       ++

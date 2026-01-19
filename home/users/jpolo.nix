@@ -1,37 +1,20 @@
 { config, pkgs, ... }:
 
 {
-  imports = [
-    ../programs      # Import all program modules
-    ../services
-    ../shell
-    ../profiles      # Import all profiles (via default.nix)
-  ];
+  # Basic user information
+  home.username = "jpolo";
+  home.homeDirectory = "/home/jpolo";
+  home.stateVersion = "25.11";
 
-  home = {
-    username = "jpolo";
-    homeDirectory = "/home/jpolo";
-    stateVersion = "25.11";
-  };
+  # Let Home Manager manage itself
+  programs.home-manager.enable = true;
 
-  # Enable the profiles you want
-  home.profiles = {
-    base.enable = true;              # Always on (default anyway)
-    desktop.enable = true;            # GUI apps
-    development.enable = true;        # Dev tools
-    
-    # Development sub-options
-    development.editors.vscode.enable = true;
-    development.editors.neovim.enable = true;
-    
-    # Personal apps
-    personal.enable = true;
-    personal.communication.enable = true;
-    personal.media.enable = true;
-    personal.productivity.enable = false;  # Example: disable this
-  };
+  # Enable home profiles based on what the user needs
+  home.profiles.base.enable = true;
+  home.profiles.desktop.enable = true;
+  home.profiles.development.enable = true;
 
-  # User-specific overrides (non-profile stuff)
+  # User-specific git configuration (not in profiles)
   programs.git.settings = {
     user = {
       name = "Javier Polo Gambin";
@@ -39,4 +22,3 @@
     };
   };
 }
-

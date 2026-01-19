@@ -90,6 +90,28 @@
   };
 
   # ============================================================================
+  # System Profiles - Enable based on host purpose
+  # ============================================================================
+  
+  profiles.base.enable = true;        # Essential system packages
+  profiles.desktop.enable = true;     # Desktop environment (Hyprland, fonts, etc.)
+  profiles.development.enable = true; # Development tools
+  
+  # Configure development tools
+  profiles.development.languages = {
+    python.enable = true;
+    nodejs.enable = true;
+    rust.enable = false;
+    go.enable = false;
+  };
+  
+  profiles.development.tools = {
+    docker.enable = true;
+    cloud.enable = false;
+    kubernetes.enable = false;
+  };
+
+  # ============================================================================
   # Users
   # ============================================================================
   
@@ -104,53 +126,30 @@
       "input"           # input devices
       "power"           # power management
       "docker"          # docker daemon (when development profile enabled)
-      "libvirtd"        # VM management (when virtualization enabled)
-      "kvm"             # KVM access (when virtualization enabled)
     ];
     shell = pkgs.zsh;
   };
+  
+  # ============================================================================
+  # Home Manager - User Configuration
+  # ============================================================================
+  
+  home-manager.users.jpolo = import ../../home/users/jpolo.nix;
 
   # ============================================================================
-  # Home Manager Integration
+  # Home Manager Integration - DISABLED (Using standalone instead)
   # ============================================================================
+  
+  # NOTE: Home-manager is now integrated as NixOS module via flake.nix
+  # User configuration is defined above in home-manager.users.jpolo
+  # Profiles are enabled per-user and toggle specific dotfiles/configs
 
-  # Ensure profile directory exists before home-manager service starts
+  # Ensure profile directory exists
   systemd.tmpfiles.rules = [
     "d /nix/var/nix/profiles/per-user/jpolo 0755 jpolo users -"
+    "d /home/jpolo/.local/state/home-manager 0755 jpolo users -"
+    "d /home/jpolo/.local/state/home-manager/gcroots 0755 jpolo users -"
   ];
-  
-  systemd.services."home-manager-jpolo" = {
-    wants = [ "systemd-tmpfiles-setup.service" ];
-    after = [ "systemd-tmpfiles-setup.service" ];
-  };
-
-  # Home Manager user configuration
-  home-manager.users.jpolo = { ... }: {
-    imports = [ ../../home/users/jpolo.nix ];
-    
-    # Ares-specific: Full development workstation
-    home.profiles = {
-      base.enable = true;
-      desktop.enable = true;
-      
-      # Enable development with shells
-      development = {
-        enable = true;
-        devShells = {
-          enable = true;              # Enable dev shells
-          enableLaunchers = true;      # Enable launcher scripts
-          enableDirenvTemplates = true; # Enable direnv templates
-        };
-        editors = {
-          vscode.enable = true;
-          neovim.enable = true;
-        };
-      };
-      
-      personal.enable = true;
-      creative.enable = true;
-    };
-  };
 
 
   # ============================================================================
@@ -174,28 +173,11 @@
   # System Packages
   # ============================================================================
   
+  # NOTE: Most packages are now installed via profiles
+  # Only add host-specific overrides here if needed
   environment.systemPackages = with pkgs; [
-    # Essential editors
-    vim
-    nano  # Included by default but explicit is better
-    
-    # Network tools
-    wget
-    curl
-    
-    # Version control
-    git
-    
-    # System monitoring
-    htop
-    btop
-    
-    # System information
-    neofetch
-    pciutils   # lspci
-    usbutils   # lsusb
-    lshw       # Hardware lister
-    dmidecode  # DMI table decoder
+    # Home Manager CLI (useful for debugging)
+    home-manager
   ];
 
   # ============================================================================
@@ -204,7 +186,7 @@
   
   programs.zsh.enable = true;
 
-  # Allow unfree packages
+  # Allow unfree packages (system-wide)
   nixpkgs.config.allowUnfree = true;
 }
 
