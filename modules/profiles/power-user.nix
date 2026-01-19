@@ -36,7 +36,6 @@ with lib;
         
         # System monitoring
         btop
-        nvtop
         bandwhich
         
         # Network tools

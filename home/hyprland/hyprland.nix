@@ -3,11 +3,11 @@
 {
   wayland.windowManager.hyprland = {
     enable = true;
-    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
     
     # Enable Hyprland plugins
     plugins = [
-      inputs.hyprland-plugins.packages.${pkgs.system}.hyprscroller
+      inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprscrolling
     ];
     
     settings = {
@@ -108,7 +108,7 @@
         "col.active_border" = "rgba(89b4faee) rgba(cba6f7ee) 45deg";
         "col.inactive_border" = "rgba(313244aa)";
         
-        layout = "scroller";  # Use hyprscroller
+        layout = "scrolling";  # Use hyprscrolling
         allow_tearing = false;
       };
       

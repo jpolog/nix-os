@@ -302,34 +302,35 @@ with lib;
     
     # === MONITORING ===
     
-    # Prometheus Node Exporter
-    services.prometheus.exporters.node = mkIf config.profiles.server.services.monitoring.node-exporter.enable {
-      enable = true;
-      port = 9100;
-      enabledCollectors = [
-        "systemd"
-        "processes"
-        "cpu"
-        "diskstats"
-        "filesystem"
-        "loadavg"
-        "meminfo"
-        "netdev"
-        "stat"
-      ];
-    };
-    
-    # Prometheus Server
-    services.prometheus = mkIf config.profiles.server.services.monitoring.prometheus.enable {
-      enable = true;
-      port = 9090;
+    # Prometheus configuration (unified)
+    services.prometheus = {
+      # Prometheus Node Exporter
+      exporters.node = mkIf config.profiles.server.services.monitoring.node-exporter.enable {
+        enable = true;
+        port = 9100;
+        enabledCollectors = [
+          "systemd"
+          "processes"
+          "cpu"
+          "diskstats"
+          "filesystem"
+          "loadavg"
+          "meminfo"
+          "netdev"
+          "stat"
+        ];
+      };
       
-      globalConfig = {
+      # Prometheus Server
+      enable = mkIf config.profiles.server.services.monitoring.prometheus.enable true;
+      port = mkIf config.profiles.server.services.monitoring.prometheus.enable 9090;
+      
+      globalConfig = mkIf config.profiles.server.services.monitoring.prometheus.enable {
         scrape_interval = "15s";
         evaluation_interval = "15s";
       };
       
-      scrapeConfigs = [
+      scrapeConfigs = mkIf config.profiles.server.services.monitoring.prometheus.enable [
         {
           job_name = "node";
           static_configs = [{

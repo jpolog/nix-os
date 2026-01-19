@@ -29,8 +29,7 @@ with lib;
       fd       # Better find
       
       # System monitoring
-      btop
-      htop
+      btop     # Best modern monitoring tool
     ];
 
     # Essential session variables

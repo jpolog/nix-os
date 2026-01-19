@@ -50,7 +50,7 @@
   };
   
   # Power user shell functions
-  programs.zsh.initExtra = lib.mkAfter ''
+  programs.zsh.initContent = lib.mkAfter ''
     # Advanced directory navigation
     # z.lua for smart directory jumping
     eval "$(${pkgs.z-lua}/bin/z.lua --init zsh enhanced once fzf)"

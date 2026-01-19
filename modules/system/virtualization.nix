@@ -1,6 +1,13 @@
 { config, pkgs, lib, ... }:
 
 {
+  # Virtualization support for VMs
+  # 
+  # To enable VM access for a user, add to host configuration:
+  #   users.users.<username>.extraGroups = [ "libvirtd" "kvm" ];
+  #
+  # Or in the user definition in hosts/*/configuration.nix
+  
   # Enable virtualization support
   boot.kernelModules = [ "kvm-amd" "kvm-intel" ];
   
@@ -15,10 +22,6 @@
         package = pkgs.qemu_kvm;
         runAsRoot = false;
         swtpm.enable = true;  # TPM emulation
-        ovmf = {
-          enable = true;  # UEFI support
-          packages = [ pkgs.OVMFFull.fd ];
-        };
       };
       
       # Networking
@@ -62,12 +65,6 @@
   # Waydroid for Android apps
   virtualisation.waydroid.enable = true;
   
-  # LXD for system containers
-  virtualisation.lxd = {
-    enable = true;
-    recommendedSysctlSettings = true;
-  };
-  
   # Enable nested virtualization
   boot.extraModprobeConfig = ''
     options kvm_intel nested=1
@@ -82,7 +79,8 @@
     
     # libvirt management - CLI
     libvirt
-    virt-manager      # GUI manager (GTK)
+    # virt-manager has desktop file validation issues, use cockpit or virt-viewer instead
+    # virt-manager      # GUI manager (GTK)
     virt-viewer       # VM display viewer
     virtiofsd         # Virtio filesystem daemon
     
@@ -101,9 +99,8 @@
     # Looking Glass - Low latency KVM frame relay
     looking-glass-client
     
-    # VM image tools
-    virt-bootstrap    # Bootstrap Fedora/CentOS VMs
-    virt-builder      # Build VMs from scratch
+    # VM image tools are provided by guestfs-tools above
+    # (virt-builder, virt-resize, virt-sparsify, etc.)
     
     # Cloud images
     cloud-utils       # cloud-localds for cloud-init
@@ -126,16 +123,10 @@
     snapper          # Snapshot tool
   ];
   
-  # Add user to virtualization groups
-  users.users.jpolo = {
-    extraGroups = [ 
-      "libvirtd" 
-      "kvm" 
-      "docker" 
-      "podman"
-      "lxd"
-    ];
-  };
+  # Add virtualization groups to all normal users
+  # This approach avoids infinite recursion by not reading config.users.users
+  users.groups.libvirtd = {};
+  users.groups.kvm = {};
   
   # Networking for VMs
   networking.bridges = {

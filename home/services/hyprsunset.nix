@@ -3,7 +3,7 @@
 {
   # Hyprsunset - Blue light filter for Hyprland
   home.packages = [ 
-    inputs.hyprsunset.packages.${pkgs.system}.hyprsunset 
+    inputs.hyprsunset.packages.${pkgs.stdenv.hostPlatform.system}.hyprsunset 
   ];
 
   # Hyprsunset service
@@ -15,7 +15,7 @@
     };
     
     Service = {
-      ExecStart = "${inputs.hyprsunset.packages.${pkgs.system}.hyprsunset}/bin/hyprsunset -t 4500";
+      ExecStart = "${inputs.hyprsunset.packages.${pkgs.stdenv.hostPlatform.system}.hyprsunset}/bin/hyprsunset -t 4500";
       Restart = "on-failure";
     };
     

@@ -36,7 +36,6 @@
     
     # Kubernetes tools
     kubectx            # Context switching
-    kubens             # Namespace switching
     stern              # Multi-pod log tailing
     kustomize          # Kubernetes customization
     
@@ -47,13 +46,10 @@
     pulumi             # IaC alternative
     
     # API testing
-    httpie             # HTTP client
-    curlie             # Curl with colors
-    xh                 # HTTPie in Rust
+    xh                 # HTTPie in Rust (modern HTTP client)
     
     # JSON/YAML tools
     jless              # JSON viewer
-    yq-go              # YAML query
     dasel              # Query JSON/YAML/XML
     
     # File synchronization
@@ -65,25 +61,21 @@
     gopass             # Team password manager
     
     # Encryption
-    age                # Modern encryption
-    rage               # Rust age
+    age                # Modern encryption tool
     
     # Backup tools
     restic             # Encrypted backups
-    borg               # Deduplicated backups
     
-    # System monitoring
-    btop               # Resource monitor
-    gotop              # Another monitor
-    glances            # Cross-platform monitor
-    zenith             # Modern htop
+    # System monitoring (btop is the best all-in-one)
+    btop               # Resource monitor (best modern option)
+    nvtopPackages.amd  # GPU monitoring tool
     
     # Process management
     pm2                # Process manager
     
     # Build tools
     just               # Command runner
-    make               # GNU make
+    gnumake               # GNU make
     cmake              # CMake
     meson              # Meson build
     ninja              # Ninja build
@@ -111,17 +103,19 @@
     clipman            # Clipboard manager
     
     # Fonts for power users
-    (nerdfonts.override { fonts = [ "FiraCode" "JetBrainsMono" "Hack" ]; })
+    nerd-fonts.fira-code
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.hack
     
     # Language servers (additional)
     yaml-language-server
-    dockerfile-language-server-nodejs
+    dockerfile-language-server
     bash-language-server
     taplo              # TOML language server
     
     # Formatters (additional)
     shfmt              # Shell script formatter
-    sqlformat          # SQL formatter
+    sql-formatter          # SQL formatter
     
     # Linters (additional)
     shellcheck         # Shell script linter
@@ -144,7 +138,6 @@
     
     # PDF tools
     pdftk              # PDF toolkit
-    poppler_utils      # PDF utilities
     
     # E-books
     calibre            # E-book management
@@ -193,9 +186,6 @@
     
     # QR codes
     qrencode           # Generate QR codes
-    
-    # Torrents
-    transmission       # BitTorrent client
     
     # IRC
     weechat            # IRC client
@@ -253,15 +243,7 @@
     '';
   };
   
-  # Zellij configuration (modern tmux)
-  programs.zellij = {
-    enable = true;
-    settings = {
-      theme = "catppuccin-mocha";
-      pane_frames = false;
-      simplified_ui = true;
-    };
-  };
+  # Terminal multiplexer is configured in terminal-tools.nix
   
   # Helix editor (modern Vim/Neovim alternative)
   programs.helix = {
@@ -283,29 +265,8 @@
     };
   };
   
-  # Bat configuration (better cat)
-  programs.bat = {
-    enable = true;
-    config = {
-      theme = "catppuccin-mocha";
-      pager = "less -FR";
-    };
-  };
   
-  # Bottom configuration (system monitor)
-  programs.bottom = {
-    enable = true;
-    settings = {
-      flags = {
-        dot_marker = false;
-        group_processes = true;
-        tree = true;
-      };
-      colors = {
-        theme = "catppuccin";
-      };
-    };
-  };
+  # System monitor (btop) is in packages above
   
   # Ripgrep configuration
   home.file.".config/ripgrep/config".text = ''
@@ -342,8 +303,11 @@
   # SSH configuration
   programs.ssh = {
     enable = true;
-    controlMaster = "auto";
-    controlPersist = "10m";
+    enableDefaultConfig = false;  # Disable default config to avoid future warnings
+    matchBlocks."*" = {
+      controlMaster = "auto";
+      controlPersist = "10m";
+    };
     extraConfig = ''
       AddKeysToAgent yes
       ServerAliveInterval 60
@@ -364,6 +328,6 @@
   services.gpg-agent = {
     enable = true;
     enableSshSupport = true;
-    pinentryPackage = pkgs.pinentry-gnome3;
+    pinentry.package = pkgs.pinentry-gnome3;
   };
 }

@@ -17,11 +17,34 @@
     uid = 2000;
   };
   
-  # Install sandboxing tools
+  # All packages for gaming profile
   environment.systemPackages = with pkgs; [
+    # Sandboxing tools
     firejail         # Application sandboxing
     bubblewrap       # Low-level sandboxing
     appimage-run     # For AppImage games
+    
+    # Gaming - Wine/Proton
+    lutris
+    wine
+    winetricks
+    wine64
+    wineWowPackages.stable
+    wineWowPackages.staging
+    
+    # Performance tools
+    gamemode
+    mangohud
+    gamescope
+    
+    # Controller support
+    antimicrox
+    
+    # Performance monitoring
+    radeontop
+    nvtopPackages.full
+    mesa-demos
+    vulkan-tools
   ];
   
   # Firejail configuration
@@ -111,13 +134,17 @@
       NoNewPrivileges = true;
       
       # Prevent access to sensitive directories
-      InaccessiblePaths = [
-        "/root"
-        "/boot"
-        "/home/jpolo"
-        "/etc/nixos"
-        "/nix/var/nix"
-      ];
+      InaccessiblePaths = 
+        let
+          normalUsers = lib.filterAttrs (name: user: user.isNormalUser && name != "gaming") config.users.users;
+          userHomes = lib.mapAttrsToList (name: user: user.home) normalUsers;
+        in
+        [
+          "/root"
+          "/boot"
+          "/etc/nixos"
+          "/nix/var/nix"
+        ] ++ userHomes;
       
       # Read-only paths
       ReadOnlyPaths = [
@@ -148,31 +175,6 @@
   # Note: Requires filesystem quota support
   # fileSystems."/home".options = [ "usrquota" "grpquota" ];
   
-  # Gaming-specific packages (sandboxed)
-  # NOTE: These are installed system-wide but only the gaming user can use them effectively
-  environment.systemPackages = with pkgs; [
-    # Gaming - Wine/Proton
-    lutris
-    wine
-    winetricks
-    wine64
-    wineWowPackages.stable
-    wineWowPackages.staging
-    
-    # Performance tools
-    gamemode
-    mangohud
-    gamescope
-    
-    # Controller support
-    antimicrox
-    
-    # Performance monitoring
-    nvtop
-    radeontop
-    glxinfo
-    vulkan-tools
-  ];
   
   # GameMode for performance optimization
   programs.gamemode = {
@@ -232,14 +234,14 @@
   };
   
   # Hardware acceleration for gaming
-  hardware.opengl = {
+  # Note: hardware.opengl has been renamed to hardware.graphics in NixOS 24.11+
+  hardware.graphics = {
     enable = true;
-    driSupport = true;
-    driSupport32Bit = true;  # Required for 32-bit games
+    enable32Bit = true;  # Required for 32-bit games (replaces driSupport32Bit)
     
     extraPackages = with pkgs; [
-      # VAAPI
-      vaapiVdpau
+      # VAAPI (renamed packages in NixOS 24.11+)
+      libva-vdpau-driver  # Renamed from vaapiVdpau
       libvdpau-va-gl
       
       # Vulkan (for Proton/DXVK)
@@ -262,8 +264,9 @@
   hardware.xone.enable = true;  # Xbox controllers
   
   # Additional security: Use separate session for gaming
-  services.xserver.displayManager.sessionPackages = [
-    (pkgs.writeTextFile {
+  # Note: services.xserver.displayManager.sessionPackages has been renamed
+  services.displayManager.sessionPackages = [
+    (pkgs.writeTextFile rec {
       name = "gaming-session";
       destination = "/share/wayland-sessions/gaming.desktop";
       text = ''
@@ -273,6 +276,8 @@
         Exec=${pkgs.cage}/bin/cage -s -- ${pkgs.steam}/bin/steam -bigpicture
         Type=Application
       '';
+      # Required: declare provided sessions
+      passthru.providedSessions = [ "gaming" ];
     })
   ];
 }

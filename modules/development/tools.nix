@@ -8,7 +8,6 @@
     gh  # GitHub CLI
     lazygit
     tig
-    delta  # Better git diffs
     git-crypt  # Encrypted files in git
     gitleaks  # Secret scanner
     pre-commit  # Git hooks framework
@@ -82,7 +81,6 @@
     
     # Monitoring
     btop
-    nvtop
     iftop
     bandwhich  # Network bandwidth monitor
     procs  # Better ps
@@ -93,7 +91,6 @@
     syncthing
     
     # Benchmarking
-    ab  # Apache bench
     wrk  # HTTP benchmarking
     
     # Terminal multiplexing

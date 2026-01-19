@@ -6,6 +6,9 @@
     enableCompletion = true;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
+    
+    # Set dotDir to XDG config directory (modern approach)
+    dotDir = "${config.xdg.configHome}/zsh";
 
     history = {
       size = 100000;
@@ -195,7 +198,7 @@
       ipy = "ipython";
     };
 
-    initExtra = ''
+    initContent = ''
       if [ -f "$HOME/.nvm/nvm.sh" ]; then
         nvm() {
           unfunction nvm

@@ -3,8 +3,8 @@
 {
   # Power user system enhancements
   
-  # Advanced filesystem features
-  boot.supportedFilesystems = [ "btrfs" "zfs" "ntfs" ];
+  # Advanced filesystem features (ZFS removed - broken with current kernel)
+  boot.supportedFilesystems = [ "btrfs" "ntfs" ];
   
   # Performance profiling and debugging
   environment.systemPackages = with pkgs; [
@@ -22,7 +22,7 @@
     perf-tools       # Performance analysis tools
     flamegraph       # Visualize profiling data
     sysstat          # System performance tools (sar, iostat)
-    dstat            # Versatile resource statistics
+    # dstat removed from nixpkgs (unmaintained), use sysstat instead
     
     # Advanced process management
     parallel         # Execute jobs in parallel
@@ -30,7 +30,6 @@
     entr             # Run arbitrary commands when files change
     
     # Disk and filesystem tools
-    ncdu             # Disk usage analyzer (ncurses)
     duf              # Modern df alternative
     dust             # Modern du alternative
     gdu              # Fast disk usage analyzer
@@ -46,22 +45,16 @@
     # Text processing power tools
     jq               # JSON processor
     yq-go            # YAML processor
-    xsv              # CSV toolkit
+    # xsv removed from nixpkgs, use miller instead
     miller           # CSV/JSON/TSV processor
     fx               # JSON viewer
     
     # Clipboard and terminal tools
-    xclip            # X clipboard
-    wl-clipboard     # Wayland clipboard
-    tmux             # Terminal multiplexer
-    zellij           # Modern tmux alternative
-    screen           # Terminal multiplexer
+    wl-clipboard     # Wayland clipboard (includes xclip-like tools)
+    zellij           # Modern terminal multiplexer
     
     # File management
-    ranger           # Terminal file manager
-    nnn              # Fast file manager
-    lf               # Terminal file manager (Go)
-    mc               # Midnight Commander
+    lf               # Terminal file manager (fast, Go-based)
     
     # Archive tools
     p7zip            # 7z support
@@ -69,14 +62,11 @@
     unzip            # ZIP support
     zip              # ZIP creation
     
-    # Search and indexing
-    mlocate          # Fast file location
-    plocate          # Faster locate
+    # Search and indexing (plocate is faster, modern replacement)
+    plocate          # Fast file location
     
     # System information
-    inxi             # System information
-    dmidecode        # Hardware info
-    lshw             # Hardware lister
+    inxi             # Comprehensive system information
     hwinfo           # Hardware detection
     
     # Kernel and module tools
@@ -89,8 +79,7 @@
     hyperfine        # Command-line benchmarking
     
     # Man page alternatives
-    tldr             # Simplified man pages
-    tealdeer         # Fast tldr client
+    tealdeer         # Fast tldr client (Rust-based)
     
     # Git power tools
     git-absorb       # Automatic git commit fixup
@@ -111,17 +100,13 @@
     # Hex editors
     hexyl            # Modern hex viewer
     
-    # Diff tools
-    delta            # Better diff (already configured for git)
-    difftastic       # Structural diff
     
     # Shell utilities
     direnv           # Per-directory environments
     any-nix-shell    # Nix shell integration
     
     # Quick calculations
-    bc               # Calculator
-    qalc             # Advanced calculator
+    libqalculate     # Advanced calculator (qalc command)
   ];
   
   # Enable sysstat for performance monitoring
@@ -141,7 +126,6 @@
     enable = true;
     package = pkgs.plocate;
     interval = "hourly";
-    localuser = null;
   };
   
   # Enable thermald for thermal management (Intel)

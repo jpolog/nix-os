@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   # Script management system
@@ -49,8 +49,13 @@ in
     vm-backup
   ];
   
-  # Create scripts directory in user home
-  systemd.tmpfiles.rules = [
-    "d /home/jpolo/.local/bin 0755 jpolo users -"
-  ];
+  # Create scripts directory for all normal users (automatically)
+  # This creates .local/bin for each user with a home directory
+  systemd.tmpfiles.rules = 
+    let
+      normalUsers = lib.filterAttrs (name: user: user.isNormalUser) config.users.users;
+    in
+      lib.mapAttrsToList (name: user: 
+        "d ${user.home}/.local/bin 0755 ${name} users -"
+      ) normalUsers;
 }

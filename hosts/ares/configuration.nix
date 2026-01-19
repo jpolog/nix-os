@@ -3,34 +3,48 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../modules/system
-    ../../modules/desktop
-    ../../modules/services
-    ../../modules/development
+    # Note: System modules are imported via flake.nix sharedModules
+    # Only add host-specific modules here
   ];
 
+  # ============================================================================
   # System Information
+  # ============================================================================
+  
   networking.hostName = "ares";
-  system.stateVersion = "25.11";
+  networking.hostId = "8425e34f";  # Required for ZFS
+  system.stateVersion = "25.11";   # DO NOT CHANGE
 
+  # ============================================================================
   # Bootloader
+  # ============================================================================
+  
   boot = {
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
-    
-    # Kernel parameters for ThinkPad T14s Gen 6
-    kernelParams = [ 
+
+    # Kernel parameters for ThinkPad T14s Gen 6 AMD
+    kernelParams = [
       "quiet"
       "splash"
-      "amd_pstate=active"
+      "amd_pstate=active"  # Better AMD P-state driver
     ];
-    
+
     kernelPackages = pkgs.linuxPackages_latest;
   };
 
+  # ============================================================================
+  # Networking
+  # ============================================================================
+  
+  networking.networkmanager.enable = true;
+
+  # ============================================================================
   # Nix Settings
+  # ============================================================================
+  
   nix = {
     package = pkgs.nix;
     settings = {
@@ -45,59 +59,152 @@
     };
   };
 
-  # Timezone and Locale
-  time.timeZone = "Europe/Madrid";
-  i18n.defaultLocale = "en_US.UTF-8";
+  # ============================================================================
+  # Localization
+  # ============================================================================
   
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_US.UTF-8";
-    LC_IDENTIFICATION = "en_US.UTF-8";
-    LC_MEASUREMENT = "en_US.UTF-8";
-    LC_MONETARY = "en_US.UTF-8";
-    LC_NAME = "en_US.UTF-8";
-    LC_NUMERIC = "en_US.UTF-8";
-    LC_PAPER = "en_US.UTF-8";
-    LC_TELEPHONE = "en_US.UTF-8";
-    LC_TIME = "en_US.UTF-8";
+  time.timeZone = "Europe/Madrid";
+  
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+    extraLocaleSettings = {
+      LC_ADDRESS = "en_US.UTF-8";
+      LC_IDENTIFICATION = "en_US.UTF-8";
+      LC_MEASUREMENT = "en_US.UTF-8";
+      LC_MONETARY = "en_US.UTF-8";
+      LC_NAME = "en_US.UTF-8";
+      LC_NUMERIC = "en_US.UTF-8";
+      LC_PAPER = "en_US.UTF-8";
+      LC_TELEPHONE = "en_US.UTF-8";
+      LC_TIME = "en_US.UTF-8";
+    };
   };
 
+  # ============================================================================
   # Console
+  # ============================================================================
+  
   console = {
     font = "Lat2-Terminus16";
     keyMap = "us";
   };
 
+  # ============================================================================
   # Users
+  # ============================================================================
+  
   users.users.jpolo = {
     isNormalUser = true;
     description = "Javier Polo Gambin";
-    extraGroups = [ 
-      "wheel" 
-      "networkmanager" 
-      "video" 
-      "audio" 
-      "input" 
-      "power"
-      "docker"
+    extraGroups = [
+      "wheel"           # sudo access
+      "networkmanager"  # network management
+      "video"           # video devices
+      "audio"           # audio devices
+      "input"           # input devices
+      "power"           # power management
+      "docker"          # docker daemon (when development profile enabled)
+      "libvirtd"        # VM management (when virtualization enabled)
+      "kvm"             # KVM access (when virtualization enabled)
     ];
     shell = pkgs.zsh;
   };
 
-  # Essential System Packages
+  # ============================================================================
+  # Home Manager Integration
+  # ============================================================================
+  
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    
+    extraSpecialArgs = {
+      inherit inputs;
+      hostname = "ares";
+    };
+  };
+
+  # Home Manager user configuration
+  home-manager.users.jpolo = { ... }: {
+    imports = [ ../../home/users/jpolo.nix ];
+    
+    # Ares-specific: Full development workstation
+    home.profiles = {
+      base.enable = true;
+      desktop.enable = true;
+      
+      # Enable development with shells
+      development = {
+        enable = true;
+        devShells = {
+          enable = true;              # Enable dev shells
+          enableLaunchers = true;      # Enable launcher scripts
+          enableDirenvTemplates = true; # Enable direnv templates
+        };
+        editors = {
+          vscode.enable = true;
+          neovim.enable = true;
+        };
+      };
+      
+      personal.enable = true;
+      creative.enable = true;
+    };
+  };
+
+
+  # ============================================================================
+  # System Services
+  # ============================================================================
+  
+  # OpenSSH - Configuration inherited from modules/system/ssh.nix
+  # Default settings: PermitRootLogin = "no", PasswordAuthentication = true
+  # Uncomment to override:
+  # services.openssh.settings.PermitRootLogin = "yes";  # Only if needed
+
+
+  # ============================================================================
+  # System Optimization
+  # ============================================================================
+  
+  # ZRAM swap for better performance
+  zramSwap.enable = true;
+
+  # ============================================================================
+  # System Packages
+  # ============================================================================
+  
   environment.systemPackages = with pkgs; [
+    # Essential editors
     vim
+    nano  # Included by default but explicit is better
+    
+    # Network tools
     wget
     curl
+    
+    # Version control
     git
+    
+    # System monitoring
     htop
     btop
+    
+    # System information
     neofetch
-    pciutils
-    usbutils
-    lshw
-    dmidecode
+    pciutils   # lspci
+    usbutils   # lsusb
+    lshw       # Hardware lister
+    dmidecode  # DMI table decoder
   ];
 
-  # ZSH
+  # ============================================================================
+  # Programs
+  # ============================================================================
+  
   programs.zsh.enable = true;
+
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
 }
+

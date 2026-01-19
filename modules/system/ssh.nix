@@ -1,11 +1,11 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   # SSH Server
   services.openssh = {
     enable = true;
     settings = {
-      PermitRootLogin = "no";
+      PermitRootLogin = lib.mkDefault "no";  # Secure default, but can be overridden
       PasswordAuthentication = true;
       PubkeyAuthentication = true;
     };

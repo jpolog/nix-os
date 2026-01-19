@@ -10,21 +10,19 @@
       isDefault = true;
       
       # Extensions
-      extensions = with firefox-addons.packages.${pkgs.system}; [
+      extensions.packages = with firefox-addons.packages.${pkgs.stdenv.hostPlatform.system}; [
         ublock-origin
         bitwarden
         darkreader
         privacy-badger
         decentraleyes
         clearurls
-        sponsor-block
-        return-youtube-dislikes
         vimium-c  # Uncomment if you want vim keybindings
       ];
       
       # Search engines
       search = {
-        default = "DuckDuckGo";
+        default = "ddg";
         force = true;
         
         engines = {
@@ -69,7 +67,7 @@
                 { name = "q"; value = "{searchTerms}"; }
               ];
             }];
-            iconUpdateURL = "https://github.com/favicon.ico";
+            icon = "https://github.com/favicon.ico";
             definedAliases = [ "@gh" ];
           };
         };

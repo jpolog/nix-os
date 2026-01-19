@@ -4,36 +4,38 @@
   services.mako = {
     enable = true;
     
-    # Appearance
-    backgroundColor = "#1e1e2eff";
-    textColor = "#cdd6f4ff";
-    borderColor = "#89b4faff";
-    progressColor = "over #313244ff";
-    
-    # Layout
-    width = 350;
-    height = 150;
-    margin = "10";
-    padding = "15";
-    borderSize = 2;
-    borderRadius = 10;
-    
-    # Behavior
-    defaultTimeout = 5000;
-    ignoreTimeout = false;
-    
-    # Position
-    anchor = "top-right";
-    
-    # Font
-    font = "JetBrainsMono Nerd Font 11";
-    
-    # Icons
-    icons = true;
-    maxIconSize = 48;
-    
-    # Grouping
-    groupBy = "app-name";
+    settings = {
+      # Appearance
+      background-color = "#1e1e2eff";
+      text-color = "#cdd6f4ff";
+      border-color = "#89b4faff";
+      progress-color = "over #313244ff";
+      
+      # Layout
+      width = 350;
+      height = 150;
+      margin = "10";
+      padding = "15";
+      border-size = 2;
+      border-radius = 10;
+      
+      # Behavior
+      default-timeout = 5000;
+      ignore-timeout = false;
+      
+      # Position
+      anchor = "top-right";
+      
+      # Font
+      font = "JetBrainsMono Nerd Font 11";
+      
+      # Icons
+      icons = true;
+      max-icon-size = 48;
+      
+      # Grouping
+      group-by = "app-name";
+    };
     
     # Extra config
     extraConfig = ''

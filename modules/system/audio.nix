@@ -24,5 +24,6 @@
   ];
 
   # Disable PulseAudio (PipeWire replaces it)
-  hardware.pulseaudio.enable = false;
+  # Note: hardware.pulseaudio renamed to services.pulseaudio in NixOS 24.11+
+  services.pulseaudio.enable = false;
 }

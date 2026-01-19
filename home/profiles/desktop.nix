@@ -3,23 +3,23 @@
 with lib;
 
 {
+  # Import desktop program configurations
+  imports = [
+    ../programs/firefox.nix
+    ../programs/kitty.nix
+    ../programs/walker.nix
+    ../programs/swayosd.nix
+    ../hyprland
+  ];
+
   options.home.profiles.desktop = {
     enable = mkEnableOption "desktop applications profile";
   };
 
   config = mkIf config.home.profiles.desktop.enable {
-    # Import desktop program configurations
-    imports = [
-      ../programs/firefox.nix
-      ../programs/kitty.nix
-      ../programs/walker.nix
-      ../programs/swayosd.nix
-      ../hyprland
-    ];
 
     home.packages = with pkgs; [
-      # Browsers
-      firefox
+      # Browsers (firefox configured via programs.firefox in firefox.nix)
       chromium
       
       # Terminals
@@ -31,7 +31,7 @@ with lib;
       yazi
       
       # Document viewers
-      okular       # PDF viewer
+      kdePackages.okular # PDF viewer
       zathura      # Minimal PDF viewer
       
       # Image viewers
@@ -50,8 +50,8 @@ with lib;
       swappy
       
       # Password managers
-      bitwarden
-      keepassxc
+      bitwarden-desktop   # Password manager
+
       
       # Network
       networkmanagerapplet

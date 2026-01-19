@@ -3,7 +3,7 @@
 {
   services.hypridle = {
     enable = true;
-    package = inputs.hypridle.packages.${pkgs.system}.hypridle;
+    package = inputs.hypridle.packages.${pkgs.stdenv.hostPlatform.system}.hypridle;
     
     settings = {
       general = {

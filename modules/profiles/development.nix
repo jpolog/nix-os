@@ -3,6 +3,12 @@
 with lib;
 
 {
+  # Import development modules at top level
+  imports = [
+    ../development/direnv.nix
+    ../development/tools.nix
+  ];
+
   options.profiles.development = {
     enable = mkEnableOption "development environment profile";
     
@@ -26,14 +32,12 @@ with lib;
   };
 
   config = mkIf config.profiles.development.enable {
-    imports = [
-      ../development/direnv.nix
-      ../development/tools.nix
-    ];
-
     # Docker
     virtualisation.docker.enable = mkIf config.profiles.development.tools.docker.enable true;
-    users.users.jpolo.extraGroups = mkIf config.profiles.development.tools.docker.enable [ "docker" ];
+    
+    # Create docker group (users must add themselves via host config)
+    # To add a user to docker: users.users.<username>.extraGroups = [ "docker" ];
+    users.groups.docker = mkIf config.profiles.development.tools.docker.enable {};
 
     environment.systemPackages = with pkgs;
       # Python

@@ -11,6 +11,6 @@
     ./xcompose.nix
     ./terminal-tools.nix
     ./power-user.nix
-    ./vms.nix
+    # ./vms.nix  # Disabled - virt-manager has desktop file validation issues
   ];
 }

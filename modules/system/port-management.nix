@@ -16,18 +16,9 @@
   
   environment.systemPackages = with pkgs; [
     # Port scanning and management
-    lsof          # List open files and ports
-    netstat       # Network statistics (deprecated but still useful)
-    ss            # Socket statistics (modern netstat)
+    iproute2      # Socket statistics (ss command - modern netstat)
     nmap          # Network mapper
-    tcpdump       # Packet analyzer
     wireshark     # GUI packet analyzer
-    bandwhich     # Modern bandwidth monitor
-    
-    # Process management
-    htop          # Interactive process viewer
-    bottom        # Modern system monitor (btm)
-    procs         # Modern ps replacement
   ];
   
   # Create port management configuration

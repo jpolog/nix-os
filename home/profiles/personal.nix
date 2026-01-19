@@ -25,8 +25,8 @@ with lib;
       (optionals config.home.profiles.personal.media.enable [
         mpv
         vlc
-        spotify
-        spotifywm
+        plexamp
+        # plex-media-player  # Uncomment if you want the player instead of just Plexamp
       ])
       ++
       # Productivity

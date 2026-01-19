@@ -4,7 +4,7 @@
   # Enable Hyprland with plugins
   programs.hyprland = {
     enable = true;
-    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
     xwayland.enable = true;
     
     # Enable plugins
@@ -18,10 +18,10 @@
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [
-      xdg-desktop-portal-hyprland
+      # xdg-desktop-portal-hyprland already set via portalPackage above
       xdg-desktop-portal-gtk
     ];
-    configPackages = [ inputs.hyprland.packages.${pkgs.system}.hyprland ];
+    configPackages = [ inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland ];
   };
 
   # Environment variables for Wayland/Hyprland
@@ -53,9 +53,9 @@
     libnotify
     
     # File manager
-    xfce.thunar
-    xfce.thunar-volman
-    xfce.thunar-archive-plugin
+    thunar
+    thunar-volman
+    thunar-archive-plugin
     
     # Image viewer
     imv

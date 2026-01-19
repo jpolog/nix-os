@@ -15,8 +15,6 @@
     # Mouse support
     mouse = true;
     
-    # Renumber windows on close
-    renumberWindows = true;
     
     # Custom key bindings
     extraConfig = ''
@@ -59,6 +57,9 @@
       # Activity monitoring
       setw -g monitor-activity on
       set -g visual-activity off
+
+      # renumber windows on close
+      set-option -g renumber-windows on
       
       # Catppuccin theme
       set -g status-style bg=#1e1e2e,fg=#cdd6f4
@@ -118,158 +119,6 @@
       global = {
         load_dotenv = true;
         strict_env = false;
-        warn_timeout = "1h";
-      };
-    };
-  };
-  
-  # Starship - Cross-shell prompt
-  programs.starship = {
-    enable = true;
-    
-    settings = {
-      # Timeout for commands
-      command_timeout = 1000;
-      
-      # Format
-      format = lib.concatStrings [
-        "$username"
-        "$hostname"
-        "$directory"
-        "$git_branch"
-        "$git_state"
-        "$git_status"
-        "$nix_shell"
-        "$python"
-        "$nodejs"
-        "$rust"
-        "$golang"
-        "$docker_context"
-        "$kubernetes"
-        "$terraform"
-        "$aws"
-        "$gcloud"
-        "$azure"
-        "$line_break"
-        "$jobs"
-        "$battery"
-        "$time"
-        "$status"
-        "$character"
-      ];
-      
-      # Add a newline before prompt
-      add_newline = true;
-      
-      # Character
-      character = {
-        success_symbol = "[➜](bold green)";
-        error_symbol = "[✗](bold red)";
-        vimcmd_symbol = "[V](bold green)";
-      };
-      
-      # Directory
-      directory = {
-        truncation_length = 3;
-        truncate_to_repo = true;
-        style = "bold cyan";
-      };
-      
-      # Git
-      git_branch = {
-        symbol = " ";
-        style = "bold purple";
-      };
-      
-      git_status = {
-        style = "bold red";
-        conflicted = "🏳";
-        ahead = "⇡$\{count\}";
-        behind = "⇣$\{count\}";
-        diverged = "⇕⇡$\{ahead_count\}⇣$\{behind_count\}";
-        untracked = "?$\{count\}";
-        stashed = "$";
-        modified = "!$\{count\}";
-        staged = "+$\{count\}";
-        renamed = "»$\{count\}";
-        deleted = "✘$\{count\}";
-      };
-      
-      # Languages
-      python = {
-        symbol = " ";
-        style = "yellow bold";
-        pyenv_version_name = true;
-      };
-      
-      nodejs = {
-        symbol = " ";
-        style = "bold green";
-      };
-      
-      rust = {
-        symbol = " ";
-        style = "bold red";
-      };
-      
-      golang = {
-        symbol = " ";
-        style = "bold cyan";
-      };
-      
-      # Tools
-      docker_context = {
-        symbol = " ";
-        style = "blue bold";
-      };
-      
-      nix_shell = {
-        symbol = " ";
-        style = "bold blue";
-        format = "via [$symbol$state( \\($name\\))]($style) ";
-      };
-      
-      # Cloud
-      aws = {
-        symbol = "  ";
-        style = "bold yellow";
-      };
-      
-      gcloud = {
-        symbol = "☁️  ";
-        style = "bold blue";
-      };
-      
-      # Time
-      time = {
-        disabled = false;
-        format = "🕙[ $time ]($style)";
-        style = "bold white";
-      };
-      
-      # Status
-      status = {
-        disabled = false;
-        symbol = "✖";
-        format = "[$symbol$status]($style) ";
-      };
-      
-      # Battery
-      battery = {
-        full_symbol = "🔋";
-        charging_symbol = "⚡";
-        discharging_symbol = "💀";
-        
-        display = [
-          {
-            threshold = 10;
-            style = "bold red";
-          }
-          {
-            threshold = 30;
-            style = "bold yellow";
-          }
-        ];
       };
     };
   };
