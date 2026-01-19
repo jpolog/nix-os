@@ -2,7 +2,7 @@
 
 {
   programs.git = {
-    enable = true;
+    enable = lib.mkDefault false;
     
     settings = {
       user = {

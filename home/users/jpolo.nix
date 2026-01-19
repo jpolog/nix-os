@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ../programs      # Individual program configs
+    ../programs      # Import all program modules
     ../services
     ../shell
     ../profiles      # Import all profiles (via default.nix)

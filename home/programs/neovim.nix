@@ -1,8 +1,8 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   programs.neovim = {
-    enable = true;
+    enable = lib.mkDefault false;
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;

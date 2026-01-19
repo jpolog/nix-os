@@ -113,15 +113,15 @@
   # ============================================================================
   # Home Manager Integration
   # ============================================================================
+
+  # Ensure profile directory exists before home-manager service starts
+  systemd.tmpfiles.rules = [
+    "d /nix/var/nix/profiles/per-user/jpolo 0755 jpolo users -"
+  ];
   
-  home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    
-    extraSpecialArgs = {
-      inherit inputs;
-      hostname = "ares";
-    };
+  systemd.services."home-manager-jpolo" = {
+    wants = [ "systemd-tmpfiles-setup.service" ];
+    after = [ "systemd-tmpfiles-setup.service" ];
   };
 
   # Home Manager user configuration

@@ -1,8 +1,8 @@
-{ config, pkgs, firefox-addons, ... }:
+{ config, pkgs, lib, firefox-addons, ... }:
 
 {
   programs.firefox = {
-    enable = true;
+    enable = lib.mkDefault false;
     
     profiles.jpolo = {
       id = 0;

@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   # XCompose for custom compose key sequences
@@ -6,17 +6,17 @@
     # Custom compose sequences
     include "%L"
 
-    # Custom sequences (examples)
-    <Multi_key> <e> <m> : "📧"  # email emoji
-    <Multi_key> <h> <e> <a> <r> <t> : "❤️"  # heart emoji
-    <Multi_key> <s> <t> <a> <r> : "⭐"  # star emoji
-    <Multi_key> <c> <h> <e> <c> <k> : "✓"  # checkmark
-    <Multi_key> <x> <m> <a> <r> <k> : "✗"  # x mark
-    <Multi_key> <arrow> <l> : "←"
-    <Multi_key> <arrow> <r> : "→"
-    <Multi_key> <arrow> <u> : "↑"
-    <Multi_key> <arrow> <d> : "↓"
-    
+      # Custom sequences (examples)
+      <Multi_key> <e> <m> : "📧"  # email emoji
+      <Multi_key> <h> <e> <a> <r> <t> : "❤️"  # heart emoji
+      <Multi_key> <s> <t> <a> <r> : "⭐"  # star emoji
+      <Multi_key> <c> <h> <e> <c> <k> : "✓"  # checkmark
+      <Multi_key> <x> <m> <a> <r> <k> : "✗"  # x mark
+      <Multi_key> <arrow> <l> : "←"
+      <Multi_key> <arrow> <r> : "→"
+      <Multi_key> <arrow> <u> : "↑"
+      <Multi_key> <arrow> <d> : "↓"
+      
     # Math symbols
     <Multi_key> <i> <n> <f> : "∞"
     <Multi_key> <s> <u> <m> : "∑"

@@ -12,13 +12,6 @@ let
 in
 
 {
-  # Import development program configurations (top level - correct!)
-  imports = [
-    ../programs/git.nix
-    ../programs/neovim.nix
-    ../programs/terminal-tools.nix
-  ];
-
   options.home.profiles.development = {
     enable = mkEnableOption "development tools profile";
 
@@ -35,6 +28,10 @@ in
   };
 
   config = mkIf config.home.profiles.development.enable {
+    # Enable development programs
+    programs.git.enable = true;
+    programs.neovim.enable = config.home.profiles.development.editors.neovim.enable;
+    
     # Essential development tools
     home.packages = with pkgs;
       # Always included

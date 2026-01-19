@@ -1,8 +1,8 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   programs.kitty = {
-    enable = true;
+    enable = lib.mkDefault false;
     
     font = {
       name = "JetBrainsMono Nerd Font";

@@ -7,6 +7,9 @@
     wayland.enable = true;
     theme = "breeze";
   };
+  
+  # Set default session to Hyprland
+  services.displayManager.defaultSession = "hyprland";
 
   # SDDM packages
   environment.systemPackages = with pkgs; [

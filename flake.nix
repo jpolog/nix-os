@@ -116,7 +116,7 @@
           home-manager.useUserPackages = true;
           home-manager.extraSpecialArgs = { 
             inherit inputs firefox-addons;
-            flakePath = self;  # For referencing dev shells
+            flakePath = "/etc/nixos";  # For referencing dev shells
           };
           home-manager.backupFileExtension = "backup";
         }

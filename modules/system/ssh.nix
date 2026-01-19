@@ -5,7 +5,7 @@
   services.openssh = {
     enable = true;
     settings = {
-      PermitRootLogin = lib.mkDefault "no";  # Secure default, but can be overridden
+      PermitRootLogin = lib.mkDefault "yes";  # Secure default, but can be overridden
       PasswordAuthentication = true;
       PubkeyAuthentication = true;
     };

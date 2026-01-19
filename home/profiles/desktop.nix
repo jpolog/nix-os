@@ -3,12 +3,7 @@
 with lib;
 
 {
-  # Import desktop program configurations
   imports = [
-    ../programs/firefox.nix
-    ../programs/kitty.nix
-    ../programs/walker.nix
-    ../programs/swayosd.nix
     ../hyprland
   ];
 
@@ -17,6 +12,9 @@ with lib;
   };
 
   config = mkIf config.home.profiles.desktop.enable {
+    # Enable desktop programs
+    programs.firefox.enable = true;
+    programs.kitty.enable = true;
 
     home.packages = with pkgs; [
       # Browsers (firefox configured via programs.firefox in firefox.nix)
