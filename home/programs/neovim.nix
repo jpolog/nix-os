@@ -1,10 +1,14 @@
 { config, pkgs, lib, ... }:
 
+with lib;
+
 {
-  programs.neovim = {
-    enable = lib.mkDefault true;
-    defaultEditor = true;
-    viAlias = true;
-    vimAlias = true;
+  config = mkIf config.home.profiles.cli.enable {
+    programs.neovim = {
+      enable = true;
+      defaultEditor = true;
+      viAlias = true;
+      vimAlias = true;
+    };
   };
 }

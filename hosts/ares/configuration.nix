@@ -96,6 +96,7 @@
   profiles.base.enable = true;        # Essential system packages
   profiles.desktop.enable = true;     # Desktop environment (Hyprland, fonts, etc.)
   profiles.development.enable = true; # Development tools
+  profiles.gaming.enable = true;      # Gaming infrastructure (drivers, isolated user)
   
   # Configure development tools
   profiles.development.languages = {
@@ -129,12 +130,42 @@
     ];
     shell = pkgs.zsh;
   };
+
+  users.users.padres = {
+    isNormalUser = true;
+    description = "Padres";
+    extraGroups = [
+      "networkmanager"
+      "video"
+      "audio"
+      "input"
+    ];
+    # Padres use bash by default as they don't use the terminal
+    shell = pkgs.bash;
+  };
+
+  users.users.elena = {
+    isNormalUser = true;
+    description = "Elena";
+    extraGroups = [
+      "networkmanager"
+      "video"
+      "audio"
+      "input"
+    ];
+    shell = pkgs.bash;
+  };
   
   # ============================================================================
   # Home Manager - User Configuration
   # ============================================================================
   
-  home-manager.users.jpolo = import ../../home/users/jpolo.nix;
+  home-manager.users = {
+    jpolo = import ../../home/users/jpolo.nix;
+    padres = import ../../home/users/padres.nix;
+    elena = import ../../home/users/elena.nix;
+    gaming = import ../../home/users/gaming.nix;
+  };
 
   # ============================================================================
   # Home Manager Integration - DISABLED (Using standalone instead)
@@ -149,6 +180,15 @@
     "d /nix/var/nix/profiles/per-user/jpolo 0755 jpolo users -"
     "d /home/jpolo/.local/state/home-manager 0755 jpolo users -"
     "d /home/jpolo/.local/state/home-manager/gcroots 0755 jpolo users -"
+    
+    "d /nix/var/nix/profiles/per-user/padres 0755 padres users -"
+    "d /home/padres/.local/state/home-manager 0755 padres users -"
+    
+    "d /nix/var/nix/profiles/per-user/elena 0755 elena users -"
+    "d /home/elena/.local/state/home-manager 0755 elena users -"
+    
+    "d /nix/var/nix/profiles/per-user/gaming 0755 gaming users -"
+    "d /home/gaming/.local/state/home-manager 0755 gaming users -"
   ];
 
 

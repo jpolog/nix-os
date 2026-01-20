@@ -21,9 +21,24 @@ in
       vscode.enable = mkEnableOption "Visual Studio Code configuration";
       neovim.enable = mkEnableOption "Neovim with LazyVim" // { default = true; };
     };
+    
+    web = {
+      enable = mkEnableOption "development web apps" // { default = true; };
+    };
   };
 
   config = mkIf config.home.profiles.development.enable {
+    # Enable Development Web Apps
+    programs.web-apps = mkIf config.home.profiles.development.web.enable {
+      enable = true;
+      apps = {
+        github = true;
+        gitlab = true;
+        overleaf = true;
+        chatgpt = true;
+      };
+    };
+
     # NO package installation - packages installed by system profile!
     # Only configuration/dotfiles here
     

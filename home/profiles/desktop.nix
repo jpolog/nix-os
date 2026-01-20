@@ -5,15 +5,59 @@ with lib;
 {
   imports = [
     ../hyprland
+    ../kde
+    ../programs/walker.nix
+    ../programs/swayosd.nix
+    ../programs/xcompose.nix
   ];
 
   options.home.profiles.desktop = {
     enable = mkEnableOption "desktop applications profile";
+    
+    environment = mkOption {
+      type = types.enum [ "hyprland" "kde" ];
+      default = "hyprland";
+      description = "Desktop environment to configure for the user";
+    };
   };
 
   config = mkIf config.home.profiles.desktop.enable {
-    # NO package installation - packages installed by system profile!
-    # Only configuration/dotfiles here
+    # Applications provided by the Desktop Profile
+    home.packages = with pkgs; [
+      # Browsers
+      firefox
+      chromium
+      
+      # Terminals
+      kitty
+      alacritty
+      
+      # File Managers (Modern replacements)
+      yazi
+      ranger
+      
+      # Identity
+      bitwarden-desktop
+    ] ++ (optionals (config.home.profiles.desktop.environment == "hyprland") [
+      # Hyprland specific desktop tools
+      thunar
+      thunar-volman
+      thunar-archive-plugin
+      zathura
+      imv
+      feh
+      wl-clipboard
+      cliphist
+      hyprpicker
+      grim
+      slurp
+      grimblast
+      swappy
+      pwvucontrol
+      swayosd
+      qalculate-gtk
+      walker
+    ]);
 
     # Desktop-specific session variables
     home.sessionVariables = {
@@ -25,16 +69,9 @@ with lib;
     home.file."Pictures/Wallpapers/.keep".text = "";
     home.file."Pictures/Screenshots/.keep".text = "";
     
-    # XCompose for special characters
-    home.file.".XCompose".text = ''
-      include "%L"
-      <Multi_key> <e> <m> : "📧"
-      <Multi_key> <h> <e> <a> <r> <t> : "❤️"
-    '';
-    
     # Configure Firefox (package installed by system)
     programs.firefox = {
-      enable = true;
+      # enable = true; # Handled by programs/firefox.nix
       profiles.default = {
         id = 0;
         name = "default";
@@ -51,7 +88,7 @@ with lib;
     
     # Configure Kitty (package installed by system)
     programs.kitty = {
-      enable = true;
+      # enable = true; # Handled by programs/kitty.nix
       font = {
         name = "JetBrainsMono Nerd Font";
         size = 11;
@@ -71,20 +108,10 @@ with lib;
       vimAlias = true;
     };
     
-    # SwayOSD systemd service
-    systemd.user.services.swayosd = {
-      Unit = {
-        Description = "SwayOSD - OSD window for volume and brightness";
-        PartOf = [ "graphical-session.target" ];
-        After = [ "graphical-session.target" ];
-      };
-      Service = {
-        ExecStart = "${pkgs.swayosd}/bin/swayosd-server";
-        Restart = "on-failure";
-      };
-      Install = {
-        WantedBy = [ "graphical-session.target" ];
-      };
-    };
+    # Hyprland specific configurations
+    # These modules (walker, swayosd, xcompose) are imported but we can 
+    # toggle their internal config or enable based on env if we want.
+    # For now, we assume they are safe to have config files present even on KDE,
+    # OR we can wrap them in their respective files.
   };
 }

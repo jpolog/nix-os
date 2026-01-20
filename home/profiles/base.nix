@@ -13,8 +13,7 @@ with lib;
 
     # Essential session variables
     home.sessionVariables = {
-      EDITOR = mkDefault "nvim";
-      VISUAL = mkDefault "nvim";
+      # Basic variables can go here
     };
 
     # Let Home Manager manage itself

@@ -1,7 +1,11 @@
 { config, pkgs, lib, ... }:
 
+with lib;
+
 {
-  programs.firefox = {
-    enable = lib.mkDefault true;
+  config = mkIf config.home.profiles.desktop.enable {
+    programs.firefox = {
+      enable = true;
+    };
   };
 }

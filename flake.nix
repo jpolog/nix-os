@@ -96,7 +96,6 @@
         ./modules/system
         ./modules/desktop
         ./modules/services
-        ./modules/development
         ./modules/profiles  # System-level profiles (base, desktop, development, gaming, server)
 
         # Nix-index database
@@ -123,7 +122,6 @@
             # Shared home-manager modules for all users
             sharedModules = [
               ./home/profiles
-              ./home/hyprland
               ./home/programs
               ./home/services
               ./home/shell

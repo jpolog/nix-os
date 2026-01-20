@@ -1,24 +1,82 @@
-{ config, pkgs, ... }:
+{ pkgs, lib, ... }:
 
-{
-  # Basic user information
-  home.username = "jpolo";
-  home.homeDirectory = "/home/jpolo";
-  home.stateVersion = "25.11";
-
-  # Let Home Manager manage itself
-  programs.home-manager.enable = true;
-
-  # Enable home profiles based on what the user needs
-  home.profiles.base.enable = true;
-  home.profiles.desktop.enable = true;
-  home.profiles.development.enable = true;
-
-  # User-specific git configuration (not in profiles)
-  programs.git.settings = {
-    user = {
-      name = "Javier Polo Gambin";
-      email = "javier.polog@outlook.com";
+let
+  mkUser = (import ./lib.nix { inherit lib; }).mkUser;
+in
+mkUser {
+  username = "jpolo";
+  fullName = "Javier Polo Gambin";
+  email = "javier.polog@outlook.com";
+  
+  profiles = {
+    desktop.enable = true;
+    cli.enable = true;       # Enable CLI tools (Git, Zsh, Neovim)
+    development = {
+      enable = true;
+      editors.vscode.enable = true;
     };
+    creative = {
+      enable = true;
+      video.enable = true;
+    };
+    
+    power-user = {
+      enable = true;
+      productivity.enable = true; # Obsidian, CLI tools
+      cli-utils.enable = true;    # jq, ffmpeg, etc
+      torrenting.enable = true;   # qBittorrent
+    };
+    
+    # Enable Work Profile
+    work = {
+      enable = true;
+      communication = {
+        slack = true;
+        teams = true;
+        zoom = true;
+      };
+    };
+    
+    personal = {
+      enable = true;
+      
+      # Selective Media
+      media = {
+        enable = true;
+        spotify = false;    # I use Plexamp
+        plexamp = true;
+        plex = true;        # Added Plex Desktop
+        vlc = true;
+        mpv = true;
+      };
+      
+      # Selective Office
+      office.enable = false; # I don't use LibreOffice
+      
+      # Productivity (Basic)
+      productivity = {
+        enable = true;
+        bitwarden = true;
+        syncthing = true;
+      };
+      
+      # General Tools
+      tools = {
+        enable = true;
+        image-editing = true;
+        screenshot = true;
+        video-tools = true;
+      };
+
+      communication.enable = true;
+    };
+  };
+  
+  extraConfig = {
+    # User-specific shell configuration
+    imports = [
+      ../shell
+      ../services
+    ];
   };
 }

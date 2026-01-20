@@ -1,22 +1,33 @@
 { config, lib, pkgs, ... }:
 
+with lib;
+
+let
+  cfg = config.modules.system.ssh;
+in
 {
-  # SSH Server
-  services.openssh = {
-    enable = true;
-    settings = {
-      PermitRootLogin = lib.mkDefault "yes";  # Secure default, but can be overridden
-      PasswordAuthentication = true;
-      PubkeyAuthentication = true;
-    };
+  options.modules.system.ssh = {
+    enable = mkEnableOption "SSH server" // { default = true; };
   };
 
-  # SSH and SFTP packages
-  environment.systemPackages = with pkgs; [
-    openssh
-    sshfs
-  ];
+  config = mkIf cfg.enable {
+    # SSH Server
+    services.openssh = {
+      enable = true;
+      settings = {
+        PermitRootLogin = lib.mkDefault "yes";  # Secure default, but can be overridden
+        PasswordAuthentication = true;
+        PubkeyAuthentication = true;
+      };
+    };
 
-  # Open SSH port in firewall
-  networking.firewall.allowedTCPPorts = [ 22 ];
+    # SSH and SFTP packages
+    environment.systemPackages = with pkgs; [
+      openssh
+      sshfs
+    ];
+
+    # Open SSH port in firewall
+    networking.firewall.allowedTCPPorts = [ 22 ];
+  };
 }

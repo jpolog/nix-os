@@ -9,9 +9,23 @@ with lib;
     graphics.enable = mkEnableOption "graphics tools (GIMP, Inkscape, etc.)" // { default = true; };
     video.enable = mkEnableOption "video editing and recording tools";
     audio.enable = mkEnableOption "audio production tools";
+    
+    web = {
+      enable = mkEnableOption "creative web apps" // { default = true; };
+    };
   };
 
   config = mkIf config.home.profiles.creative.enable {
+    # Enable Creative Web Apps
+    programs.web-apps = mkIf config.home.profiles.creative.web.enable {
+      enable = true;
+      apps = {
+        figma = true;
+        canva = true;
+        excalidraw = true;
+      };
+    };
+
     home.packages = with pkgs;
       # Graphics tools
       (optionals config.home.profiles.creative.graphics.enable [

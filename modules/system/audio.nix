@@ -1,29 +1,39 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
+with lib;
+
+let
+  cfg = config.modules.system.audio;
+in
 {
-  # PipeWire - Modern audio system
-  security.rtkit.enable = true;
-  
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    jack.enable = true;
-    
-    wireplumber.enable = true;
+  options.modules.system.audio = {
+    enable = mkEnableOption "Audio (PipeWire)";
   };
 
-  # Audio packages
-  environment.systemPackages = with pkgs; [
-    pavucontrol
-    pulseaudio  # For pactl and pacmd
-    pamixer
-    playerctl
-    easyeffects
-  ];
+  config = mkIf cfg.enable {
+    # PipeWire - Modern audio system
+    security.rtkit.enable = true;
+    
+    services.pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+      jack.enable = true;
+      
+      wireplumber.enable = true;
+    };
 
-  # Disable PulseAudio (PipeWire replaces it)
-  # Note: hardware.pulseaudio renamed to services.pulseaudio in NixOS 24.11+
-  services.pulseaudio.enable = false;
+    # Audio packages
+    environment.systemPackages = with pkgs; [
+      pavucontrol
+      pulseaudio  # For pactl and pacmd
+      pamixer
+      playerctl
+      easyeffects
+    ];
+
+    # Disable PulseAudio (PipeWire replaces it)
+    services.pulseaudio.enable = false;
+  };
 }

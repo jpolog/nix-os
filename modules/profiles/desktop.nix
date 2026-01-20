@@ -3,83 +3,37 @@
 with lib;
 
 {
-  # Import desktop modules at top level
   imports = [
     ../desktop
   ];
 
   options.profiles.desktop = {
     enable = mkEnableOption "desktop environment profile";
+    
+    environment = mkOption {
+      type = types.enum [ "hyprland" "kde" ];
+      default = "hyprland";
+      description = "Desktop environment to use";
+    };
   };
 
   config = mkIf config.profiles.desktop.enable {
-    # Install desktop packages
+    modules.system.audio.enable = true;
+    modules.system.bluetooth.enable = true;
+
+    # ONLY System-level essentials
+    # Things that are hard to run without or that everyone expects as "The OS"
     environment.systemPackages = with pkgs; [
-      # Browsers
-      firefox
-      chromium
-      
-      # Terminals
-      kitty
-      alacritty
-      
-      # Editors
-      neovim
-      
-      # File managers
-      thunar
-      thunar-volman
-      thunar-archive-plugin
-      ranger
-      yazi
-      
-      # Document viewers
-      zathura
-      
-      # Image viewers
-      imv
-      feh
-      
-      # Wayland utilities
-      wl-clipboard
-      cliphist
-      hyprpicker
-      brightnessctl
-      
-      # Screenshots
-      grim
-      slurp
-      grimblast
-      swappy
-      
-      # Password managers
-      bitwarden-desktop
-      
-      # Network
-      networkmanagerapplet
-      blueman
-      
-      # Audio control
-      pavucontrol
-      pwvucontrol
-      
-      # OSD
-      swayosd
-      
-      # Office suite
-      libreoffice-fresh
-      
-      # Note taking
-      obsidian
-      
-      # Calculator
-      qalculate-gtk
-      
-      # System info
+      # Standard system tools
       fastfetch
-      
-      # App launcher
-      walker
-    ];
+      vim # Emergency editor
+      wget
+      curl
+      pavucontrol # Audio GUI
+    ] ++ (optionals (config.profiles.desktop.environment == "hyprland") [
+      # Hyprland infrastructure (needs to be system-level for suid/etc)
+      brightnessctl
+      networkmanagerapplet
+    ]);
   };
 }

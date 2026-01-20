@@ -1,9 +1,13 @@
 { config, pkgs, lib, ... }:
 
+with lib;
+
 {
-  programs.kitty = {
-    enable = lib.mkDefault true;
-    font.name = "JetBrainsMono Nerd Font";
-    font.size = 11;
+  config = mkIf config.home.profiles.desktop.enable {
+    programs.kitty = {
+      enable = true;
+      font.name = "JetBrainsMono Nerd Font";
+      font.size = 11;
+    };
   };
 }

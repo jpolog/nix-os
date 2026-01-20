@@ -11,7 +11,7 @@
     ./optimization.nix
     ./secrets.nix
     ./scripts.nix
-    ./power-user.nix
+    ./perf-tuning.nix
     #./gaming-isolated.nix
     ./virtualization.nix
     ./port-management.nix

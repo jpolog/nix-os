@@ -1,10 +1,13 @@
 { config, pkgs, lib, ... }:
 
+with lib;
+
 {
-  # SwayOSD - OSD window for volume and brightness
-  home.packages = with pkgs; [
-    swayosd
-  ];
+  config = mkIf config.home.profiles.desktop.enable {
+    # SwayOSD - OSD window for volume and brightness
+    home.packages = with pkgs; [
+      swayosd
+    ];
 
     # SwayOSD service
     systemd.user.services.swayosd = {
@@ -23,4 +26,5 @@
         WantedBy = [ "graphical-session.target" ];
       };
     };
+  };
 }

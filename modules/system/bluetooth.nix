@@ -1,25 +1,36 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
+with lib;
+
+let
+  cfg = config.modules.system.bluetooth;
+in
 {
-  # Bluetooth support
-  hardware.bluetooth = {
-    enable = true;
-    powerOnBoot = true;
-    settings = {
-      General = {
-        Enable = "Source,Sink,Media,Socket";
-        Experimental = true;
-      };
-    };
+  options.modules.system.bluetooth = {
+    enable = mkEnableOption "Bluetooth";
   };
 
-  # Bluez service
-  services.blueman.enable = true;
+  config = mkIf cfg.enable {
+    # Bluetooth support
+    hardware.bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+      settings = {
+        General = {
+          Enable = "Source,Sink,Media,Socket";
+          Experimental = true;
+        };
+      };
+    };
 
-  # Bluetooth packages
-  environment.systemPackages = with pkgs; [
-    bluez
-    bluez-tools
-    blueman
-  ];
+    # Bluez service
+    services.blueman.enable = true;
+
+    # Bluetooth packages
+    environment.systemPackages = with pkgs; [
+      bluez
+      bluez-tools
+      blueman
+    ];
+  };
 }
