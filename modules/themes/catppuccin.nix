@@ -5,8 +5,8 @@
     stylix = {
       enable = true;
       image = pkgs.fetchurl {
-        url = "https://raw.githubusercontent.com/zhuyu4839/wallpaper/main/wallpapers/33.jpg";
-        sha256 = "1212269557452636735515228515573489814421528628315152562557426177";
+        url = "https://raw.githubusercontent.com/catppuccin/wallpapers/main/landscapes/forest.jpg";
+        sha256 = lib.fakeSha256;
       };
       
       base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";

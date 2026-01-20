@@ -4,11 +4,9 @@
   config = lib.mkIf (config.themes.active == "rose-pine") {
     stylix = {
       enable = true;
-      # Note: For production use, verify the sha256 or use a local file
       image = pkgs.fetchurl {
-        url = "https://raw.githubusercontent.com/zhuyu4839/wallpaper/main/wallpapers/33.jpg"; 
-        sha256 = "1212269557452636735515228515573489814421528628315152562557426177";
-        # Using same wallpaper as placeholder to avoid fetch error on build without valid hash for rose-pine
+        url = "https://raw.githubusercontent.com/rose-pine/wallpapers/main/rose-pine-moon.jpg";
+        sha256 = lib.fakeSha256;
       };
       
       base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine.yaml";

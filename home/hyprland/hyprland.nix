@@ -27,7 +27,6 @@ with lib;
           "hypridle"
           "mako"
           "fcitx5"
-          # "hyprpaper" # Managed by Stylix
           "swayosd-server"
           "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
           "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
@@ -275,15 +274,7 @@ with lib;
               "SUPER, mouse:273, resizewindow"
          ];
          
-         # Window Rules
-         windowrule = [
-              "opacity 0.97 0.9, ^(.*)$"
-              "float, ^(pavucontrol)$"
-              "float, ^(blueman-manager)$"
-              "float, ^(nm-connection-editor)$"
-              "float, ^(org.gnome.Calculator)$"
-              "float, ^(qalculate-gtk)$"
-         ];
+
 
        };
      };

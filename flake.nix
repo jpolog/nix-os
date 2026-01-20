@@ -48,8 +48,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    stylix.url = "github:danth/stylix";
-
     # Nix-index for command-not-found
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
@@ -116,12 +114,6 @@
 
         # Secrets management
         sops-nix.nixosModules.sops
-
-        # Stylix (Theming)
-        inputs.stylix.nixosModules.stylix
-        
-        # Themes Module
-        ./modules/themes
 
         # Apply overlays
         { nixpkgs.overlays = overlays; }

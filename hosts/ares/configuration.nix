@@ -98,7 +98,7 @@
   # profiles.style.enable = true;     # Replaced by themes.active below
   
   # Active Theme
-  themes.active = "catppuccin";
+  # themes.active = "thinknix"; # Disabled as Stylix/Themes module removed
   
   profiles.development.enable = true; # Development tools
   profiles.gaming.enable = true;      # Gaming infrastructure (drivers, isolated user)

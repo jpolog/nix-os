@@ -69,6 +69,15 @@ with lib;
     home.file."Pictures/Wallpapers/.keep".text = "";
     home.file."Pictures/Screenshots/.keep".text = "";
     
+    # Configure Cursor Theme
+    home.pointerCursor = {
+      gtk.enable = true;
+      x11.enable = true;
+      package = pkgs.bibata-cursors;
+      name = "Bibata-Modern-Classic";
+      size = 24;
+    };
+    
     # Configure Firefox (package installed by system)
     programs.firefox = {
       # enable = true; # Handled by programs/firefox.nix
