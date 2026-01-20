@@ -89,12 +89,8 @@ with lib;
     # Configure Kitty (package installed by system)
     programs.kitty = {
       # enable = true; # Handled by programs/kitty.nix
-      font = {
-        name = "JetBrainsMono Nerd Font";
-        size = 11;
-      };
+      # Font settings handled by Stylix
       settings = {
-        background_opacity = "0.95";
         enable_audio_bell = false;
         confirm_os_window_close = 0;
       };

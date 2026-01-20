@@ -36,7 +36,7 @@ with lib;
       ++
       # Video tools
       (optionals config.home.profiles.creative.video.enable [
-        kdenlive
+        kdePackages.kdenlive
         obs-studio
         wf-recorder
       ])

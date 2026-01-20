@@ -34,10 +34,9 @@ in
       # System & Disk
       (optionals cfg.system.enable [
         qdirstat
-        filelight
+        kdePackages.filelight
         gparted
         cpu-x
-        hardinfo
         btop
         virt-manager
         krusader

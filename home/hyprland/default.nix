@@ -3,8 +3,8 @@
 {
   imports = [
     ./hyprland.nix
-    ./waybar.nix
     ./hypridle.nix
     ./hyprlock.nix
+    ./noctalia.nix # TODO: Add Noctalia configuration
   ];
 }

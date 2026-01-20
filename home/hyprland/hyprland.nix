@@ -14,346 +14,278 @@ with lib;
       ];
       
       settings = {
-        # Plugin configuration
-        plugin = {
-          # Hyprscroller - available on all workspaces
-          scroller = {
-            column_default_width = "onehalf";
-            focus_wrap = false;
-            # Make it work on all workspaces
-            monitor = "";
-          };
-        };
-        
-        # Monitor configuration
+        # Monitors
         monitor = [
-          "eDP-1,2880x1800@90,0x0,1.5"
+          "HDMI-A-1,1920x1080@60,1920x0,1"
+          "DP-1,1920x1080@60,1920x0,1"
+          "DP-2,1920x1080@60,3840x0,1,transform,1"
           ",preferred,auto,1"
         ];
         
-        # Workspace configuration
-        workspace = [
-          "1, monitor:eDP-1, default:true"
-          "2, monitor:eDP-1"
-          "3, monitor:eDP-1"
-          "4, monitor:eDP-1"
-          "5, monitor:eDP-1"
-          "6, monitor:eDP-1"
-          "7, monitor:eDP-1"
-          "8, monitor:eDP-1"
-          "9, monitor:eDP-1"
-        ];
-        
-        # Execute at launch
+        # Exec-once
         exec-once = [
-          "waybar"
-          "mako"
           "hypridle"
-          "hyprpaper"
-          "nm-applet --indicator"
-          "blueman-applet"
+          "mako"
+          "fcitx5"
+          # "hyprpaper" # Managed by Stylix
+          "swayosd-server"
+          "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
           "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
           "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+          "nm-applet --indicator"
+          "blueman-applet"
+          "hyprpm reload -n"
         ];
-        
-        # Environment variables
+
+        # Environment
         env = [
           "XCURSOR_SIZE,24"
           "HYPRCURSOR_SIZE,24"
-          "QT_QPA_PLATFORM,wayland"
-          "QT_QPA_PLATFORMTHEME,qt5ct"
-          "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
-          "QT_AUTO_SCREEN_SCALE_FACTOR,1"
+          "GDK_BACKEND,wayland,x11,*"
+          "QT_QPA_PLATFORM,wayland;xcb"
+          "QT_STYLE_OVERRIDE,kvantum"
+          "SDL_VIDEODRIVER,wayland"
           "MOZ_ENABLE_WAYLAND,1"
-          "GDK_BACKEND,wayland,x11"
+          "ELECTRON_OZONE_PLATFORM_HINT,wayland"
+          "OZONE_PLATFORM,wayland"
+          "XDG_SESSION_TYPE,wayland"
+          "XDG_CURRENT_DESKTOP,Hyprland"
+          "XDG_SESSION_DESKTOP,Hyprland"
+          "XCOMPOSEFILE,~/.XCompose"
+          "GUM_CONFIRM_PROMPT_FOREGROUND,6"
+          "GUM_CONFIRM_SELECTED_FOREGROUND,0"
+          "GUM_CONFIRM_SELECTED_BACKGROUND,2"
+          "GUM_CONFIRM_UNSELECTED_FOREGROUND,0"
+          "GUM_CONFIRM_UNSELECTED_BACKGROUND,8"
         ];
-        
-        # Input configuration
-        input = {
-          kb_layout = "us";
-          kb_variant = "";
-          kb_model = "";
-          kb_options = "";
-          kb_rules = "";
-          
-          follow_mouse = 1;
-          sensitivity = 0;
-          accel_profile = "adaptive";
-          
-          touchpad = {
-            natural_scroll = true;
-            disable_while_typing = true;
-            tap-to-click = true;
-            drag_lock = true;
-            scroll_factor = 0.5;
-          };
-        };
-        
-        # Gestures
-        gestures = {
-          workspace_swipe = true;
-          workspace_swipe_fingers = 3;
-          workspace_swipe_distance = 300;
-          workspace_swipe_invert = true;
-          workspace_swipe_min_speed_to_force = 30;
-          workspace_swipe_cancel_ratio = 0.5;
-          workspace_swipe_create_new = true;
-          workspace_swipe_forever = false;
-        };
-        
-        # General settings
+
+        # General
         general = {
           gaps_in = 5;
           gaps_out = 10;
           border_size = 2;
-          
-          # Catppuccin Mocha colors
-          "col.active_border" = "rgba(89b4faee) rgba(cba6f7ee) 45deg";
-          "col.inactive_border" = "rgba(313244aa)";
-          
-          layout = "scrolling";  # Use hyprscrolling
+          resize_on_border = false;
           allow_tearing = false;
+          layout = "scrolling";
         };
-        
+
         # Decoration
         decoration = {
-          rounding = 8;
+          rounding = 3;
+          active_opacity = 0.9;
+          inactive_opacity = 0.9;
           
-          active_opacity = 1.0;
-          inactive_opacity = 0.95;
-          fullscreen_opacity = 1.0;
-          
-          drop_shadow = true;
-          shadow_range = 20;
-          shadow_render_power = 3;
-          "col.shadow" = "rgba(1a1a1aee)";
-          
+          shadow = {
+             enabled = true;
+             range = 2;
+             render_power = 3;
+          };
+
           blur = {
-            enabled = true;
-            size = 6;
-            passes = 3;
-            new_optimizations = true;
-            xray = false;
-            ignore_opacity = false;
-            noise = 0.0117;
-            contrast = 0.8916;
-            brightness = 0.8172;
-            vibrancy = 0.1696;
-            vibrancy_darkness = 0.0;
-            popups = true;
-            popups_ignorealpha = 0.2;
+             enabled = true;
+             size = 2;
+             passes = 2;
+             special = true;
+             brightness = 0.60;
+             contrast = 0.75;
           };
         };
-        
+
         # Animations
         animations = {
           enabled = true;
-          
           bezier = [
-            "wind, 0.05, 0.9, 0.1, 1.05"
-            "winIn, 0.1, 1.1, 0.1, 1.1"
-            "winOut, 0.3, -0.3, 0, 1"
-            "liner, 1, 1, 1, 1"
-            "linear, 0.0, 0.0, 1.0, 1.0"
+            "easeOutQuint,0.23,1,0.32,1"
+            "easeInOutCubic,0.65,0.05,0.36,1"
+            "linear,0,0,1,1"
+            "almostLinear,0.5,0.5,0.75,1.0"
+            "quick,0.15,0,0.1,1"
           ];
-          
           animation = [
-            "windows, 1, 6, wind, slide"
-            "windowsIn, 1, 6, winIn, slide"
-            "windowsOut, 1, 5, winOut, slide"
-            "windowsMove, 1, 5, wind, slide"
-            "border, 1, 1, liner"
-            "borderangle, 1, 180, liner, loop"
-            "fade, 1, 10, default"
-            "workspaces, 1, 5, wind"
-            "specialWorkspace, 1, 5, wind, slidevert"
+            "global, 1, 10, default"
+            "border, 1, 5.39, easeOutQuint"
+            "windows, 1, 4.79, easeOutQuint"
+            "windowsIn, 1, 4.1, easeOutQuint, popin 87%"
+            "windowsOut, 1, 1.49, linear, popin 87%"
+            "fadeIn, 1, 1.73, almostLinear"
+            "fadeOut, 1, 1.46, almostLinear"
+            "fade, 1, 3.03, quick"
+            "layers, 1, 3.81, easeOutQuint"
+            "layersIn, 1, 4, easeOutQuint, fade"
+            "layersOut, 1, 1.5, linear, fade"
+            "fadeLayersIn, 1, 1.79, almostLinear"
+            "fadeLayersOut, 1, 1.39, almostLinear"
+            "workspaces, 0, 0, ease"
           ];
         };
-        
-        # Layout-specific settings
-        dwindle = {
-          pseudotile = true;
-          preserve_split = true;
-          smart_split = false;
-          smart_resizing = true;
+
+        # Input
+        input = {
+          kb_layout = "us,es";
+          kb_options = "altwin:swap_alt_win,grp:alt_shift_toggle,compose:caps";
+          numlock_by_default = true;
+          repeat_rate = 40;
+          repeat_delay = 600;
+          touchpad = {
+            natural_scroll = false;
+            scroll_factor = 0.4;
+          };
+          sensitivity = 0;
+        };
+
+        # Plugin Settings
+        plugin = {
+          hyprscrolling = {
+            column_width = 0.5;
+            fullscreen_on_one_column = false;
+            focus_fit_method = 1;
+            follow_focus = true;
+          };
         };
         
-        master = {
-          new_is_master = true;
-          new_on_top = false;
-          mfact = 0.5;
-        };
-        
-        # Miscellaneous
+        # Misc
         misc = {
-          disable_hyprland_logo = true;
-          disable_splash_rendering = true;
-          mouse_move_enables_dpms = true;
-          key_press_enables_dpms = true;
-          vrr = 1;
-          enable_swallow = true;
-          swallow_regex = "^(kitty)$";
-          focus_on_activate = true;
-          animate_manual_resizes = true;
-          animate_mouse_windowdragging = true;
-          render_ahead_of_time = false;
-          render_ahead_safezone = 1;
+           disable_hyprland_logo = true;
+           disable_splash_rendering = true;
+           focus_on_activate = true;
+           key_press_enables_dpms = true;
+           mouse_move_enables_dpms = true;
+           anr_missed_pings = 3;
+        };
+
+        # Group
+        group = {
+          groupbar = {
+             height = 22;
+          };
         };
         
-        # XWayland
-        xwayland = {
-          force_zero_scaling = true;
-        };
-        
+        # Variables
+        "$osdclient" = "swayosd-client --monitor \"$(hyprctl monitors -j | jq -r '.[] | select(.focused == true).name')\"";
+        "$terminal" = "kitty";
+        "$browser" = "firefox";
+
         # Bindings
-        "$mod" = "SUPER";
-        
         bind = [
-          # Application launchers
-          "$mod, Return, exec, kitty"
-          "$mod, R, exec, walker"
-          "$mod, E, exec, thunar"
-          "$mod, B, exec, firefox"
-          
-          # Window management
-          "$mod, Q, killactive"
-          "$mod, F, fullscreen, 0"
-          "$mod SHIFT, F, fullscreen, 1"
-          "$mod, Space, togglefloating"
-          "$mod, P, pseudo"
-          "$mod, S, togglesplit"
-          
-          # Focus movement (vim keys)
-          "$mod, h, movefocus, l"
-          "$mod, l, movefocus, r"
-          "$mod, k, movefocus, u"
-          "$mod, j, movefocus, d"
-          
-          # Move windows (vim keys)
-          "$mod SHIFT, h, movewindow, l"
-          "$mod SHIFT, l, movewindow, r"
-          "$mod SHIFT, k, movewindow, u"
-          "$mod SHIFT, j, movewindow, d"
-          
-          # Hyprscroller specific bindings
-          "$mod, bracketleft, scroller:movefocus, l"
-          "$mod, bracketright, scroller:movefocus, r"
-          "$mod SHIFT, bracketleft, scroller:movewindow, l"
-          "$mod SHIFT, bracketright, scroller:movewindow, r"
-          "$mod CTRL, bracketleft, scroller:setmode, row"
-          "$mod CTRL, bracketright, scroller:setmode, col"
-          "$mod, C, scroller:alignwindow, c"
-          "$mod, M, scroller:alignwindow, m"
-          
-          # Workspace switching
-          "$mod, 1, workspace, 1"
-          "$mod, 2, workspace, 2"
-          "$mod, 3, workspace, 3"
-          "$mod, 4, workspace, 4"
-          "$mod, 5, workspace, 5"
-          "$mod, 6, workspace, 6"
-          "$mod, 7, workspace, 7"
-          "$mod, 8, workspace, 8"
-          "$mod, 9, workspace, 9"
-          "$mod, 0, workspace, 10"
-          
-          # Move to workspace
-          "$mod SHIFT, 1, movetoworkspace, 1"
-          "$mod SHIFT, 2, movetoworkspace, 2"
-          "$mod SHIFT, 3, movetoworkspace, 3"
-          "$mod SHIFT, 4, movetoworkspace, 4"
-          "$mod SHIFT, 5, movetoworkspace, 5"
-          "$mod SHIFT, 6, movetoworkspace, 6"
-          "$mod SHIFT, 7, movetoworkspace, 7"
-          "$mod SHIFT, 8, movetoworkspace, 8"
-          "$mod SHIFT, 9, movetoworkspace, 9"
-          "$mod SHIFT, 0, movetoworkspace, 10"
-          
-          # Special workspace (scratchpad)
-          "$mod, grave, togglespecialworkspace, magic"
-          "$mod SHIFT, grave, movetoworkspace, special:magic"
-          
-          # Scroll through workspaces
-          "$mod, mouse_down, workspace, e+1"
-          "$mod, mouse_up, workspace, e-1"
-          
-          # Screenshots
-          ", Print, exec, grimblast copy area"
-          "SHIFT, Print, exec, grimblast copy screen"
-          "CTRL, Print, exec, grimblast save area ~/Pictures/Screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png"
-          
-          # Screen lock
-          "$mod, L, exec, hyprlock"
-          
-          # System controls
-          "$mod SHIFT, Escape, exec, systemctl poweroff"
-          "$mod SHIFT, R, exec, systemctl reboot"
-          "$mod CTRL, L, exec, systemctl suspend"
-          
-          # Reload Hyprland
-          "$mod SHIFT, C, exec, hyprctl reload"
-          
-          # Exit Hyprland
-          "$mod SHIFT, Q, exit"
+             # Apps
+             "SUPER, RETURN, exec, $terminal"
+             "SUPER SHIFT, F, exec, nautilus --new-window"
+             "SUPER, B, exec, $browser"
+             "SUPER ALT, B, exec, $browser --private"
+             "SUPER, D, exec, $terminal -e lazydocker"
+             "SUPER, K, exec, kitty -e btop"
+             "SUPER SHIFT, T, exec, $terminal -e btop"
+             
+             # Menus
+             "SUPER, SPACE, exec, walker"
+             "SUPER ALT, SPACE, exec, wlogout"
+             "SUPER, ESCAPE, exec, wlogout"
+             
+             # Clipboard
+             "SUPER, C, sendshortcut, CTRL, Insert,"
+             "SUPER, V, sendshortcut, SHIFT, Insert,"
+             "SUPER, X, sendshortcut, CTRL, X,"
+             "SUPER CTRL, V, exec, walker -m clipboard"
+
+             # Window Management
+             "SUPER, W, killactive,"
+             "CTRL ALT, DELETE, exit,"
+             "SUPER, T, togglefloating,"
+             "SUPER, F, fullscreen, 0"
+             "SUPER ALT, F, fullscreen, 1"
+             
+             # Scrolling Layout Specific
+             "SUPER, period, layoutmsg, move +col"
+             "SUPER, comma, layoutmsg, move -col"
+             "SUPER, equal, layoutmsg, colresize +0.2"
+             "SUPER, minus, layoutmsg, colresize -0.2"
+
+             # Focus
+             "SUPER, LEFT, movefocus, l"
+             "SUPER, RIGHT, movefocus, r"
+             "SUPER, UP, movefocus, u"
+             "SUPER, DOWN, movefocus, d"
+             "SUPER, H, movefocus, l"
+             "SUPER, L, movefocus, r"
+             "SUPER, J, movefocus, d"
+             "SUPER, K, movefocus, u"
+             
+             # Workspaces
+             "SUPER, 1, workspace, 1"
+             "SUPER, 2, workspace, 2"
+             "SUPER, 3, workspace, 3"
+             "SUPER, 4, workspace, 4"
+             "SUPER, 5, workspace, 5"
+             "SUPER, 6, workspace, 6"
+             "SUPER, 7, workspace, 7"
+             "SUPER, 8, workspace, 8"
+             "SUPER, 9, workspace, 9"
+             "SUPER, 0, workspace, 10"
+             
+             # Move to workspace
+             "SUPER SHIFT, 1, movetoworkspace, 1"
+             "SUPER SHIFT, 2, movetoworkspace, 2"
+             "SUPER SHIFT, 3, movetoworkspace, 3"
+             "SUPER SHIFT, 4, movetoworkspace, 4"
+             "SUPER SHIFT, 5, movetoworkspace, 5"
+             "SUPER SHIFT, 6, movetoworkspace, 6"
+             "SUPER SHIFT, 7, movetoworkspace, 7"
+             "SUPER SHIFT, 8, movetoworkspace, 8"
+             "SUPER SHIFT, 9, movetoworkspace, 9"
+             "SUPER SHIFT, 0, movetoworkspace, 10"
+
+             # Scratchpad
+             "SUPER, S, togglespecialworkspace, scratchpad"
+             "SUPER ALT, S, movetoworkspacesilent, special:scratchpad"
+
+             # Groups
+             "SUPER, G, togglegroup"
+             "SUPER ALT, G, moveoutofgroup"
+             "SUPER ALT, LEFT, moveintogroup, l"
+             "SUPER ALT, RIGHT, moveintogroup, r"
+             "SUPER ALT, UP, moveintogroup, u"
+             "SUPER ALT, DOWN, moveintogroup, d"
+             "SUPER ALT, TAB, changegroupactive, f"
+             
+             # Screenshot
+             ", PRINT, exec, grimblast copy area"
+             "SHIFT, PRINT, exec, grimblast copy screen"
         ];
         
-        # Mouse bindings
-        bindm = [
-          "$mod, mouse:272, movewindow"
-          "$mod, mouse:273, resizewindow"
-        ];
-        
-        # Repeat bindings for resize
-        binde = [
-          # Resize windows
-          "$mod CTRL, h, resizeactive, -40 0"
-          "$mod CTRL, l, resizeactive, 40 0"
-          "$mod CTRL, k, resizeactive, 0 -40"
-          "$mod CTRL, j, resizeactive, 0 40"
-          
-          # Volume control
-          ", XF86AudioRaiseVolume, exec, swayosd-client --output-volume raise"
-          ", XF86AudioLowerVolume, exec, swayosd-client --output-volume lower"
-          ", XF86AudioMute, exec, swayosd-client --output-volume mute-toggle"
-          ", XF86AudioMicMute, exec, swayosd-client --input-volume mute-toggle"
-          
-          # Brightness control
-          ", XF86MonBrightnessUp, exec, swayosd-client --brightness raise"
-          ", XF86MonBrightnessDown, exec, swayosd-client --brightness lower"
-        ];
-        
-        # Window rules
-        windowrule = [
-          "float, ^(pavucontrol)$"
-          "float, ^(blueman-manager)$"
-          "float, ^(nm-connection-editor)$"
-          "float, ^(org.gnome.Calculator)$"
-          "float, ^(qalculate-gtk)$"
-          
-          "opacity 0.95 0.95, ^(thunar)$"
-          "opacity 0.95 0.95, ^(code)$"
-          
-          "workspace special:magic silent, ^(Spotify)$"
-          "workspace special:magic silent, ^(discord)$"
-        ];
-        
-        windowrulev2 = [
-          "float, class:^(.*)(qalculate-gtk)(.*)$"
-          "size 800 600, class:^(.*)(qalculate-gtk)(.*)$"
-          "center, class:^(.*)(qalculate-gtk)(.*)$"
-          
-          "opacity 0.0 override 0.0 override, class:^(xwaylandvideobridge)$"
-          "noanim, class:^(xwaylandvideobridge)$"
-          "nofocus, class:^(xwaylandvideobridge)$"
-          "noinitialfocus, class:^(xwaylandvideobridge)$"
-          
-          # Picture-in-picture
-          "float, title:^(Picture-in-Picture)$"
-          "pin, title:^(Picture-in-Picture)$"
-          "size 640 360, title:^(Picture-in-Picture)$"
-          "move 1230 690, title:^(Picture-in-Picture)$"
-        ];
-      };
-    };
-  };
-}
+        bindel = [
+             ",XF86AudioRaiseVolume, exec, $osdclient --output-volume raise"
+             ",XF86AudioLowerVolume, exec, $osdclient --output-volume lower"
+             ",XF86AudioMute, exec, $osdclient --output-volume mute-toggle"
+             ",XF86AudioMicMute, exec, $osdclient --input-volume mute-toggle"
+             ",XF86MonBrightnessUp, exec, $osdclient --brightness raise"
+             ",XF86MonBrightnessDown, exec, $osdclient --brightness lower"
+             "ALT, XF86AudioRaiseVolume, exec, $osdclient --output-volume +1"
+             "ALT, XF86AudioLowerVolume, exec, $osdclient --output-volume -1"
+         ];
+         
+         bindl = [
+              ", XF86AudioNext, exec, $osdclient --playerctl next"
+              ", XF86AudioPause, exec, $osdclient --playerctl play-pause"
+              ", XF86AudioPlay, exec, $osdclient --playerctl play-pause"
+              ", XF86AudioPrev, exec, $osdclient --playerctl previous"
+         ];
+         
+         bindm = [
+              "SUPER, mouse:272, movewindow"
+              "SUPER, mouse:273, resizewindow"
+         ];
+         
+         # Window Rules
+         windowrule = [
+              "opacity 0.97 0.9, ^(.*)$"
+              "float, ^(pavucontrol)$"
+              "float, ^(blueman-manager)$"
+              "float, ^(nm-connection-editor)$"
+              "float, ^(org.gnome.Calculator)$"
+              "float, ^(qalculate-gtk)$"
+         ];
+
+       };
+     };
+   };
+ }

@@ -69,7 +69,7 @@ in
       # Media
       (optionals cfg.media.spotify [ spotify ]) ++
       (optionals cfg.media.plexamp [ plexamp ]) ++
-      (optionals cfg.media.plex [ plex-media-player ]) ++
+      (optionals cfg.media.plex [ plex-desktop ]) ++
       (optionals cfg.media.vlc [ vlc ]) ++
       (optionals cfg.media.mpv [ mpv ]) ++
       

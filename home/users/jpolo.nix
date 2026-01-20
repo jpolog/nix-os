@@ -43,9 +43,9 @@ mkUser {
       # Selective Media
       media = {
         enable = true;
-        spotify = false;    # I use Plexamp
+        spotify = false;
         plexamp = true;
-        plex = true;        # Added Plex Desktop
+        plex = true;
         vlc = true;
         mpv = true;
       };

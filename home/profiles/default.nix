@@ -11,6 +11,5 @@
     ./creative.nix
     ./personal.nix
     ./gaming.nix
-    ./web-apps.nix
   ];
 }

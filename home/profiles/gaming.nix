@@ -27,10 +27,8 @@ in
       
       # Wine / Proton
       (optionals cfg.wine.enable [
-        wine
-        wine64
+        wineWowPackages.stable
         winetricks
-        proton-caller
       ]) ++
       
       # Lutris
@@ -54,8 +52,5 @@ in
         mangohud
         gamemode
       ]);
-    
-    # Allow unfree for Steam
-    nixpkgs.config.allowUnfree = true;
   };
 }

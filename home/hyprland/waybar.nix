@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 with lib;
 
@@ -10,130 +10,198 @@ with lib;
       
       settings = {
         mainBar = {
-          layer = "top";
-          position = "top";
-          height = 35;
-          spacing = 4;
-
-          modules-left = [ 
-            "hyprland/workspaces" 
-            "hyprland/window" 
+          "reload_style_on_change" = true;
+          "layer" = "top";
+          "position" = "top";
+          "spacing" = 0;
+          "height" = 26;
+          
+          "modules-left" = [
+            "custom/menu"
+            "hyprland/workspaces"
           ];
           
-          modules-center = [ 
-            "clock" 
+          "modules-center" = [
+            "clock"
+            "custom/update"
+            "custom/screenrecording-indicator"
           ];
           
-          modules-right = [ 
-            "tray"
-            "idle_inhibitor"
-            "pulseaudio"
-            "network"
+          "modules-right" = [
+            "group/tray-expander"
             "bluetooth"
+            "network"
+            "pulseaudio"
+            "cpu"
             "battery"
-            "backlight"
           ];
 
           "hyprland/workspaces" = {
-            disable-scroll = false;
-            all-outputs = true;
-            warp-on-scroll = false;
-            format = "{icon}";
-            format-icons = {
-              "1" = "一";
-              "2" = "二";
-              "3" = "三";
-              "4" = "四";
-              "5" = "五";
-              "6" = "六";
-              "7" = "七";
-              "8" = "八";
-              "9" = "九";
-              "10" = "十";
-              urgent = "";
-              focused = "";
-              default = "";
+            "on-click" = "activate";
+            "format" = "{icon}";
+            "format-icons" = {
+              "default" = "";
+              "1" = "1";
+              "2" = "2";
+              "3" = "3";
+              "4" = "4";
+              "5" = "5";
+              "6" = "6";
+              "7" = "7";
+              "8" = "8";
+              "9" = "9";
+              "10" = "0";
+              "active" = "󱓻";
+            };
+            "persistent-workspaces" = {
+              "1" = [];
+              "2" = [];
+              "3" = [];
+              "4" = [];
+              "5" = [];
             };
           };
 
-          "hyprland/window" = {
-            format = "{}";
-            max-length = 50;
-            separate-outputs = true;
+          "custom/menu" = {
+            "format" = "󱓻"; # Close to the icon provided
+            "on-click" = "walker";
+            "on-click-right" = "kitty";
+            "tooltip-format" = "Application Menu";
           };
 
-          tray = {
-            icon-size = 18;
-            spacing = 10;
+          "custom/update" = {
+            "format" = "";
+            "on-click" = "kitty -e update-system";
+            "tooltip-format" = "Click to update system";
+            "interval" = 3600;
           };
 
-          clock = {
-            timezone = "America/New_York";
-            tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
-            format = "{:%a %d %b  %H:%M}";
-            format-alt = "{:%Y-%m-%d}";
+          "cpu" = {
+            "interval" = 5;
+            "format" = "󰍛";
+            "on-click" = "kitty -e btop";
           };
 
-          battery = {
-            states = {
-              warning = 30;
-              critical = 15;
+          "clock" = {
+            "format" = "{:L%A %H:%M}";
+            "format-alt" = "{:L%d %B W%V %Y}";
+            "tooltip" = false;
+          };
+
+          "network" = {
+            "format-icons" = [
+              "󰤯"
+              "󰤟"
+              "󰤢"
+              "󰤥"
+              "󰤨"
+            ];
+            "format" = "{icon}";
+            "format-wifi" = "{icon}";
+            "format-ethernet" = "󰀂";
+            "format-disconnected" = "󰤮";
+            "tooltip-format-wifi" = "{essid} ({frequency} GHz)\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}";
+            "tooltip-format-ethernet" = "⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}";
+            "tooltip-format-disconnected" = "Disconnected";
+            "interval" = 3;
+            "spacing" = 1;
+            "on-click" = "nm-connection-editor";
+          };
+
+          "battery" = {
+            "format" = "{icon} {capacity}%";
+            "format-discharging" = "{icon} {capacity}%";
+            "format-charging" = "{icon} {capacity}%";
+            "format-plugged" = "";
+            "format-icons" = {
+              "charging" = [
+                "󰢜"
+                "󰂆"
+                "󰂇"
+                "󰂈"
+                "󰢝"
+                "󰂉"
+                "󰢞"
+                "󰂊"
+                "󰂋"
+                "󰂅"
+              ];
+              "default" = [
+                "󰁺"
+                "󰁻"
+                "󰁼"
+                "󰁽"
+                "󰁾"
+                "󰁿"
+                "󰂀"
+                "󰂁"
+                "󰂂"
+                "󰁹"
+              ];
             };
-            format = "{icon} {capacity}%";
-            format-charging = " {capacity}%";
-            format-plugged = " {capacity}%";
-            format-alt = "{icon} {time}";
-            format-icons = ["" "" "" "" ""];
-          };
-
-          network = {
-            format-wifi = " {signalStrength}%";
-            format-ethernet = " {ipaddr}/{cidr}";
-            tooltip-format = "{essid} ({signalStrength}%) ";
-            format-linked = " {ifname} (No IP)";
-            format-disconnected = "⚠ Disconnected";
-            format-alt = "{ifname}: {ipaddr}/{cidr}";
-          };
-
-          pulseaudio = {
-            format = "{icon} {volume}%";
-            format-muted = " Muted";
-            format-icons = {
-              headphone = "";
-              hands-free = "";
-              headset = "";
-              phone = "";
-              portable = "";
-              car = "";
-              default = ["" "" ""];
+            "format-full" = "󰂅";
+            "tooltip-format-discharging" = "{power:>1.0f}W↓ {capacity}%";
+            "tooltip-format-charging" = "{power:>1.0f}W↑ {capacity}%";
+            "interval" = 5;
+            "states" = {
+              "warning" = 20;
+              "critical" = 10;
             };
-            on-click = "pamixer -t";
-            on-click-right = "pavucontrol";
           };
 
-          backlight = {
-            format = "{icon} {percent}%";
-            format-icons = ["" "" "" "" "" "" "" ""];
-            on-scroll-up = "brightnessctl set +5%";
-            on-scroll-down = "brightnessctl set 5%-";
+          "bluetooth" = {
+            "format" = "";
+            "format-disabled" = "󰂲";
+            "format-off" = "󰂲";
+            "format-connected" = "󰂱";
+            "format-no-controller" = "";
+            "tooltip-format" = "Devices connected: {num_connections}";
+            "on-click" = "blueman-manager";
           };
 
-          bluetooth = {
-            format = " {status}";
-            format-disabled = "";
-            format-connected = " {num_connections}";
-            tooltip-format = "{device_alias}";
-            tooltip-format-connected = "{device_enumerate}";
-            tooltip-format-enumerate-connected = "{device_alias}";
-            on-click = "blueman-manager";
-          };
-
-          idle_inhibitor = {
-            format = "{icon}";
-            format-icons = {
-              activated = "";
-              deactivated = "";
+          "pulseaudio" = {
+            "format" = "{icon}";
+            "on-click" = "pavucontrol";
+            "on-click-right" = "pamixer -t";
+            "tooltip-format" = "Playing at {volume}%";
+            "scroll-step" = 5;
+            "format-muted" = "";
+            "format-icons" = {
+              "default" = [
+                ""
+                ""
+                ""
+              ];
             };
+          };
+
+          "group/tray-expander" = {
+            "orientation" = "inherit";
+            "drawer" = {
+              "transition-duration" = 600;
+              "children-class" = "tray-group-item";
+            };
+            "modules" = [
+              "custom/expand-icon"
+              "tray"
+            ];
+          };
+
+          "custom/expand-icon" = {
+            "format" = " ";
+            "tooltip" = false;
+          };
+
+          "custom/screenrecording-indicator" = {
+            "format" = "󰑊";
+            "exec" = ''pgrep wf-recorder > /dev/null && echo '{"text": "REC", "class": "recording"}' || echo '{"text": "", "class": ""}' '';
+            "interval" = 2;
+            "return-type" = "json";
+          };
+
+          "tray" = {
+            "icon-size" = 12;
+            "spacing" = 12;
           };
         };
       };
@@ -150,41 +218,41 @@ with lib;
         window#waybar {
           background: rgba(30, 30, 46, 0.9);
           color: #cdd6f4;
+          border-bottom: 1px solid rgba(137, 180, 250, 0.3);
         }
 
         #workspaces button {
-          padding: 0 8px;
+          padding: 0 4px;
           background: transparent;
           color: #bac2de;
-          border-bottom: 3px solid transparent;
         }
 
         #workspaces button.active {
           color: #89b4fa;
-          border-bottom: 3px solid #89b4fa;
         }
 
         #workspaces button.urgent {
           color: #f38ba8;
-          border-bottom: 3px solid #f38ba8;
         }
 
-        #workspaces button:hover {
-          background: rgba(108, 112, 134, 0.2);
-          border-bottom: 3px solid #a6adc8;
-        }
-
-        #window,
+        #custom-menu,
+        #workspaces,
         #clock,
-        #battery,
+        #custom-update,
+        #custom-screenrecording-indicator,
+        #bluetooth,
         #network,
         #pulseaudio,
-        #backlight,
-        #bluetooth,
-        #tray,
-        #idle_inhibitor {
+        #cpu,
+        #battery,
+        #tray {
           padding: 0 10px;
-          margin: 3px 0;
+          margin: 0;
+        }
+
+        #custom-menu {
+          color: #89b4fa;
+          font-size: 16px;
         }
 
         #clock {
@@ -192,16 +260,12 @@ with lib;
           font-weight: bold;
         }
 
+        #cpu {
+          color: #fab387;
+        }
+
         #battery {
           color: #a6e3a1;
-        }
-
-        #battery.charging {
-          color: #a6e3a1;
-        }
-
-        #battery.warning:not(.charging) {
-          color: #fab387;
         }
 
         #battery.critical:not(.charging) {
@@ -211,6 +275,7 @@ with lib;
 
         @keyframes blink {
           to {
+            background-color: #f38ba8;
             color: #11111b;
           }
         }
@@ -219,48 +284,21 @@ with lib;
           color: #89dceb;
         }
 
-        #network.disconnected {
-          color: #f38ba8;
-        }
-
         #pulseaudio {
           color: #f5c2e7;
-        }
-
-        #pulseaudio.muted {
-          color: #6c7086;
-        }
-
-        #backlight {
-          color: #fab387;
         }
 
         #bluetooth {
           color: #89b4fa;
         }
 
-        #bluetooth.disabled {
-          color: #6c7086;
+        #custom-update {
+          color: #a6e3a1;
         }
 
-        #idle_inhibitor {
-          color: #f9e2af;
-        }
-
-        #idle_inhibitor.activated {
-          color: #eba0ac;
-        }
-
-        #tray {
-          background: transparent;
-        }
-
-        #tray > .passive {
-          -gtk-icon-effect: dim;
-        }
-
-        #tray > .needs-attention {
-          -gtk-icon-effect: highlight;
+        #custom-screenrecording-indicator.recording {
+          color: #f38ba8;
+          font-weight: bold;
         }
       '';
     };

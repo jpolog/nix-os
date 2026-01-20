@@ -79,5 +79,14 @@ with lib;
     
     # Firejail (optional system tool for isolation)
     programs.firejail.enable = true;
+    
+    # Ensure home directory exists with correct permissions
+    systemd.tmpfiles.rules = [
+      "d /home/gaming 0700 gaming users -"
+      "d /home/gaming/.config 0755 gaming users -"
+      "d /home/gaming/.local 0755 gaming users -"
+      "d /home/gaming/.local/state 0755 gaming users -"
+      "d /home/gaming/.local/share 0755 gaming users -"
+    ];
   };
 }
