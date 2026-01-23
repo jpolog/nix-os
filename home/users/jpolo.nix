@@ -1,4 +1,5 @@
-{ pkgs, lib, ... }:
+# 1. Update arguments to accept osConfig (with a default of null for safety)
+{ pkgs, lib, osConfig ? null, ... }:
 
 let
   mkUser = (import ./lib.nix { inherit lib; }).mkUser;
@@ -9,8 +10,12 @@ mkUser {
   email = "javier.polog@outlook.com";
   
   profiles = {
-    desktop.enable = true;
-    cli.enable = true;       # Enable CLI tools (Git, Zsh, Neovim)
+    desktop = {
+      enable = true;
+      environment = lib.mkDefault "hyprland"; # preferred desktop env
+    };
+
+    cli.enable = true;       
     development = {
       enable = true;
       editors.vscode.enable = true;
@@ -22,12 +27,11 @@ mkUser {
     
     power-user = {
       enable = true;
-      productivity.enable = true; # Obsidian, CLI tools
-      cli-utils.enable = true;    # jq, ffmpeg, etc
-      torrenting.enable = true;   # qBittorrent
+      productivity.enable = true;
+      cli-utils.enable = true;
+      torrenting.enable = true;
     };
     
-    # Enable Work Profile
     work = {
       enable = true;
       communication = {
@@ -39,8 +43,6 @@ mkUser {
     
     personal = {
       enable = true;
-      
-      # Selective Media
       media = {
         enable = true;
         spotify = false;
@@ -49,34 +51,32 @@ mkUser {
         vlc = true;
         mpv = true;
       };
-      
-      # Selective Office
-      office.enable = false; # I don't use LibreOffice
-      
-      # Productivity (Basic)
+      office.enable = false; 
       productivity = {
         enable = true;
         bitwarden = true;
         syncthing = true;
       };
-      
-      # General Tools
       tools = {
         enable = true;
         image-editing = true;
         screenshot = true;
         video-tools = true;
       };
-
       communication.enable = true;
     };
   };
   
   extraConfig = {
-    # User-specific shell configuration
     imports = [
       ../shell
       ../services
     ];
+    
+    # 4. Don't forget the stateVersion fix from before!
+    home.stateVersion = "25.11";
+
+    #home.firefox.vimNavigation.enable = true;
   };
 }
+

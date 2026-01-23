@@ -11,7 +11,7 @@
     home = {
       username = username;
       homeDirectory = "/home/${username}";
-      stateVersion = "24.11";
+      stateVersion = "25.11";
     };
 
     # User-specific git identity

@@ -73,7 +73,7 @@
     nameservers = [ "1.1.1.1" "8.8.8.8" ];
   };
 
-  system.stateVersion = "24.11";
+  system.stateVersion = "25.11";
 
   # Users
   users.users.admin = {

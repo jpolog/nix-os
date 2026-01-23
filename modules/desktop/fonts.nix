@@ -9,7 +9,7 @@ with lib;
       enableDefaultPackages = true;
       
       packages = with pkgs; [
-        # Nerd Fonts - now individual packages in NixOS 24.11+
+        # Nerd Fonts - now individual packages in NixOS 25.11+
         # Old: (nerd-fonts.override { fonts = [...] })
         # New: individual packages
         nerd-fonts.fira-code
@@ -18,7 +18,7 @@ with lib;
         nerd-fonts.meslo-lg
         nerd-fonts.ubuntu-mono
         
-        # Standard fonts (updated names for NixOS 24.11+)
+        # Standard fonts (updated names for NixOS 25.11+)
         noto-fonts
         noto-fonts-cjk-sans
         noto-fonts-cjk-serif

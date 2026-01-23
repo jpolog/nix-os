@@ -58,7 +58,7 @@
     nameservers = [ "1.1.1.1" ];
   };
 
-  system.stateVersion = "24.11";
+  system.stateVersion = "25.11";
 
   users.users.admin = {
     isNormalUser = true;

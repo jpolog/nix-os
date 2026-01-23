@@ -40,9 +40,7 @@ with lib;
       bitwarden-desktop
     ] ++ (optionals (config.home.profiles.desktop.environment == "hyprland") [
       # Hyprland specific desktop tools
-      thunar
-      thunar-volman
-      thunar-archive-plugin
+      kdePackages.dolphin
       zathura
       imv
       feh
@@ -57,6 +55,10 @@ with lib;
       swayosd
       qalculate-gtk
       walker
+
+      # QuickShare
+      rquickshare
+
     ]);
 
     # Desktop-specific session variables

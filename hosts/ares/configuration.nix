@@ -140,13 +140,31 @@
   # Home Manager - User Configuration
   # ============================================================================
   
-  home-manager.users = {
-    jpolo = import ../../home/users/jpolo.nix;
-    gaming = import ../../home/users/gaming.nix;
+  home-manager.users.gaming = { ... }: {
+    imports = [ ../../home/users/gaming.nix ];
+    home.profiles.desktop.environment = "kde";
+  };
+  
+  home-manager.users.jpolo = { ... }: {
+    imports = [ ../../home/users/jpolo.nix ];
+    home.profiles.desktop.environment = "hyprland";
   };
 
   # ============================================================================
-  # Home Manager Integration - DISABLED (Using standalone instead)
+  # Desktop Environments (System Level)
+  # ============================================================================
+  
+  # Enable the KDE Plasma 6 Desktop Environment
+  services.desktopManager.plasma6.enable = true;
+  services.power-profiles-daemon.enable = false;  
+  # Ensure SDDM is enabled (you likely have this, but verify)
+  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.wayland.enable = true;
+
+
+
+  # ============================================================================
+  # Home Manager Integration - 
   # ============================================================================
   
   # NOTE: Home-manager is now integrated as NixOS module via flake.nix

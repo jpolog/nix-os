@@ -16,7 +16,7 @@ mkUser {
     # Desktop Environment (KDE is good for gaming compatibility)
     desktop = {
       enable = true;
-      environment = "kde";
+      environment = lib.mkDefault "kde"; # preferred desktop env
     };
     
     # The actual gaming apps

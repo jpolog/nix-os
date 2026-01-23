@@ -6,21 +6,22 @@ with lib;
   config = mkIf (config.home.profiles.desktop.enable && config.home.profiles.desktop.environment == "hyprland") {
     wayland.windowManager.hyprland = {
       enable = true;
-      package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+      package = pkgs.hyprland;
       
       # Enable Hyprland plugins
-      plugins = [
-        inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprscrolling
-      ];
+#      plugins = [
+        #inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprscrolling
+      #];
       
       settings = {
         # Monitors
-        monitor = [
-          "HDMI-A-1,1920x1080@60,1920x0,1"
-          "DP-1,1920x1080@60,1920x0,1"
-          "DP-2,1920x1080@60,3840x0,1,transform,1"
-          ",preferred,auto,1"
-        ];
+	monitor = [
+	  "eDP-1,1920x1200@60,0x0,1"              # Laptop screen at far left
+	  "HDMI-A-1,1920x1080@60,1920x0,1"        # External monitor to the right
+	  "DP-2,1920x1080@60,3840x0,1,transform,1" # Keep this for when DP-2 is connected (rotated)
+	  ",preferred,auto,1"                      # Fallback for any other monitors
+	];
+
         
         # Exec-once
         exec-once = [
@@ -38,8 +39,8 @@ with lib;
 
         # Environment
         env = [
-          "XCURSOR_SIZE,24"
-          "HYPRCURSOR_SIZE,24"
+          "XCURSOR_SIZE,18"
+          "HYPRCURSOR_SIZE,18"
           "GDK_BACKEND,wayland,x11,*"
           "QT_QPA_PLATFORM,wayland;xcb"
           "QT_STYLE_OVERRIDE,kvantum"
@@ -179,6 +180,13 @@ with lib;
              "SUPER, SPACE, exec, walker"
              "SUPER ALT, SPACE, exec, wlogout"
              "SUPER, ESCAPE, exec, wlogout"
+
+             # Manual lock (keeps display on and tasks running)
+	     "SUPER SHIFT, L, exec, loginctl lock-session"
+	  
+	     # Lock and turn off display immediately (for when stepping away)
+	     "SUPER CTRL, L, exec, loginctl lock-session && sleep 1 && hyprctl dispatch dpms off"
+ 
              
              # Clipboard
              "SUPER, C, sendshortcut, CTRL, Insert,"
@@ -222,31 +230,40 @@ with lib;
              "SUPER, 0, workspace, 10"
              
              # Move to workspace
-             "SUPER SHIFT, 1, movetoworkspace, 1"
-             "SUPER SHIFT, 2, movetoworkspace, 2"
-             "SUPER SHIFT, 3, movetoworkspace, 3"
-             "SUPER SHIFT, 4, movetoworkspace, 4"
-             "SUPER SHIFT, 5, movetoworkspace, 5"
-             "SUPER SHIFT, 6, movetoworkspace, 6"
-             "SUPER SHIFT, 7, movetoworkspace, 7"
-             "SUPER SHIFT, 8, movetoworkspace, 8"
-             "SUPER SHIFT, 9, movetoworkspace, 9"
-             "SUPER SHIFT, 0, movetoworkspace, 10"
-
-             # Scratchpad
-             "SUPER, S, togglespecialworkspace, scratchpad"
-             "SUPER ALT, S, movetoworkspacesilent, special:scratchpad"
-
-             # Groups
-             "SUPER, G, togglegroup"
-             "SUPER ALT, G, moveoutofgroup"
+             "SUPER, 6, workspace, 6"
+             "SUPER, 7, workspace, 7"
+             "SUPER, 8, workspace, 8"
+             "SUPER, 9, workspace, 9"
+             "SUPER, 0, workspace, 10"
+             
+             # Move to workspace
+             "SUPER, 6, workspace, 6"
+             "SUPER, 7, workspace, 7"
+             "SUPER, 8, workspace, 8"
+             "SUPER, 9, workspace, 9"
+             "SUPER, 0, workspace, 10"
+             
+             # Move to workspace
+             "SUPER, 6, workspace, 6"
+             "SUPER, 7, workspace, 7"
+             "SUPER, 8, workspace, 8"
+             "SUPER, 9, workspace, 9"
+             "SUPER, 0, workspace, 10"
+             
+             # Move to workspace
+             "SUPER, 6, workspace, 6"
+             "SUPER, 7, workspace, 7"
+             "SUPER, 8, workspace, 8"
+             "SUPER, 9, workspace, 9"
+             "SUPER, 0, workspace, 10"
+             
+             # Move to workspace
              "SUPER ALT, LEFT, moveintogroup, l"
              "SUPER ALT, RIGHT, moveintogroup, r"
              "SUPER ALT, UP, moveintogroup, u"
              "SUPER ALT, DOWN, moveintogroup, d"
              "SUPER ALT, TAB, changegroupactive, f"
              
-             # Screenshot
              ", PRINT, exec, grimblast copy area"
              "SHIFT, PRINT, exec, grimblast copy screen"
         ];
@@ -272,11 +289,9 @@ with lib;
          bindm = [
               "SUPER, mouse:272, movewindow"
               "SUPER, mouse:273, resizewindow"
-         ];
-         
-
-
-       };
+	];
+      };
      };
-   };
- }
+    };
+}
+

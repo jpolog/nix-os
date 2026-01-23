@@ -56,9 +56,7 @@ with lib;
       libnotify
       
       # File manager
-      thunar
-      thunar-volman
-      thunar-archive-plugin
+      kdePackages.dolphin
       
       # Image viewer
       imv
