@@ -3,7 +3,7 @@
 with lib;
 
 {
-  config = mkIf config.home.profiles.desktop.enable {
+  config = mkIf (config.home.profiles.desktop.enable && config.home.profiles.desktop.environment == "hyprland") {
     # XCompose for custom compose key sequences
     home.file.".XCompose".text = ''
       # Custom compose sequences

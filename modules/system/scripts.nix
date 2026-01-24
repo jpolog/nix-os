@@ -8,6 +8,7 @@ let
   update-system = pkgs.writeShellScriptBin "update-system" (builtins.readFile ../../scripts/system/update-system);
   cleanup-system = pkgs.writeShellScriptBin "cleanup-system" (builtins.readFile ../../scripts/system/cleanup-system);
   check-system = pkgs.writeShellScriptBin "check-system" (builtins.readFile ../../scripts/system/check-system);
+  auto-pause = pkgs.writeShellScriptBin "auto-pause" (builtins.readFile ../../scripts/system/auto-pause);
   
   # Development scripts
   dev-env = pkgs.writeShellScriptBin "dev-env" (builtins.readFile ../../scripts/dev/dev-env);
@@ -35,6 +36,7 @@ in
     update-system
     cleanup-system
     check-system
+    auto-pause
     dev-env
     nix-search
     docker-mon

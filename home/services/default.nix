@@ -2,7 +2,8 @@
 
 {
   imports = [
-    ./mako.nix
     ./hyprsunset.nix
+    ./mako.nix
+    ./media-automations.nix
   ];
 }

@@ -36,6 +36,7 @@ in
       overleaf = mkEnableOption "Overleaf";
       chatgpt = mkEnableOption "ChatGPT";
       claude = mkEnableOption "Claude AI";
+      perplexity = mkEnableOption "Perplexity AI";
       
       # Creative & Design
       figma = mkEnableOption "Figma";
@@ -140,6 +141,14 @@ in
         genericName = "AI Assistant";
         url = "https://claude.ai";
         icon = "anthropic-claude"; # May need custom icon
+        categories = [ "Utility" "ArtificialIntelligence" ];
+      });
+
+      perplexity = mkIf cfg.apps.perplexity (createWebApp {
+        name = "Perplexity";
+        genericName = "AI Search Engine";
+        url = "https://www.perplexity.ai";
+        icon = "perplexity"; # May need custom icon
         categories = [ "Utility" "ArtificialIntelligence" ];
       });
 

@@ -172,12 +172,13 @@ with lib;
         bind = [
              # Apps
              "SUPER, RETURN, exec, $terminal"
-             "SUPER SHIFT, F, exec, nautilus --new-window"
+             "SUPER SHIFT, F, exec, dolphin"
              "SUPER, B, exec, $browser"
              "SUPER ALT, B, exec, $browser --private"
              "SUPER, D, exec, $terminal -e lazydocker"
-             "SUPER, K, exec, kitty -e btop"
              "SUPER SHIFT, T, exec, $terminal -e btop"
+             "SUPER, O, exec, hyprctl clients | grep -i 'class: obsidian' && hyprctl dispatch focuswindow class:obsidian || obsidian"
+             "SUPER, A, exec, gtk-launch perplexity"
              
              # Menus
              "SUPER, SPACE, exec, walker"
@@ -222,6 +223,10 @@ with lib;
              "SUPER, L, movefocus, r"
              "SUPER, J, movefocus, d"
              "SUPER, K, movefocus, u"
+
+             # Move workspace to monitor
+             "SUPER SHIFT, L, movecurrentworkspacetomonitor, +1"
+             "SUPER SHIFT, H, movecurrentworkspacetomonitor, -1"
              
              # Move to workspace
              "SUPER, 1, workspace, 1"
@@ -256,6 +261,11 @@ with lib;
              
              ", PRINT, exec, grimblast copy area"
              "SHIFT, PRINT, exec, grimblast copy screen"
+        ];
+        
+        binde = [
+             "SUPER SHIFT, equal, resizeactive, 0 -20"
+             "SUPER SHIFT, minus, resizeactive, 0 20"
         ];
         
         bindel = [

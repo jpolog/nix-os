@@ -11,7 +11,7 @@ with lib;
       settings = {
         add_newline = true;
         
-        format = "$username$hostname$directory$git_branch$git_status$character";
+        format = "$directory$nix_shell$git_branch$git_status$character";
         
         character = {
           success_symbol = "[➜](bold green)";
@@ -31,7 +31,7 @@ with lib;
         };
 
         directory = {
-          truncation_length = 3;
+          truncation_length = 2;
           truncate_to_repo = true;
           style = "bold cyan";
           format = "[$path]($style) ";
@@ -50,9 +50,11 @@ with lib;
 
         nix_shell = {
           disabled = false;
-          impure_msg = "[impure](bold red)";
-          pure_msg = "[pure](bold green)";
-          format = "via [❄️ $state( \($name\))](bold blue) ";
+          impure_msg = "";
+          pure_msg = "";
+          symbol = "󱄅 ";
+          format = "[$symbol]($style)";
+          style = "bold blue";
         };
 
         python = {

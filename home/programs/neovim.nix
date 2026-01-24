@@ -225,6 +225,14 @@ in {
         { "mason-org/mason.nvim", enabled = false },
         { "mason-org/mason-lspconfig.nvim", enabled = false },
 
+        -- Disable smooth scroll (provided by snacks.nvim in newer LazyVim)
+        {
+          "folke/snacks.nvim",
+          opts = {
+            scroll = { enabled = false },
+          },
+        },
+
         -- Configure Treesitter to use Nix parsers
         {
           "nvim-treesitter/nvim-treesitter",

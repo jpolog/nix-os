@@ -3,7 +3,7 @@
 with lib;
 
 {
-  config = mkIf config.home.profiles.desktop.enable {
+  config = mkIf (config.home.profiles.desktop.enable && config.home.profiles.desktop.environment == "hyprland") {
     # Walker - Application launcher
     # Note: Package is installed by system profile, but we add it here just in case
     home.packages = with pkgs; [

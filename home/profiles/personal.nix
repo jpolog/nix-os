@@ -47,6 +47,7 @@ in
       enable = mkEnableOption "common web apps" // { default = true; };
       communication = mkEnableOption "web communication (Gmail, WhatsApp)" // { default = cfg.web.enable; };
       media = mkEnableOption "web media (YouTube)" // { default = cfg.web.enable; };
+      ai = mkEnableOption "web AI tools (Perplexity)" // { default = cfg.web.enable; };
     };
   };
 
@@ -58,6 +59,7 @@ in
         gmail = cfg.web.communication;
         whatsapp = cfg.web.communication;
         youtube = cfg.web.media;
+        perplexity = cfg.web.ai;
       };
     };
 
@@ -97,5 +99,8 @@ in
         pipes
         cbonsai
       ];
+
+    # Enable Media Automations
+    services.media-automations.enable = true;
   };
 }

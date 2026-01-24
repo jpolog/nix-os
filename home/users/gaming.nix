@@ -16,7 +16,7 @@ mkUser {
     # Desktop Environment (KDE is good for gaming compatibility)
     desktop = {
       enable = true;
-      environment = lib.mkDefault "kde"; # preferred desktop env
+      environment = lib.mkDefault "hyprland"; # switched to hyprland for stability
     };
     
     # The actual gaming apps
@@ -35,5 +35,12 @@ mkUser {
     creative.enable = false;
     personal.enable = false;
     power-user.enable = false;
+  };
+
+  extraConfig = {
+    imports = [
+      ../shell
+      ../services
+    ];
   };
 }

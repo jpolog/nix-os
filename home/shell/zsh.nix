@@ -197,12 +197,20 @@ with lib;
         py = "python";
         ipy = "ipython";
         
-        # AI Tools
-        copilot = "github-copilot-cli";
-        gemini = "gemini-cli";
+              # AI Tools
+        
+              copilot = "github-copilot-cli";
+        
+        perplexity = "gemini";
+        
+        
       };
 
       initContent = ''
+        if [ -f /run/secrets/gemini_api_key ]; then
+          export GEMINI_API_KEY=$(cat /run/secrets/gemini_api_key)
+        fi
+
         if [ -f "$HOME/.nvm/nvm.sh" ]; then
           nvm() {
             unfunction nvm

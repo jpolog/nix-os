@@ -3,7 +3,7 @@
 with lib;
 
 {
-  config = mkIf config.home.profiles.desktop.enable {
+  config = mkIf (config.home.profiles.desktop.enable && config.home.profiles.desktop.environment == "hyprland") {
     # SwayOSD - OSD window for volume and brightness
     home.packages = with pkgs; [
       swayosd

@@ -39,6 +39,7 @@ in
         cpu-x
         btop
         virt-manager
+        kmonad
         krusader
         
         # CLI System Tools

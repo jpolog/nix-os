@@ -67,11 +67,11 @@ with lib;
       "Projects/Work/.keep".text = "";
       "Projects/Personal/.keep".text = "";
       "Projects/Master/.keep".text = "";
-      "Projects/NixOS/.keep".text = "";
+      # Projects/NixOS/.keep".text = "";
       "Projects/Playground/.keep".text = "";
       
       # Knowledge Base (Obsidian Vault)
-      "Vault/.keep".text = "";
+      "Vault/.keep" = mkIf (config.home.profiles.power-user.enable && config.home.profiles.power-user.productivity.enable) { text = ""; };
       
       # Virtualization and ISOs
       "VMs/ISOs/.keep".text = "";
@@ -127,6 +127,18 @@ with lib;
       defaultEditor = true;
       viAlias = true;
       vimAlias = true;
+    };
+
+    # XDG Portal Configuration (resolve rework warning)
+    xdg.portal = {
+      enable = true;
+      config.common.default = "*";
+      extraPortals = [
+        (if config.home.profiles.desktop.environment == "hyprland"
+         then pkgs.xdg-desktop-portal-hyprland
+         else pkgs.kdePackages.xdg-desktop-portal-kde)
+        pkgs.xdg-desktop-portal-gtk
+      ];
     };
     
     # Hyprland specific configurations

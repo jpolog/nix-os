@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# auto-pause
+# Monitor PipeWire/PulseAudio events and pause media players on sink removal
+# (e.g. bluetooth disconnect, unplugging headphones)
+
+# Dependencies: pactl (pipewire/pulseaudio), grep, playerctl
+
+echo "Starting auto-pause monitor..."
+
+pactl subscribe | grep --line-buffered "Event 'remove' on sink" | while read -r line; do
+    echo "[$(date +'%H:%M:%S')] Audio sink removed. Pausing all media players..."
+    playerctl -a pause
+done

@@ -25,6 +25,7 @@ with lib;
         xdg-desktop-portal-gtk
       ];
       configPackages = [ inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland ];
+      config.common.default = "*";
     };
 
     # Environment variables for Wayland/Hyprland

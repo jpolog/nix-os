@@ -59,6 +59,11 @@
         owner = "root";
         mode = "0400";
       };
+
+      gemini_api_key = {
+        owner = "jpolo";
+        mode = "0400";
+      };
     };
   };
   

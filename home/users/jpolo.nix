@@ -86,7 +86,12 @@ mkUser {
   
             
   
-            home.firefox.vimNavigation.enable = true;
-  
-          };}
-
+                        home.firefox.vimNavigation.enable = true;
+                        
+                        home.file = {
+                          "Documents/important/.keep".text = "";
+                          "Documents/books/.keep".text = "";
+                          "Documents/scans/.keep".text = "";
+                          "Documents/work/.keep".text = "";
+                        };
+                      };}
