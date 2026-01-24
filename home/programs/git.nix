@@ -27,13 +27,14 @@ with lib;
         pull.rebase = true;
         push.autoSetupRemote = true;
         core.editor = "nvim";
+        safe.directory = "/etc/nixos";
       };
     };
     
     programs.gh = {
       enable = true;
       settings = {
-        git_protocol = "https";
+        git_protocol = "ssh";
         editor = "nvim";
       };
     };
