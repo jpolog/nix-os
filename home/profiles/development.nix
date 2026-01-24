@@ -39,9 +39,12 @@ in
       };
     };
 
-    # NO package installation - packages installed by system profile!
-    # Only configuration/dotfiles here
-    
+    # Explicitly requested AI tools for developers
+    home.packages = with pkgs; [
+      gemini-cli
+      github-copilot-cli
+    ];
+
     # ========================================================================
     # Tmux Configuration
     # ========================================================================
