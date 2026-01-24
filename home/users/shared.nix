@@ -8,8 +8,7 @@
 {
   # Import shared program configurations
   imports = [
-    ../programs/git.nix
-    ../programs/neovim.nix
+    ../programs
   ];
 
   # Common packages for all users (beyond base profile)

@@ -61,15 +61,29 @@ with lib;
 
     ]);
 
-    # Desktop-specific session variables
-    home.sessionVariables = {
-      TERMINAL = mkDefault "kitty";
-      BROWSER = mkDefault "firefox";
+    # Power-User Directory Structure
+    home.file = {
+      # Projects hierarchy
+      "Projects/Work/.keep".text = "";
+      "Projects/Personal/.keep".text = "";
+      "Projects/Master/.keep".text = "";
+      "Projects/NixOS/.keep".text = "";
+      "Projects/Playground/.keep".text = "";
+      
+      # Knowledge Base (Obsidian Vault)
+      "Vault/.keep".text = "";
+      
+      # Virtualization and ISOs
+      "VMs/ISOs/.keep".text = "";
+      "VMs/Disks/.keep".text = "";
+      
+      # Media & Organization
+      "Pictures/Wallpapers/.keep".text = "";
+      "Pictures/Screenshots/.keep".text = "";
+      "Downloads/Torrents/.keep".text = "";
     };
-    
-    # Create necessary directories
-    home.file."Pictures/Wallpapers/.keep".text = "";
-    home.file."Pictures/Screenshots/.keep".text = "";
+
+    # Desktop-specific session variables
     
     # Configure Cursor Theme
     home.pointerCursor = {

@@ -4,5 +4,6 @@
   imports = [
     ./printing.nix
     ./location.nix
+    ./syncthing.nix
   ];
 }

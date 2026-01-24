@@ -52,6 +52,13 @@
         path = "/home/jpolo/.ssh/id_ed25519"; 
         mode = "0600";
       };
+      
+      # Tailscale Auth Key
+      tailscale_key = {
+        # Only root needs to read this for the tailscale daemon
+        owner = "root";
+        mode = "0400";
+      };
     };
   };
   

@@ -94,5 +94,29 @@ in
       (optionals cfg.torrenting.enable [
         qbittorrent
       ]);
+
+    # Declarative Obsidian Vault Configuration
+    xdg.configFile."obsidian/obsidian.json".text = builtins.toJSON {
+      vaults = {
+        "knowledge-base" = {
+          path = "/home/jpolo/Vault/Knowledge Base";
+          ts = 1737742000000;
+          open = true;
+        };
+      };
+    };
+
+    # Force Dark Mode in the vault via activation script (keeps file writable)
+    home.activation.obsidianDarkMode = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      APPEARANCE_FILE="/home/jpolo/Vault/Knowledge Base/.obsidian/appearance.json"
+      if [ -f "$APPEARANCE_FILE" ]; then
+        # Use jq to merge the theme setting into existing config
+        ${pkgs.jq}/bin/jq '.theme = "obsidian"' "$APPEARANCE_FILE" > "$APPEARANCE_FILE.tmp" && mv "$APPEARANCE_FILE.tmp" "$APPEARANCE_FILE"
+      else
+        mkdir -p "$(dirname "$APPEARANCE_FILE")"
+        echo '{"theme":"obsidian"}' > "$APPEARANCE_FILE"
+      fi
+      chown jpolo:users "$APPEARANCE_FILE" || true
+    '';
   };
 }

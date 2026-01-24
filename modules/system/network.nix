@@ -14,8 +14,24 @@
       allowPing = true;
       # Add ports as needed
       allowedTCPPorts = [ ];
-      allowedUDPPorts = [ ];
+      allowedUDPPorts = [ config.services.tailscale.port ]; # Allow Tailscale UDP port
+      
+      # Trust tailscale interface
+      trustedInterfaces = [ "tailscale0" ];
     };
+  };
+  
+  # Enable Tailscale service
+  services.tailscale = {
+    enable = true;
+    useRoutingFeatures = "client";
+    
+    # Automatically authenticate using the key from secrets
+    authKeyFile = config.sops.secrets.tailscale_key.path;
+    extraUpFlags = [
+      "--operator=${config.users.users.jpolo.name}" # Allow user to control tailscale
+      "--ssh" # Enable Tailscale SSH
+    ];
   };
 
   # Network tools
@@ -24,5 +40,6 @@
     networkmanagerapplet
     wireguard-tools
     openresolv
+    tailscale
   ];
 }

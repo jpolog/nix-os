@@ -188,6 +188,9 @@
   # System Services
   # ============================================================================
   
+  # Enable Syncthing for jpolo
+  services.syncthing-jpolo.enable = true;
+
   # OpenSSH - Configuration inherited from modules/system/ssh.nix
   # Default settings: PermitRootLogin = "no", PasswordAuthentication = true
   # Uncomment to override:
