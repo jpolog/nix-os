@@ -179,6 +179,16 @@ in {
         "checkInterval" = 3600;           # Check every hour
       };
     };
+    
+    # 2.2 Configure Matugen to use the template
+    xdg.configFile."matugen/config.toml".text = ''
+      [config]
+      reload_on_change = true
+      
+      [templates.kitty]
+      input_path = "${config.xdg.configHome}/matugen/templates/kitty.conf"
+      output_path = "${config.xdg.configHome}/kitty/colors.conf"
+    '';
 
         # 2.5. Matugen template for kitty terminal color sync
     xdg.configFile."matugen/templates/kitty.conf" = {
@@ -260,7 +270,6 @@ in {
         
         # Environment variables for proper Wayland detection
         Environment = [
-          "WAYLAND_DISPLAY=wayland-1"
           "QT_QPA_PLATFORM=wayland"
           "QT_AUTO_SCREEN_SCALE_FACTOR=1"
         ];

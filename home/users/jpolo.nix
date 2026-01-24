@@ -12,7 +12,6 @@ mkUser {
   profiles = {
     desktop = {
       enable = true;
-      environment = lib.mkDefault "hyprland"; # preferred desktop env
     };
 
     cli.enable = true;       
@@ -67,16 +66,27 @@ mkUser {
     };
   };
   
-  extraConfig = {
-    imports = [
-      ../shell
-      ../services
-    ];
-    
-    # 4. Don't forget the stateVersion fix from before!
-    home.stateVersion = "25.11";
-
-    #home.firefox.vimNavigation.enable = true;
-  };
-}
+          extraConfig = {
+  
+            imports = [
+  
+              ../shell
+  
+              ../services
+  
+            ];
+  
+            
+  
+            # Explicitly enable desktop profile and set environment
+  
+            home.profiles.desktop.enable = true;
+  
+            home.profiles.desktop.environment = "hyprland";
+  
+            
+  
+            home.firefox.vimNavigation.enable = true;
+  
+          };}
 

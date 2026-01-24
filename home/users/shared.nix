@@ -24,6 +24,9 @@
     sops      # Secrets management
   ];
 
+  # Centralized state version
+  home.stateVersion = "25.11";
+
   # Common session variables
   home.sessionVariables = {
     # Set common environment variables here

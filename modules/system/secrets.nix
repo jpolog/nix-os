@@ -28,10 +28,10 @@
   # SOPS configuration
   sops = {
     # Default sops file location
-    defaultSopsFile = ../secrets/secrets.yaml;
+    defaultSopsFile = ../../secrets/secrets.yaml;
     
     # Validate sops files on build
-    validateSopsFiles = false;  # Set to true when secrets are configured
+    validateSopsFiles = true; 
     
     # Age key file location
     age = {
@@ -39,25 +39,20 @@
       keyFile = "/home/jpolo/.config/sops/age/keys.txt";
       
       # Generate key file if it doesn't exist
-      generateKey = true;
+      generateKey = true; # You generated it manually
       
       # SSH host key can be used instead
       # sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
     };
     
-    # Example secrets (uncomment when ready)
-    # secrets = {
-    #   "user/password" = {
-    #     neededForUsers = true;
-    #   };
-    #   "services/github-token" = {
-    #     owner = "jpolo";
-    #     mode = "0400";
-    #   };
-    #   "vpn/config" = {
-    #     path = "/etc/vpn.conf";
-    #   };
-    # };
+    # Secrets configuration
+    secrets = {
+      ssh_key = {
+        owner = "jpolo";
+        path = "/home/jpolo/.ssh/id_ed25519"; 
+        mode = "0600";
+      };
+    };
   };
   
   # Install sops for manual secret management

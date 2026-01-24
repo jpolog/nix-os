@@ -6,20 +6,22 @@ with lib;
   config = mkIf (config.home.profiles.desktop.enable && config.home.profiles.desktop.environment == "hyprland") {
     wayland.windowManager.hyprland = {
       enable = true;
-      package = pkgs.hyprland;
+      # Package is managed by system module (modules/desktop/hyprland.nix)
+      # preventing version mismatches and double installation.
+      package = null;
       
       # Enable Hyprland plugins
-#      plugins = [
-        #inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprscrolling
-      #];
+      plugins = [
+        inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprscrolling
+      ];
       
       settings = {
         # Monitors
 	monitor = [
-	  "eDP-1,1920x1200@60,0x0,1"              # Laptop screen at far left
-	  "HDMI-A-1,1920x1080@60,1920x0,1"        # External monitor to the right
-	  "DP-2,1920x1080@60,3840x0,1,transform,1" # Keep this for when DP-2 is connected (rotated)
-	  ",preferred,auto,1"                      # Fallback for any other monitors
+	  "eDP-1,1920x1200@60,0x0,1"
+	  "HDMI-A-1,1920x1080@60,1920x0,1"
+	  "DP-2,1920x1080@60,3840x0,1,transform,1"
+	  ",preferred,auto,1"
 	];
 
         
@@ -201,6 +203,9 @@ with lib;
              "SUPER, F, fullscreen, 0"
              "SUPER ALT, F, fullscreen, 1"
              
+             # Toggle Transparency
+             "SUPER, BackSpace, exec, hyprctl getoption decoration:active_opacity | grep -q 'float: 1.0' && hyprctl keyword decoration:active_opacity 0.9 && hyprctl keyword decoration:inactive_opacity 0.9 || hyprctl keyword decoration:active_opacity 1.0 && hyprctl keyword decoration:inactive_opacity 1.0"
+             
              # Scrolling Layout Specific
              "SUPER, period, layoutmsg, move +col"
              "SUPER, comma, layoutmsg, move -col"
@@ -217,7 +222,7 @@ with lib;
              "SUPER, J, movefocus, d"
              "SUPER, K, movefocus, u"
              
-             # Workspaces
+             # Move to workspace
              "SUPER, 1, workspace, 1"
              "SUPER, 2, workspace, 2"
              "SUPER, 3, workspace, 3"
@@ -229,35 +234,19 @@ with lib;
              "SUPER, 9, workspace, 9"
              "SUPER, 0, workspace, 10"
              
-             # Move to workspace
-             "SUPER, 6, workspace, 6"
-             "SUPER, 7, workspace, 7"
-             "SUPER, 8, workspace, 8"
-             "SUPER, 9, workspace, 9"
-             "SUPER, 0, workspace, 10"
+             # Move active window to workspace
+             "SUPER SHIFT, 1, movetoworkspace, 1"
+             "SUPER SHIFT, 2, movetoworkspace, 2"
+             "SUPER SHIFT, 3, movetoworkspace, 3"
+             "SUPER SHIFT, 4, movetoworkspace, 4"
+             "SUPER SHIFT, 5, movetoworkspace, 5"
+             "SUPER SHIFT, 6, movetoworkspace, 6"
+             "SUPER SHIFT, 7, movetoworkspace, 7"
+             "SUPER SHIFT, 8, movetoworkspace, 8"
+             "SUPER SHIFT, 9, movetoworkspace, 9"
+             "SUPER SHIFT, 0, movetoworkspace, 10"
              
-             # Move to workspace
-             "SUPER, 6, workspace, 6"
-             "SUPER, 7, workspace, 7"
-             "SUPER, 8, workspace, 8"
-             "SUPER, 9, workspace, 9"
-             "SUPER, 0, workspace, 10"
-             
-             # Move to workspace
-             "SUPER, 6, workspace, 6"
-             "SUPER, 7, workspace, 7"
-             "SUPER, 8, workspace, 8"
-             "SUPER, 9, workspace, 9"
-             "SUPER, 0, workspace, 10"
-             
-             # Move to workspace
-             "SUPER, 6, workspace, 6"
-             "SUPER, 7, workspace, 7"
-             "SUPER, 8, workspace, 8"
-             "SUPER, 9, workspace, 9"
-             "SUPER, 0, workspace, 10"
-             
-             # Move to workspace
+             # Group Navigation
              "SUPER ALT, LEFT, moveintogroup, l"
              "SUPER ALT, RIGHT, moveintogroup, r"
              "SUPER ALT, UP, moveintogroup, u"

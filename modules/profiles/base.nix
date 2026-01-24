@@ -12,6 +12,7 @@ with lib;
     environment.systemPackages = with pkgs; [
       # Editors
       vim
+      neovim
       nano
       
       # Network tools

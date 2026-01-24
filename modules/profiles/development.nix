@@ -106,6 +106,7 @@ in
       kubernetes.enable = mkEnableOption "Kubernetes tools";
       databases.enable = mkEnableOption "Database tools";
       api.enable = mkEnableOption "API testing tools";
+      ai.enable = mkEnableOption "AI development tools (Gemini, Copilot, Goose)";
     };
   };
 
@@ -136,6 +137,14 @@ in
 
     # Install common tools
     environment.systemPackages = commonTools ++ 
+      # ========================================================================
+      # AI Tools
+      # ========================================================================
+      (optionals cfg.tools.ai.enable (with pkgs; [
+        github-copilot-cli
+        gemini-cli
+        goose-cli
+      ])) ++
       # ========================================================================
       # Docker Tools
       # ========================================================================

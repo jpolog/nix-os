@@ -22,6 +22,7 @@
   boot = {
     loader = {
       systemd-boot.enable = true;
+      systemd-boot.configurationLimit = 10;
       efi.canTouchEfiVariables = true;
     };
 
@@ -115,6 +116,7 @@
     docker.enable = true;
     cloud.enable = false;
     kubernetes.enable = false;
+    ai.enable = true;
   };
 
   # ============================================================================
@@ -191,6 +193,12 @@
   # Uncomment to override:
   # services.openssh.settings.PermitRootLogin = "yes";  # Only if needed
 
+
+  # Allow adding a tag to the generation via environment variable
+  # Usage: REBUILD_TAG="my-tag" nh os switch --impure
+  system.nixos.tags = let
+    tag = builtins.getEnv "REBUILD_TAG";
+  in if tag != "" then [ tag ] else [ ];
 
   # ============================================================================
   # System Optimization

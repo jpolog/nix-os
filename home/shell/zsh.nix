@@ -112,9 +112,6 @@ with lib;
         nos = "sudo nixos-rebuild switch --flake .#ares";
         nob = "sudo nixos-rebuild boot --flake .#ares";
         not = "sudo nixos-rebuild test --flake .#ares";
-        rebuild = "nh os switch";
-        rebuild-boot = "nh os boot";
-        rebuild-test = "nh os test";
         
         # Nix utilities
         nd = "nix develop";
@@ -199,6 +196,10 @@ with lib;
         serve = "python -m http.server";
         py = "python";
         ipy = "ipython";
+        
+        # AI Tools
+        copilot = "github-copilot-cli";
+        gemini = "gemini-cli";
       };
 
       initContent = ''

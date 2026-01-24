@@ -183,7 +183,7 @@
       enable = true;
       clean = {
         enable = true;
-        extraArgs = "--keep 5 --keep-since 7d";
+        extraArgs = "--keep 5 --keep-since 14d";
       };
       # Flake path will be auto-detected from /etc/nixos or can be set per-host
       # flake = "/path/to/your/flake";  # Set this in host configuration if needed

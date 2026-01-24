@@ -6,18 +6,22 @@
     imports = [
       ./shared.nix  # Shared configuration for all users
       ../profiles   # Import all home-manager profiles
+      extraConfig   # Merge extraConfig as a module
     ];
 
     home = {
       username = username;
       homeDirectory = "/home/${username}";
-      stateVersion = "25.11";
+      # stateVersion is handled in shared.nix
     };
 
     # User-specific git identity
-    programs.git.settings.user = {
-      name = fullName;
-      email = email;
+    programs.git = {
+      enable = true;
+      settings = {
+        user.name = fullName;
+        user.email = email;
+      };
     };
 
     # Profile selections (user can override)
@@ -29,5 +33,5 @@
       # User-specified profiles
       profiles
     ];
-  } // extraConfig;
+  };
 }
