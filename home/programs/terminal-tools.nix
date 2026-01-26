@@ -214,5 +214,36 @@ with lib;
         };
       };
     };
+
+    # Btop - Resource monitor (Matugen themed)
+    programs.btop = {
+      enable = true;
+      settings = {
+        color_theme = "noctalia";
+        theme_background = false;
+        presets = "cpu:1:default,proc:0:default cpu:0:default,proc:0:default";
+      };
+    };
+
+    # Alacritty - Terminal Emulator (Matugen themed)
+    programs.alacritty = {
+      enable = true;
+      settings = {
+        import = [ "${config.xdg.configHome}/alacritty/themes/noctalia.toml" ];
+        
+        font = {
+          normal = { family = "JetBrainsMono Nerd Font"; style = "Regular"; };
+          bold = { family = "JetBrainsMono Nerd Font"; style = "Bold"; };
+          italic = { family = "JetBrainsMono Nerd Font"; style = "Italic"; };
+          size = 11;
+        };
+        
+        window = {
+          opacity = 0.95;
+          padding = { x = 5; y = 5; };
+          dynamic_padding = true;
+        };
+      };
+    };
   };
 }

@@ -7,18 +7,18 @@ mkUser {
   username = "gaming";
   fullName = "Gaming User";
   email = "";
-  
+
   profiles = {
     # Base system
     base.enable = true;
     cli.enable = false; # No dev tools
-    
+
     # Desktop Environment (KDE is good for gaming compatibility)
     desktop = {
       enable = true;
       environment = lib.mkDefault "hyprland"; # switched to hyprland for stability
     };
-    
+
     # The actual gaming apps
     gaming = {
       enable = true;
@@ -29,7 +29,7 @@ mkUser {
       heroic.enable = false;
       emulation.enable = false;
     };
-    
+
     # Minimal other tools
     development.enable = false;
     creative.enable = false;

@@ -28,6 +28,12 @@ in {
       # Required for night light/wlsunset
       wlsunset
       
+      # OCR
+      tesseract
+      
+      # Color Picker
+      hyprpicker
+      
       # File utilities
       fd
       ripgrep
@@ -125,6 +131,7 @@ in {
       "Media" = {
         "enabled" = true;
         "showArtwork" = true;
+        "visualizer" = false;
         "maxTitleLength" = 30;
       };
 
@@ -187,7 +194,23 @@ in {
       
       [templates.kitty]
       input_path = "${config.xdg.configHome}/matugen/templates/kitty.conf"
-      output_path = "${config.xdg.configHome}/kitty/colors.conf"
+      output_path = "${config.xdg.configHome}/kitty/themes/noctalia.conf"
+
+      [templates.alacritty]
+      input_path = "${config.xdg.configHome}/matugen/templates/alacritty.toml"
+      output_path = "${config.xdg.configHome}/alacritty/themes/noctalia.toml"
+
+      [templates.btop]
+      input_path = "${config.xdg.configHome}/matugen/templates/btop.theme"
+      output_path = "${config.xdg.configHome}/btop/themes/noctalia.theme"
+
+      [templates.walker]
+      input_path = "${config.xdg.configHome}/matugen/templates/walker.css"
+      output_path = "${config.xdg.configHome}/walker/themes/noctalia.css"
+
+      [templates.discord]
+      input_path = "${config.xdg.configHome}/matugen/templates/discord.css"
+      output_path = "${config.xdg.configHome}/vesktop/themes/noctalia.css"
     '';
 
         # 2.5. Matugen template for kitty terminal color sync
@@ -240,6 +263,167 @@ in {
         color15 {{colors.on_surface_variant.default.hex}}
       '';
     };
+
+    # 2.6. Matugen template for Alacritty
+    xdg.configFile."matugen/templates/alacritty.toml".text = ''
+      [colors.primary]
+      background = "{{colors.surface.default.hex}}"
+      foreground = "{{colors.on_surface.default.hex}}"
+      dim_foreground = "{{colors.on_surface_variant.default.hex}}"
+      bright_foreground = "{{colors.on_surface.default.hex}}"
+
+      [colors.cursor]
+      text = "{{colors.on_primary.default.hex}}"
+      cursor = "{{colors.primary.default.hex}}"
+
+      [colors.normal]
+      black = "{{colors.surface_dim.default.hex}}"
+      red = "{{colors.error.default.hex}}"
+      green = "{{colors.tertiary.default.hex}}"
+      yellow = "{{colors.secondary.default.hex}}"
+      blue = "{{colors.primary.default.hex}}"
+      magenta = "{{colors.primary_container.default.hex}}"
+      cyan = "{{colors.tertiary_container.default.hex}}"
+      white = "{{colors.on_surface.default.hex}}"
+
+      [colors.bright]
+      black = "{{colors.surface_bright.default.hex}}"
+      red = "{{colors.error.default.hex}}"
+      green = "{{colors.tertiary.default.hex}}"
+      yellow = "{{colors.secondary.default.hex}}"
+      blue = "{{colors.primary.default.hex}}"
+      magenta = "{{colors.primary_container.default.hex}}"
+      cyan = "{{colors.tertiary_container.default.hex}}"
+      white = "{{colors.on_surface_variant.default.hex}}"
+    '';
+
+    # 2.7. Matugen template for Btop
+    xdg.configFile."matugen/templates/btop.theme".text = ''
+      # Main background, empty for terminal default, need to be empty if you want transparent background
+      theme[main_bg]="{{colors.surface.default.hex}}"
+
+      # Main text color
+      theme[main_fg]="{{colors.on_surface.default.hex}}"
+
+      # Title color for boxes
+      theme[title]="{{colors.on_surface.default.hex}}"
+
+      # Higlight color for keyboard shortcuts
+      theme[hi_fg]="{{colors.primary.default.hex}}"
+
+      # Background color of selected item in processes box
+      theme[selected_bg]="{{colors.surface_container_highest.default.hex}}"
+
+      # Foreground color of selected item in processes box
+      theme[selected_fg]="{{colors.on_surface.default.hex}}"
+
+      # Color of inactive/disabled text
+      theme[inactive_fg]="{{colors.on_surface_variant.default.hex}}"
+
+      # Color of text appearing on top of graphs, i.e uptime and current network graph scaling
+      theme[graph_text]="{{colors.on_surface.default.hex}}"
+
+      # Background color of the percentage meters
+      theme[meter_bg]="{{colors.surface_container.default.hex}}"
+
+      # Misc colors for processes box including mini cpu graphs, details memory graph and details status text
+      theme[proc_misc]="{{colors.on_surface_variant.default.hex}}"
+
+      # Cpu box outline color
+      theme[cpu_box]="{{colors.primary.default.hex}}"
+
+      # Memory box outline color
+      theme[mem_box]="{{colors.tertiary.default.hex}}"
+
+      # Net box outline color
+      theme[net_box]="{{colors.secondary.default.hex}}"
+
+      # Processes box outline color
+      theme[proc_box]="{{colors.error.default.hex}}"
+
+      # Box divider line and small boxes line color
+      theme[div_line]="{{colors.outline.default.hex}}"
+
+      # Temperature graph colors
+      theme[temp_start]="{{colors.primary.default.hex}}"
+      theme[temp_mid]="{{colors.tertiary.default.hex}}"
+      theme[temp_end]="{{colors.error.default.hex}}"
+
+      # CPU graph colors
+      theme[cpu_start]="{{colors.primary.default.hex}}"
+      theme[cpu_mid]="{{colors.tertiary.default.hex}}"
+      theme[cpu_end]="{{colors.error.default.hex}}"
+
+      # Mem/Disk free meter
+      theme[free_start]="{{colors.primary.default.hex}}"
+      theme[free_mid]="{{colors.tertiary.default.hex}}"
+      theme[free_end]="{{colors.error.default.hex}}"
+
+      # Mem/Disk cached meter
+      theme[cached_start]="{{colors.primary.default.hex}}"
+      theme[cached_mid]="{{colors.tertiary.default.hex}}"
+      theme[cached_end]="{{colors.error.default.hex}}"
+
+      # Mem/Disk available meter
+      theme[available_start]="{{colors.primary.default.hex}}"
+      theme[available_mid]="{{colors.tertiary.default.hex}}"
+      theme[available_end]="{{colors.error.default.hex}}"
+
+      # Mem/Disk used meter
+      theme[used_start]="{{colors.primary.default.hex}}"
+      theme[used_mid]="{{colors.tertiary.default.hex}}"
+      theme[used_end]="{{colors.error.default.hex}}"
+
+      # Download graph colors
+      theme[download_start]="{{colors.primary.default.hex}}"
+      theme[download_mid]="{{colors.tertiary.default.hex}}"
+      theme[download_end]="{{colors.error.default.hex}}"
+
+      # Upload graph colors
+      theme[upload_start]="{{colors.primary.default.hex}}"
+      theme[upload_mid]="{{colors.tertiary.default.hex}}"
+      theme[upload_end]="{{colors.error.default.hex}}"
+    '';
+
+    # 2.8. Matugen template for Walker
+    xdg.configFile."matugen/templates/walker.css".text = ''
+      #window {
+        background-color: {{colors.surface.default.hex}};
+        color: {{colors.on_surface.default.hex}};
+      }
+
+      #input {
+        background-color: {{colors.surface_container.default.hex}};
+        color: {{colors.on_surface.default.hex}};
+        border-bottom: 2px solid {{colors.primary.default.hex}};
+      }
+
+      #list {
+        background-color: transparent;
+      }
+
+      .item {
+        color: {{colors.on_surface.default.hex}};
+      }
+
+      .item.active {
+        background-color: {{colors.secondary_container.default.hex}};
+        color: {{colors.on_secondary_container.default.hex}};
+      }
+    '';
+
+    # 2.9. Matugen template for Discord (Vencord)
+    xdg.configFile."matugen/templates/discord.css".text = ''
+      :root {
+        --primary-color: {{colors.primary.default.hex}};
+        --secondary-color: {{colors.secondary.default.hex}};
+        --background-primary: {{colors.surface.default.hex}};
+        --background-secondary: {{colors.surface_container.default.hex}};
+        --background-tertiary: {{colors.surface_container_highest.default.hex}};
+        --text-normal: {{colors.on_surface.default.hex}};
+        --text-muted: {{colors.on_surface_variant.default.hex}};
+      }
+    '';
 
 
     # 3. Hyprland integration (auto-launch Noctalia)

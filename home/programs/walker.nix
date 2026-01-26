@@ -49,47 +49,16 @@ with lib;
       };
     };
 
-    # Walker CSS styling
+    # Walker CSS styling - Imports Matugen generated theme
     xdg.configFile."walker/style.css".text = ''
+      @import "themes/noctalia.css";
+      
       * {
-        color: #cdd6f4;
         font-family: "JetBrainsMono Nerd Font";
         font-size: 14px;
       }
-
-      #window {
-        background: rgba(30, 30, 46, 0.95);
-        border-radius: 10px;
-        border: 2px solid #89b4fa;
-      }
-
-      #input {
-        background: rgba(49, 50, 68, 0.8);
-        color: #cdd6f4;
-        border-radius: 5px;
-        padding: 10px;
-        margin: 10px;
-      }
-
-      #list {
-        background: transparent;
-        padding: 5px;
-      }
-
-      #element {
-        background: transparent;
-        padding: 8px;
-        margin: 2px;
-        border-radius: 5px;
-      }
-
-      #element:selected {
-        background: rgba(137, 180, 250, 0.3);
-      }
-
-      #element:hover {
-        background: rgba(137, 180, 250, 0.2);
-      }
+      
+      /* Base overrides if needed, otherwise handled by noctalia.css */
     '';
   };
 }

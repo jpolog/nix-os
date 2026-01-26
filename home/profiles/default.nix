@@ -11,5 +11,6 @@
     ./creative.nix
     ./personal.nix
     ./gaming.nix
+    ./research.nix
   ];
 }

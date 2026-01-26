@@ -39,6 +39,13 @@ mkUser {
         zoom = true;
       };
     };
+
+    research = {
+      enable = true;
+      latex.enable = true;
+      tools.enable = true;
+      diagrams.enable = true;
+    };
     
     personal = {
       enable = true;
@@ -94,4 +101,6 @@ mkUser {
                           "Documents/scans/.keep".text = "";
                           "Documents/work/.keep".text = "";
                         };
+                        
+                        programs.web-apps.apps.outlook = true;
                       };}

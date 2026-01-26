@@ -67,6 +67,9 @@ let
     
     # Markdown
     markdown-preview-nvim
+
+    # -- LaTeX --
+    vimtex
   ];
 
   # --- 2. THE LINK FARM GENERATOR ---
@@ -148,6 +151,7 @@ in {
       yaml-language-server
       marksman
       markdownlint-cli2
+      texlab
       shfmt
       shellcheck
     ];

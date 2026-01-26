@@ -146,6 +146,11 @@ with lib;
           };
         };
         
+        # Window Rules
+        windowrulev2 = [
+          "float,class:^(floating)$"
+        ];
+        
         # Misc
         misc = {
            disable_hyprland_logo = true;
@@ -182,6 +187,7 @@ with lib;
              
              # Menus
              "SUPER, SPACE, exec, walker"
+             "SUPER, N, exec, noctalia-shell ipc call controlCenter toggle"
              "SUPER ALT, SPACE, exec, wlogout"
              "SUPER, ESCAPE, exec, wlogout"
 
@@ -205,6 +211,17 @@ with lib;
              "SUPER, F, fullscreen, 0"
              "SUPER ALT, F, fullscreen, 1"
              
+             # Rotate Layout (Toggle between Row and Column mode for Hyprscrolling)
+             "SUPER, R, exec, hyprctl dispatch scroller:setmode $(hyprctl getoption plugin:hyprscrolling:mode | grep -q 'col' && echo row || echo col)"
+             
+             # Special Workspace
+             "SUPER, S, togglespecialworkspace, magic"
+             "SUPER SHIFT, S, movetoworkspace, special:magic"
+             
+             # Web Apps
+             "SUPER SHIFT, E, exec, gtk-launch outlook"
+             "SUPER SHIFT, G, exec, chromium --app=https://github.com"
+             
              # Toggle Transparency
              "SUPER, BackSpace, exec, hyprctl getoption decoration:active_opacity | grep -q 'float: 1.0' && hyprctl keyword decoration:active_opacity 0.9 && hyprctl keyword decoration:inactive_opacity 0.9 || hyprctl keyword decoration:active_opacity 1.0 && hyprctl keyword decoration:inactive_opacity 1.0"
              
@@ -213,6 +230,44 @@ with lib;
              "SUPER, comma, layoutmsg, move -col"
              "SUPER, equal, layoutmsg, colresize +0.2"
              "SUPER, minus, layoutmsg, colresize -0.2"
+             
+             # Hyprscrolling Extras
+             "SUPER, P, layoutmsg, promote"                 # Promote window to its own column
+             "SUPER CTRL, period, layoutmsg, swapcol r"     # Swap column right
+             "SUPER CTRL, comma, layoutmsg, swapcol l"      # Swap column left
+             "SUPER, M, layoutmsg, togglefit"               # Toggle between fit and center alignment
+
+             # ===========================================================================
+             # Numpad "Stream Deck" - Media, System & Apps Control
+             # ===========================================================================
+             
+             # Row 1: Media Control
+             "SUPER, KP_Home, exec, playerctl previous"      # 7: Prev Track
+             "SUPER, KP_Up, exec, playerctl play-pause"      # 8: Play/Pause
+             "SUPER, KP_Page_Up, exec, playerctl next"       # 9: Next Track
+             
+             # Row 2: Audio & Mixer
+             "SUPER, KP_Left, exec, pamixer --default-source -t" # 4: Mic Mute Toggle
+             "SUPER, KP_Begin, exec, pamixer -t"             # 5: Audio Mute Toggle
+             "SUPER, KP_Right, exec, pavucontrol"            # 6: Open Mixer
+             
+             # Row 3: Cool Power Tools
+             "SUPER, KP_End, exec, walker -m clipboard"      # 1: Clipboard History
+             "SUPER, KP_Down, exec, grim -g \"$(slurp)\" - | tesseract - - | wl-copy" # 2: OCR (Select area -> Text to clipboard)
+             "SUPER, KP_Next, layoutmsg, fit all"            # 3: Fit All Columns (Overview)
+             
+             # Row 4: Toggles
+             "SUPER, KP_Insert, exec, pkill -USR1 wlsunset"  # 0: Toggle Night Light
+             "SUPER, KP_Delete, exec, makoctl mode -t dnd"   # .: Toggle Do Not Disturb
+             
+             # Side Column: Zoom & Utilities
+             "SUPER, KP_Add, exec, hyprctl keyword misc:cursor_zoom_factor 2.0"  # +: Zoom In
+             "SUPER, KP_Subtract, exec, hyprctl keyword misc:cursor_zoom_factor 1.0" # -: Zoom Reset
+             "SUPER, KP_Enter, exec, grimblast copy area"    # Enter: Screenshot Region
+             
+             # Top Bar
+             "SUPER, KP_Divide, exec, hyprpicker -a"         # /: Color Picker
+             "SUPER, KP_Multiply, exec, loginctl lock-session" # *: Lock Screen
 
              # Focus
              "SUPER, LEFT, movefocus, l"

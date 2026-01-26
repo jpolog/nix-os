@@ -5,9 +5,6 @@
   
   # Additional power-user packages
   home.packages = with pkgs; [
-    # Terminal emulators (alternatives)
-    alacritty
-    
     # Code searching
     ast-grep           # AST-based code search
     semgrep            # Semantic grep
@@ -67,7 +64,6 @@
     restic             # Encrypted backups
     
     # System monitoring (btop is the best all-in-one)
-    btop               # Resource monitor (best modern option)
     nvtopPackages.amd  # GPU monitoring tool
     
     # Process management

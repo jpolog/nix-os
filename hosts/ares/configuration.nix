@@ -102,7 +102,7 @@
   # themes.active = "thinknix"; # Disabled as Stylix/Themes module removed
   
   profiles.development.enable = true; # Development tools
-  profiles.gaming.enable = true;      # Gaming infrastructure (drivers, isolated user)
+  profiles.gaming.enable = false;      # Gaming infrastructure (drivers, isolated user)
   
   # Configure development tools
   profiles.development.languages = {
@@ -137,6 +137,19 @@
     ];
     shell = pkgs.zsh;
   };
+
+  users.users.gaming = {
+    isNormalUser = true;
+    description = "Gaming User";
+    initialPassword = "gaming";
+    extraGroups = [
+      "networkmanager"
+      "video"
+      "audio"
+      "input"
+    ];
+    shell = pkgs.bash;
+  };
   
   # ============================================================================
   # Home Manager - User Configuration
@@ -163,6 +176,17 @@
   services.displayManager.sddm.enable = true;
   services.displayManager.sddm.wayland.enable = true;
 
+  # ============================================================================
+  # Gaming Hardware Support (Manual)
+  # ============================================================================
+  
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+  };
+
+  programs.gamemode.enable = true;
+
 
 
   # ============================================================================
@@ -183,6 +207,14 @@
     "d /home/gaming/.local/state/home-manager 0755 gaming users -"
   ];
 
+
+  # ============================================================================
+  # Compatibility
+  # ============================================================================
+  
+  # Enable envfs to allowing standard shebangs (#!/bin/bash, /usr/bin/env, etc.)
+  # to work transparently by populating /bin and /usr/bin dynamically.
+  services.envfs.enable = true;
 
   # ============================================================================
   # System Services
