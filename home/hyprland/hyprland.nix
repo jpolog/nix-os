@@ -4,6 +4,33 @@ with lib;
 
 {
   config = mkIf (config.home.profiles.desktop.enable && config.home.profiles.desktop.environment == "hyprland") {
+    
+    home.packages = with pkgs; [
+      (pkgs.writeShellScriptBin "universal-copy" ''
+        INFO=$(${pkgs.hyprland}/bin/hyprctl activewindow -j)
+        CLASS=$(echo "$INFO" | ${pkgs.jq}/bin/jq -r ".class")
+        ADDR=$(echo "$INFO" | ${pkgs.jq}/bin/jq -r ".address")
+        
+        if [[ "$CLASS" =~ ^(kitty|Alacritty)$ ]]; then
+          ${pkgs.hyprland}/bin/hyprctl dispatch sendshortcut "CTRL SHIFT, C, address:$ADDR"
+        else
+          ${pkgs.hyprland}/bin/hyprctl dispatch sendshortcut "CTRL, C, address:$ADDR"
+        fi
+      '')
+      
+      (pkgs.writeShellScriptBin "universal-paste" ''
+        INFO=$(${pkgs.hyprland}/bin/hyprctl activewindow -j)
+        CLASS=$(echo "$INFO" | ${pkgs.jq}/bin/jq -r ".class")
+        ADDR=$(echo "$INFO" | ${pkgs.jq}/bin/jq -r ".address")
+        
+        if [[ "$CLASS" =~ ^(kitty|Alacritty)$ ]]; then
+          ${pkgs.hyprland}/bin/hyprctl dispatch sendshortcut "CTRL SHIFT, V, address:$ADDR"
+        else
+          ${pkgs.hyprland}/bin/hyprctl dispatch sendshortcut "CTRL, V, address:$ADDR"
+        fi
+      '')
+    ];
+
     wayland.windowManager.hyprland = {
       enable = true;
       # Package is managed by system module (modules/desktop/hyprland.nix)
@@ -200,8 +227,8 @@ with lib;
  
              
              # Clipboard
-             "SUPER, C, sendshortcut, CTRL, Insert,"
-             "SUPER, V, sendshortcut, SHIFT, Insert,"
+             "SUPER, C, exec, universal-copy"
+             "SUPER, V, exec, universal-paste"
              "SUPER, X, sendshortcut, CTRL, X,"
              "SUPER CTRL, V, exec, walker -m clipboard"
 
