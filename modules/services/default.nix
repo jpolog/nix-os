@@ -5,5 +5,6 @@
     ./printing.nix
     ./location.nix
     ./syncthing.nix
+    ./kmonad.nix
   ];
 }

@@ -38,6 +38,10 @@ with lib;
       
       # Identity
       bitwarden-desktop
+      
+      # Theming & Utils
+      qt6Packages.qt6ct
+      gtk3 # Provides gtk-launch
     ] ++ (optionals (config.home.profiles.desktop.environment == "hyprland") [
       # Hyprland specific desktop tools
       kdePackages.dolphin

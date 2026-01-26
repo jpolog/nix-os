@@ -45,7 +45,8 @@ with lib;
           "HYPRCURSOR_SIZE,18"
           "GDK_BACKEND,wayland,x11,*"
           "QT_QPA_PLATFORM,wayland;xcb"
-          "QT_STYLE_OVERRIDE,kvantum"
+          # "QT_STYLE_OVERRIDE,kvantum" # Disabled in favor of qt6ct
+          "QT_QPA_PLATFORMTHEME,qt6ct"
           "SDL_VIDEODRIVER,wayland"
           "MOZ_ENABLE_WAYLAND,1"
           "ELECTRON_OZONE_PLATFORM_HINT,wayland"

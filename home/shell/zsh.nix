@@ -335,6 +335,10 @@ with lib;
         bindkey '^[[1;5C' forward-word
         bindkey '^[[1;5D' backward-word
         
+        # Ensure FZF Ctrl+T is bound even in vi-mode
+        bindkey '^T' fzf-file-widget
+        bindkey -M viins '^T' fzf-file-widget
+        
         if command -v fastfetch >/dev/null 2>&1; then
           fastfetch --config none --structure Title:Separator:OS:Host:Kernel:Uptime:Packages:Shell:Terminal
         elif command -v neofetch >/dev/null 2>&1; then
