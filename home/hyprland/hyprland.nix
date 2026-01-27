@@ -103,7 +103,7 @@ with lib;
         decoration = {
           rounding = 3;
           active_opacity = 0.9;
-          inactive_opacity = 0.9;
+          inactive_opacity = 0.8;
           
           shadow = {
              enabled = true;
@@ -216,6 +216,7 @@ with lib;
              # Menus
              "SUPER, SPACE, exec, walker"
              "SUPER, N, exec, noctalia-shell ipc call controlCenter toggle"
+             "SUPER SHIFT, P, exec, walker -m power-profiles" # Power Profiles Menu
              "SUPER ALT, SPACE, exec, wlogout"
              "SUPER, ESCAPE, exec, wlogout"
 
@@ -223,7 +224,7 @@ with lib;
 	     "SUPER SHIFT, L, exec, loginctl lock-session"
 	  
 	     # Lock and turn off display immediately (for when stepping away)
-	     "SUPER CTRL, L, exec, loginctl lock-session && sleep 1 && hyprctl dispatch dpms off"
+	     "SUPER CTRL SHIFT, L, exec, loginctl lock-session && sleep 1 && hyprctl dispatch dpms off"
  
              
              # Clipboard
@@ -251,7 +252,7 @@ with lib;
              "SUPER SHIFT, G, exec, chromium --app=https://github.com"
              
              # Toggle Transparency
-             "SUPER, BackSpace, exec, hyprctl getoption decoration:active_opacity | grep -q 'float: 1.0' && hyprctl keyword decoration:active_opacity 0.9 && hyprctl keyword decoration:inactive_opacity 0.9 || hyprctl keyword decoration:active_opacity 1.0 && hyprctl keyword decoration:inactive_opacity 1.0"
+             "SUPER, BackSpace, exec, hyprctl getoption decoration:active_opacity | grep -q 'float: 1.0' && hyprctl keyword decoration:active_opacity 0.9 || hyprctl keyword decoration:active_opacity 1.0"
              
              # Scrolling Layout Specific
              "SUPER, period, layoutmsg, move +col"
@@ -263,6 +264,10 @@ with lib;
              "SUPER, P, layoutmsg, promote"                 # Promote window to its own column
              "SUPER CTRL, period, layoutmsg, swapcol r"     # Swap column right
              "SUPER CTRL, comma, layoutmsg, swapcol l"      # Swap column left
+             "SUPER SHIFT, H, layoutmsg, swapcol l"
+             "SUPER SHIFT, L, layoutmsg, swapcol r"
+             "SUPER SHIFT, J, movewindow, d"
+             "SUPER SHIFT, K, movewindow, u"
              "SUPER, M, layoutmsg, togglefit"               # Toggle between fit and center alignment
 
              # ===========================================================================
@@ -308,8 +313,8 @@ with lib;
              "SUPER, K, movefocus, u"
 
              # Move workspace to monitor
-             "SUPER SHIFT, L, movecurrentworkspacetomonitor, +1"
-             "SUPER SHIFT, H, movecurrentworkspacetomonitor, -1"
+             "SUPER CTRL, L, movecurrentworkspacetomonitor, +1"
+             "SUPER CTRL, H, movecurrentworkspacetomonitor, -1"
              
              # Move to workspace
              "SUPER, 1, workspace, 1"

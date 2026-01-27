@@ -23,5 +23,13 @@ in
       (optionals cfg.communication.slack [ slack ]) ++
       (optionals cfg.communication.teams [ teams-for-linux ]) ++
       (optionals cfg.communication.zoom [ zoom-us ]);
+
+    xdg.configFile."zoomus.conf" = mkIf cfg.communication.zoom {
+      text = ''
+        [General]
+        enablegpucomputeutilization=true
+        enableCefGpu=true
+      '';
+    };
   };
 }

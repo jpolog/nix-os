@@ -34,6 +34,13 @@ with lib;
           name = "finder";
           prefix = "~";
         }
+        {
+          name = "power-profiles";
+          prefix = ":"; # A unique prefix for power profiles
+          command = "find /etc/nixos/scripts/power -type f -executable -name \"*.sh\" -printf \"%f\n\" | sed 's/\.sh$//'";
+          # The action for each item will be to execute the script
+          action = "sudo /etc/nixos/scripts/power/%s.sh";
+        }
       ];
       websearch = {
         engines = [

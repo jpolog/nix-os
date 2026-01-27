@@ -5,6 +5,7 @@
     ./audio.nix
     ./bluetooth.nix
     ./network.nix
+    ./eduroam.nix
     ./power.nix
     ./security.nix
     ./ssh.nix
