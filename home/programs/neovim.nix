@@ -70,6 +70,10 @@ let
 
     # -- LaTeX --
     vimtex
+
+    # -- Notebooks & Data Science --
+    # molten-nvim
+    # image-nvim
   ];
 
   # --- 2. THE LINK FARM GENERATOR ---
@@ -107,6 +111,7 @@ in {
       curl
       gzip
       gnutar
+      # imagemagick  # For image rendering in Neovim (image.nvim/molten-nvim)
       
       # -- Clipboard Support (Wayland) --
       wl-clipboard      # Provides wl-copy and wl-paste for system clipboard
@@ -160,6 +165,23 @@ in {
     plugins = [
       pkgs.vimPlugins.nvim-treesitter.withAllGrammars
     ];
+
+    # --- 5. LUA PACKAGES ---
+    # extraLuaPackages = ps: [
+    #   ps.magick # For image.nvim
+    # ];
+
+    # --- 6. PYTHON PACKAGES ---
+    # extraPython3Packages = ps: with ps; [
+    #   pynvim
+    #   jupyter-client
+    #   cairosvg
+    #   pnglatex
+    #   plotly
+    #   pyperclip
+    #   ipython
+    #   nbformat
+    # ];
   };
 
   # --- 5. LUA CONFIGURATION ---
@@ -221,6 +243,68 @@ in {
         },
       })
     '';
+
+    # Molten (Jupyter Notebooks) & Image.nvim Configuration
+    # "nvim/lua/plugins/molten.lua".text = ''
+    #   return {
+    #     {
+    #       "benlubas/molten-nvim",
+    #       dependencies = { "3rd/image.nvim" },
+    #       build = ":UpdateRemotePlugins",
+    #       ft = { "ipynb", "python" },
+    #       init = function()
+    #         -- Configuration
+    #         vim.g.molten_image_provider = "image.nvim"
+    #         vim.g.molten_output_win_max_height = 20
+    #         vim.g.molten_auto_open_output = false
+    #         vim.g.molten_wrap_output = true
+    #         vim.g.molten_virt_text_output = true
+    #         vim.g.molten_virt_lines_off_by_1 = true
+    #       end,
+    #       keys = {
+    #         { "<leader>mi", ":MoltenInit<CR>", desc = "Initialize Molten" },
+    #         { "<leader>me", ":MoltenEvaluateOperator<CR>", desc = "Evaluate Operator", mode = "n" },
+    #         { "<leader>ml", ":MoltenEvaluateLine<CR>", desc = "Evaluate Line", mode = "n" },
+    #         { "<leader>mr", ":MoltenReevaluateCell<CR>", desc = "Re-evaluate Cell", mode = "n" },
+    #         { "<leader>mv", ":<C-u>MoltenEvaluateVisual<CR>", desc = "Evaluate Visual", mode = "v" },
+    #         { "<leader>mo", ":noautocmd MoltenEnterOutput<CR>", desc = "Enter Output Window", mode = "n" },
+    #         { "<leader>mh", ":MoltenHideOutput<CR>", desc = "Hide Output", mode = "n" },
+    #         { "<leader>md", ":MoltenDelete<CR>", desc = "Delete Molten Cell", mode = "n" },
+    #       },
+    #     },
+    #     {
+    #       "3rd/image.nvim",
+    #       opts = {
+    #         backend = "kitty", 
+    #         integrations = {
+    #           markdown = {
+    #             enabled = true,
+    #             clear_in_insert_mode = false,
+    #             download_remote_images = true,
+    #             only_render_image_at_cursor = false,
+    #             filetypes = { "markdown", "vimwiki" }, 
+    #           },
+    #           neorg = {
+    #             enabled = true,
+    #             clear_in_insert_mode = false,
+    #             download_remote_images = true,
+    #             only_render_image_at_cursor = false,
+    #             filetypes = { "norg" },
+    #           },
+    #         },
+    #         max_width = 100,
+    #         max_height = 12,
+    #         max_width_window_percentage = nil,
+    #         max_height_window_percentage = 50,
+    #         window_overlap_clear_enabled = false, 
+    #         window_overlap_clear_ft_ignore = { "cmp_menu", "cmp_docs", "" },
+    #         editor_only_render_when_focused = false, 
+    #         tmux_show_only_in_active_window = true, 
+    #         hijack_file_patterns = { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp" }, 
+    #       },
+    #     },
+    #   }
+    # '';
 
     # NixOS-specific overrides
     "nvim/lua/plugins/nix.lua".text = ''

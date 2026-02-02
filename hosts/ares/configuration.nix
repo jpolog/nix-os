@@ -203,6 +203,8 @@
       CPU_ENERGY_PERF_POLICY_ON_BAT = lib.mkForce "balance_power";
       CPU_BOOST_ON_AC = lib.mkForce 1;
       CPU_BOOST_ON_BAT = lib.mkForce 0;
+      # Disable USB autosuspend for Logitech Unifying Receiver (K850 keyboard)
+      USB_DENYLIST = "046d:c52b";
     };
   };
 
@@ -421,6 +423,10 @@
         "usb-keyboard" = {
           device = "/dev/input/by-id/usb-CX_2.4G_Receiver-event-kbd";
           config = mkKmonadConfig "/dev/input/by-id/usb-CX_2.4G_Receiver-event-kbd";
+        };
+        "logitech-keyboard" = {
+          device = "/dev/input/by-id/usb-Logitech_USB_Receiver-if02-event-kbd";
+          config = mkKmonadConfig "/dev/input/by-id/usb-Logitech_USB_Receiver-if02-event-kbd";
         };
       };
   };

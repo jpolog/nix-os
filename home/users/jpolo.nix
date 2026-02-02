@@ -47,6 +47,8 @@ mkUser {
       diagrams.enable = true;
     };
     
+    master.enable = true;
+    
     personal = {
       enable = true;
       media = {

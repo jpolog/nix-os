@@ -2,25 +2,36 @@
 # Category: dev
 # Description: Enhanced Nix REPL with useful imports and helpers
 # Usage: nix-repl-advanced
-# Examples:
-#   nix-repl-advanced
 
 set -euo pipefail
 
 # Create temporary file with prelude
-PRELUDE=$(mktemp)
+PRELUDE=$(mktemp --suffix=.nix)
 trap "rm -f $PRELUDE" EXIT
 
-cat > "$PRELUDE" << 'NIXREPL'
-# Import nixpkgs with current system
-pkgs = import <nixpkgs> {}
-# Current flake
-flake = builtins.getFlake (toString ./.)
-# Helper functions
-:p = x: builtins.trace (builtins.toJSON x) x
-:l = path: import path
-# Search for packages
-:s = name: builtins.filter (p: builtins.match ".*${name}.*" p != null) (builtins.attrNames pkgs)
-NIXREPL
+# Check if we are in a flake directory, otherwise default to current dir
+FLAKE_URI=${FLAKE_URI:-"path:$(pwd)"}
 
+cat > "$PRELUDE" <<EOF
+let
+  pkgs = import <nixpkgs> {};
+  flake = builtins.getFlake "$FLAKE_URI";
+in {
+  inherit pkgs flake;
+  
+  # Helper to print as JSON
+  p = x: builtins.trace (builtins.toJSON x) x;
+  
+  # Helper to load a file
+  l = path: import path;
+  
+  # Helper to search package names
+  s = name: builtins.filter (p: builtins.match ".*${name}.*" p != null) (builtins.attrNames pkgs);
+  
+  # Short alias for lib
+  lib = pkgs.lib;
+}
+EOF
+
+echo "Loading Nix REPL with context from: $FLAKE_URI"
 nix repl --file "$PRELUDE"

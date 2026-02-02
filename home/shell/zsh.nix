@@ -30,8 +30,7 @@ with lib;
         
         zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
         zstyle ':completion:*' menu select
-        zstyle ':completion:*' list-colors "''${(s.:.)LS_COLORS}"
-        zstyle ':completion:*' group-name '
+        zstyle ':completion:*' list-colors "'${(s.:.)LS_COLORS}"
         zstyle ':completion:*:descriptions' format '%F{cyan}-- %d --%f'
         zstyle ':completion:*' use-cache yes
         zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/zcompcache"
@@ -345,7 +344,7 @@ with lib;
           neofetch --config none
         fi
         
-        if [ -n "''${IN_NIX_SHELL:-}" ]; then
+        if [ -n ''${IN_NIX_SHELL:-} ]; then
           echo "🐚 In nix-shell"
         fi
       '';

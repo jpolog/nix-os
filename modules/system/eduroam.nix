@@ -103,18 +103,37 @@ in
       }
     ) cfg.networks;
 
-    # Activation script to update passwords from SOPS-managed files
-    system.activationScripts.eduroam-passwords = lib.mkAfter (
-      lib.concatStringsSep "\n" (
+    # Systemd service to inject passwords once NetworkManager is up
+    systemd.services.eduroam-password-injector = {
+      description = "Inject eduroam passwords into NetworkManager";
+      after = [ "NetworkManager.service" ];
+      wants = [ "NetworkManager.service" ];
+      wantedBy = [ "multi-user.target" ];
+      path = [ pkgs.networkmanager ];
+      
+      script = lib.concatStringsSep "\n" (
         lib.mapAttrsToList (name: netCfg: ''
-          # Update password for ${name}
           if [ -f "${netCfg.passwordFile}" ]; then
+            # Wait for NM to be ready
+            for i in {1..30}; do
+              if nmcli general status >/dev/null 2>&1; then break; fi
+              sleep 1
+            done
+
             password=$(cat "${netCfg.passwordFile}")
-            nmcli connection modify "${name}" 802-1x.password "$password" 2>/dev/null || true
+            nmcli connection modify "${name}" 802-1x.password "$password"
+            
+            # Attempt to connect immediately
+            nmcli connection up "${name}" --wait 2 2>/dev/null || true
           fi
         '') cfg.networks
-      )
-    );
+      );
+      
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = true;
+      };
+    };
 
     # System packages needed for certificate management
     environment.systemPackages = with pkgs; [

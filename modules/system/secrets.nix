@@ -52,6 +52,12 @@
         path = "/home/jpolo/.ssh/id_ed25519"; 
         mode = "0600";
       };
+
+      id_um = {
+        owner = "jpolo";
+        path = "/home/jpolo/.ssh/id_um";
+        mode = "0600";
+      };
       
       # Tailscale Auth Key
       tailscale_key = {

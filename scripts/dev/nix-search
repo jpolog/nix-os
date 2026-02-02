@@ -1,37 +1,55 @@
 #!/usr/bin/env bash
 # Category: dev
-# Description: Search for Nix packages and show installation commands
-# Usage: nix-search <query>
-# Examples:
-#   nix-search python
-#   nix-search rust-analyzer
+# Description: Interactive Nix Package Explorer with fzf (Clean & Sorted)
+# Usage: nix-search [query]
 
 set -euo pipefail
 
-if [[ $# -eq 0 ]]; then
-    echo "Usage: $0 <search-query>"
+# Check for fzf
+if ! command -v fzf &> /dev/null; then
+    echo "Error: fzf is required but not installed."
+    echo "Run: nix shell nixpkgs#fzf"
     exit 1
 fi
 
-QUERY="$*"
+INITIAL_QUERY="${1:-}"
 
-# Colors
-GREEN='\033[0;32m'
-BLUE='\033[0;34m'
-CYAN='\033[0;36m'
-NC='\033[0m'
-
-echo -e "${BLUE}🔍 Searching for: $QUERY${NC}\n"
-
-# Search using nh if available, otherwise use nix search
-if command -v nh >/dev/null 2>&1; then
-    nh search "$QUERY" | head -20
-else
-    nix search nixpkgs "$QUERY" | head -40
+if [ -z "$INITIAL_QUERY" ]; then
+    echo -n "Enter search query: "
+    read -r INITIAL_QUERY
 fi
 
-echo -e "\n${CYAN}💡 Installation options:${NC}"
-echo -e "  System-wide:  Add to environment.systemPackages in configuration.nix"
-echo -e "  User:         Add to home.packages in home-manager"
-echo -e "  Temporary:    nix shell nixpkgs#<package>"
-echo -e "  Try once:     , <command>"
+echo -e "🔍 Searching nixpkgs for '${INITIAL_QUERY}'..."
+
+# 1. nix search --json: Get results
+# 2. jq: 
+#    - Strip 'legacyPackages.SYSTEM.' prefix
+#    - Format as: NAME 	 VERSION 	 DESCRIPTION
+# 3. awk: Calculate length of name (field 1) for sorting
+# 4. sort: Sort by name length (shorter = more likely to be the main package)
+# 5. cut: Remove length field
+# 6. fzf: Interactive selection
+SELECTED=$(nix search nixpkgs "$INITIAL_QUERY" --json 2>/dev/null | \
+    jq -r 'to_entries[] | 
+        (.key | sub("legacyPackages\\.[^.]*\\."; "")) as $name |
+        "\($name)\t\(.value.version)\t\(.value.description // \"No description\")"' | \
+    awk -F'\t' '{print length($1) "\t" $0}' | \
+    sort -n | \
+    cut -f2- | \
+    fzf --delimiter='\t' --with-nth=1,2,3 \
+        --preview 'echo -e "📦 Package: {1}\n🔖 Version: {2}\n📝 Description: {3}\n\n💡 Config:\n   pkgs.{1}\n\n🚀 Shell Command:\n   nix shell nixpkgs#{1}"' \
+        --preview-window=up:wrap \
+        --header="Enter: Shell | Alt-r: Run | Alt-c: Copy Name" \
+        --bind "alt-r:execute(nix run nixpkgs#{1})+abort" \
+        --bind "alt-c:execute(echo {1} | wl-copy)+abort"
+)
+
+if [ -z "$SELECTED" ]; then
+    exit 0
+fi
+
+# Extract package name (1st column)
+PKG_NAME=$(echo "$SELECTED" | cut -f1)
+
+echo "🚀 Entering shell with: $PKG_NAME"
+nix shell "nixpkgs#$PKG_NAME"
