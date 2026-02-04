@@ -13,6 +13,7 @@
     # Only add host-specific modules here
     ../../modules/system/power-profiles.nix
     ./eduroam.nix
+    ./university-vpn.nix
   ];
 
   system.powerProfiles.enable = true;
@@ -134,6 +135,13 @@
     kubernetes.enable = false;
     ai.enable = true;
   };
+
+  # ============================================================================
+  # Virtual Machines
+  # ============================================================================
+
+  vms.enable = true;
+  vms.windows11.enable = true;
 
   # ============================================================================
   # Users

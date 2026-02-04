@@ -107,6 +107,7 @@
         ./modules/desktop
         ./modules/services
         ./modules/profiles  # System-level profiles (base, desktop, development, gaming, server)
+        ./modules/vms       # Virtual machine management
 
         # Nix-index database
         nix-index-database.nixosModules.nix-index

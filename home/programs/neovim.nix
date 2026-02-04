@@ -348,5 +348,15 @@ in {
       }
     '';
   };
+
+  xdg.desktopEntries.nvim = {
+    name = "Neovim";
+    genericName = "Text Editor";
+    exec = "kitty nvim %U";
+    terminal = false;
+    type = "Application";
+    categories = [ "Utility" "TextEditor" ];
+    mimeType = [ "text/plain" ];
+  };
 }
 

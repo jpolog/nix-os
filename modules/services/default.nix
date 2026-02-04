@@ -6,5 +6,6 @@
     ./location.nix
     ./syncthing.nix
     ./kmonad.nix
+    ./github-copilot.nix
   ];
 }

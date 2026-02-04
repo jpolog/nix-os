@@ -22,7 +22,7 @@ pkgs.mkShell {
     
     # Build tools
     nodePackages.webpack-cli
-    nodePackages.vite
+    vite  # Use standalone package
   ];
   
   shellHook = ''

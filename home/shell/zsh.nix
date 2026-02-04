@@ -174,7 +174,6 @@ with lib;
         cddl = "cd ~/Downloads";
         
         # Safety aliases
-        rm = "trash";
         cp = "cp -i";
         mv = "mv -i";
         
@@ -197,8 +196,6 @@ with lib;
         ipy = "ipython";
         
               # AI Tools
-        
-              copilot = "github-copilot-cli";
         
         perplexity = "gemini";
         

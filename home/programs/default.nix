@@ -7,5 +7,10 @@
     ./kitty.nix
     ./neovim.nix
     ./web-apps.nix
+    ./vms.nix
+    ./loupe.nix
+    ./evince.nix
+    ./ark.nix
+    ./mpv.nix
   ];
 }

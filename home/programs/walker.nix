@@ -35,11 +35,32 @@ with lib;
           prefix = "~";
         }
         {
-          name = "power-profiles";
-          prefix = ":"; # A unique prefix for power profiles
-          command = "find /etc/nixos/scripts/power -type f -executable -name \"*.sh\" -printf \"%f\n\" | sed 's/\.sh$//'";
-          # The action for each item will be to execute the script
-          action = "sudo /etc/nixos/scripts/power/%s.sh";
+          name = "custom";
+          prefix = ":";
+          src = {
+            entries = [
+              {
+                label = "⚡ Performance Plus";
+                sub = "Maximum performance mode";
+                exec = "pkexec /run/current-system/sw/bin/power-performance-plus";
+              }
+              {
+                label = "🔥 Performance";
+                sub = "High performance mode";
+                exec = "pkexec /run/current-system/sw/bin/power-performance";
+              }
+              {
+                label = "⚖️ Balanced";
+                sub = "Balanced power profile";
+                exec = "pkexec /run/current-system/sw/bin/power-balanced";
+              }
+              {
+                label = "🌱 Eco";
+                sub = "Power saving mode";
+                exec = "pkexec /run/current-system/sw/bin/power-eco";
+              }
+            ];
+          };
         }
       ];
       websearch = {

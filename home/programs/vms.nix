@@ -3,49 +3,43 @@
 {
   # VM management tools for home-manager
   home.packages = with pkgs; [
-    # virt-manager has desktop file validation issues in current nixpkgs
-    # Use virt-viewer for VM display, cockpit for web-based management
-    # virt-manager
-    
     # Remote desktop
     remmina          # RDP/VNC/SSH client
     freerdp          # RDP client
-    
-    # Utility scripts (defined below)
+    tigervnc         # VNC viewer
   ];
   
   # VM management aliases
   programs.zsh.shellAliases = {
     # libvirt aliases
-    vl = "virsh list --all";
-    vls = "virsh list --all";
-    vstart = "virsh start";
-    vstop = "virsh shutdown";
-    vforce = "virsh destroy";
-    vinfo = "virsh dominfo";
-    vcon = "virsh console";
+    vl = "sudo virsh list --all";
+    vls = "sudo virsh list --all";
+    vstart = "sudo virsh start";
+    vstop = "sudo virsh shutdown";
+    vforce = "sudo virsh destroy";
+    vinfo = "sudo virsh dominfo";
+    vcon = "sudo virsh console";
+    vview = "virt-viewer";
     
     # Quick VM creation
     qvm = "quickemu --vm";
     
-    # Docker/Podman
-    d = "docker";
-    dc = "docker-compose";
-    pd = "podman";
-    pdc = "podman-compose";
+    # Windows 11 shortcuts
+    win11 = "win11-vm";
+    w11 = "win11-vm";
     
     # VM snapshots
-    vsnap = "virsh snapshot-create-as";
-    vsnaplist = "virsh snapshot-list";
-    vsnaprevert = "virsh snapshot-revert";
+    vsnap = "sudo virsh snapshot-create-as";
+    vsnaplist = "sudo virsh snapshot-list";
+    vsnaprevert = "sudo virsh snapshot-revert";
     
     # VM cloning
-    vclone = "virt-clone";
+    vclone = "sudo virt-clone";
     
     # VM networking
-    vnet = "virsh net-list --all";
-    vnetstart = "virsh net-start";
-    vnetstop = "virsh net-destroy";
+    vnet = "sudo virsh net-list --all";
+    vnetstart = "sudo virsh net-start";
+    vnetstop = "sudo virsh net-destroy";
   };
   
   # Configuration files
@@ -54,11 +48,5 @@
     "libvirt/libvirt.conf".text = ''
       uri_default = "qemu:///system"
     '';
-    
-    # Quickemu templates directory
-    # "quickemu/templates".source = ./vm-templates;
   };
-  
-  # Desktop entries removed - virt-manager desktop file has validation issues
-  # Use: virt-viewer for display, virsh CLI, or cockpit web interface
 }
