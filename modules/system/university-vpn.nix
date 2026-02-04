@@ -63,7 +63,12 @@ in
     # Ensure NetworkManager is enabled
     networking.networkmanager.enable = true;
 
-    # Enable strongSwan with NetworkManager plugin
+    # NetworkManager configuration for strongSwan
+    networking.networkmanager.plugins = with pkgs; [
+      networkmanager-strongswan
+    ];
+
+    # Enable strongSwan service (required for VPN functionality)
     services.strongswan = {
       enable = true;
       
@@ -110,11 +115,6 @@ in
       networkmanagerapplet
       networkmanager-strongswan  # NetworkManager plugin for strongSwan
       strongswan
-    ];
-
-    # NetworkManager configuration for strongSwan
-    networking.networkmanager.plugins = with pkgs; [
-      networkmanager-strongswan
     ];
 
     # Create NetworkManager connection files for each VPN
