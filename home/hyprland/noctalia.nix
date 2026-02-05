@@ -66,6 +66,7 @@ in {
         ];
         "modulesRight" = [
           "updates"
+          "vpn"
           "network"
           "volume"
           "brightness"
@@ -184,6 +185,14 @@ in {
       "Updates" = {
         "enabled" = true;
         "checkInterval" = 3600;           # Check every hour
+      };
+
+      # ===== VPN QUICK TOGGLE =====
+      "VPN" = {
+        "enabled" = true;
+        "showConnectionName" = true;
+        "autoConnect" = false;            # Manual control only
+        "defaultConnection" = "um-vpn";   # Your university VPN
       };
     };
     

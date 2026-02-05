@@ -163,7 +163,10 @@ in
 
           [ipv4]
           method=auto
-          never-default=false
+          never-default=true
+          ignore-auto-routes=yes
+          route1=155.54.0.0/16,0.0.0.0,0
+          dns-priority=50
 
           [ipv6]
           addr-gen-mode=stable-privacy
