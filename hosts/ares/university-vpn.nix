@@ -30,10 +30,9 @@
         # Auto-connect on boot (disabled by default)
         autoConnect = false; # Set to true if you want automatic connection
 
-        # Optional: CA Certificate for server validation
-        # If your university provides a CA cert, download it and reference it here:
-        # certificate = /path/to/um-ca-cert.pem;
-        certificate = null;
+        # CA Certificate for server validation (required for HARICA certificate chain)
+        # Using the HARICA TLS Root CA 2021 certificate from the certs directory
+        certificate = ../../certs/harica-tls-root-2021.pem;
 
         # IKEv2 encryption settings (Universidad de Murcia defaults)
         # These should work for most universities, but verify with your IT department

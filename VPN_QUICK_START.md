@@ -108,14 +108,36 @@ ip addr show | grep -A 5 ppp0  # VPN interface
 
 ### VPN Not Connecting?
 ```bash
-# Check NetworkManager logs
+# Check NetworkManager logs (watch in real-time)
 journalctl -u NetworkManager -f
 
 # Check strongSwan logs
 journalctl -u strongswan -f
 
+# Check charon-nm logs while connecting
+journalctl -u NetworkManager -f | grep charon
+
 # Restart NetworkManager
 sudo systemctl restart NetworkManager
+
+# Restart strongSwan daemon
+sudo systemctl restart strongswan
+sudo systemctl status strongswan
+```
+
+### Debug Authentication Issues
+```bash
+# Try connecting manually with verbose output
+sudo nmcli --ask connection up um-vpn
+
+# Verify password is stored correctly
+nmcli connection show um-vpn | grep password
+
+# Check if password injector service ran successfully
+systemctl status university-vpn-password-injector
+
+# Check if password file exists and is readable (if using SOPS)
+ls -l /run/secrets/um_vpn_password
 ```
 
 ### Wrong Gateway?

@@ -60,6 +60,13 @@ in
   };
 
   config = mkIf cfg.enable {
+    # Add HARICA TLS Root CA 2021 to system certificate store
+    # Note: strongSwan has issues reading from NixOS certificate bundles
+    # The certificate should be specified directly in the VPN connection config
+    security.pki.certificateFiles = [
+      ../../certs/harica-tls-root-2021.pem
+    ];
+
     # Ensure NetworkManager is enabled
     networking.networkmanager.enable = true;
 
@@ -117,8 +124,15 @@ in
       strongswan
     ];
 
-    # Create NetworkManager connection files for each VPN
-    environment.etc = lib.mapAttrs' (name: vpnCfg:
+    # Create strongswan.conf and NetworkManager connection files
+    environment.etc = {
+      # strongswan.conf for charon-nm (NetworkManager plugin)
+      "strongswan.conf".text = ''
+        charon-nm {
+          load = random nonce pubkey pkcs1 pem pkcs8 openssl kernel-netlink socket-default eap-identity eap-mschapv2 eap-md5 eap-gtc eap-tls
+        }
+      '';
+    } // lib.mapAttrs' (name: vpnCfg:
       nameValuePair "NetworkManager/system-connections/${name}.nmconnection" {
         mode = "0600";
         text = ''
@@ -141,10 +155,11 @@ in
           ike=yes
           encap=no
           ipcomp=no
+          rightid=${vpnCfg.gateway}
 
           [vpn-secrets]
           ${optionalString (vpnCfg.passwordFile != null) "password-flags=0"}
-          ${optionalString (vpnCfg.passwordFile == null) "password-flags=2"}
+          ${optionalString (vpnCfg.passwordFile == null) "password-flags=1"}
 
           [ipv4]
           method=auto
