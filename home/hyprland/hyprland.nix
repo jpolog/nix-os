@@ -37,6 +37,16 @@ with lib;
               ${pkgs.hyprland}/bin/hyprctl dispatch sendshortcut "CTRL, V, address:$ADDR"
             fi
           '')
+
+          (pkgs.writeShellScriptBin "toggle-transparency" ''
+            ACTIVE_OPACITY=$(${pkgs.hyprland}/bin/hyprctl getoption decoration:active_opacity | ${pkgs.gawk}/bin/awk '/float/ {print $2}')
+            IS_OPAQUE=$(${pkgs.gawk}/bin/awk -v active_opacity="$ACTIVE_OPACITY" 'BEGIN {print (active_opacity >= 1.0)}')
+            if [ "$IS_OPAQUE" = "1" ]; then
+              ${pkgs.hyprland}/bin/hyprctl --batch "keyword decoration:active_opacity 0.9; keyword decoration:inactive_opacity 0.8"
+            else
+              ${pkgs.hyprland}/bin/hyprctl --batch "keyword decoration:active_opacity 1.0; keyword decoration:inactive_opacity 1.0"
+            fi
+          '')
         ];
 
         wayland.windowManager.hyprland = {
@@ -277,7 +287,7 @@ with lib;
               "SUPER SHIFT, G, exec, chromium --app=https://github.com"
 
               # Toggle Transparency
-              "SUPER, BackSpace, exec, hyprctl getoption decoration:active_opacity | grep -q 'float: 1.0' && hyprctl keyword decoration:active_opacity 0.9 || hyprctl keyword decoration:active_opacity 1.0"
+              "SUPER, BackSpace, exec, toggle-transparency"
 
               # Scrolling Layout Specific
               "SUPER, period, layoutmsg, move +col"

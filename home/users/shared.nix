@@ -3,7 +3,12 @@
 # Common settings applied to ALL users on ALL machines.
 # Put universal configurations here that every user should have.
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   # Import shared program configurations
@@ -15,12 +20,12 @@
   # These are tools that everyone needs regardless of role
   home.packages = with pkgs; [
     # Essential CLI tools (if not in base profile)
-    ncdu      # Disk usage analyzer
-    duf       # Better df
-    
+    ncdu # Disk usage analyzer
+    duf # Better df
+
     # Security
-    age       # Encryption
-    sops      # Secrets management
+    age # Encryption
+    sops # Secrets management
   ];
 
   # Centralized state version
@@ -34,7 +39,7 @@
   # Common programs configuration that doesn't need user-specific data
   programs = {
     # bash/zsh are configured per-user in shell/
-    
+
     # direnv (project environments)
     direnv = {
       enable = true;
