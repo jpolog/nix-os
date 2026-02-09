@@ -7,5 +7,6 @@
     ./syncthing.nix
     ./kmonad.nix
     ./github-copilot.nix
+    ./plex-client.nix
   ];
 }

@@ -336,6 +336,9 @@
   # Enable Syncthing for jpolo
   services.syncthing-jpolo.enable = true;
 
+  # Enable Plex Client firewall rules for downloads/sync
+  services.plex-client.enable = true;
+
   # KMonad Keyboard Configuration
   modules.services.kmonad = {
     enable = true;
@@ -435,6 +438,10 @@
         "logitech-keyboard" = {
           device = "/dev/input/by-id/usb-Logitech_USB_Receiver-if02-event-kbd";
           config = mkKmonadConfig "/dev/input/by-id/usb-Logitech_USB_Receiver-if02-event-kbd";
+        };
+        "usb-keyboard-cable" = {
+          device = "/dev/input/by-id/usb-SEM_USB_Keyboard-event-kbd";
+          config = mkKmonadConfig "/dev/input/by-id/usb-SEM_USB_Keyboard-event-kbd";
         };
       };
   };
