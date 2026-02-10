@@ -1,7 +1,12 @@
-{ config, pkgs, inputs, lib, ... }:
+{ config, pkgs, inputs, lib, flakePath, ... }:
 
 with lib;
 
+let
+  wallpaperPng = pkgs.runCommand "wallpaper.png" { buildInputs = [ pkgs.imagemagick ]; } ''
+    magick ${flakePath}/modules/themes/assets/thinknix-wallpaper.svg $out
+  '';
+in
 {
   config = mkIf (config.home.profiles.desktop.enable && config.home.profiles.desktop.environment == "hyprland") {
     programs.hyprlock = {
@@ -16,11 +21,11 @@ with lib;
           noFadeIn = false;
         };
 
-        # Blurred background using screenshot
+        # Blurred background using wallpaper
         background = [
           {
             monitor = "";
-            path = "screenshot";  # Takes screenshot and uses it as background
+            path = "${wallpaperPng}";
             blurPasses = 3;      # Number of blur passes
             blurSize = 7;        # Blur intensity
             noise = 0.0117;      # Adds subtle noise
