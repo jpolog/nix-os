@@ -52,6 +52,18 @@ in
             default = "aes256-sha256";
             description = "ESP proposal encryption settings";
           };
+
+          splitTunnelRoutes = mkOption {
+            type = types.listOf types.str;
+            default = [];
+            description = "List of CIDR subnets to route through VPN (e.g. ['155.54.0.0/16']). If non-empty, split tunneling is enabled.";
+          };
+
+          searchDomains = mkOption {
+            type = types.listOf types.str;
+            default = [];
+            description = "List of DNS search domains to route to the VPN DNS servers (e.g. ['um.es']). Adds '~' prefix for systemd-resolved.";
+          };
         };
       });
       default = {};
@@ -71,9 +83,10 @@ in
     networking.networkmanager.enable = true;
 
     # NetworkManager configuration for strongSwan
-    networking.networkmanager.plugins = with pkgs; [
-      networkmanager-strongswan
-    ];
+    networking.networkmanager.plugins = with pkgs;
+      [
+        networkmanager-strongswan
+      ];
 
     # Enable strongSwan service (required for VPN functionality)
     services.strongswan = {
@@ -117,12 +130,13 @@ in
     };
 
     # Required packages for strongSwan with NetworkManager
-    environment.systemPackages = with pkgs; [
-      networkmanager
-      networkmanagerapplet
-      networkmanager-strongswan  # NetworkManager plugin for strongSwan
-      strongswan
-    ];
+    environment.systemPackages = with pkgs;
+      [
+        networkmanager
+        networkmanagerapplet
+        networkmanager-strongswan  # NetworkManager plugin for strongSwan
+        strongswan
+      ];
 
     # Create strongswan.conf and NetworkManager connection files
     environment.etc = {
@@ -163,14 +177,20 @@ in
 
           [ipv4]
           method=auto
+          ${if vpnCfg.splitTunnelRoutes != [] then ''
           never-default=true
-          ignore-auto-routes=yes
-          route1=155.54.0.0/16,0.0.0.0,0
+          ignore-auto-routes=false
+          ignore-auto-dns=false
+          dns-priority=-1
+          dns-search=${concatStringsSep ";" (map (d: "~${d}") vpnCfg.searchDomains)};
+          ${concatStringsSep "\n" (imap1 (i: route: "route${toString i}=${route},0.0.0.0,0") vpnCfg.splitTunnelRoutes)}
+          '' else ''
+          never-default=false
           dns-priority=50
+          ''}
 
           [ipv6]
-          addr-gen-mode=stable-privacy
-          method=auto
+          method=disabled
 
           [proxy]
         '';

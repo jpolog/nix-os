@@ -38,6 +38,13 @@
         # These should work for most universities, but verify with your IT department
         proposal = "aes256-sha256-modp1024"; # IKE proposal
         esp = "aes256-sha256"; # ESP proposal
+
+        # Split Tunneling: Only route university traffic through VPN
+        # All other traffic goes through regular internet connection
+        splitTunnelRoutes = [ "155.54.0.0/16" ];
+
+        # Split DNS: Only route DNS queries for university domains to VPN DNS
+        searchDomains = [ "um.es" ];
       };
     };
   };
