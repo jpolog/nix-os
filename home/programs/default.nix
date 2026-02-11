@@ -12,5 +12,7 @@
     ./evince.nix
     ./ark.nix
     ./mpv.nix
+    ./ai-tools.nix
+    ./terminal-tools.nix
   ];
 }

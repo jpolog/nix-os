@@ -4,24 +4,32 @@ with lib;
 
 let
   cfg = config.programs.web-apps;
+  browserPkg =
+    if config.home.profiles.desktop.browsers.chromium then
+      pkgs.chromium
+    else
+      pkgs.firefox;
+  browserExec =
+    if config.home.profiles.desktop.browsers.chromium then
+      "${browserPkg}/bin/chromium --app="
+    else
+      "${browserPkg}/bin/firefox";
 
-  # Helper function to create a Chromium web app desktop entry
   createWebApp = { name, genericName, url, icon, categories ? [ "Network" "WebBrowser" ] }: {
     name = name;
     genericName = genericName;
-    exec = "${pkgs.chromium}/bin/chromium --app=${url}";
+    exec = "${browserExec} ${url}";
     terminal = false;
     icon = icon;
     type = "Application";
     categories = categories;
     mimeType = [ "text/html" "text/xml" "application/xhtml+xml" ];
   };
-
 in
 {
   options.programs.web-apps = {
     enable = mkEnableOption "web applications generator";
-    
+
     apps = {
       # Communication & Mail
       gmail = mkEnableOption "Gmail";
@@ -29,7 +37,7 @@ in
       outlook = mkEnableOption "Outlook Web";
       whatsapp = mkEnableOption "WhatsApp";
       telegram = mkEnableOption "Telegram Web";
-      
+
       # Development & Documentation
       github = mkEnableOption "GitHub";
       gitlab = mkEnableOption "GitLab";
@@ -37,18 +45,18 @@ in
       chatgpt = mkEnableOption "ChatGPT";
       claude = mkEnableOption "Claude AI";
       perplexity = mkEnableOption "Perplexity AI";
-      
+
       # Creative & Design
       figma = mkEnableOption "Figma";
       canva = mkEnableOption "Canva";
       excalidraw = mkEnableOption "Excalidraw";
-      
+
       # Office & Productivity
       notion = mkEnableOption "Notion";
       gdocs = mkEnableOption "Google Docs";
       gdrive = mkEnableOption "Google Drive";
       office365 = mkEnableOption "Microsoft 365";
-      
+
       # Entertainment
       netflix = mkEnableOption "Netflix";
       youtube = mkEnableOption "YouTube";
@@ -57,11 +65,11 @@ in
   };
 
   config = mkIf cfg.enable {
-    # Ensure chromium is available as the runner
-    home.packages = [ pkgs.chromium ];
+    # Ensure the selected browser is available as the runner
+    home.packages = [ browserPkg ];
 
     xdg.desktopEntries = {
-      
+
       # === Communication ===
       gmail = mkIf cfg.apps.gmail (createWebApp {
         name = "Gmail";
@@ -78,7 +86,7 @@ in
         icon = "google-agenda";
         categories = [ "Office" "Calendar" ];
       });
-      
+
       outlook = mkIf cfg.apps.outlook (createWebApp {
         name = "Outlook";
         genericName = "Email Client";
@@ -94,7 +102,7 @@ in
         icon = "whatsapp";
         categories = [ "Network" "InstantMessaging" ];
       });
-      
+
       telegram = mkIf cfg.apps.telegram (createWebApp {
         name = "Telegram";
         genericName = "Messaging Client";
@@ -111,7 +119,7 @@ in
         icon = "github";
         categories = [ "Development" ];
       });
-      
+
       gitlab = mkIf cfg.apps.gitlab (createWebApp {
         name = "GitLab";
         genericName = "DevOps Platform";
@@ -127,15 +135,15 @@ in
         icon = "texstudio"; # Closest generic icon usually available
         categories = [ "Office" "Publishing" "Education" ];
       });
-      
+
       chatgpt = mkIf cfg.apps.chatgpt (createWebApp {
         name = "ChatGPT";
         genericName = "AI Assistant";
         url = "https://chat.openai.com";
-        icon = "openai"; # May need custom icon
+        icon = "openai";
         categories = [ "Utility" "ArtificialIntelligence" ];
       });
-      
+
       claude = mkIf cfg.apps.claude (createWebApp {
         name = "Claude";
         genericName = "AI Assistant";
@@ -160,7 +168,7 @@ in
         icon = "figma";
         categories = [ "Graphics" "2DGraphics" "VectorGraphics" ];
       });
-      
+
       canva = mkIf cfg.apps.canva (createWebApp {
         name = "Canva";
         genericName = "Design Tool";
@@ -168,7 +176,7 @@ in
         icon = "canva"; # Requires icon theme
         categories = [ "Graphics" "Publishing" ];
       });
-      
+
       excalidraw = mkIf cfg.apps.excalidraw (createWebApp {
         name = "Excalidraw";
         genericName = "Whiteboard";
@@ -185,7 +193,7 @@ in
         icon = "notion-app";
         categories = [ "Office" ];
       });
-      
+
       gdocs = mkIf cfg.apps.gdocs (createWebApp {
         name = "Google Docs";
         genericName = "Word Processor";
@@ -193,7 +201,7 @@ in
         icon = "google-docs";
         categories = [ "Office" "WordProcessor" ];
       });
-      
+
       office365 = mkIf cfg.apps.office365 (createWebApp {
         name = "Microsoft 365";
         genericName = "Office Suite";
@@ -210,7 +218,7 @@ in
         icon = "youtube";
         categories = [ "AudioVideo" "Video" ];
       });
-      
+
       netflix = mkIf cfg.apps.netflix (createWebApp {
         name = "Netflix";
         genericName = "Streaming Service";
@@ -218,7 +226,7 @@ in
         icon = "netflix";
         categories = [ "AudioVideo" "Video" ];
       });
-      
+
       spotify = mkIf cfg.apps.spotify (createWebApp {
         name = "Spotify";
         genericName = "Music Player";

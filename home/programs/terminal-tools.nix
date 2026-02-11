@@ -225,6 +225,19 @@ with lib;
       };
     };
 
+    # Interactive Bash Shell
+    programs.bash = {
+      enable = true;
+      enableCompletion = true;
+      historyControl = [ "ignoredups" ];
+    };
+
+    home.packages = with pkgs; [
+      bashInteractive
+      shellcheck
+      shfmt
+    ];
+
     # Alacritty - Terminal Emulator (Matugen themed)
     programs.alacritty = {
       enable = true;

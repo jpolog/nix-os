@@ -17,7 +17,8 @@ mkUser {
     cli.enable = true;       
     development = {
       enable = true;
-      editors.vscode.enable = true;
+      editors.vscode.enable = false;
+      ai.tools.claude-code.enable = true;
     };
     creative = {
       enable = true;
@@ -93,16 +94,20 @@ mkUser {
   
             home.profiles.desktop.environment = "hyprland";
   
-            
+            home.profiles.desktop.browsers = {
+              firefox = true;
+              chromium = false;
+            };
   
-                        home.firefox.vimNavigation.enable = true;
-                        
-                        home.file = {
-                          "Documents/important/.keep".text = "";
-                          "Documents/books/.keep".text = "";
-                          "Documents/scans/.keep".text = "";
-                          "Documents/work/.keep".text = "";
-                        };
-                        
-                        programs.web-apps.apps.outlook = true;
-                      };}
+            home.firefox.vimNavigation.enable = true;
+
+            home.file = {
+              "Documents/important/.keep".text = "";
+              "Documents/books/.keep".text = "";
+              "Documents/scans/.keep".text = "";
+              "Documents/work/.keep".text = "";
+            };
+
+            programs.web-apps.apps.outlook = true;
+          };
+}

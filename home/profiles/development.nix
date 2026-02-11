@@ -8,6 +8,10 @@ let
 in
 
 {
+  imports = [
+    ../programs/ai-tools.nix
+  ];
+
   options.home.profiles.development = {
     enable = mkEnableOption "development tools profile";
 
@@ -25,9 +29,28 @@ in
     web = {
       enable = mkEnableOption "development web apps" // { default = true; };
     };
+
+    ai = {
+      enable = mkEnableOption "AI development tools" // { default = true; };
+      tools = {
+        gemini-cli.enable = mkEnableOption "Gemini CLI" // { default = true; };
+        github-copilot-cli.enable = mkEnableOption "GitHub Copilot CLI" // { default = true; };
+        claude-code.enable = mkEnableOption "Claude Code" // { default = false; };
+      };
+    };
   };
 
   config = mkIf config.home.profiles.development.enable {
+    # Enable AI Development Tools
+    programs.ai-tools = {
+      enable = config.home.profiles.development.ai.enable;
+      tools = {
+        gemini-cli.enable = config.home.profiles.development.ai.tools.gemini-cli.enable;
+        github-copilot-cli.enable = config.home.profiles.development.ai.tools.github-copilot-cli.enable;
+        claude-code.enable = config.home.profiles.development.ai.tools.claude-code.enable;
+      };
+    };
+
     # Enable Development Web Apps
     programs.web-apps = mkIf config.home.profiles.development.web.enable {
       enable = true;
@@ -41,9 +64,9 @@ in
 
     # Explicitly requested AI tools for developers
     home.packages = with pkgs; [
-      gemini-cli
-      github-copilot-cli
-    ];
+    ] ++ (lib.optionals config.home.profiles.development.editors.vscode.enable [
+      vscode
+    ]);
 
     # ========================================================================
     # Tmux Configuration

@@ -217,25 +217,6 @@ with lib;
         
         eval "$(zoxide init zsh)"
         
-        export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
-        export FZF_DEFAULT_OPTS="
-          --height 60%
-          --layout=reverse
-          --border=rounded
-          --inline-info
-          --preview-window=right:60%:wrap
-          --bind='ctrl-/:toggle-preview'
-          --bind='ctrl-u:preview-half-page-up'
-          --bind='ctrl-d:preview-half-page-down'
-          --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8
-          --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc
-          --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
-        
-        export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-        export FZF_CTRL_T_OPTS="--preview 'bat --color=always --line-range :500 {}'"
-        export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
-        export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
-        
         mkcd() { mkdir -p "$1" && cd "$1"; }
         
         extract() {
@@ -330,10 +311,6 @@ with lib;
         bindkey '^[[3~' delete-char
         bindkey '^[[1;5C' forward-word
         bindkey '^[[1;5D' backward-word
-        
-        # Ensure FZF Ctrl+T is bound even in vi-mode
-        bindkey '^T' fzf-file-widget
-        bindkey -M viins '^T' fzf-file-widget
         
         if command -v fastfetch >/dev/null 2>&1; then
           fastfetch --config none --structure Title:Separator:OS:Host:Kernel:Uptime:Packages:Shell:Terminal

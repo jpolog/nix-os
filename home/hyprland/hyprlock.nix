@@ -2,11 +2,6 @@
 
 with lib;
 
-let
-  wallpaperPng = pkgs.runCommand "wallpaper.png" { buildInputs = [ pkgs.imagemagick ]; } ''
-    magick ${flakePath}/modules/themes/assets/thinknix-wallpaper.svg $out
-  '';
-in
 {
   config = mkIf (config.home.profiles.desktop.enable && config.home.profiles.desktop.environment == "hyprland") {
     programs.hyprlock = {
@@ -21,18 +16,18 @@ in
           noFadeIn = false;
         };
 
-        # Blurred background using wallpaper
+        # Blurred background using screenshot
         background = [
           {
             monitor = "";
-            path = "${wallpaperPng}";
-            blurPasses = 3;      # Number of blur passes
-            blurSize = 7;        # Blur intensity
+            path = "screenshot";
+            blur_passes = 3;      # Number of blur passes
+            blur_size = 7;        # Blur intensity
             noise = 0.0117;      # Adds subtle noise
             contrast = 0.8916;   # Slight contrast adjustment
             brightness = 0.8172; # Slightly dimmed
             vibrancy = 0.1696;   # Color vibrancy
-            vibranciDarkness = 0.0;
+            vibrancy_darkness = 0.0;
           }
         ];
 
