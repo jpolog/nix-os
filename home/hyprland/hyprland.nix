@@ -49,6 +49,11 @@ with lib;
           '')
         ];
 
+        services.cliphist = {
+          enable = true;
+          allowImages = true;
+        };
+
         wayland.windowManager.hyprland = {
           enable = true;
           # Package is managed by system module (modules/desktop/hyprland.nix)
@@ -284,7 +289,7 @@ with lib;
 
               # Web Apps
               "SUPER SHIFT, E, exec, gtk-launch outlook"
-              "SUPER SHIFT, G, exec, chromium --app=https://github.com"
+              "SUPER SHIFT, G, exec, gtk-launch github"
 
               # Toggle Transparency
               "SUPER, BackSpace, exec, toggle-transparency"

@@ -109,5 +109,29 @@ mkUser {
             };
 
             programs.web-apps.apps.outlook = true;
+
+            programs.ssh = {
+              enable = true;
+              enableDefaultConfig = false;
+              matchBlocks = {
+                "dgx-spark" = {
+                  hostname = "155.54.180.23";
+                  port = 25004;
+                  user = "javierpg";
+                  identityFile = "~/.ssh/id_um.pub";
+                  identitiesOnly = true;
+                };
+                "um-machine" = {
+                  hostname = "155.54.180.23";
+                  port = 25002;
+                  user = "javierpg";
+                  identityFile = "~/.ssh/id_um";
+                  identitiesOnly = true;
+                };
+                "apollo" = {
+                  user = "jpolo";
+                };
+              };
+            };
           };
 }

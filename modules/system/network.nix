@@ -1,10 +1,17 @@
 { config, pkgs, ... }:
 
 {
+  # Enable systemd-resolved for robust DNS management
+  services.resolved = {
+    enable = true;
+  };
+
   # NetworkManager for easy WiFi management
   networking = {
     networkmanager = {
       enable = true;
+      # Configure NetworkManager to use systemd-resolved
+      dns = "systemd-resolved";
       wifi.powersave = true;
     };
     

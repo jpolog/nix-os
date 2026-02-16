@@ -196,7 +196,7 @@ with lib;
         ipy = "ipython";
         
               # AI Tools
-        
+        claude-qwen = "ANTHROPIC_AUTH_TOKEN=ollama ANTHROPIC_BASE_URL=http://localhost:11434 claude --model qwen3-coder-next";
         perplexity = "gemini";
         
         

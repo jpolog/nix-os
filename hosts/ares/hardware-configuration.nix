@@ -17,6 +17,7 @@
     { device = "/dev/mapper/cryptroot";
       fsType = "btrfs";
       options = [ "subvol=@" ];
+      neededForBoot = true;
     };
 
   boot.initrd.luks.devices."cryptroot".device = "/dev/disk/by-uuid/d08e4c01-a968-4641-bb1f-049c8d22a4c8";
@@ -25,12 +26,14 @@
     { device = "/dev/mapper/cryptroot";
       fsType = "btrfs";
       options = [ "subvol=@home" ];
+      neededForBoot = true;
     };
 
   fileSystems."/nix" =
     { device = "/dev/mapper/cryptroot";
       fsType = "btrfs";
       options = [ "subvol=@nix" ];
+      neededForBoot = true;
     };
 
   fileSystems."/boot" =

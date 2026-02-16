@@ -180,9 +180,7 @@ in
           ${if vpnCfg.splitTunnelRoutes != [] then ''
           never-default=true
           ignore-auto-routes=false
-          ignore-auto-dns=false
-          dns-priority=-1
-          dns-search=${concatStringsSep ";" (map (d: "~${d}") vpnCfg.searchDomains)};
+          ignore-auto-dns=true
           ${concatStringsSep "\n" (imap1 (i: route: "route${toString i}=${route},0.0.0.0,0") vpnCfg.splitTunnelRoutes)}
           '' else ''
           never-default=false

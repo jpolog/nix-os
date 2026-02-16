@@ -106,6 +106,7 @@ with lib;
         style = "compact";
         inline_height = 20;
         show_preview = true;
+        enter_accept = true;
         
         # Keybindings
         keymap_mode = "vim-normal";
