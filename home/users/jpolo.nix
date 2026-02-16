@@ -30,6 +30,7 @@ mkUser {
       productivity.enable = true;
       cli-utils.enable = true;
       torrenting.enable = true;
+      upscayl.enable = true;
     };
     
     work = {
@@ -118,8 +119,9 @@ mkUser {
                   hostname = "155.54.180.23";
                   port = 25004;
                   user = "javierpg";
-                  identityFile = "~/.ssh/id_um.pub";
+                  identityFile = "~/.ssh/id_um";
                   identitiesOnly = true;
+                  forwardX11 = true;
                 };
                 "um-machine" = {
                   hostname = "155.54.180.23";

@@ -33,6 +33,9 @@ in
     torrenting.enable = mkEnableOption "torrenting tools (qBittorrent)" // {
       default = true;
     };
+    upscayl.enable = mkEnableOption "AI image upscaler" // {
+      default = false;
+    };
   };
 
   config = mkIf cfg.enable {
@@ -118,6 +121,12 @@ in
         # Torrenting (Swapped Transmission for qBittorrent)
         (optionals cfg.torrenting.enable [
           qbittorrent
+        ])
+      ++
+
+        # AI Image Upscaling
+        (optionals cfg.upscayl.enable [
+          upscayl
         ]);
 
     # Declarative Obsidian Vault Configuration
