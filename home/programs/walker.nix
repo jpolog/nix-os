@@ -8,7 +8,41 @@ with lib;
     # Note: Package is installed by system profile, but we add it here just in case
     home.packages = with pkgs; [
       walker
+      elephant
     ];
+
+    # Walker systemd service
+    systemd.user.services.walker = {
+      Unit = {
+        Description = "Walker Application Launcher";
+        PartOf = [ "graphical-session.target" ];
+        After = [ "graphical-session.target" "elephant.service" ];
+        Requires = [ "elephant.service" ];
+      };
+      Service = {
+        ExecStart = "${pkgs.walker}/bin/walker --gapplication-service";
+        Restart = "always";
+      };
+      Install = {
+        WantedBy = [ "graphical-session.target" ];
+      };
+    };
+
+    # Elephant systemd service (Backend for Walker)
+    systemd.user.services.elephant = {
+      Unit = {
+        Description = "Elephant Backend Service";
+        PartOf = [ "graphical-session.target" ];
+        After = [ "graphical-session.target" ];
+      };
+      Service = {
+        ExecStart = "${pkgs.elephant}/bin/elephant";
+        Restart = "always";
+      };
+      Install = {
+        WantedBy = [ "graphical-session.target" ];
+      };
+    };
 
     # Walker configuration
     xdg.configFile."walker/config.json".text = builtins.toJSON {

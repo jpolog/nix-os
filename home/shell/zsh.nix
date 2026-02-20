@@ -284,6 +284,11 @@ with lib;
         gwt-add() {
           git worktree add "../$(basename $(pwd))-$1" "$1"
         }
+
+        # SSH compatibility for Kitty (enables remote clipboard & images)
+        if [[ "$TERM" == "xterm-kitty" ]]; then
+          alias ssh='kitten ssh'
+        fi
         
         bindkey -v
         export KEYTIMEOUT=1

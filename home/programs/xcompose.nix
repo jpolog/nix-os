@@ -31,9 +31,9 @@ with lib;
 
     # Set compose key in environment
     home.sessionVariables = {
-      GTK_IM_MODULE = "xim";
-      QT_IM_MODULE = "xim";
-      XMODIFIERS = "@im=none";
+      GTK_IM_MODULE = "fcitx";
+      QT_IM_MODULE = "fcitx";
+      XMODIFIERS = "@im=fcitx";
     };
   };
 }

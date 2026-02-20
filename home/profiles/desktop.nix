@@ -58,7 +58,6 @@ with lib;
 
           # File Managers (Modern replacements)
           yazi
-          ranger
 
           # Identity
           bitwarden-desktop

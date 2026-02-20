@@ -22,7 +22,6 @@ pkgs.mkShell {
     python312Packages.scikit-learn
     
     # Neovim integration
-    python312Packages.molten-nvim
     python312Packages.pynvim
     
     # Linting and formatting

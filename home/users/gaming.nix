@@ -23,7 +23,7 @@ mkUser {
     gaming = {
       enable = true;
       steam.enable = true;
-      wine.enable = true;
+      wine.enable = false;
       utils.enable = true;
       lutris.enable = false;
       heroic.enable = false;

@@ -1,5 +1,16 @@
 { config, pkgs, lib, ... }:
 let
+  # --- CUSTOM PLUGINS ---
+  pathfinder-nvim = pkgs.vimUtils.buildVimPlugin {
+    name = "pathfinder-nvim";
+    src = pkgs.fetchFromGitHub {
+      owner = "HawkinsT";
+      repo = "pathfinder.nvim";
+      rev = "9c79815dfd31726119b44a71c0654377be01d3c2";
+      sha256 = "1i64rkcd534ri2mcb5nv070byljxwa30n97p7nrlliwqrnmw49xw";
+    };
+  };
+
   # --- 1. THE COMPLETE PLUGIN LIST ---
   plugins = with pkgs.vimPlugins; [
     # -- Core LazyVim --
@@ -7,7 +18,7 @@ let
     LazyVim
     bufferline-nvim
     lualine-nvim
-    neo-tree-nvim
+    # neo-tree-nvim -- DISABLED
     nui-nvim
     nvim-web-devicons
     persistence-nvim
@@ -41,12 +52,12 @@ let
     mini-ai            # Better text objects
     mini-pairs         # Auto pairs
     mini-surround      # Surround actions
-    mini-comment       # Commenting
+    mini-comment       # Kept as requested
     mini-icons
     telescope-nvim
     telescope-fzf-native-nvim
     
-    # -- Treesitter (CRITICAL: Must be in link farm too) --
+    # -- Treesitter --
     nvim-treesitter
     nvim-treesitter-context
     nvim-treesitter-textobjects
@@ -72,8 +83,16 @@ let
     vimtex
 
     # -- Notebooks & Data Science --
-    # molten-nvim
     image-nvim
+
+    # --- NEW USER REQUESTED PLUGINS ---
+    harpoon2
+    sniprun
+    obsidian-nvim
+    pathfinder-nvim
+    
+    # -- Snacks (Required for the explorer) --
+    snacks-nvim
   ];
 
   # --- 2. THE LINK FARM GENERATOR ---
@@ -93,6 +112,11 @@ in {
   # --- Environment variable ---
   home.sessionVariables = {
     NIX_LAZY_PATH = "${lazyPath}";
+  };
+
+  # --- Ranger Alias ---
+  home.shellAliases = {
+    rr = "ranger";
   };
 
   programs.neovim = {
@@ -171,23 +195,12 @@ in {
       ps.magick # For image.nvim
     ];
 
-    # --- 6. PYTHON PACKAGES ---
-    # extraPython3Packages = ps: with ps; [
-    #   pynvim
-    #   jupyter-client
-    #   cairosvg
-    #   pnglatex
-    #   plotly
-    #   pyperclip
-    #   ipython
-    #   nbformat
-    # ];
-  };
+    # --- 6. CONFIGURATION ---
+    extraLuaConfig = ''
+      -- Disable netrw to avoid double explorer issue
+      vim.g.loaded_netrw = 1
+      vim.g.loaded_netrwPlugin = 1
 
-  # --- 5. LUA CONFIGURATION ---
-  xdg.configFile = {
-    # Bootstrap
-    "nvim/init.lua".text = ''
       -- Bootstrap lazy.nvim from Nix
       local lazypath = vim.env.NIX_LAZY_PATH .. "/lazy.nvim"
       vim.opt.rtp:prepend(lazypath)
@@ -198,7 +211,32 @@ in {
       -- Load LazyVim config
       require("config.lazy")
     '';
+  };
 
+  # --- 7. Ranger Configuration ---
+  programs.ranger = {
+    enable = true;
+    extraConfig = ''
+      set preview_images true
+      set preview_images_method kitty
+      set draw_borders both
+      set unicode_ellipsis true
+    '';
+    # Tools for better previews in Ranger
+    extraPackages = with pkgs; [
+      poppler-utils # PDF previews
+      ffmpegthumbnailer # Video previews
+      imagemagick # Image manipulation for previews
+      highlight # Syntax highlighting for code previews
+      atool # Archive previews
+      libcaca # ASCII art previews (fallback)
+      w3m # Fallback image support
+      font-awesome # Icons if supported
+    ];
+  };
+
+  # --- 8. OTHER LUA FILES ---
+  xdg.configFile = {
     # Lazy Setup & Extras
     "nvim/lua/config/lazy.lua".text = ''
       local lazypath = vim.env.NIX_LAZY_PATH
@@ -238,33 +276,65 @@ in {
           },
         },
         
-                install = {
-                  missing = true,  -- Allow installing snacks.nvim if missing
+        install = {
+          missing = true,  -- Allow installing snacks.nvim if missing
+        },
+
+        rocks = {
+          enabled = false,
+        },
+      })
+    '';
+
+    # Configure Snacks Explorer: Toggled preview with P
+    "nvim/lua/plugins/snacks.lua".text = ''
+      return {
+        {
+          "folke/snacks.nvim",
+          priority = 1000,
+          lazy = false,
+          opts = {
+            explorer = {
+              enabled = true,
+              replace_netrw = true,
+            },
+            picker = {
+              sources = {
+                explorer = {
+                  auto_preview = false, -- Disabled by default
+                  layout = {
+                    preset = "sidebar",
+                    preview = "bottom",
+                  },
+                  win = {
+                    list = {
+                      keys = {
+                        -- Toggle preview with P (it defaults to bottom per layout)
+                        ["P"] = "preview",
+                      },
+                    },
+                  },
                 },
-        
-                rocks = {
-                  enabled = false,
-                },
-              })
-            '';
-        
-                    # Neo-tree Configuration for previews
-                    "nvim/lua/plugins/neotree.lua".text = ''
-                      return {
-                        {
-                          "nvim-neo-tree/neo-tree.nvim",
-                          opts = {
-                            filesystem = {
-                              window = {
-                                mappings = {
-                                  ["P"] = { "toggle_preview", config = { use_float = true } },
-                                },
-                              },
-                            },
-                          },
-                        },
-                      }
-                    '';            # Image.nvim Configuration
+              },
+            },
+          },
+        },
+      }
+    '';
+    
+    # Disable Conflicting Explorers
+    "nvim/lua/plugins/disabled.lua".text = ''
+      return {
+        -- Disable Neo-tree
+        { "nvim-neo-tree/neo-tree.nvim", enabled = false },
+        -- Disable Oil
+        { "stevearc/oil.nvim", enabled = false },
+        -- Disable mini.files
+        { "echasnovski/mini.files", enabled = false },
+      }
+    '';
+
+    # Image.nvim Configuration
     "nvim/lua/plugins/image.lua".text = ''
       return {
         {
@@ -298,6 +368,79 @@ in {
             hijack_file_patterns = { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp", "*.avif" }, 
           },
         },
+      }
+    '';
+
+    # Harpoon Configuration
+    "nvim/lua/plugins/harpoon.lua".text = ''
+      return {
+        {
+          "ThePrimeagen/harpoon",
+          branch = "harpoon2",
+          dependencies = { "nvim-lua/plenary.nvim" },
+          config = function()
+            local harpoon = require("harpoon")
+            harpoon:setup()
+
+            vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end)
+            vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+
+            vim.keymap.set("n", "<C-h>", function() harpoon:list():select(1) end)
+            vim.keymap.set("n", "<C-t>", function() harpoon:list():select(2) end)
+            vim.keymap.set("n", "<C-n>", function() harpoon:list():select(3) end)
+            vim.keymap.set("n", "<C-s>", function() harpoon:list():select(4) end)
+          end,
+        }
+      }
+    '';
+
+    # Sniprun Configuration
+    "nvim/lua/plugins/sniprun.lua".text = ''
+      return {
+        {
+          "michaelb/sniprun",
+          branch = "master",
+          build = "sh ./install.sh",
+          config = function()
+            require("sniprun").setup({
+              display = {
+                "Terminal",
+                "VirtualTextOk",
+              },
+            })
+          end,
+        }
+      }
+    '';
+
+    # Obsidian Configuration
+    "nvim/lua/plugins/obsidian.lua".text = ''
+      return {
+        {
+          "epwalsh/obsidian.nvim",
+          version = "*", 
+          lazy = true,
+          ft = "markdown",
+          dependencies = { "nvim-lua/plenary.nvim" },
+          opts = {
+            workspaces = {
+              {
+                name = "personal",
+                path = "~/obsidian",
+              },
+            },
+          },
+        }
+      }
+    '';
+
+    # Pathfinder Configuration
+    "nvim/lua/plugins/pathfinder.lua".text = ''
+      return {
+        {
+          "HawkinsT/pathfinder.nvim",
+          opts = {},
+        }
       }
     '';
 
@@ -354,4 +497,3 @@ in {
     mimeType = [ "text/plain" ];
   };
 }
-

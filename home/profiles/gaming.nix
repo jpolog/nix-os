@@ -27,7 +27,7 @@ in
       
       # Wine / Proton
       (optionals cfg.wine.enable [
-        wineWowPackages.stable
+        wineWow64Packages.stable
         winetricks
       ]) ++
       

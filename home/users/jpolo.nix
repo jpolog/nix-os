@@ -40,6 +40,7 @@ mkUser {
         teams = true;
         zoom = true;
       };
+      vpn.enable = true;
     };
 
     research = {

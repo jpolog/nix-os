@@ -13,6 +13,7 @@
       # Configure NetworkManager to use systemd-resolved
       dns = "systemd-resolved";
       wifi.powersave = true;
+      plugins = with pkgs; [ networkmanager-openconnect ];
     };
     
     # Firewall

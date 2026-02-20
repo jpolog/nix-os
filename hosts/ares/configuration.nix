@@ -191,6 +191,10 @@
     {
       imports = [ ../../home/users/jpolo.nix ];
       home.profiles.desktop.environment = "hyprland";
+      services.ollama-service = {
+        enable = true;
+        acceleration = "rocm";
+      };
     };
 
   # ============================================================================
@@ -328,6 +332,29 @@
   # Enable envfs to allowing standard shebangs (#!/bin/bash, /usr/bin/env, etc.)
   # to work transparently by populating /bin and /usr/bin dynamically.
   services.envfs.enable = true;
+
+  # Enable nix-ld for running unpatched dynamic binaries
+  # This fixes issues with Obsidian plugins (like Zotero), VS Code extensions, etc.
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+    stdenv.cc.cc.lib
+    zlib
+    # Add other common libs if needed
+    openssl
+    glib
+    gtk3
+    nss
+    nspr
+    freetype
+    fontconfig
+    cairo
+    pango
+    atk
+    cairo
+    gdk-pixbuf
+    libxml2
+    libxslt
+  ];
 
   # ============================================================================
   # System Services

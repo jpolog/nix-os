@@ -47,6 +47,18 @@ with lib;
               ${pkgs.hyprland}/bin/hyprctl --batch "keyword decoration:active_opacity 1.0; keyword decoration:inactive_opacity 1.0"
             fi
           '')
+
+          (pkgs.writeShellScriptBin "focus-obsidian" ''
+            # Get the address of the most recently focused Obsidian window
+            # We sort by focusHistoryID (lower is more recent)
+            ADDR=$(${pkgs.hyprland}/bin/hyprctl clients -j | ${pkgs.jq}/bin/jq -r '[.[] | select(.class == "obsidian")] | sort_by(.focusHistoryID) | .[0].address')
+
+            if [ "$ADDR" != "null" ] && [ -n "$ADDR" ]; then
+               ${pkgs.hyprland}/bin/hyprctl dispatch focuswindow address:"$ADDR"
+            else
+               obsidian
+            fi
+          '')
         ];
 
         services.cliphist = {
@@ -251,7 +263,7 @@ with lib;
               "SUPER ALT, B, exec, $browser --private"
               "SUPER, D, exec, $terminal -e lazydocker"
               "SUPER SHIFT, T, exec, $terminal -e btop"
-              "SUPER, O, exec, hyprctl clients | grep -i 'class: obsidian' && hyprctl dispatch focuswindow class:obsidian || obsidian"
+              "SUPER, O, exec, focus-obsidian"
               "SUPER, A, exec, gtk-launch perplexity"
 
               # Menus
