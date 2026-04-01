@@ -11,8 +11,10 @@ with lib;
       theme = "breeze";
     };
     
-    # Set default session to Hyprland
-    services.displayManager.defaultSession = "hyprland";
+    # Default session follows the configured desktop environment
+    services.displayManager.defaultSession =
+      if config.profiles.desktop.environment == "kde" then "plasma"
+      else "hyprland";
 
     # SDDM packages
     environment.systemPackages = with pkgs; [
