@@ -300,6 +300,9 @@
   # Syncthing for jpolo only (personal file sync)
   services.syncthing-jpolo.enable = true;
 
+  # Plex client firewall rules (GDM network discovery + downloads/sync)
+  services.plex-client.enable = true;
+
   # ============================================================================
   # Compatibility
   # ============================================================================
