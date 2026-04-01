@@ -177,13 +177,13 @@
     enable = true;
     settings = {
       # Intel 8th gen - use powersave governor (works well with HWP)
-      CPU_SCALING_GOVERNOR_ON_AC = "powersave";
-      CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-      CPU_ENERGY_PERF_POLICY_ON_AC = "balance_performance";
-      CPU_ENERGY_PERF_POLICY_ON_BAT = "balance_power";
+      CPU_SCALING_GOVERNOR_ON_AC = lib.mkForce "powersave";
+      CPU_SCALING_GOVERNOR_ON_BAT = lib.mkForce "powersave";
+      CPU_ENERGY_PERF_POLICY_ON_AC = lib.mkForce "balance_performance";
+      CPU_ENERGY_PERF_POLICY_ON_BAT = lib.mkForce "balance_power";
       # Battery care - prolong lifespan
-      START_CHARGE_THRESH_BAT0 = 20;
-      STOP_CHARGE_THRESH_BAT0 = 80;
+      START_CHARGE_THRESH_BAT0 = lib.mkForce 20;
+      STOP_CHARGE_THRESH_BAT0 = lib.mkForce 80;
     };
   };
 
