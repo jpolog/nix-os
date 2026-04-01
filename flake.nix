@@ -155,11 +155,22 @@
         # ThinkPad T14s Gen 6 AMD - Primary development machine
         ares = nixpkgs.lib.nixosSystem {
           inherit system;
-          specialArgs = { 
+          specialArgs = {
             inherit inputs self;  # Pass 'self' for dev-shells reference
           };
           modules = sharedModules ++ [
             ./hosts/ares/configuration.nix
+          ];
+        };
+
+        # General-use family desktop - KDE, users: jpolo, elena, padres
+        janus = nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = {
+            inherit inputs self;
+          };
+          modules = sharedModules ++ [
+            ./hosts/janus/configuration.nix
           ];
         };
       };
