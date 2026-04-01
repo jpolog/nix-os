@@ -212,6 +212,11 @@
       nix-shell --pure "$@"
     }
     
+    # Neovim light mode trigger
+    nvl() {
+      NVIM_LIGHT=1 nvim "$@"
+    }
+    
     # Quick note taking
     n() {
       $EDITOR ~/Documents/notes/"$(date +%Y-%m-%d)".md
@@ -299,15 +304,6 @@
       branch=$(git branch --all | grep -v HEAD | fzf | sed 's/^[* ]*//' | sed 's#remotes/origin/##')
       if [ -n "$branch" ]; then
         git worktree add "../$(basename $(pwd))-$branch" "$branch"
-      fi
-    }
-    
-    # Tmux session switcher
-    ts() {
-      local session
-      session=$(tmux list-sessions -F "#{session_name}" 2>/dev/null | fzf --query="$1" --select-1 --exit-0)
-      if [ -n "$session" ]; then
-        tmux switch-client -t "$session" || tmux attach -t "$session"
       fi
     }
     

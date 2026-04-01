@@ -7,6 +7,14 @@
 
 set -e
 
+if [ "$EUID" -ne 0 ]; then
+    exec sudo "$0" "$@"
+fi
+
+PROFILE_FILE="/var/lib/power-profiles/current"
+mkdir -p "$(dirname "$PROFILE_FILE")"
+echo "balanced" > "$PROFILE_FILE"
+
 echo "Setting Balanced power profile..."
 
 # Check current power state
@@ -17,34 +25,33 @@ else
 fi
 
 # TLP Configuration - Balanced for both states
-sudo bash -c 'cat > /etc/tlp.d/01-profile.conf << "EOF"
-CPU_SCALING_GOVERNOR_ON_AC=schedutil
+cat > /etc/tlp.d/99-profile.conf << "EOF"
+CPU_SCALING_GOVERNOR_ON_AC=powersave
 CPU_SCALING_GOVERNOR_ON_BAT=powersave
 CPU_ENERGY_PERF_POLICY_ON_AC=balance_performance
 CPU_ENERGY_PERF_POLICY_ON_BAT=balance_power
-CPU_BOOST_ON_AC=1
+CPU_BOOST_ON_AC=0
 CPU_BOOST_ON_BAT=0
 EOF
-'
 
 # Apply TLP settings - this will handle everything
-sudo tlp start
+tlp start
 
 # Force TLP to reapply settings based on current state
 echo "Forcing TLP to apply current power state settings..."
 if [ "$AC_STATE" = "1" ]; then
-    sudo tlp ac
+    tlp ac
 else
-    sudo tlp bat
+    tlp bat
 fi
 
 # Small delay to let TLP apply settings
 sleep 1
 
-# Thinkfan Configuration - Use balanced curve
-if [ -f /etc/power-profiles/thinkfan-balanced.conf ]; then
-    sudo cp /etc/power-profiles/thinkfan-balanced.conf /etc/thinkfan.conf
-    sudo systemctl restart thinkfan
+# Thinkfan Configuration - Switch to balanced curve
+if [ -f /etc/power-profiles/thinkfan-balanced.yaml ]; then
+    cp /etc/power-profiles/thinkfan-balanced.yaml /var/lib/thinkfan/active.yaml
+    systemctl restart thinkfan
 fi
 
 # Read back actual applied settings

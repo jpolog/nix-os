@@ -1,0 +1,20 @@
+fans:
+- tpacpi: /proc/acpi/ibm/fan
+
+sensors:
+- hwmon: /sys/class/hwmon
+  indices: [1]
+  name: k10temp
+- hwmon: /sys/class/hwmon
+  indices: [1]
+  name: acpitz
+
+levels:
+- [0, 0, 55]
+- [1, 50, 62]
+- [2, 58, 70]
+- [3, 66, 78]
+- [4, 74, 84]
+- [5, 80, 90]
+- [6, 86, 95]
+- [7, 92, 32767]

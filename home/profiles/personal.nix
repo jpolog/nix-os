@@ -32,6 +32,7 @@ in
 
     office = {
       enable = mkEnableOption "office suite" // { default = true; };
+      onlyoffice = mkEnableOption "OnlyOffice Desktop Editors";
       libreoffice = mkEnableOption "LibreOffice" // { default = cfg.office.enable; };
       okular = mkEnableOption "Okular" // { default = cfg.office.enable; };
     };
@@ -80,6 +81,7 @@ in
       (optionals cfg.productivity.syncthing [ syncthing ]) ++
       
       # Office
+      (optionals cfg.office.onlyoffice [ onlyoffice-desktopeditors ]) ++
       (optionals cfg.office.libreoffice [ libreoffice-fresh ]) ++
       (optionals cfg.office.okular [ 
         kdePackages.okular

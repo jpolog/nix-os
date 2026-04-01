@@ -9,6 +9,40 @@ with lib;
     home.packages = with pkgs; [
       walker
       elephant
+      (pkgs.writeShellScriptBin "power-profile-menu" ''
+        set -e
+
+        CURRENT=$(cat /var/lib/power-profiles/current 2>/dev/null || echo eco)
+
+        entry() {
+          local profile=$1
+          local label=$2
+          if [ "$CURRENT" = "$profile" ]; then
+            echo "$label (current)"
+          else
+            echo "$label"
+          fi
+        }
+
+        SELECTION=$(
+          printf "%s\n" \
+            "$(entry eco "🌱 Eco")" \
+            "$(entry balanced-eco "🍃 Balanced-Eco")" \
+            "$(entry balanced "⚖️ Balanced")" \
+            "$(entry performance "🔥 Performance")" \
+            "$(entry performance-plus "⚡ Performance Plus")" \
+          | ${pkgs.walker}/bin/walker --dmenu -p "Power Profile"
+        )
+
+        case "$SELECTION" in
+          "🌱 Eco"*) /run/current-system/sw/bin/power-eco ;;
+          "🍃 Balanced-Eco"*) /run/current-system/sw/bin/power-balanced-eco ;;
+          "⚖️ Balanced"*) /run/current-system/sw/bin/power-balanced ;;
+          "🔥 Performance"*) /run/current-system/sw/bin/power-performance ;;
+          "⚡ Performance Plus"*) /run/current-system/sw/bin/power-performance-plus ;;
+          *) exit 0 ;;
+        esac
+      '')
     ];
 
     # Walker systemd service
@@ -74,24 +108,9 @@ with lib;
           src = {
             entries = [
               {
-                label = "⚡ Performance Plus";
-                sub = "Maximum performance mode";
-                exec = "pkexec /run/current-system/sw/bin/power-performance-plus";
-              }
-              {
-                label = "🔥 Performance";
-                sub = "High performance mode";
-                exec = "pkexec /run/current-system/sw/bin/power-performance";
-              }
-              {
-                label = "⚖️ Balanced";
-                sub = "Balanced power profile";
-                exec = "pkexec /run/current-system/sw/bin/power-balanced";
-              }
-              {
-                label = "🌱 Eco";
-                sub = "Power saving mode";
-                exec = "pkexec /run/current-system/sw/bin/power-eco";
+                label = "⚡ Power Profiles";
+                sub = "Change the active power profile";
+                exec = "power-profile-menu";
               }
             ];
           };

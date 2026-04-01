@@ -53,10 +53,8 @@ pkgs.mkShell {
     echo "  pip install -r requirements.txt"
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
   '';
-  
+
   # Environment variables
-  PYTHONPATH = "${pkgs.python312}/${pkgs.python312.sitePackages}";
-  
   # Prevent pip from trying to write to /nix/store
   PIP_PREFIX = "$(pwd)/_build/pip_packages";
   PYTHONPATH_EXTRA = "$(pwd)/_build/pip_packages/${pkgs.python312.sitePackages}";

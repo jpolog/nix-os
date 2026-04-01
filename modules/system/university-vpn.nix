@@ -88,46 +88,10 @@ in
         networkmanager-strongswan
       ];
 
-    # Enable strongSwan service (required for VPN functionality)
-    services.strongswan = {
-      enable = true;
-      
-      # Enable NetworkManager integration
-      enabledPlugins = [
-        "gcm"
-        "aesni"
-        "sha2"
-        "nonce"
-        "x509"
-        "revocation"
-        "constraints"
-        "pubkey"
-        "pkcs1"
-        "pkcs7"
-        "pkcs8"
-        "pkcs12"
-        "pgp"
-        "dnskey"
-        "sshkey"
-        "pem"
-        "fips-prf"
-        "gmp"
-        "curve25519"
-        "xcbc"
-        "cmac"
-        "hmac"
-        "attr"
-        "kernel-netlink"
-        "resolve"
-        "socket-default"
-        "stroke"
-        "updown"
-        "eap-identity"
-        "eap-mschapv2"
-        "eap-dynamic"
-        "eap-tls"
-      ];
-    };
+    # Enable strongswan service (required for other VPN connections)
+    # Note: charon-nm will still be used by NetworkManager, but this ensures 
+    # other IPsec/IKEv2 connections that rely on the system daemon still work.
+    services.strongswan.enable = true;
 
     # Required packages for strongSwan with NetworkManager
     environment.systemPackages = with pkgs;
@@ -143,7 +107,7 @@ in
       # strongswan.conf for charon-nm (NetworkManager plugin)
       "strongswan.conf".text = ''
         charon-nm {
-          load = random nonce pubkey pkcs1 pem pkcs8 openssl kernel-netlink socket-default eap-identity eap-mschapv2 eap-md5 eap-gtc eap-tls
+          # Let charon-nm load all available plugins automatically
         }
       '';
     } // lib.mapAttrs' (name: vpnCfg:
@@ -180,11 +144,14 @@ in
           ${if vpnCfg.splitTunnelRoutes != [] then ''
           never-default=true
           ignore-auto-routes=false
-          ignore-auto-dns=true
+          ignore-auto-dns=false
+          dns-priority=100
+          ${optionalString (vpnCfg.searchDomains != []) "dns-search=${concatStringsSep ";" (map (d: "~${d}") vpnCfg.searchDomains)};"}
           ${concatStringsSep "\n" (imap1 (i: route: "route${toString i}=${route},0.0.0.0,0") vpnCfg.splitTunnelRoutes)}
           '' else ''
           never-default=false
           dns-priority=50
+          ${optionalString (vpnCfg.searchDomains != []) "dns-search=${concatStringsSep ";" vpnCfg.searchDomains};"}
           ''}
 
           [ipv6]

@@ -14,5 +14,6 @@
     ./mpv.nix
     ./ai-tools.nix
     ./terminal-tools.nix
+    ./tmux.nix
   ];
 }

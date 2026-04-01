@@ -9,25 +9,53 @@ with lib;
   # Udev rule to reapply power profile on AC plug/unplug
   services.udev.extraRules = ''
     # When AC adapter state changes, reapply the current power profile
-    SUBSYSTEM=="power_supply", ATTR{online}=="0", RUN+="${pkgs.bash}/bin/bash -c 'if [ -f /etc/tlp.d/01-profile.conf ]; then ${pkgs.systemd}/bin/systemctl restart tlp-reapply.service; fi'"
-    SUBSYSTEM=="power_supply", ATTR{online}=="1", RUN+="${pkgs.bash}/bin/bash -c 'if [ -f /etc/tlp.d/01-profile.conf ]; then ${pkgs.systemd}/bin/systemctl restart tlp-reapply.service; fi'"
+    SUBSYSTEM=="power_supply", ATTR{online}=="0", RUN+="${pkgs.bash}/bin/bash -c 'if [ -f /etc/tlp.d/99-profile.conf ]; then ${pkgs.systemd}/bin/systemctl restart power-profile-apply.service; fi'"
+    SUBSYSTEM=="power_supply", ATTR{online}=="1", RUN+="${pkgs.bash}/bin/bash -c 'if [ -f /etc/tlp.d/99-profile.conf ]; then ${pkgs.systemd}/bin/systemctl restart power-profile-apply.service; fi'"
   '';
   
   # Service to reapply power settings when AC state changes
-  systemd.services.tlp-reapply = {
-    description = "Reapply TLP power profile on AC state change";
+  systemd.services.power-profile-apply = {
+    description = "Reapply current power profile";
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = "${pkgs.tlp}/bin/tlp start";
+      ExecStart = "/run/current-system/sw/bin/power-apply-current";
     };
+    wantedBy = [ "multi-user.target" ];
   };
   
-  # Power profile status script
+  # Power profile helper scripts
   environment.systemPackages = [
+    (pkgs.writeShellScriptBin "power-apply-current" ''
+      set -e
+
+      PROFILE_FILE="/var/lib/power-profiles/current"
+      PROFILE="eco"
+
+      if [ -f "$PROFILE_FILE" ]; then
+        PROFILE=$(cat "$PROFILE_FILE")
+      fi
+
+      case "$PROFILE" in
+        eco|balanced|performance|performance-plus) ;;
+        *) PROFILE="eco" ;;
+      esac
+
+      mkdir -p "$(dirname "$PROFILE_FILE")"
+      echo "$PROFILE" > "$PROFILE_FILE"
+
+      exec "/run/current-system/sw/bin/power-$PROFILE"
+    '')
+
     (pkgs.writeShellScriptBin "power-status" ''
       echo "═══════════════════════════════════════════════════════════"
       echo "  CURRENT POWER PROFILE STATUS"
       echo "═══════════════════════════════════════════════════════════"
+      echo ""
+      if [ -f /var/lib/power-profiles/current ]; then
+        echo "Stored Profile: $(cat /var/lib/power-profiles/current)"
+      else
+        echo "Stored Profile: eco (default)"
+      fi
       echo ""
       
       # Check AC state
@@ -43,10 +71,10 @@ with lib;
       fi
       
       # Check active profile
-      if [ -f /etc/tlp.d/01-profile.conf ]; then
+      if [ -f /etc/tlp.d/99-profile.conf ]; then
         echo ""
         echo "Active TLP Profile:"
-        cat /etc/tlp.d/01-profile.conf | grep -v "^#" | grep -v "^$"
+        cat /etc/tlp.d/99-profile.conf | grep -v "^#" | grep -v "^$"
       fi
       
       echo ""

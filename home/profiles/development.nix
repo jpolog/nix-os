@@ -37,6 +37,7 @@ in
         github-copilot-cli.enable = mkEnableOption "GitHub Copilot CLI" // { default = true; };
         claude-code.enable = mkEnableOption "Claude Code" // { default = false; };
         goose.enable = mkEnableOption "Goose CLI agent" // { default = true; };
+        aider.enable = mkEnableOption "Aider AI pair programmer" // { default = true; };
       };
     };
   };
@@ -50,6 +51,7 @@ in
         github-copilot-cli.enable = config.home.profiles.development.ai.tools.github-copilot-cli.enable;
         claude-code.enable = config.home.profiles.development.ai.tools.claude-code.enable;
         goose.enable = config.home.profiles.development.ai.tools.goose.enable;
+        aider.enable = config.home.profiles.development.ai.tools.aider.enable;
       };
     };
 
@@ -64,40 +66,10 @@ in
       };
     };
 
-    # Explicitly requested AI tools for developers
-    home.packages = with pkgs; [
-    ] ++ (lib.optionals config.home.profiles.development.editors.vscode.enable [
+    # VS Code
+    home.packages = with pkgs; (lib.optionals config.home.profiles.development.editors.vscode.enable [
       vscode
     ]);
-
-    # ========================================================================
-    # Tmux Configuration
-    # ========================================================================
-    
-    programs.tmux = {
-      enable = true;
-      terminal = "tmux-256color";
-      historyLimit = 50000;
-      keyMode = "vi";
-      mouse = true;
-      
-      extraConfig = ''
-        # Better prefix key
-        unbind C-b
-        set-option -g prefix C-a
-        bind-key C-a send-prefix
-        
-        # Split panes using | and -
-        bind | split-window -h
-        bind - split-window -v
-        unbind '"'
-        unbind %
-      '';
-    };
-
-    # ========================================================================
-    # Dev Shell Integration (Conditional)
-    # ========================================================================
 
     # Enable direnv integration
     programs.direnv = mkIf config.home.profiles.development.devShells.enable {

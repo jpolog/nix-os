@@ -15,6 +15,7 @@ in
       github-copilot-cli.enable = mkEnableOption "GitHub Copilot CLI";
       claude-code.enable = mkEnableOption "Claude Code";
       goose.enable = mkEnableOption "Goose CLI agent";
+      aider.enable = mkEnableOption "Aider AI pair programmer";
     };
   };
 
@@ -28,6 +29,8 @@ in
       claude-code
     ]) ++ (lib.optionals cfg.tools.goose.enable [
       goose-cli
+    ]) ++ (lib.optionals cfg.tools.aider.enable [
+      aider-chat
     ]);
 
     home.file.".config/goose/config.yaml" = mkIf cfg.tools.goose.enable {

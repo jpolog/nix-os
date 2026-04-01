@@ -62,7 +62,12 @@ mkUser {
         vlc = true;
         mpv = true;
       };
-      office.enable = false; 
+      office = {
+        enable = true;
+        onlyoffice = false;
+        libreoffice = true;
+        okular = false;
+      };
       productivity = {
         enable = true;
         bitwarden = true;

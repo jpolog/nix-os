@@ -210,6 +210,20 @@ in {
       
       -- Load LazyVim config
       require("config.lazy")
+
+      -- Toggle Light Mode User Command
+      vim.api.nvim_create_user_command("ToggleLightMode", function()
+        if vim.o.background == "dark" then
+          vim.o.background = "light"
+          vim.cmd("colorscheme catppuccin-latte")
+        else
+          vim.o.background = "dark"
+          vim.cmd("colorscheme catppuccin-mocha")
+        end
+      end, {})
+
+      -- Keybinding for ToggleLightMode
+      vim.keymap.set("n", "<leader>uL", ":ToggleLightMode<CR>", { desc = "Toggle Light Mode" })
     '';
   };
 
@@ -441,6 +455,44 @@ in {
           "HawkinsT/pathfinder.nvim",
           opts = {},
         }
+      }
+    '';
+
+    # Theme Configuration: Handles Light Mode toggle via NVIM_LIGHT env var
+    "nvim/lua/plugins/theme.lua".text = ''
+      return {
+        -- Catppuccin configuration
+        {
+          "catppuccin",
+          priority = 1000,
+          opts = {
+            flavour = (vim.env.NVIM_LIGHT == "1") and "latte" or "mocha",
+            background = {
+              light = "latte",
+              dark = "mocha",
+            },
+            transparent_background = false,
+            integrations = {
+              cmp = true,
+              gitsigns = true,
+              nvimtree = true,
+              treesitter = true,
+              notify = true,
+              mini = {
+                enabled = true,
+                indentscope_color = "",
+              },
+            },
+          },
+        },
+
+        -- LazyVim colorscheme override
+        {
+          "LazyVim/LazyVim",
+          opts = {
+            colorscheme = (vim.env.NVIM_LIGHT == "1") and "catppuccin-latte" or "catppuccin",
+          },
+        },
       }
     '';
 

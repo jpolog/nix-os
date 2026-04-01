@@ -59,6 +59,28 @@
 
   networking.networkmanager.enable = true;
 
+  # Docker Services Firewall
+  networking.firewall = {
+    allowedTCPPorts = [
+      12000 # Traefik HTTP
+      12001 # Traefik Dashboard
+      12010 # Auth Service
+      12011 # Pipeline Config Service
+      12012 # Artifacts Service
+      12013 # LangGraph Orchestrator
+      12014 # Webapp
+      3000 # Langfuse (observability)
+      8081 # Mongo Express (dev profile)
+      11434 # Ollama
+    ];
+    # Use extraCommands instead of trustedInterfaces for wildcards
+    # as trustedInterfaces doesn't consistently support br-+ wildcards
+    extraCommands = ''
+      iptables -A INPUT -i docker0 -j ACCEPT
+      iptables -A INPUT -i br-+ -j ACCEPT
+    '';
+  };
+
   # ============================================================================
   # Nix Settings
   # ============================================================================
@@ -187,10 +209,11 @@
     };
 
   home-manager.users.jpolo =
-    { ... }:
+    { lib, ... }:
     {
       imports = [ ../../home/users/jpolo.nix ];
       home.profiles.desktop.environment = "hyprland";
+      wayland.windowManager.hyprland.settings.input.touchpad.natural_scroll = lib.mkForce false;
       services.ollama-service = {
         enable = true;
         acceleration = "rocm";
@@ -209,11 +232,11 @@
   services.tlp = {
     enable = true;
     settings = {
-      CPU_SCALING_GOVERNOR_ON_AC = lib.mkForce "performance";
+      CPU_SCALING_GOVERNOR_ON_AC = lib.mkForce "powersave";
       CPU_SCALING_GOVERNOR_ON_BAT = lib.mkForce "powersave";
       CPU_ENERGY_PERF_POLICY_ON_AC = lib.mkForce "balance_performance";
       CPU_ENERGY_PERF_POLICY_ON_BAT = lib.mkForce "balance_power";
-      CPU_BOOST_ON_AC = lib.mkForce 1;
+      CPU_BOOST_ON_AC = lib.mkForce 0;
       CPU_BOOST_ON_BAT = lib.mkForce 0;
       # Disable USB autosuspend for Logitech Unifying Receiver (K850 keyboard)
       USB_DENYLIST = "046d:c52b";
@@ -224,73 +247,84 @@
   services.thinkfan = {
     enable = true;
 
-    # FIXED: Added indices parameter to specify which temp sensor to read
-    # Without indices, thinkfan tries to read the directory itself, causing crashes
+    # Use working temperature sensors
+    # Note: ThinkPad ACPI temp sensors (temp1-3,5-8) are not readable on T14s Gen 6 AMD
+    # Only k10temp (AMD CPU) and acpitz (ACPI thermal zone) work reliably
     sensors = [
       {
         type = "hwmon";
         query = "/sys/class/hwmon";
-        name = "thinkpad";
-        indices = [ 1 ]; # Read temp1_input from ThinkPad ACPI sensor
+        name = "k10temp";
+        indices = [ 1 ]; # AMD CPU temperature (Tctl)
       }
       {
         type = "hwmon";
         query = "/sys/class/hwmon";
-        name = "k10temp";
-        indices = [ 1 ]; # Read temp1_input from AMD CPU sensor (Tctl)
+        name = "acpitz";
+        indices = [ 1 ]; # ACPI thermal zone
       }
     ];
 
-    # Fan control levels optimized for ThinkPad T14s Gen 6 AMD
+    # Fan control levels - BALANCED PROFILE (optimized for noise/temps)
     # Format: [fan_level min_temp max_temp]
-    # Temperatures in Celsius with proper hysteresis (10-13°C overlap)
+    # Temperatures in Celsius with proper hysteresis
     levels = [
       [
         0
         0
-        48
-      ] # Silent when idle between calls
+        42
+      ] # Fan off until 42°C - silent operation
       [
         1
-        45
-        55
-      ] # Very quiet - light browsing (7°C overlap)
+        38
+        48
+      ] # Very quiet - light activity (12°C hysteresis)
       [
         2
-        52
-        62
-      ] # Quiet - Zoom video only (7°C overlap)
+        45
+        55
+      ] # Quiet - moderate load (12°C hysteresis)
       [
         3
-        58
-        68
-      ] # Comfortable - typical workload (10°C overlap)
+        52
+        62
+      ] # Comfortable - sustained work (12°C hysteresis)
       [
         4
-        64
-        74
-      ] # Active but not loud - heavy compilation (10°C overlap)
+        58
+        68
+      ] # Active cooling (10°C hysteresis)
       [
         5
-        70
-        80
-      ] # Audible - sustained heavy load (10°C overlap)
+        64
+        74
+      ] # Strong cooling (10°C hysteresis)
       [
         6
-        76
-        86
-      ] # Loud - full throttle work (10°C overlap)
+        70
+        78
+      ] # Aggressive cooling (8°C hysteresis)
       [
         7
-        82
+        75
         32767
-      ] # Maximum - short bursts only (12°C overlap)
+      ] # Maximum - emergency only
     ];
   };
 
   # Ensure SDDM is enabled (you likely have this, but verify)
   services.displayManager.sddm.enable = true;
   services.displayManager.sddm.wayland.enable = true;
+
+  # Enable touchpad support (libinput)
+  services.libinput = {
+    enable = true;
+    touchpad = {
+      tapping = true;
+      naturalScrolling = false;
+      disableWhileTyping = true;
+    };
+  };
 
   # ============================================================================
   # Gaming Hardware Support (Manual)
@@ -371,104 +405,199 @@
     enable = true;
     keyboards =
       let
-        mkKmonadConfig = devicePath: ''
+        # Choose layout: "standard" or "miryoku"
+        # The selectedLayout variable now controls the *default* behavior.
+        # Specific keyboards can override this.
+        defaultLayout = "standard";
+
+        mkKmonadConfig =
+          devicePath:
+          if defaultLayout == "miryoku" then mkMiryokuConfig devicePath else mkStandardConfig devicePath;
+
+        mkStandardConfig = devicePath: ''
           ;; --------------------------------------------------------------------------
-          ;; Custom KMonad Configuration for jpolo (v7 - Dual-role 'l' for Alt)
+          ;; Custom KMonad Configuration for jpolo (v9 - Fixed symbols layer)
           ;;
-          ;; This configuration provides:
-          ;; 1. Dual-role Caps Lock: Tap for Escape, Hold for 'control' layer.
-          ;; 2. Dual-role 'k' key: Tap for 'k', Hold for 'numpad' layer.
-          ;; 3. Dual-role 'l' key: Tap for 'l', Hold for Alt modifier.
+          ;; 1. Dual-role Caps Lock : Tap = Escape,  Hold = control layer
+          ;; 2. Dual-role 'k'       : Tap = k,       Hold = numpad layer
+          ;; 3. Dual-role 'l'       : Tap = l,       Hold = Left Alt
+          ;; 4. Dual-role ';'       : Tap = ;,       Hold = Left Ctrl
+          ;; 5. Dual-role 'a'       : Tap = a,       Hold = Left Ctrl  (mirrors ;)
+          ;; 6. Dual-role 's'       : Tap = s,       Hold = Left Alt   (mirrors l)
+          ;; 7. Dual-role 'd'       : Tap = d,       Hold = symbols layer (mirrors k)
+          ;;
+          ;; Symbols layer zones:
+          ;;   Left  = Shift+number mirror of numpad (same spatial grid)
+          ;;   Right = Bracket/operator grid on uiojklm,.
           ;; --------------------------------------------------------------------------
 
           (defcfg
-            ;; IMPORTANT: Use your keyboard's device file.
             input  (device-file "${devicePath}")
             output (uinput-sink "My KMonad output")
             fallthrough true
             allow-cmd true
           )
 
-          ;; --------------------------------------------------------------------------
-          ;; Source Layout (Your physical keyboard - 61 keys total)
-          ;; --------------------------------------------------------------------------
-
           (defsrc
-            ;; Row 1 (14 keys)
             esc  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-            ;; Row 2 (14 keys)
             tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
-            ;; Row 3 (14 keys)
             caps a    s    d    f    g    h    j    k    l    ;    '    ret
-            ;; Row 4 (12 keys)
             lsft z    x    c    v    b    n    m    ,    .    /    rsft
-            ;; Row 5 (7 keys)
             lctl lmet lalt           spc            ralt comp rctl
           )
 
-          ;; --------------------------------------------------------------------------
-          ;; Key Aliases
-          ;; --------------------------------------------------------------------------
-
           (defalias
-            ;; Dual-role Caps Lock: Tap for Escape, hold for the 'control' layer.
-            ctl_esc (tap-hold-next-release 200 esc (layer-toggle control))
-
-            ;; Dual-role 'k' key: Tap for 'k', hold for the 'numpad' layer.
-            k_numpad (tap-hold-next-release 300 k (layer-toggle numpad))
-
-            ;; Dual-role 'l' key: Tap for 'l', hold for Alt.
-            l_alt (tap-hold-next-release 300 l lalt)
+            ctl_esc       (tap-hold-next-release 200 esc (layer-toggle control))
+            k_numpad      (tap-hold-next-release 300 k   (layer-toggle numpad))
+            l_alt         (tap-hold-next-release 300 l   lalt)
+            semicolon_ctl (tap-hold-next-release 200 ;   lctl)
+            a_ctl         (tap-hold-next-release 300 a   lctl)
+            s_alt         (tap-hold-next-release 300 s   lalt)
+            d_sym         (tap-hold-next-release 300 d   (layer-toggle symbols))
           )
 
-          ;; --------------------------------------------------------------------------
-          ;; Layer Definitions
-          ;; --------------------------------------------------------------------------
-
           (deflayer qwerty
-            ;; Default layer inherits from defsrc, swapping in our aliases.
             _    _    _    _    _    _    _    _    _    _    _    _    _    _
             _    _    _    _    _    _    _    _    _    _    _    _    _    _
-            @ctl_esc _ _    _    _    _    _    _ @k_numpad @l_alt _    _    _
+            @ctl_esc @a_ctl @s_alt @d_sym _ _ _ _ @k_numpad @l_alt @semicolon_ctl _ _
             _    _    _    _    _    _    _    _    _    _    _    _
             _    _    _              _              _    _    _
           )
 
           (deflayer control
-            ;; Active when Caps Lock is held. Matched to the 61-key layout.
             C-esc C-1 C-2 C-3 C-4 C-5 C-6 C-7 C-8 C-9 C-0 C-- C-= C-bspc
-            C-tab C-q C-w C-e C-r C-t C-y C-u C-i C-o C-p C-[ C-] C-\
+            C-tab C-q C-w C-e C-r C-t C-y C-u C-i C-o C-p C-[ C-] C-bksl
             caps  C-a C-s C-d C-f C-g left down up right C-; C-' C-ret
             lsft  C-z C-x C-c C-v C-b C-n C-m C-, C-. C-/ rsft
             lctl  lmet lalt           C-spc          ralt comp rctl
           )
 
           (deflayer numpad
-            ;; Active when 'k' is held. The 'k' position is a no-op.
             _    _    _    _    _    _    _    _    _    _    _    _    _    _
             _    _    7    8    9    _    _    _    _    _    _    _    _    _
             _    _    4    5    6    _    _    _    k    _    _    _    _
             _    0    1    2    3    _    _    _    _    _    _    _
             _    _    _              _              _    _    _
           )
+
+          (deflayer symbols
+            ;; Left side  = Shift+number mirror of numpad (same spatial memory)
+            ;; Right side = bracket/operator grid on uiojklm,.
+            ;;
+            ;;  numpad:   w=7   e=8   r=9       u=[  i=]  o=\  p=~
+            ;;  symbols:  w=&   e=*   r=(  t=%  u=[  i=]  o=\  p=~
+            ;;
+            ;;  numpad:   s=4   d=5   f=6       j=(  k=)  l=|
+            ;;  symbols:  s=$   d=XX  f=^       j={  k=}  l=|
+            ;;
+            ;;  numpad:   z=0   x=1   c=2   v=3     m=_  ,=-  .==
+            ;;  symbols:  z=)   x=!   c=@   v=#     m=_  ,=-  .==
+            _    _    _    _    _    _    _    _    _    _    _    _    _    _
+            _    _    (around lsft 7) (around lsft 8) (around lsft 9) (around lsft 5) _    [    ]    bksl   (around lsft grv) _    _    _
+            _    _    (around lsft 4) XX   (around lsft 6) _    _    (around lsft lbrc) (around lsft rbrc) (around lsft bksl) _    _    _
+            _    (around lsft 0) (around lsft 1) (around lsft 2) (around lsft 3) _    _    (around lsft -) -    =    _    _
+            _    _    _              _              _    _    _
+          )
+        '';
+
+        mkMiryokuConfig = devicePath: ''
+                  ;; Copyright 2021 Manna Harbour
+          ;; github.com/manna-harbour/miryoku
+                 
+                 
+                 
+                 
+                 
+          (defcfg
+            input (device-file "keyboard")
+            output (uinput-sink "Miryoku KMonad output")
+            fallthrough false
+          )
+          (defsrc
+            2 3 4 5 6 8 9 0 - =
+            q w e r t i o p [ ]
+            caps a s d f k l ; ' ent
+                          x c v , . /
+          )
+          (deflayer U_BASE
+          q	w	f	p	b	j	l	u	y	'
+          (tap-hold-next-release 200 a met)	(tap-hold-next-release 200 r alt)	(tap-hold-next-release 200 s ctl)	(tap-hold-next-release 200 t sft)	g	m	(tap-hold-next-release 200 n sft)	(tap-hold-next-release 200 e ctl)	(tap-hold-next-release 200 i alt)	(tap-hold-next-release 200 o met)
+          (tap-hold-next-release 200 z (layer-toggle U_BUTTON))	(tap-hold-next-release 200 x ralt)	c	d	v	k	h	,	(tap-hold-next-release 200 . ralt)	(tap-hold-next-release 200 / (layer-toggle U_BUTTON))
+          		(tap-hold-next-release 200 esc (layer-toggle U_MEDIA))	(tap-hold-next-release 200 spc (layer-toggle U_NAV))	(tap-hold-next-release 200 tab (layer-toggle U_MOUSE))	(tap-hold-next-release 200 ent (layer-toggle U_SYM))	(tap-hold-next-release 200 bspc (layer-toggle U_NUM))	(tap-hold-next-release 200 del (layer-toggle U_FUN))
+          )
+          (deflayer U_EXTRA
+          q	w	e	r	t	y	u	i	o	p
+          (tap-hold-next-release 200 a met)	(tap-hold-next-release 200 s alt)	(tap-hold-next-release 200 d ctl)	(tap-hold-next-release 200 f sft)	g	h	(tap-hold-next-release 200 j sft)	(tap-hold-next-release 200 k ctl)	(tap-hold-next-release 200 l alt)	(tap-hold-next-release 200 ' met)
+          (tap-hold-next-release 200 z (layer-toggle U_BUTTON))	(tap-hold-next-release 200 x ralt)	c	v	b	n	m	,	(tap-hold-next-release 200 . ralt)	(tap-hold-next-release 200 / (layer-toggle U_BUTTON))
+          		(tap-hold-next-release 200 esc (layer-toggle U_MEDIA))	(tap-hold-next-release 200 spc (layer-toggle U_NAV))	(tap-hold-next-release 200 tab (layer-toggle U_MOUSE))	(tap-hold-next-release 200 ent (layer-toggle U_SYM))	(tap-hold-next-release 200 bspc (layer-toggle U_NUM))	(tap-hold-next-release 200 del (layer-toggle U_FUN))
+          )
+          (deflayer U_TAP
+          q	w	f	p	b	j	l	u	y	'
+          a	r	s	t	g	m	n	e	i	o
+          z	x	c	d	v	k	h	,	.	/
+          		esc	spc	tab	ent	bspc	del
+          )
+          (deflayer U_BUTTON
+          undo	S-del	C-ins	S-ins	again	again	S-ins	C-ins	S-del	undo
+          met	alt	ctl	sft	XX	XX	sft	ctl	alt	met
+          undo	S-del	C-ins	S-ins	again	again	S-ins	C-ins	S-del	undo
+          		#(kp* kp5)	#(kp/ kp5)	#(kp- kp5)	#(kp- kp5)	#(kp/ kp5)	#(kp* kp5)
+          )
+          (deflayer U_NAV
+          XX	(multi-tap 200 XX (layer-switch U_TAP))	(multi-tap 200 XX (layer-switch U_EXTRA))	(multi-tap 200 XX (layer-switch U_BASE))	XX	again	S-ins	C-ins	S-del	undo
+          met	alt	ctl	sft	XX	caps	left	down	up	right
+          XX	ralt	(multi-tap 200 XX (layer-switch U_NUM))	(multi-tap 200 XX (layer-switch U_NAV))	XX	ins	home	pgdn	pgup	end
+          		XX	XX	XX	ent	bspc	del
+          )
+          (deflayer U_MOUSE
+          XX	(multi-tap 200 XX (layer-switch U_TAP))	(multi-tap 200 XX (layer-switch U_EXTRA))	(multi-tap 200 XX (layer-switch U_BASE))	XX	again	S-ins	C-ins	S-del	undo
+          met	alt	ctl	sft	XX	XX	kp4	kp2	kp8	kp6
+          XX	ralt	(multi-tap 200 XX (layer-switch U_SYM))	(multi-tap 200 XX (layer-switch U_MOUSE))	XX	XX	XX	XX	XX	XX
+          		XX	XX	XX	#(kp- kp5)	#(kp/ kp5)	#(kp* kp5)
+          )
+          (deflayer U_MEDIA
+          XX	(multi-tap 200 XX (layer-switch U_TAP))	(multi-tap 200 XX (layer-switch U_EXTRA))	(multi-tap 200 XX (layer-switch U_BASE))	XX	XX	XX	XX	XX	XX
+          met	alt	ctl	sft	XX	XX	previoussong	vold	volu	nextsong
+          XX	ralt	(multi-tap 200 XX (layer-switch U_FUN))	(multi-tap 200 XX (layer-switch U_MEDIA))	XX	XX	XX	XX	XX	XX
+          		XX	XX	XX	stopcd	playpause	mute
+          )
+          (deflayer U_NUM
+          [	7	8	9	]	XX	(multi-tap 200 XX (layer-switch U_BASE))	(multi-tap 200 XX (layer-switch U_EXTRA))	(multi-tap 200 XX (layer-switch U_TAP))	XX
+          ;	4	5	6	=	XX	sft	ctl	alt	met
+          `	1	2	3	\	XX	(multi-tap 200 XX (layer-switch U_NUM))	(multi-tap 200 XX (layer-switch U_NAV))	ralt	XX
+          		.	0	-	XX	XX	XX
+          )
+          (deflayer U_SYM
+          {	&	*	\\(	}	XX	(multi-tap 200 XX (layer-switch U_BASE))	(multi-tap 200 XX (layer-switch U_EXTRA))	(multi-tap 200 XX (layer-switch U_TAP))	XX
+          :	$	%	^	+	XX	sft	ctl	alt	met
+          ~	!	@	#	|	XX	(multi-tap 200 XX (layer-switch U_SYM))	(multi-tap 200 XX (layer-switch U_MOUSE))	ralt	XX
+          		\\(	\\)	\\_	XX	XX	XX
+          )
+          (deflayer U_FUN
+          f12	f7	f8	f9	sysrq	XX	(multi-tap 200 XX (layer-switch U_BASE))	(multi-tap 200 XX (layer-switch U_EXTRA))	(multi-tap 200 XX (layer-switch U_TAP))	XX
+          f11	f4	f5	f6	slck	XX	sft	ctl	alt	met
+          f10	f1	f2	f3	pause	XX	(multi-tap 200 XX (layer-switch U_FUN))	(multi-tap 200 XX (layer-switch U_MEDIA))	ralt	XX
+          		comp	spc	tab	XX	XX	XX
+          )
+
         '';
       in
       {
         "laptop-keyboard" = {
           device = "/dev/input/by-path/platform-i8042-serio-0-event-kbd";
-          config = mkKmonadConfig "/dev/input/by-path/platform-i8042-serio-0-event-kbd";
+          config = mkStandardConfig "/dev/input/by-path/platform-i8042-serio-0-event-kbd";
         };
         "usb-keyboard" = {
           device = "/dev/input/by-id/usb-CX_2.4G_Receiver-event-kbd";
-          config = mkKmonadConfig "/dev/input/by-id/usb-CX_2.4G_Receiver-event-kbd";
+          config = mkStandardConfig "/dev/input/by-id/usb-CX_2.4G_Receiver-event-kbd";
         };
         "logitech-keyboard" = {
           device = "/dev/input/by-id/usb-Logitech_USB_Receiver-if02-event-kbd";
-          config = mkKmonadConfig "/dev/input/by-id/usb-Logitech_USB_Receiver-if02-event-kbd";
+          config = mkStandardConfig "/dev/input/by-id/usb-Logitech_USB_Receiver-if02-event-kbd";
         };
         "usb-keyboard-cable" = {
           device = "/dev/input/by-id/usb-SEM_USB_Keyboard-event-kbd";
-          config = mkKmonadConfig "/dev/input/by-id/usb-SEM_USB_Keyboard-event-kbd";
+          config = mkStandardConfig "/dev/input/by-id/usb-SEM_USB_Keyboard-event-kbd";
         };
       };
   };
@@ -489,6 +618,10 @@
   # ============================================================================
   # System Optimization
   # ============================================================================
+
+  # Disable documentation to avoid failing documentation builds (like python3.12-doc)
+  documentation.enable = false;
+  documentation.nixos.enable = false;
 
   # ZRAM swap for better performance
   zramSwap.enable = true;

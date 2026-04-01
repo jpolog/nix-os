@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 
@@ -9,7 +14,7 @@ with lib;
       enableCompletion = true;
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
-      
+
       # Set dotDir to XDG config directory (modern approach)
       dotDir = "${config.xdg.configHome}/zsh";
 
@@ -27,10 +32,10 @@ with lib;
       completionInit = ''
         autoload -Uz compinit
         compinit -C
-        
+
         zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
         zstyle ':completion:*' menu select
-        zstyle ':completion:*' list-colors "'${(s.:.)LS_COLORS}"
+        zstyle ':completion:*' list-colors "'${("s.:.") LS_COLORS}"
         zstyle ':completion:*:descriptions' format '%F{cyan}-- %d --%f'
         zstyle ':completion:*' use-cache yes
         zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/zcompcache"
@@ -54,6 +59,7 @@ with lib;
         PAGER = "less";
         LESS = "-R";
         PATH = "$HOME/.local/bin:$HOME/.cargo/bin:$PATH";
+        DISABLE_AUTO_TITLE = "true";
       };
 
       shellAliases = {
@@ -62,7 +68,7 @@ with lib;
         "..." = "cd ../..";
         "...." = "cd ../../..";
         "....." = "cd ../../../..";
-        
+
         # Modern CLI replacements
         ls = "eza --icons --group-directories-first";
         ll = "eza -lah --icons --group-directories-first --git";
@@ -76,7 +82,7 @@ with lib;
         df = "duf";
         top = "btm";
         ps = "procs";
-        
+
         # Git shortcuts
         g = "git";
         gs = "git status --short --branch";
@@ -106,12 +112,12 @@ with lib;
         gstashp = "git stash pop";
         gwip = "git add -A && git commit -m 'WIP'";
         gunwip = "git reset HEAD~1";
-        
+
         # NixOS management
         nos = "sudo nixos-rebuild switch --flake .#ares";
         nob = "sudo nixos-rebuild boot --flake .#ares";
         not = "sudo nixos-rebuild test --flake .#ares";
-        
+
         # Nix utilities
         nd = "nix develop";
         ns = "nix shell nixpkgs#";
@@ -122,7 +128,7 @@ with lib;
         nfm = "nix flake metadata";
         cleanup = "nh clean all";
         diff-gen = "nvd diff /run/current-system result";
-        
+
         # Docker shortcuts
         d = "docker";
         dc = "docker-compose";
@@ -137,7 +143,7 @@ with lib;
         drmi = "docker rmi";
         dex = "docker exec -it";
         dlogs = "docker logs -f";
-        
+
         # Kubernetes shortcuts
         k = "kubectl";
         kgp = "kubectl get pods";
@@ -148,7 +154,7 @@ with lib;
         kdesc = "kubectl describe";
         kapp = "kubectl apply -f";
         kdel = "kubectl delete";
-        
+
         # System shortcuts
         vim = "nvim";
         vi = "nvim";
@@ -159,29 +165,29 @@ with lib;
         listening = "ss -tlnp";
         myip = "curl -s ifconfig.me";
         weather = "curl wttr.in";
-        
+
         # Port management
         pf = "portctl find";
         pk = "portctl kill";
         pc = "portctl check";
         prec = "portctl recommend";
-        
+
         # Directory shortcuts
         cdnix = "cd ~/Projects/nix-omarchy/nix";
         cdconfig = "cd ~/.config";
         cdprojects = "cd ~/Projects";
         cddocs = "cd ~/Documents";
         cddl = "cd ~/Downloads";
-        
+
         # Safety aliases
         cp = "cp -i";
         mv = "mv -i";
-        
+
         # Quick edits
         ezshrc = "nvim ~/.zshrc";
         ehypr = "nvim ~/.config/hypr/hyprland.conf";
         ewaybar = "nvim ~/.config/waybar/config";
-        
+
         # Custom scripts
         update = "update-system";
         clean = "cleanup-system";
@@ -189,20 +195,118 @@ with lib;
         backup = "quick-backup";
         monitor = "sysmon";
         scripts = "scriptctl list";
-        
+        cds = "count-dirs";
+        ces = "count-elements";
+
+        # Power User Essentials
+        ts = "tmux-sessionizer";
+        tsa = "ts-tools";
+        tl = "tmux list-sessions";
+        ta = "tmux-attach"; # New helper function
+        tk = "tmux-killer"; # Session closer
+        yz = "yazi";
+        ra = "ranger";
+
         # Development
         serve = "python -m http.server";
         py = "python";
         ipy = "ipython";
-        
-              # AI Tools
+
+        # AI Tools
+        aider = "env -u PYTHONPATH aider";
         claude-qwen = "ANTHROPIC_AUTH_TOKEN=ollama ANTHROPIC_BASE_URL=http://localhost:11434 claude --model qwen3-coder-next";
         perplexity = "gemini";
-        
-        
+
+        # Convenience
+        clr = "clear";
+        q = "exit";
+        c = "clear";
+        f = "fe"; # Quick edit with fzf
+        cd = "fcd"; # Quick cd with fzf (replaces standard cd if no args)
+        explain = "resolve"; # Alias for the resolver
       };
 
       initContent = ''
+        # Resolve: Expands aliases and functions to their raw commands
+        # Useful for copying commands to remote servers
+        resolve() {
+          local target="$1"
+          if [ -z "$target" ]; then
+            echo "Usage: resolve <alias_or_function>"
+            return 1
+          fi
+
+          # 1. Try to find if it's an alias
+          local alias_def=$(alias "$target" 2>/dev/null)
+          if [ -n "$alias_def" ]; then
+            local expanded=$(echo "$alias_def" | sed -E "s/^$target=['\"](.*)['\"]$/\1/")
+            echo -e "\033[0;34mAlias:\033[0m $expanded"
+            return 0
+          fi
+
+          # 2. Try to find if it's a function
+          if declare -f "$target" >/dev/null; then
+            echo -e "\033[0;32mFunction:\033[0m"
+            declare -f "$target"
+            return 0
+          fi
+
+          # 3. Fallback to 'whence' (zsh specific, very descriptive)
+          whence -v "$target"
+        }
+
+        # Count elements in subdirectories (differentiating files/dirs)
+        count-dirs() {
+          for dir in */; do
+            if [ -d "$dir" ]; then
+              dir_name="''${dir%/}"
+              local files=$(command find "$dir" -maxdepth 1 -type f 2>/dev/null | wc -l)
+              local dirs=$(command find "$dir" -maxdepth 1 -type d 2>/dev/null | wc -l)
+              # find counts the dir itself, so subtract 1 for dirs
+              dirs=$((dirs - 1))
+              # Ensure we don't have -1 if find failed
+              [ $dirs -lt 0 ] && dirs=0
+              local total=$((files + dirs))
+              local last_element=$(eza -1 "$dir" 2>/dev/null | tail -n 1)
+              if [ "$total" -eq 0 ]; then
+                last_element="[Empty]"
+              fi
+              echo "Dir: \033[1;34m$dir_name\033[0m | Elements: \033[1;32m$total\033[0m (Files: $files, Dirs: $dirs) | Last: $last_element"
+            fi
+          done
+        }
+
+        # Count elements in current directory (differentiating files/dirs)
+        count-elements() {
+          local files=$(command find . -maxdepth 1 -type f 2>/dev/null | wc -l)
+          local dirs=$(command find . -maxdepth 1 -type d 2>/dev/null | wc -l)
+          dirs=$((dirs - 1)) # Exclude .
+          [ $dirs -lt 0 ] && dirs=0
+          local total=$((files + dirs))
+          echo "Current Dir | Elements: \033[1;32m$total\033[0m (Files: $files, Dirs: $dirs)"
+        }
+
+        # Tmux Attach Helper: fzf through active sessions
+        tmux-attach() {
+          local session
+          if [ -z "$1" ]; then
+            session=$(tmux list-sessions -F "#S" 2>/dev/null | fzf --header="Attach to Active Session" --exit-0)
+            [ -z "$session" ] && return
+            tmux attach-session -t "$session"
+          else
+            tmux attach-session -t "$1"
+          fi
+        }
+
+        # Override cd function to use fzf when no arguments
+        cd() {
+          if [ $# -eq 0 ]; then
+            fcd
+          else
+            builtin cd "$@"
+          fi
+        }
+
         if [ -f /run/secrets/gemini_api_key ]; then
           export GEMINI_API_KEY=$(cat /run/secrets/gemini_api_key)
         fi
@@ -214,11 +318,11 @@ with lib;
             nvm "$@"
           }
         fi
-        
+
         eval "$(zoxide init zsh)"
-        
+
         mkcd() { mkdir -p "$1" && cd "$1"; }
-        
+
         extract() {
           if [ -f "$1" ]; then
             case "$1" in
@@ -239,38 +343,38 @@ with lib;
             echo "'$1' is not a valid file"
           fi
         }
-        
+
         fe() {
           local file
           file=$(fd --type f --hidden --follow --exclude .git | fzf --preview 'bat --color=always --line-range :500 {}')
           [ -n "$file" ] && $EDITOR "$file"
         }
-        
+
         fcd() {
           local dir
           dir=$(fd --type d --hidden --follow --exclude .git | fzf --preview 'eza --tree --color=always {} | head -200')
           [ -n "$dir" ] && cd "$dir"
         }
-        
+
         fgl() {
           git log --graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" | \
           fzf --ansi --no-sort --reverse --tiebreak=index \
               --preview 'echo {} | grep -o "[a-f0-9]\{7\}" | head -1 | xargs -I % git show --color=always %' \
               --bind "enter:execute:echo {} | grep -o '[a-f0-9]\{7\}' | head -1 | xargs -I % git show %"
         }
-        
+
         fkill() {
           local pid
           pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
           [ -n "$pid" ] && kill -''${1:-9} $pid
         }
-        
+
         dsh() {
           local cid
           cid=$(docker ps | sed 1d | fzf -1 -q "$1" | awk '{print $1}')
           [ -n "$cid" ] && docker exec -it "$cid" /bin/bash
         }
-        
+
         note() {
           local note_file="$HOME/Documents/notes/$(date +%Y-%m-%d).md"
           mkdir -p "$(dirname "$note_file")"
@@ -280,7 +384,7 @@ with lib;
             echo "$(date +%Y-%m-%d\ %H:%M:%S) - $*" >> "$note_file"
           fi
         }
-        
+
         gwt-add() {
           git worktree add "../$(basename $(pwd))-$1" "$1"
         }
@@ -289,22 +393,25 @@ with lib;
         if [[ "$TERM" == "xterm-kitty" ]]; then
           alias ssh='kitten ssh'
         fi
-        
+
         bindkey -v
         export KEYTIMEOUT=1
-        
+
         function zle-keymap-select {
           if [[ ''${KEYMAP} == vicmd ]] || [[ $1 = 'block' ]]; then
             echo -ne '\e[1 q'
           elif [[ ''${KEYMAP} == main ]] || [[ ''${KEYMAP} == viins ]] || [[ -z ''${KEYMAP} ]] || [[ $1 = 'beam' ]]; then
-  
+
             echo -ne '\e[5 q'
           fi
         }
         zle -N zle-keymap-select
-        
+
         echo -ne '\e[5 q'
-        
+
+        # Tmux Sessionizer Binding
+        bindkey -s '^f' 'tmux-sessionizer\n'
+
         bindkey '^R' history-incremental-search-backward
         bindkey '^S' history-incremental-search-forward
         bindkey '^P' up-line-or-search
@@ -316,13 +423,13 @@ with lib;
         bindkey '^[[3~' delete-char
         bindkey '^[[1;5C' forward-word
         bindkey '^[[1;5D' backward-word
-        
+
         if command -v fastfetch >/dev/null 2>&1; then
           fastfetch --config none --structure Title:Separator:OS:Host:Kernel:Uptime:Packages:Shell:Terminal
-        elif command -v neofetch >/dev/null 2>&1; then
-          neofetch --config none
+        elif command -v fastfetch >/dev/null 2>&1; then
+          fastfetch --config none
         fi
-        
+
         if [ -n ''${IN_NIX_SHELL:-} ]; then
           echo "🐚 In nix-shell"
         fi
@@ -330,12 +437,12 @@ with lib;
 
       oh-my-zsh = {
         enable = true;
-        plugins = [ 
-          "git" 
-          "sudo" 
-          "docker" 
+        plugins = [
+          "git"
+          "sudo"
+          "docker"
           "docker-compose"
-          "kubectl" 
+          "kubectl"
           "terraform"
           "rust"
           "golang"

@@ -199,49 +199,7 @@
     sysdig             # System call tracer
   ];
   
-  # Tmux configuration
-  programs.tmux = {
-    enable = true;
-    terminal = "tmux-256color";
-    historyLimit = 50000;
-    keyMode = "vi";
-    mouse = true;
-    plugins = with pkgs.tmuxPlugins; [
-      sensible
-      yank
-      resurrect
-      continuum
-      catppuccin
-    ];
-    extraConfig = ''
-      # Better prefix
-      unbind C-b
-      set -g prefix C-a
-      bind C-a send-prefix
-      
-      # Split panes using | and -
-      bind | split-window -h
-      bind - split-window -v
-      unbind '"'
-      unbind %
-      
-      # Reload config
-      bind r source-file ~/.tmux.conf
-      
-      # Pane navigation with hjkl
-      bind h select-pane -L
-      bind j select-pane -D
-      bind k select-pane -U
-      bind l select-pane -R
-      
-      # Enable true color
-      set -ga terminal-overrides ",xterm-256color:Tc"
-    '';
-  };
-  
-  # Terminal multiplexer is configured in terminal-tools.nix
-  
-  # Helix editor (modern Vim/Neovim alternative)
+  # Helix editor
   programs.helix = {
     enable = true;
     settings = {

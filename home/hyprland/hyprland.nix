@@ -18,8 +18,10 @@ with lib;
             INFO=$(${pkgs.hyprland}/bin/hyprctl activewindow -j)
             CLASS=$(echo "$INFO" | ${pkgs.jq}/bin/jq -r ".class")
             ADDR=$(echo "$INFO" | ${pkgs.jq}/bin/jq -r ".address")
+            TERMINAL_REGEX="^(kitty|Alacritty|foot|org.wezfurlong.wezterm|wezterm|WezTerm)$"
 
-            if [[ "$CLASS" =~ ^(kitty|Alacritty)$ ]]; then
+            if [[ "$CLASS" =~ $TERMINAL_REGEX ]]; then
+              # Terminal copy shortcut
               ${pkgs.hyprland}/bin/hyprctl dispatch sendshortcut "CTRL SHIFT, C, address:$ADDR"
             else
               ${pkgs.hyprland}/bin/hyprctl dispatch sendshortcut "CTRL, C, address:$ADDR"
@@ -30,8 +32,10 @@ with lib;
             INFO=$(${pkgs.hyprland}/bin/hyprctl activewindow -j)
             CLASS=$(echo "$INFO" | ${pkgs.jq}/bin/jq -r ".class")
             ADDR=$(echo "$INFO" | ${pkgs.jq}/bin/jq -r ".address")
+            TERMINAL_REGEX="^(kitty|Alacritty|foot|org.wezfurlong.wezterm|wezterm|WezTerm)$"
 
-            if [[ "$CLASS" =~ ^(kitty|Alacritty)$ ]]; then
+            if [[ "$CLASS" =~ $TERMINAL_REGEX ]]; then
+              # Terminal paste shortcut
               ${pkgs.hyprland}/bin/hyprctl dispatch sendshortcut "CTRL SHIFT, V, address:$ADDR"
             else
               ${pkgs.hyprland}/bin/hyprctl dispatch sendshortcut "CTRL, V, address:$ADDR"
@@ -58,6 +62,12 @@ with lib;
             else
                obsidian
             fi
+          '')
+
+          (pkgs.writeShellScriptBin "walker-launcher" ''
+            ${pkgs.hyprland}/bin/hyprctl dispatch submap walker
+            ${pkgs.walker}/bin/walker
+            ${pkgs.hyprland}/bin/hyprctl dispatch submap reset
           '')
         ];
 
@@ -191,7 +201,9 @@ with lib;
               repeat_rate = 40;
               repeat_delay = 600;
               touchpad = {
-                natural_scroll = false;
+                natural_scroll = true;
+                tap-to-click = true;
+                disable_while_typing = true;
                 scroll_factor = 0.4;
               };
               sensitivity = 0;
@@ -258,6 +270,7 @@ with lib;
             bind = [
               # Apps
               "SUPER, RETURN, exec, $terminal"
+              "SUPER, Y, exec, $terminal --class floating -e tmux-sessionizer"
               "SUPER SHIFT, F, exec, dolphin"
               "SUPER, B, exec, $browser"
               "SUPER ALT, B, exec, $browser --private"
@@ -267,9 +280,9 @@ with lib;
               "SUPER, A, exec, gtk-launch perplexity"
 
               # Menus
-              "SUPER, SPACE, exec, walker"
+              "SUPER, SPACE, exec, walker-launcher"
               "SUPER, N, exec, noctalia-shell ipc call controlCenter toggle"
-              "SUPER SHIFT, P, exec, walker -m power-profiles" # Power Profiles Menu
+              "SUPER SHIFT, P, exec, power-profile-menu" # Power Profiles Menu
               "SUPER ALT, SPACE, exec, kitty --class floating -e nix-search"
               "SUPER, ESCAPE, exec, noctalia-shell ipc call sessionMenu toggle"
 
@@ -431,6 +444,23 @@ with lib;
               "SUPER, mouse:273, resizewindow"
             ];
           };
+
+          extraConfig = ''
+            submap = walker
+            bind = ALT, Q, sendshortcut, , F1
+            bind = ALT, W, sendshortcut, , F2
+            bind = ALT, E, sendshortcut, , F3
+            bind = ALT, R, sendshortcut, , F4
+            bind = ALT, T, sendshortcut, , F5
+            bind = ALT, Y, sendshortcut, , F6
+            bind = ALT, U, sendshortcut, , F7
+            bind = ALT, I, sendshortcut, , F8
+            bind = ALT, O, sendshortcut, , F9
+            bind = ALT, P, sendshortcut, , F10
+            bind = ALT, A, sendshortcut, , F11
+            bind = ALT, S, sendshortcut, , F12
+            submap = reset
+          '';
         };
       };
 }

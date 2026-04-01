@@ -4,74 +4,6 @@ with lib;
 
 {
   config = mkIf config.home.profiles.cli.enable {
-    # Tmux - Terminal multiplexer
-    programs.tmux = {
-      enable = true;
-      
-      terminal = "tmux-256color";
-      historyLimit = 50000;
-      keyMode = "vi";
-      
-      # Start windows and panes at 1, not 0
-      baseIndex = 1;
-      
-      # Mouse support
-      mouse = true;
-      
-      
-      # Custom key bindings
-      extraConfig = ''
-        # Better prefix key
-        unbind C-b
-        set-option -g prefix C-a
-        bind-key C-a send-prefix
-        
-        # Split panes using | and -
-        bind | split-window -h
-        bind - split-window -v
-        unbind '"'
-        unbind %
-        
-        # Reload config
-        bind r source-file ~/.config/tmux/tmux.conf \; display "Config reloaded!"
-        
-        # Vi mode keys
-        bind-key -T copy-mode-vi v send-keys -X begin-selection
-        bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
-        
-        # Pane navigation with vim keys
-        bind h select-pane -L
-        bind j select-pane -D
-        bind k select-pane -U
-        bind l select-pane -R
-        
-        # Pane resizing
-        bind -r H resize-pane -L 5
-        bind -r J resize-pane -D 5
-        bind -r K resize-pane -U 5
-        bind -r L resize-pane -R 5
-        
-        # Enable RGB color
-        set -ga terminal-overrides ",*256col*:Tc"
-        
-        # Faster command sequences
-        set -s escape-time 0
-        
-        # Activity monitoring
-        setw -g monitor-activity on
-        set -g visual-activity off
-
-        # renumber windows on close
-        set-option -g renumber-windows on
-        
-        # Catppuccin theme
-        set -g status-style bg=#1e1e2e,fg=#cdd6f4
-        set -g pane-border-style fg=#313244
-        set -g pane-active-border-style fg=#89b4fa
-        set -g window-status-current-style fg=#89b4fa,bold
-      '';
-    };
-    
     # Zellij - Modern terminal multiplexer (alternative to tmux)
     programs.zellij = {
       enable = true;
@@ -164,6 +96,24 @@ with lib;
         style = "numbers,changes,header";
         pager = "less -FR";
       };
+    };
+
+    # Yazi - Terminal File Manager
+    programs.yazi = {
+      enable = true;
+      enableZshIntegration = true;
+      settings = {
+        manager = {
+          show_hidden = true;
+          sort_by = "alphabetical";
+          sort_dir_first = true;
+        };
+      };
+    };
+
+    # Fastfetch - System information
+    programs.fastfetch = {
+      enable = true;
     };
     
     # Eza - Better ls

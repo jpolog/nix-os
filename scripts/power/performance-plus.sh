@@ -7,10 +7,18 @@
 
 set -e
 
+if [ "$EUID" -ne 0 ]; then
+    exec sudo "$0" "$@"
+fi
+
+PROFILE_FILE="/var/lib/power-profiles/current"
+mkdir -p "$(dirname "$PROFILE_FILE")"
+echo "performance-plus" > "$PROFILE_FILE"
+
 echo "Setting Performance Plus power profile..."
 
 # TLP Configuration - Maximum performance on both AC and battery
-sudo bash -c 'cat > /etc/tlp.d/01-profile.conf << EOFperformance-plus.conf << EOF
+cat > /etc/tlp.d/99-profile.conf << EOF
 CPU_SCALING_GOVERNOR_ON_AC="performance"
 CPU_SCALING_GOVERNOR_ON_BAT="performance"
 CPU_ENERGY_PERF_POLICY_ON_AC="performance"
@@ -21,30 +29,28 @@ RUNTIME_PM_ON_AC=on
 RUNTIME_PM_ON_BAT=on
 EOF
 
-EOF'
-
 # Apply TLP settings
-sudo tlp start
+tlp start
 
 # FORCE apply settings IMMEDIATELY
 for cpu in /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor; do
-    [ -f "$cpu" ] && echo "performance" | sudo tee "$cpu" > /dev/null
+    [ -f "$cpu" ] && echo "performance" | tee "$cpu" > /dev/null
 done
 
 for cpu in /sys/devices/system/cpu/cpu*/cpufreq/energy_performance_preference; do
-    [ -f "$cpu" ] && echo "performance" | sudo tee "$cpu" > /dev/null
+    [ -f "$cpu" ] && echo "performance" | tee "$cpu" > /dev/null
 done
 
 # Enable AMD CPU boost
 if [ -f /sys/devices/system/cpu/cpufreq/boost ]; then
-    echo "1" | sudo tee /sys/devices/system/cpu/cpufreq/boost > /dev/null
+    echo "1" | tee /sys/devices/system/cpu/cpufreq/boost > /dev/null
 fi
 
 # Set CPU frequency scaling limits to maximum
 for cpu in /sys/devices/system/cpu/cpu*/cpufreq/scaling_max_freq; do
     if [ -f "$cpu" ]; then
         MAX_FREQ=$(cat "$(dirname "$cpu")/cpuinfo_max_freq")
-        echo "$MAX_FREQ" | sudo tee "$cpu" > /dev/null
+        echo "$MAX_FREQ" | tee "$cpu" > /dev/null
     fi
 done
 
@@ -52,14 +58,14 @@ done
 for cpu in /sys/devices/system/cpu/cpu*/cpufreq/scaling_min_freq; do
     if [ -f "$cpu" ]; then
         MAX_FREQ=$(cat "$(dirname "$cpu")/cpuinfo_max_freq")
-        echo "$MAX_FREQ" | sudo tee "$cpu" > /dev/null
+        echo "$MAX_FREQ" | tee "$cpu" > /dev/null
     fi
 done
 
-# Thinkfan Configuration - Use maximum performance curve
-if [ -f /etc/power-profiles/thinkfan-performance-plus.conf ]; then
-    sudo cp /etc/power-profiles/thinkfan-performance-plus.conf /etc/thinkfan.conf
-    sudo systemctl restart thinkfan
+# Thinkfan Configuration - Switch to performance-plus curve
+if [ -f /etc/power-profiles/thinkfan-performance-plus.yaml ]; then
+    cp /etc/power-profiles/thinkfan-performance-plus.yaml /var/lib/thinkfan/active.yaml
+    systemctl restart thinkfan
 fi
 
 echo "✓ Performance Plus power profile activated."
