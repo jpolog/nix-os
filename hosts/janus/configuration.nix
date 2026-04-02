@@ -279,6 +279,12 @@
 
       # Disable Ollama service (no ROCm on a general-use PC)
       services.ollama-service.enable = lib.mkForce false;
+
+      # Install Claude Code independently of the development profile
+      programs.ai-tools = {
+        enable = true;
+        tools.claude-code.enable = true;
+      };
     };
 
   home-manager.users.elena =
