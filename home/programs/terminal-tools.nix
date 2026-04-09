@@ -102,14 +102,52 @@ with lib;
     programs.yazi = {
       enable = true;
       enableZshIntegration = true;
+      shellWrapperName = "yy";
       settings = {
         manager = {
           show_hidden = true;
-          sort_by = "alphabetical";
+          sort_by = "mtime";
           sort_dir_first = true;
+          sort_reverse = true;
+          linemode = "size_mtime";
+          ratio = [ 1 3 4 ];
+        };
+        status = {
+          separator_open = "";
+          separator_close = "";
+          show_permissions = true;
+        };
+        opener = {
+          view_image = [
+            { run = ''imv "$@"''; desc = "View Image (imv)"; block = false; }
+          ];
+          edit_text = [
+            { run = ''nvim "$@"''; desc = "Edit Text (nvim)"; block = true; }
+          ];
+        };
+        open = {
+          rules = [
+            { mime = "image/*"; use = "view_image"; }
+            { mime = "text/*"; use = "edit_text"; }
+          ];
         };
       };
+      keymap = {
+        manager.prepend_keymap = [
+          { on = [ "M" ]; run = "linemode"; desc = "Cycle linemode (size/mtime/permissions)"; }
+          { on = [ "~" ]; run = "help"; desc = "Open help"; }
+        ];
+      };
     };
+
+    # Custom Yazi Linemode: Size + Mtime
+    xdg.configFile."yazi/init.lua".text = ''
+      function Linemode:size_mtime()
+        local time = os.date("%Y-%m-%d %H:%M", math.floor(self._file.cha.mtime or 0))
+        local size = self._file:size()
+        return ui.Line(string.format("%s | %s", size and ya.readable_size(size) or "-", time))
+      end
+    '';
 
     # Fastfetch - System information
     programs.fastfetch = {

@@ -139,6 +139,23 @@ with lib;
       };
 
       # Desktop-specific session variables
+      xdg.mimeApps = {
+        enable = true;
+        defaultApplications = {
+          "text/plain" = [ "nvim.desktop" ];
+          "application/pdf" = [ "zathura.desktop" ];
+          "image/png" = [ "imv.desktop" ];
+          "image/jpeg" = [ "imv.desktop" ];
+          "image/gif" = [ "imv.desktop" ];
+          "image/webp" = [ "imv.desktop" ];
+          "video/mp4" = [ "mpv.desktop" ];
+          "video/mkv" = [ "mpv.desktop" ];
+          "video/webm" = [ "mpv.desktop" ];
+          "x-scheme-handler/http" = [ "firefox.desktop" ];
+          "x-scheme-handler/https" = [ "firefox.desktop" ];
+          "inode/directory" = [ "dolphin.desktop" ];
+        };
+      };
 
       # Configure Cursor Theme
       home.pointerCursor = {

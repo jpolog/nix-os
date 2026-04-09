@@ -41,7 +41,6 @@ with lib;
         # Network tools
         nmap
         mtr
-        wireshark
         
         # Development
         lazygit

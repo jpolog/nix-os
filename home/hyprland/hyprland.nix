@@ -69,6 +69,39 @@ with lib;
             ${pkgs.walker}/bin/walker
             ${pkgs.hyprland}/bin/hyprctl dispatch submap reset
           '')
+
+          (pkgs.writeShellScriptBin "smart-resize" ''
+            ORIENTATION=$1 # "h" or "v"
+            DIRECTION=$2   # "up" or "down" (grow/shrink)
+            MODE=$3        # "normal" or "fine"
+            
+            # Set steps based on mode
+            if [ "$MODE" = "fine" ]; then
+              PX_STEP=20
+              TIL_STEP=0.02
+            else
+              PX_STEP=100
+              TIL_STEP=0.1
+            fi
+
+            IS_FLOATING=$(${pkgs.hyprland}/bin/hyprctl activewindow -j | ${pkgs.jq}/bin/jq -r '.floating')
+            
+            if [ "$IS_FLOATING" = "true" ]; then
+              if [ "$ORIENTATION" = "h" ]; then
+                [ "$DIRECTION" = "up" ] && ${pkgs.hyprland}/bin/hyprctl dispatch resizeactive $PX_STEP 0 || ${pkgs.hyprland}/bin/hyprctl dispatch resizeactive -$PX_STEP 0
+              else
+                [ "$DIRECTION" = "up" ] && ${pkgs.hyprland}/bin/hyprctl dispatch resizeactive 0 $PX_STEP || ${pkgs.hyprland}/bin/hyprctl dispatch resizeactive 0 -$PX_STEP
+              fi
+            else
+              # Tiling (Scroller layout)
+              if [ "$ORIENTATION" = "h" ]; then
+                [ "$DIRECTION" = "up" ] && ${pkgs.hyprland}/bin/hyprctl dispatch layoutmsg "colresize +$TIL_STEP" || ${pkgs.hyprland}/bin/hyprctl dispatch layoutmsg "colresize -$TIL_STEP"
+              else
+                # Vertical resize for tiled windows (resizeactive works for the window height)
+                [ "$DIRECTION" = "up" ] && ${pkgs.hyprland}/bin/hyprctl dispatch resizeactive 0 $PX_STEP || ${pkgs.hyprland}/bin/hyprctl dispatch resizeactive 0 -$PX_STEP
+              fi
+            fi
+          '')
         ];
 
         services.cliphist = {
@@ -322,8 +355,6 @@ with lib;
               # Scrolling Layout Specific
               "SUPER, period, layoutmsg, move +col"
               "SUPER, comma, layoutmsg, move -col"
-              "SUPER, equal, layoutmsg, colresize +0.2"
-              "SUPER, minus, layoutmsg, colresize -0.2"
 
               # Hyprscrolling Extras
               "SUPER, P, layoutmsg, promote" # Promote window to its own column
@@ -417,19 +448,28 @@ with lib;
             ];
 
             binde = [
-              "SUPER SHIFT, equal, resizeactive, 0 -20"
-              "SUPER SHIFT, minus, resizeactive, 0 20"
+              # Horizontal Resize
+              "SUPER, equal, exec, smart-resize h up normal"
+              "SUPER, minus, exec, smart-resize h down normal"
+              "SUPER ALT, equal, exec, smart-resize h up fine"
+              "SUPER ALT, minus, exec, smart-resize h down fine"
+
+              # Vertical Resize
+              "SUPER SHIFT, equal, exec, smart-resize v up normal"
+              "SUPER SHIFT, minus, exec, smart-resize v down normal"
+              "SUPER SHIFT ALT, equal, exec, smart-resize v up fine"
+              "SUPER SHIFT ALT, minus, exec, smart-resize v down fine"
             ];
 
             bindel = [
-              ",XF86AudioRaiseVolume, exec, $osdclient --output-volume raise"
-              ",XF86AudioLowerVolume, exec, $osdclient --output-volume lower"
-              ",XF86AudioMute, exec, $osdclient --output-volume mute-toggle"
-              ",XF86AudioMicMute, exec, $osdclient --input-volume mute-toggle"
-              ",XF86MonBrightnessUp, exec, $osdclient --brightness raise"
-              ",XF86MonBrightnessDown, exec, $osdclient --brightness lower"
-              "ALT, XF86AudioRaiseVolume, exec, $osdclient --output-volume +1"
-              "ALT, XF86AudioLowerVolume, exec, $osdclient --output-volume -1"
+              ",XF86AudioRaiseVolume, exec, pamixer -i 5; $osdclient --output-volume raise"
+              ",XF86AudioLowerVolume, exec, pamixer -d 5; $osdclient --output-volume lower"
+              ",XF86AudioMute, exec, pamixer -t; $osdclient --output-volume mute-toggle"
+              ",XF86AudioMicMute, exec, pamixer --default-source -t; $osdclient --input-volume mute-toggle"
+              ",XF86MonBrightnessUp, exec, brightnessctl set +5%; $osdclient --brightness raise"
+              ",XF86MonBrightnessDown, exec, brightnessctl set 5%-; $osdclient --brightness lower"
+              "ALT, XF86AudioRaiseVolume, exec, pamixer -i 1; $osdclient --output-volume +1"
+              "ALT, XF86AudioLowerVolume, exec, pamixer -d 1; $osdclient --output-volume -1"
             ];
 
             bindl = [

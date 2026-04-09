@@ -196,7 +196,7 @@ in {
     ];
 
     # --- 6. CONFIGURATION ---
-    extraLuaConfig = ''
+    initLua = ''
       -- Disable netrw to avoid double explorer issue
       vim.g.loaded_netrw = 1
       vim.g.loaded_netrwPlugin = 1

@@ -16,7 +16,6 @@
     git-crypt          # Encrypt files in git
     
     # Network analysis
-    termshark          # TUI for Wireshark
     rustscan           # Fast port scanner
     
     # Database tools

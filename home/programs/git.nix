@@ -6,6 +6,7 @@ with lib;
   config = mkIf config.home.profiles.cli.enable {
     programs.git = {
       enable = true;
+      lfs.enable = true;
       
       settings = {
         user = {

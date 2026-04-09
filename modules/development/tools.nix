@@ -49,7 +49,6 @@
     netcat
     nmap
     mtr
-    wireshark
     tcpdump
     
     # Container tools (additional)

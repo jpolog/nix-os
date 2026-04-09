@@ -91,11 +91,20 @@
       substituters = [
         "https://cache.nixos.org"
         "https://hyprland.cachix.org"
+        "https://devenv.cachix.org"
+        "https://nixpkgs-python.cachix.org"
+        "https://nix-community.cachix.org"
       ];
       trusted-public-keys = [
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
         "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+        "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
+        "nixpkgs-python.cachix.org-1:hxjI7pINPn9njGHQxRXUwQ+ZxXqO0mZ59x2uTfRc2h0="
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       ];
+      trusted-users = [ "root" "@wheel" ];
+      auto-optimise-store = true;
+      experimental-features = [ "nix-command" "flakes" ];
     };
   };
 
@@ -218,6 +227,236 @@
         enable = true;
         acceleration = "rocm";
       };
+
+      # Custom theme and Dolphin configuration for jpolo on ares
+      xdg.configFile."quickshell/noctalia/settings.json".text = builtins.toJSON {
+        "General" = {
+          "scale" = 1.0;
+          "backend" = "hyprland";
+          "cursorTheme" = "Bibata-Modern-Classic";
+        };
+        "Theme" = {
+          "mode" = "dark";
+          "useSystemColors" = false; # Disable matugen override for this user
+          "blur" = true;
+          "blurOpacity" = 0.9;
+          "cornerRadius" = 8;
+          "accentColor" = "#F67400"; # Krita Orange
+          "fontFamily" = "JetBrains Mono";
+          "fontSize" = 12;
+        };
+        "Bar" = { "enabled" = true; "position" = "top"; "height" = 42; };
+        "ControlCenter" = { "enabled" = true; "position" = "right"; "width" = 400; };
+      };
+
+      xdg.configFile."dolphinrc".text = ''
+        [General]
+        ShowStatusbar=true
+        ViewPropsTimestamp=2024,1,1,0,0,0
+        GlobalViewProps=true
+
+        [DetailsMode]
+        UseAlternatingRowColors=false
+
+        [KFileDialog Settings]
+        Places Icons Static Size=22
+      '';
+
+      xdg.configFile."kdeglobals".text = ''
+        [General]
+        ColorScheme=KritaDarkOrange
+        Name=Krita dark orange
+
+        [KDE]
+        LookAndFeelPackage=org.kde.breeze.desktop
+        contrast=4
+
+        [Colors:View]
+        BackgroundAlternate=32,32,32
+        BackgroundNormal=36,36,36
+        DecorationFocus=255,162,0
+        DecorationHover=255,162,0
+        ForegroundActive=255,162,0
+        ForegroundInactive=199,199,199
+        ForegroundLink=255,162,0
+        ForegroundNegative=218,68,83
+        ForegroundNeutral=246,116,0
+        ForegroundNormal=255,255,255
+        ForegroundPositive=255,162,0
+        ForegroundVisited=141,141,141
+
+        [Colors:Window]
+        BackgroundAlternate=42,42,42
+        BackgroundNormal=31,31,31
+        DecorationFocus=255,162,0
+        DecorationHover=255,162,0
+        ForegroundActive=83,62,37
+        ForegroundInactive=189,195,199
+        ForegroundLink=180,113,31
+        ForegroundNegative=218,68,83
+        ForegroundNeutral=246,116,0
+        ForegroundNormal=255,255,255
+        ForegroundPositive=255,162,0
+        ForegroundVisited=110,65,40
+
+        [Colors:Button]
+        BackgroundAlternate=77,77,77
+        BackgroundNormal=31,31,31
+        DecorationFocus=180,113,31
+        DecorationHover=180,113,31
+        ForegroundActive=180,113,31
+        ForegroundInactive=189,195,199
+        ForegroundLink=180,113,31
+        ForegroundNegative=218,68,83
+        ForegroundNeutral=246,116,0
+        ForegroundNormal=247,247,247
+        ForegroundPositive=255,162,0
+        ForegroundVisited=132,67,101
+
+        [Colors:Selection]
+        BackgroundAlternate=180,113,31
+        BackgroundNormal=255,162,0
+        DecorationFocus=180,113,31
+        DecorationHover=180,113,31
+        ForegroundActive=132,67,101
+        ForegroundInactive=255,232,115
+        ForegroundLink=44,27,0
+        ForegroundNegative=200,62,76
+        ForegroundNeutral=200,93,0
+        ForegroundNormal=44,27,0
+        ForegroundPositive=255,162,0
+        ForegroundVisited=144,112,140
+
+        [WM]
+        activeBackground=25,25,25
+        activeBlend=255,255,255
+        activeForeground=239,240,241
+        inactiveBackground=25,25,25
+        inactiveBlend=65,65,65
+        inactiveForeground=131,131,131
+      '';
+
+      xdg.dataFile."color-schemes/KritaDarkOrange.colors".text = ''
+        [ColorEffects:Disabled]
+        Color=56,56,56
+        ColorAmount=0
+        ColorEffect=0
+        ContrastAmount=0.65
+        ContrastEffect=1
+        IntensityAmount=0.1
+        IntensityEffect=2
+
+        [ColorEffects:Inactive]
+        ChangeSelectionColor=false
+        Color=112,111,110
+        ColorAmount=0.025
+        ColorEffect=2
+        ContrastAmount=0.1
+        ContrastEffect=2
+        Enable=false
+        IntensityAmount=0
+        IntensityEffect=0
+
+        [Colors:Button]
+        BackgroundAlternate=77,77,77
+        BackgroundNormal=31,31,31
+        DecorationFocus=180,113,31
+        DecorationHover=180,113,31
+        ForegroundActive=180,113,31
+        ForegroundInactive=189,195,199
+        ForegroundLink=180,113,31
+        ForegroundNegative=218,68,83
+        ForegroundNeutral=246,116,0
+        ForegroundNormal=247,247,247
+        ForegroundPositive=255,162,0
+        ForegroundVisited=132,67,101
+
+        [Colors:Complementary]
+        BackgroundAlternate=36,36,36
+        BackgroundNormal=31,31,31
+        DecorationFocus=255,162,0
+        DecorationHover=255,162,0
+        ForegroundActive=255,162,0
+        ForegroundInactive=180,113,31
+        ForegroundLink=180,113,31
+        ForegroundNegative=83,62,37
+        ForegroundNeutral=83,62,37
+        ForegroundNormal=239,240,241
+        ForegroundPositive=255,162,0
+        ForegroundVisited=110,65,40
+
+        [Colors:Selection]
+        BackgroundAlternate=180,113,31
+        BackgroundNormal=255,162,0
+        DecorationFocus=180,113,31
+        DecorationHover=180,113,31
+        ForegroundActive=132,67,101
+        ForegroundInactive=255,232,115
+        ForegroundLink=44,27,0
+        ForegroundNegative=200,62,76
+        ForegroundNeutral=200,93,0
+        ForegroundNormal=44,27,0
+        ForegroundPositive=255,162,0
+        ForegroundVisited=144,112,140
+
+        [Colors:Tooltip]
+        BackgroundAlternate=31,31,31
+        BackgroundNormal=31,31,31
+        DecorationFocus=180,113,31
+        DecorationHover=180,113,31
+        ForegroundActive=180,113,31
+        ForegroundInactive=189,195,199
+        ForegroundLink=180,113,31
+        ForegroundNegative=218,68,83
+        ForegroundNeutral=246,116,0
+        ForegroundNormal=239,240,241
+        ForegroundPositive=255,162,0
+        ForegroundVisited=127,140,141
+
+        [Colors:View]
+        BackgroundAlternate=32,32,32
+        BackgroundNormal=36,36,36
+        DecorationFocus=255,162,0
+        DecorationHover=255,162,0
+        ForegroundActive=255,162,0
+        ForegroundInactive=199,199,199
+        ForegroundLink=255,162,0
+        ForegroundNegative=218,68,83
+        ForegroundNeutral=246,116,0
+        ForegroundNormal=255,255,255
+        ForegroundPositive=255,162,0
+        ForegroundVisited=141,141,141
+
+        [Colors:Window]
+        BackgroundAlternate=42,42,42
+        BackgroundNormal=31,31,31
+        DecorationFocus=255,162,0
+        DecorationHover=255,162,0
+        ForegroundActive=83,62,37
+        ForegroundInactive=189,195,199
+        ForegroundLink=180,113,31
+        ForegroundNegative=218,68,83
+        ForegroundNeutral=246,116,0
+        ForegroundNormal=255,255,255
+        ForegroundPositive=255,162,0
+        ForegroundVisited=110,65,40
+
+        [General]
+        ColorScheme=KritaDarkOrange
+        Name=Krita dark orange
+        shadeSortColumn=true
+
+        [KDE]
+        contrast=4
+
+        [WM]
+        activeBackground=25,25,25
+        activeBlend=255,255,255
+        activeForeground=239,240,241
+        inactiveBackground=25,25,25
+        inactiveBlend=65,65,65
+        inactiveForeground=131,131,131
+      '';
     };
 
   # ============================================================================
@@ -637,6 +876,9 @@
     home-manager
     radeontop
     amdgpu_top
+    brightnessctl
+    desktop-file-utils
+    shared-mime-info
   ];
 
   # ============================================================================

@@ -18,7 +18,6 @@
     # Port scanning and management
     iproute2      # Socket statistics (ss command - modern netstat)
     nmap          # Network mapper
-    wireshark     # GUI packet analyzer
   ];
   
   # Create port management configuration

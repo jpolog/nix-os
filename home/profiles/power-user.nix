@@ -43,7 +43,6 @@ in
       with pkgs;
       # Network Analysis
       (optionals cfg.network.enable [
-        wireshark
         nmap
         socat
         mtr

@@ -220,6 +220,10 @@ in {
       [templates.discord]
       input_path = "${config.xdg.configHome}/matugen/templates/discord.css"
       output_path = "${config.xdg.configHome}/vesktop/themes/noctalia.css"
+
+      [templates.kde]
+      input_path = "${config.xdg.configHome}/matugen/templates/kdeglobals"
+      output_path = "${config.xdg.configHome}/kdeglobals"
     '';
 
         # 2.5. Matugen template for kitty terminal color sync
@@ -432,6 +436,69 @@ in {
         --text-normal: {{colors.on_surface.default.hex}};
         --text-muted: {{colors.on_surface_variant.default.hex}};
       }
+    '';
+
+    # 2.10. Matugen template for KDE/Qt Colors (kdeglobals)
+    xdg.configFile."matugen/templates/kdeglobals".text = ''
+      [Colors:View]
+      BackgroundAlternate={{colors.surface_container.default.rgb}}
+      BackgroundNormal={{colors.surface.default.rgb}}
+      DecorationFocus={{colors.primary.default.rgb}}
+      DecorationHover={{colors.primary.default.rgb}}
+      ForegroundActive={{colors.primary.default.rgb}}
+      ForegroundInactive={{colors.on_surface_variant.default.rgb}}
+      ForegroundLink={{colors.primary.default.rgb}}
+      ForegroundNegative={{colors.error.default.rgb}}
+      ForegroundNeutral={{colors.secondary.default.rgb}}
+      ForegroundNormal={{colors.on_surface.default.rgb}}
+      ForegroundPositive={{colors.tertiary.default.rgb}}
+      ForegroundVisited={{colors.secondary.default.rgb}}
+
+      [Colors:Window]
+      BackgroundAlternate={{colors.surface_container_high.default.rgb}}
+      BackgroundNormal={{colors.surface.default.rgb}}
+      DecorationFocus={{colors.primary.default.rgb}}
+      DecorationHover={{colors.primary.default.rgb}}
+      ForegroundActive={{colors.primary.default.rgb}}
+      ForegroundInactive={{colors.on_surface_variant.default.rgb}}
+      ForegroundLink={{colors.primary.default.rgb}}
+      ForegroundNegative={{colors.error.default.rgb}}
+      ForegroundNeutral={{colors.secondary.default.rgb}}
+      ForegroundNormal={{colors.on_surface.default.rgb}}
+      ForegroundPositive={{colors.tertiary.default.rgb}}
+      ForegroundVisited={{colors.secondary.default.rgb}}
+
+      [Colors:Button]
+      BackgroundAlternate={{colors.surface_container_low.default.rgb}}
+      BackgroundNormal={{colors.surface_container.default.rgb}}
+      DecorationFocus={{colors.primary.default.rgb}}
+      DecorationHover={{colors.primary.default.rgb}}
+      ForegroundActive={{colors.primary.default.rgb}}
+      ForegroundInactive={{colors.on_surface_variant.default.rgb}}
+      ForegroundLink={{colors.primary.default.rgb}}
+      ForegroundNegative={{colors.error.default.rgb}}
+      ForegroundNeutral={{colors.secondary.default.rgb}}
+      ForegroundNormal={{colors.on_surface.default.rgb}}
+      ForegroundPositive={{colors.tertiary.default.rgb}}
+      ForegroundVisited={{colors.secondary.default.rgb}}
+
+      [Colors:Selection]
+      BackgroundAlternate={{colors.primary_container.default.rgb}}
+      BackgroundNormal={{colors.primary.default.rgb}}
+      DecorationFocus={{colors.primary.default.rgb}}
+      DecorationHover={{colors.primary.default.rgb}}
+      ForegroundActive={{colors.on_primary.default.rgb}}
+      ForegroundInactive={{colors.on_primary_container.default.rgb}}
+      ForegroundLink={{colors.on_primary.default.rgb}}
+      ForegroundNegative={{colors.on_primary.default.rgb}}
+      ForegroundNeutral={{colors.on_primary.default.rgb}}
+      ForegroundNormal={{colors.on_primary.default.rgb}}
+      ForegroundPositive={{colors.on_primary.default.rgb}}
+      ForegroundVisited={{colors.on_primary.default.rgb}}
+
+      [General]
+      ColorScheme=NoctaliaGenerated
+      Name=Noctalia Generated Theme
     '';
 
 

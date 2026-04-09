@@ -46,7 +46,6 @@ let
     netcat
     nmap
     mtr
-    wireshark
     tcpdump
     
     # File & System

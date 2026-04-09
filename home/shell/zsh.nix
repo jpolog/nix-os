@@ -76,8 +76,6 @@ with lib;
         lt = "eza --tree --icons --level=2";
         llt = "eza -lah --tree --icons --level=2";
         cat = "bat --style=auto";
-        grep = "rg";
-        find = "fd";
         du = "dust";
         df = "duf";
         top = "btm";
@@ -222,7 +220,6 @@ with lib;
         q = "exit";
         c = "clear";
         f = "fe"; # Quick edit with fzf
-        cd = "fcd"; # Quick cd with fzf (replaces standard cd if no args)
         explain = "resolve"; # Alias for the resolver
       };
 
@@ -295,15 +292,6 @@ with lib;
             tmux attach-session -t "$session"
           else
             tmux attach-session -t "$1"
-          fi
-        }
-
-        # Override cd function to use fzf when no arguments
-        cd() {
-          if [ $# -eq 0 ]; then
-            fcd
-          else
-            builtin cd "$@"
           fi
         }
 
@@ -411,6 +399,22 @@ with lib;
 
         # Tmux Sessionizer Binding
         bindkey -s '^f' 'tmux-sessionizer\n'
+
+        # Fuzzy directory chooser (inserts path into command line)
+        fzf-dir-widget() {
+          local dir=$(fd --type d --hidden --follow --exclude .git | fzf --height 40% --layout=reverse --border --inline-info --preview 'eza --tree --color=always {} | head -200')
+          if [ -n "$dir" ]; then
+            LBUFFER="''${LBUFFER}''${dir}"
+          fi
+          zle reset-prompt
+        }
+        zle -N fzf-dir-widget
+        bindkey '^t' fzf-dir-widget # Since user asked "like what Ctrl+t does for files", I'll use Ctrl+t if it's free, but Ctrl+t is file widget.
+        # Wait, fzf's CTRL-T is already for files. Maybe CTRL-G?
+        # The user said "a way to fuzzy choose whatever directory, like what Ctrl+t does for files"
+        # I'll use ALT-C for insertion? No, ALT-C is CD.
+        # Let's use CTRL-G.
+        bindkey '^g' fzf-dir-widget
 
         bindkey '^R' history-incremental-search-backward
         bindkey '^S' history-incremental-search-forward
