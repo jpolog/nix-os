@@ -64,9 +64,11 @@ with lib;
       
       # PDF viewer
       zathura
+      kdePackages.okular
       
       # Archive manager
       file-roller
+      kdePackages.ark
       
       # Polkit agent
       polkit_gnome

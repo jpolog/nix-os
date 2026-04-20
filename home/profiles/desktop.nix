@@ -69,6 +69,7 @@ with lib;
         ++ (optionals (config.home.profiles.desktop.environment == "hyprland") [
           # Hyprland specific desktop tools
           kdePackages.dolphin
+          kdePackages.okular
           zathura
           imv
           feh
@@ -143,16 +144,53 @@ with lib;
         enable = true;
         defaultApplications = {
           "text/plain" = [ "nvim.desktop" ];
-          "application/pdf" = [ "zathura.desktop" ];
+          "text/markdown" = [ "nvim.desktop" ];
+          "text/html" = [ "firefox.desktop" ];
+          "text/xml" = [ "nvim.desktop" ];
+          "application/xml" = [ "nvim.desktop" ];
+          "application/pdf" = [ "okular.desktop" ];
+          "application/x-shellscript" = [ "nvim.desktop" ];
+          "application/json" = [ "nvim.desktop" ];
+          "application/yaml" = [ "nvim.desktop" ];
+          "application/toml" = [ "nvim.desktop" ];
+          "text/x-python" = [ "nvim.desktop" ];
+          "text/x-csrc" = [ "nvim.desktop" ];
+          "text/x-c++src" = [ "nvim.desktop" ];
+          "text/x-rust" = [ "nvim.desktop" ];
+          "text/x-go" = [ "nvim.desktop" ];
+          "text/x-javascript" = [ "nvim.desktop" ];
+          "text/css" = [ "nvim.desktop" ];
           "image/png" = [ "imv.desktop" ];
           "image/jpeg" = [ "imv.desktop" ];
           "image/gif" = [ "imv.desktop" ];
           "image/webp" = [ "imv.desktop" ];
+          "image/svg+xml" = [ "firefox.desktop" ];
           "video/mp4" = [ "mpv.desktop" ];
           "video/mkv" = [ "mpv.desktop" ];
           "video/webm" = [ "mpv.desktop" ];
+          "audio/mpeg" = [ "mpv.desktop" ];
+          "audio/flac" = [ "mpv.desktop" ];
+          "audio/wav" = [ "mpv.desktop" ];
+          "audio/ogg" = [ "mpv.desktop" ];
           "x-scheme-handler/http" = [ "firefox.desktop" ];
           "x-scheme-handler/https" = [ "firefox.desktop" ];
+          "x-scheme-handler/mailto" = [ "firefox.desktop" ];
+          "inode/directory" = [ "dolphin.desktop" ];
+          "application/zip" = [ "ark.desktop" ];
+          "application/x-tar" = [ "ark.desktop" ];
+          "application/x-7z-compressed" = [ "ark.desktop" ];
+          "application/x-rar" = [ "ark.desktop" ];
+        };
+        associations.added = {
+          "text/plain" = [ "nvim.desktop" ];
+          "text/markdown" = [ "nvim.desktop" ];
+          "text/html" = [ "firefox.desktop" ];
+          "application/pdf" = [ "okular.desktop" ];
+          "image/png" = [ "imv.desktop" ];
+          "image/jpeg" = [ "imv.desktop" ];
+          "image/gif" = [ "imv.desktop" ];
+          "video/mp4" = [ "mpv.desktop" ];
+          "video/mkv" = [ "mpv.desktop" ];
           "inode/directory" = [ "dolphin.desktop" ];
         };
       };

@@ -71,7 +71,7 @@ mkUser {
         enable = true;
         onlyoffice = false;
         libreoffice = true;
-        okular = false;
+        okular = true;
       };
       productivity = {
         enable = true;

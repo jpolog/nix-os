@@ -295,6 +295,9 @@ with lib;
           fi
         }
 
+        # Prevent automatic window renaming in tmux/terminal
+        export DISABLE_AUTO_TITLE="true"
+
         if [ -f /run/secrets/gemini_api_key ]; then
           export GEMINI_API_KEY=$(cat /run/secrets/gemini_api_key)
         fi

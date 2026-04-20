@@ -105,7 +105,7 @@ with lib;
       shellWrapperName = "yy";
       settings = {
         manager = {
-          show_hidden = true;
+          show_hidden = false; # Start with hidden files off (like Ranger)
           sort_by = "mtime";
           sort_dir_first = true;
           sort_reverse = true;
@@ -124,28 +124,55 @@ with lib;
           edit_text = [
             { run = ''nvim "$@"''; desc = "Edit Text (nvim)"; block = true; }
           ];
+          open_pdf = [
+            { run = ''zathura "$@"''; desc = "Open PDF (Zathura)"; block = false; }
+            { run = ''okular "$@"''; desc = "Open PDF (Okular)"; block = false; }
+          ];
+          default_open = [
+            { run = ''xdg-open "$@"''; desc = "Open with default application"; block = false; }
+          ];
         };
         open = {
           rules = [
             { mime = "image/*"; use = "view_image"; }
             { mime = "text/*"; use = "edit_text"; }
+            { mime = "application/pdf"; use = "open_pdf"; }
+            { name = "*"; use = "default_open"; }
           ];
         };
       };
       keymap = {
         manager.prepend_keymap = [
+          # Sorting keybindings (Ranger-like)
+          { on = [ "s" "n" ]; run = "sort name"; desc = "Sort by name"; }
+          { on = [ "s" "m" ]; run = "sort mtime --reverse"; desc = "Sort by modification time (newest first)"; }
+          { on = [ "s" "s" ]; run = "sort size --reverse"; desc = "Sort by size (largest first)"; }
+          { on = [ "s" "e" ]; run = "sort extension"; desc = "Sort by extension"; }
+          
+          # Toggle hidden files (Ranger uses 'zh' or '.', many use '.')
+          { on = [ "." ]; run = "hidden toggle"; desc = "Toggle hidden files"; }
+          
+          # UI toggles
           { on = [ "M" ]; run = "linemode"; desc = "Cycle linemode (size/mtime/permissions)"; }
-          { on = [ "~" ]; run = "help"; desc = "Open help"; }
+          
+          # External commands
+          { on = [ "C" ]; run = ''shell 'tmux new-window -c "$PWD" -n nvim "nvim ."' --block''; desc = "Open nvim in new tmux window"; }
+          { on = [ "D" ]; run = ''shell 'echo "TMUX is: $TMUX"; sleep 5' --block''; desc = "Debug: Check TMUX environment"; }
+
+          # Help (standard is '?' or '~')
+          { on = [ "?" ]; run = "help"; desc = "Open help/commands list"; }
+          { on = [ "~" ]; run = "help"; desc = "Open help/commands list"; }
         ];
       };
     };
 
-    # Custom Yazi Linemode: Size + Mtime
+    # Custom Yazi Linemode: Permissions + Size + Mtime (Very informative)
     xdg.configFile."yazi/init.lua".text = ''
       function Linemode:size_mtime()
         local time = os.date("%Y-%m-%d %H:%M", math.floor(self._file.cha.mtime or 0))
         local size = self._file:size()
-        return ui.Line(string.format("%s | %s", size and ya.readable_size(size) or "-", time))
+        local permissions = self._file:permissions()
+        return ui.Line(string.format("%s | %s | %s", permissions or "---------", size and ya.readable_size(size) or "-", time))
       end
     '';
 

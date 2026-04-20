@@ -147,6 +147,12 @@ in
             # Module configurations
             set -g @catppuccin_directory_text "#{pane_current_path}"
             set -g @catppuccin_session_text "#S"
+
+            # Re-enforce naming rules within plugin
+            set -g allow-rename off
+            setw -g allow-rename off
+            set -g automatic-rename off
+            setw -g automatic-rename off
           '';
         }
       ];
@@ -160,12 +166,14 @@ in
 
         # --- Window Management & Naming ---
         # Strictly disable all automatic renames from ANY source
-        set-window-option -g allow-rename off
-        set-window-option -g automatic-rename off
+        set -g allow-rename off
+        set -g automatic-rename off
+        setw -g allow-rename off
+        setw -g automatic-rename off
+        set -g automatic-rename-format ""
         
-        # This is for the title of the ACTUAL terminal emulator (Kitty/Alacritty)
-        set-option -g set-titles on
-        set-option -g set-titles-string "#S / #W"
+        # Disable terminal emulator title updates (can sometimes trigger renames)
+        set -g set-titles off
 
         # --- Clipboard integration ---
         set -s set-clipboard on
