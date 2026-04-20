@@ -30,12 +30,21 @@ CPU_SCALING_GOVERNOR_ON_AC=powersave
 CPU_SCALING_GOVERNOR_ON_BAT=powersave
 CPU_ENERGY_PERF_POLICY_ON_AC=balance_power
 CPU_ENERGY_PERF_POLICY_ON_BAT=power
+CPU_MAX_PERF_ON_AC=60
+CPU_MAX_PERF_ON_BAT=50
 CPU_BOOST_ON_AC=0
 CPU_BOOST_ON_BAT=0
 EOF
 
 # Apply TLP settings
 tlp start
+
+# Force frequency cap for Balanced-Eco (2.2GHz)
+for cpu in /sys/devices/system/cpu/cpu*/cpufreq/scaling_max_freq; do
+    if [ -f "$cpu" ]; then
+        echo "2200000" | tee "$cpu" > /dev/null || true
+    fi
+done
 
 # Force TLP to reapply settings based on current state
 if [ "$AC_STATE" = "1" ]; then

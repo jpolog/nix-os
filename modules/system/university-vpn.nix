@@ -143,7 +143,7 @@ in
           method=auto
           ${if vpnCfg.splitTunnelRoutes != [] then ''
           never-default=true
-          ignore-auto-routes=false
+          ignore-auto-routes=true
           ignore-auto-dns=false
           dns-priority=100
           ${optionalString (vpnCfg.searchDomains != []) "dns-search=${concatStringsSep ";" (map (d: "~${d}") vpnCfg.searchDomains)};"}

@@ -118,6 +118,7 @@
 
         # Apply overlays
         { nixpkgs.overlays = overlays; }
+        { nixpkgs.config.allowUnfree = true; }
         
         # Home Manager NixOS module
         home-manager.nixosModules.home-manager
@@ -188,4 +189,3 @@
       formatter.${system} = pkgs.alejandra;
     };
 }
-

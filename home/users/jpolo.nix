@@ -1,5 +1,10 @@
 # 1. Update arguments to accept osConfig (with a default of null for safety)
-{ pkgs, lib, osConfig ? null, ... }:
+{
+  pkgs,
+  lib,
+  osConfig ? null,
+  ...
+}:
 
 let
   mkUser = (import ./lib.nix { inherit lib; }).mkUser;
@@ -8,13 +13,13 @@ mkUser {
   username = "jpolo";
   fullName = "Javier Polo Gambin";
   email = "javier.polog@outlook.com";
-  
+
   profiles = {
     desktop = {
       enable = true;
     };
 
-    cli.enable = true;       
+    cli.enable = true;
     development = {
       enable = true;
       editors.vscode.enable = false;
@@ -24,7 +29,7 @@ mkUser {
       enable = true;
       video.enable = true;
     };
-    
+
     power-user = {
       enable = true;
       productivity.enable = true;
@@ -32,7 +37,7 @@ mkUser {
       torrenting.enable = true;
       upscayl.enable = true;
     };
-    
+
     work = {
       enable = true;
       communication = {
@@ -49,9 +54,9 @@ mkUser {
       tools.enable = true;
       diagrams.enable = true;
     };
-    
+
     master.enable = true;
-    
+
     personal = {
       enable = true;
       media = {
@@ -82,64 +87,67 @@ mkUser {
       communication.enable = true;
     };
   };
-  
-          extraConfig = {
-  
-            imports = [
-  
-              ../shell
-  
-              ../services
-  
-            ];
-  
-            
-  
-            # Explicitly enable desktop profile and set environment
-  
-            home.profiles.desktop.enable = true;
-  
-            home.profiles.desktop.environment = "hyprland";
-  
-            home.profiles.desktop.browsers = {
-              firefox = true;
-              chromium = false;
-            };
-  
-            home.firefox.vimNavigation.enable = true;
 
-            home.file = {
-              "Documents/important/.keep".text = "";
-              "Documents/books/.keep".text = "";
-              "Documents/scans/.keep".text = "";
-              "Documents/work/.keep".text = "";
-            };
+  extraConfig = {
 
-            programs.web-apps.apps.outlook = true;
+    imports = [
 
-            programs.ssh = {
-              enable = true;
-              enableDefaultConfig = false;
-              matchBlocks = {
-                "dgx-spark" = {
-                  hostname = "155.54.180.23";
-                  port = 25004;
-                  user = "javierpg";
-                  identityFile = "~/.ssh/id_um";
-                  identitiesOnly = true;
-                  forwardX11 = true;
-                };
-                "um-machine" = {
-                  hostname = "155.54.180.23";
-                  port = 25002;
-                  user = "javierpg";
-                  identityFile = "~/.ssh/id_um";
-                  identitiesOnly = true;
-                };
-                "apollo" = {
-                  user = "jpolo";
-                };
-              };
-            };
-          };
+      ../shell
+
+      ../services
+
+    ];
+
+    # Explicitly enable desktop profile and set environment
+
+    home.profiles.desktop.enable = true;
+
+    home.profiles.desktop.environment = "hyprland";
+
+    home.profiles.desktop.browsers = {
+      firefox = true;
+      chromium = false;
+    };
+
+    home.firefox.vimNavigation.enable = true;
+
+    home.file = {
+      "Documents/important/.keep".text = "";
+      "Documents/books/.keep".text = "";
+      "Documents/scans/.keep".text = "";
+      "Documents/work/.keep".text = "";
+    };
+
+    programs.web-apps.apps.outlook = true;
+
+    programs.ssh = {
+      enable = true;
+      enableDefaultConfig = false;
+      matchBlocks = {
+        "dgx-spark" = {
+          hostname = "155.54.180.23";
+          port = 25004;
+          user = "javierpg";
+          identityFile = "~/.ssh/id_um";
+          identitiesOnly = true;
+          forwardX11 = true;
+        };
+        "um-machine" = {
+          hostname = "155.54.180.23";
+          port = 25002;
+          user = "javierpg";
+          identityFile = "~/.ssh/id_um";
+          identitiesOnly = true;
+        };
+        "apollo" = {
+          user = "jpolo";
+        };
+        "jureca" = {
+          hostname = "jureca.fz-juelich.de";
+          user = "pologambn1";
+          identityFile = "~/.ssh/cispa";
+        };
+      };
+    };
+  };
 }

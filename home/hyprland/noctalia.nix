@@ -98,6 +98,12 @@ in {
       };
 
       # ===== THEME & APPEARANCE =====
+      "Wallpaper" = {
+        "enabled" = true;
+        "directory" = "/home/jpolo/Pictures/Wallpapers";
+        "viewMode" = "single";
+        "fillMode" = "crop";
+      };
       "Theme" = {
         "mode" = "dark";                  # dark or light
         "useSystemColors" = true;         # Use matugen colors
@@ -107,6 +113,10 @@ in {
         "accentColor" = "#b4a7e6";        # Noctalia's signature lavender
         "fontFamily" = "JetBrains Mono";
         "fontSize" = 12;
+      };
+      "colorSchemes" = {
+        "schemeType" = "M3-Rainbow";
+        "useWallpaperColors" = true;
       };
 
       # ===== LAUNCHER CONFIGURATION =====

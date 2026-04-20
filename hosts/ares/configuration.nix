@@ -78,7 +78,24 @@
     extraCommands = ''
       iptables -A INPUT -i docker0 -j ACCEPT
       iptables -A INPUT -i br-+ -j ACCEPT
+      iptables -A FORWARD -i docker0 -j ACCEPT
+      iptables -A FORWARD -o docker0 -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+      iptables -A FORWARD -i br-+ -j ACCEPT
+      iptables -A FORWARD -o br-+ -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
     '';
+  };
+
+  # Keep Docker in charge of bridge NAT/FORWARD chains for published ports.
+  virtualisation.docker.daemon.settings = {
+    iptables = true;
+    ip6tables = true;
+    "ip-forward" = true;
+  };
+
+  # Docker bridge/NAT path requires forwarding at kernel level.
+  boot.kernel.sysctl = {
+    "net.ipv4.ip_forward" = lib.mkDefault 1;
+    "net.ipv6.conf.all.forwarding" = lib.mkDefault 1;
   };
 
   # ============================================================================
@@ -229,21 +246,32 @@
       };
 
       # Custom theme and Dolphin configuration for jpolo on ares
+      home.file."Pictures/Wallpapers/0-black-moon.jpg".source = ../../modules/themes/assets/wallpapers/0-black-moon.jpg;
+
       xdg.configFile."quickshell/noctalia/settings.json".text = builtins.toJSON {
         "General" = {
           "scale" = 1.0;
           "backend" = "hyprland";
           "cursorTheme" = "Bibata-Modern-Classic";
         };
+        "Wallpaper" = {
+          "enabled" = true;
+          "directory" = "/home/jpolo/Pictures/Wallpapers";
+          "viewMode" = "single";
+          "fillMode" = "crop";
+        };
         "Theme" = {
           "mode" = "dark";
-          "useSystemColors" = false; # Disable matugen override for this user
+          "useSystemColors" = true; # Enable system colors (matugen/noctalia)
           "blur" = true;
           "blurOpacity" = 0.9;
           "cornerRadius" = 8;
-          "accentColor" = "#F67400"; # Krita Orange
           "fontFamily" = "JetBrains Mono";
           "fontSize" = 12;
+        };
+        "colorSchemes" = {
+          "schemeType" = "M3-Rainbow";
+          "useWallpaperColors" = true;
         };
         "Bar" = { "enabled" = true; "position" = "top"; "height" = 42; };
         "ControlCenter" = { "enabled" = true; "position" = "right"; "width" = 400; };

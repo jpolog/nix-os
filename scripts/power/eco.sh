@@ -23,6 +23,8 @@ CPU_SCALING_GOVERNOR_ON_AC="powersave"
 CPU_SCALING_GOVERNOR_ON_BAT="powersave"
 CPU_ENERGY_PERF_POLICY_ON_AC="power"
 CPU_ENERGY_PERF_POLICY_ON_BAT="power"
+CPU_MAX_PERF_ON_AC=40
+CPU_MAX_PERF_ON_BAT=30
 CPU_BOOST_ON_AC=0
 CPU_BOOST_ON_BAT=0
 EOF
@@ -37,6 +39,14 @@ done
 
 for cpu in /sys/devices/system/cpu/cpu*/cpufreq/energy_performance_preference; do
     [ -f "$cpu" ] && echo "power" | tee "$cpu" > /dev/null
+done
+
+# Cap max frequency to ~1.2GHz if possible (value in kHz)
+for cpu in /sys/devices/system/cpu/cpu*/cpufreq/scaling_max_freq; do
+    if [ -f "$cpu" ]; then
+        # Check available min/max to be safe, but 1200000 is a safe bet for AMD
+        echo "1200000" | tee "$cpu" > /dev/null || true
+    fi
 done
 
 # Disable AMD CPU boost
