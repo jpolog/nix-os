@@ -91,6 +91,12 @@ let
     obsidian-nvim
     pathfinder-nvim
     
+    # -- AI & UI Dependencies --
+    codecompanion-nvim
+    minuet-ai-nvim
+    dressing-nvim
+    nui-nvim
+    
     # -- Snacks (Required for the explorer) --
     snacks-nvim
   ];
@@ -225,6 +231,14 @@ in {
 
       -- Keybinding for ToggleLightMode
       vim.keymap.set("n", "<leader>uL", ":ToggleLightMode<CR>", { desc = "Toggle Light Mode" })
+
+      -- AI Autocomplete Toggle (Power User)
+      vim.g.ai_cmp_enabled = true
+      vim.api.nvim_create_user_command("ToggleAI", function()
+        vim.g.ai_cmp_enabled = not vim.g.ai_cmp_enabled
+        print("AI Completion: " .. (vim.g.ai_cmp_enabled and "Enabled" or "Disabled"))
+      end, {})
+      vim.keymap.set("n", "<leader>ua", ":ToggleAI<CR>", { desc = "Toggle AI Autocomplete" })
     '';
   };
 
@@ -374,11 +388,17 @@ in {
                     preset = "sidebar",
                     preview = "bottom",
                   },
+                  -- Show ignored and hidden files by default
+                  ignored = true,
+                  hidden = true,
                   win = {
                     list = {
                       keys = {
-                        -- Toggle preview with P (it defaults to bottom per layout)
+                        -- Toggle preview with P
                         ["P"] = "preview",
+                        -- Toggles for visibility
+                        ["<C-h>"] = "toggle_hidden",
+                        ["<C-i>"] = "toggle_ignored",
                       },
                     },
                   },
@@ -399,6 +419,92 @@ in {
         { "stevearc/oil.nvim", enabled = false },
         -- Disable mini.files
         { "echasnovski/mini.files", enabled = false },
+      }
+    '';
+
+    # CodeCompanion Configuration (Chat & Inline)
+    "nvim/lua/plugins/ai.lua".text = ''
+      return {
+        {
+          "olimorris/codecompanion.nvim",
+          dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-treesitter/nvim-treesitter",
+            "hrsh7th/nvim-cmp",
+            "nvim-telescope/telescope.nvim",
+            "stevearc/dressing.nvim",
+          },
+          config = function()
+            require("codecompanion").setup({
+              adapters = {
+                ollama = function()
+                  return require("codecompanion.adapters").extend("ollama", {
+                    env = {
+                      url = "http://localhost:11435",
+                    },
+                    schema = {
+                      model = {
+                        default = "qwen3.6:35b",
+                      },
+                    },
+                  })
+                end,
+              },
+              strategies = {
+                chat = {
+                  adapter = "ollama",
+                },
+                inline = {
+                  adapter = "ollama",
+                },
+                agent = {
+                  adapter = "ollama",
+                },
+              },
+            })
+
+            vim.keymap.set({ "n", "v" }, "<leader>ac", "<cmd>CodeCompanionChat Toggle<cr>", { desc = "AI Chat" })
+            vim.keymap.set({ "n", "v" }, "<leader>aa", "<cmd>CodeCompanionActions<cr>", { desc = "AI Actions" })
+            vim.keymap.set("v", "ga", "<cmd>CodeCompanionChat Add<cr>", { desc = "Add to AI Chat" })
+          end,
+        },
+      }
+    '';
+
+    # Minuet AI Configuration (Ghost Text Autocomplete)
+    "nvim/lua/plugins/minuet.lua".text = ''
+      return {
+        {
+          "milanglacier/minuet-ai.nvim",
+          config = function()
+            require("minuet").setup({
+              provider = "openai_fim_compatible",
+              provider_options = {
+                openai_fim_compatible = {
+                  model = "qwen3.6:35b",
+                  end_point = "http://localhost:11435/v1/completions",
+                  api_key = "TERM",
+                  name = "Ollama",
+                  stream = true,
+                },
+              },
+              -- Only enable if global toggle is true
+              enabled = function()
+                return vim.g.ai_cmp_enabled
+              end,
+              virtualtext = {
+                auto_trigger_ft = { "*" },
+                keymap = {
+                  accept = "<C-f>",
+                  accept_line = "<A-l>",
+                  prev = "<A-[>",
+                  next = "<A-]>",
+                  dismiss = "<A-e>",
+                },
+              },
+            })
+          end,
+        },
       }
     '';
 

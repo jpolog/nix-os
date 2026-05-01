@@ -72,6 +72,7 @@ let
     tealdeer
     zoxide
     fzf
+    pueue  # <--- Modern task runner and queue manager
     
     # Code quality
     shellcheck
@@ -237,7 +238,6 @@ in
       # API testing
       (optionals cfg.tools.api.enable (with pkgs; [
         postman
-        insomnia
         httpie
       ]));
       

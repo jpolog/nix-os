@@ -15,6 +15,7 @@
     ./secrets.nix
     ./scripts.nix
     ./perf-tuning.nix
+    # ./btrbk.nix
     #./gaming-isolated.nix
     # Virtualization is now a separate module in modules/vms
     # ./virtualization.nix

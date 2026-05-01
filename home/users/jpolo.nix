@@ -147,6 +147,11 @@ mkUser {
           user = "pologambn1";
           identityFile = "~/.ssh/cispa";
         };
+        "aws-public" = {
+          hostname = "44.203.176.111";
+          user = "ec2-user";
+          identityFile = "~/.ssh/WebserverKey-PUBLIC-Prac2.pem";
+        };
       };
     };
   };

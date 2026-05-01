@@ -121,6 +121,9 @@ with lib;
           view_image = [
             { run = ''imv "$@"''; desc = "View Image (imv)"; block = false; }
           ];
+          view_video = [
+            { run = ''mpv "$@"''; desc = "Play Video (mpv)"; block = false; }
+          ];
           edit_text = [
             { run = ''nvim "$@"''; desc = "Edit Text (nvim)"; block = true; }
           ];
@@ -135,9 +138,13 @@ with lib;
         open = {
           rules = [
             { mime = "image/*"; use = "view_image"; }
-            { mime = "text/*"; use = "edit_text"; }
+            { mime = "video/*"; use = "view_video"; }
             { mime = "application/pdf"; use = "open_pdf"; }
-            { name = "*"; use = "default_open"; }
+            # Text and code files
+            { mime = "text/*"; use = "edit_text"; }
+            { mime = "application/{json,javascript,typescript,xml,x-yaml,x-toml,x-shellscript}"; use = "edit_text"; }
+            # Catch-all for other files: try nvim first, then xdg-open
+            { name = "*"; use = [ "edit_text" "default_open" ]; }
           ];
         };
       };
@@ -156,6 +163,7 @@ with lib;
           { on = [ "M" ]; run = "linemode"; desc = "Cycle linemode (size/mtime/permissions)"; }
           
           # External commands
+          { on = [ "e" ]; run = ''shell 'nvim "$@"' --block''; desc = "Edit with nvim"; }
           { on = [ "C" ]; run = ''shell 'tmux new-window -c "$PWD" -n nvim "nvim ."' --block''; desc = "Open nvim in new tmux window"; }
           { on = [ "D" ]; run = ''shell 'echo "TMUX is: $TMUX"; sleep 5' --block''; desc = "Debug: Check TMUX environment"; }
 
@@ -208,29 +216,6 @@ with lib;
       ];
     };
     
-    # Bottom - Better top
-    programs.bottom = {
-      enable = true;
-      
-      settings = {
-        flags = {
-          color = "default";
-          mem_as_value = true;
-          tree = true;
-          group_processes = true;
-          case_sensitive = false;
-          whole_word = false;
-          regex = false;
-        };
-        
-        colors = {
-          high_battery_color = "green";
-          medium_battery_color = "yellow";
-          low_battery_color = "red";
-        };
-      };
-    };
-
     # Btop - Resource monitor (Matugen themed)
     programs.btop = {
       enable = true;

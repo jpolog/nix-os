@@ -55,9 +55,7 @@ in
         # System & Disk
         (optionals cfg.system.enable [
           qdirstat
-          kdePackages.filelight
           gparted
-          cpu-x
           btop
           virt-manager
           kmonad
@@ -101,8 +99,6 @@ in
 
         # Development GUIs
         (optionals cfg.dev-gui.enable [
-          imhex
-          insomnia
         ])
       ++
 
@@ -113,7 +109,6 @@ in
           taskwarrior3
           taskwarrior-tui
           rclone
-          calibre
         ])
       ++
 

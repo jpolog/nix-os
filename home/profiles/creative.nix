@@ -20,8 +20,8 @@ with lib;
     programs.web-apps = mkIf config.home.profiles.creative.web.enable {
       enable = true;
       apps = {
-        figma = true;
-        canva = true;
+        figma = false;
+        canva = false;
         excalidraw = true;
       };
     };
@@ -30,7 +30,6 @@ with lib;
       # Graphics tools
       (optionals config.home.profiles.creative.graphics.enable [
         gimp
-        inkscape
         krita
       ])
       ++

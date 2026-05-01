@@ -33,13 +33,13 @@
         # We define the subvolumes to snapshot
         volume."/mnt/btrfs-root" = {
           # Snapshot @ (root) - Good for recovering /var or other non-Nix state
-          subvolume = "@";
+          subvolume."@" = {};
           
           # Snapshot @home (user data) - MOST CRITICAL
-          subvolume = "@home";
+          subvolume."@home" = {};
           
           # We can exclude @nix since it's fully reproducible from config
-          # subvolume = "@nix";
+          # subvolume."@nix" = {};
         };
       };
     };

@@ -205,6 +205,18 @@ with lib;
         yz = "yazi";
         ra = "ranger";
 
+        # --- Vega Remote Compute Commands ---
+        vqueue = "ssh jpolo@vega.local 'pueue add \"$@\"'";
+        vstatus = "ssh jpolo@vega.local 'pueue status'";
+        vlog = "ssh jpolo@vega.local 'pueue log'";
+        vclear = "cleanup-walker && rm -f ~/.local/state/vega_notifications && clear && fastfetch"; 
+
+        # --- Vega Sync & Execution ---
+        vsync = "rsync -avz --exclude '.git' --exclude 'node_modules' --exclude 'target' --exclude 'venv' --exclude '.direnv' ./ jpolo@vega.local:~/jobs/$(basename $PWD)/";
+        vpull = "rsync -avz jpolo@vega.local:~/jobs/$(basename $PWD)/ ./ --exclude '.git' --exclude 'node_modules' --exclude 'target' --exclude 'venv' --exclude '.direnv'";
+        vrun = "vsync && ssh jpolo@vega.local \"cd ~/jobs/$(basename \\$PWD) && pueue add '$@'\"";
+        vport = "ssh -L \"$1:localhost:$1\" jpolo@vega.local -N";
+
         # Development
         serve = "python -m http.server";
         py = "python";
@@ -436,6 +448,40 @@ with lib;
         elif command -v fastfetch >/dev/null 2>&1; then
           fastfetch --config none
         fi
+
+        # Clear Walker launcher cache (removes entries for uninstalled apps)
+        cleanup-walker() {
+          echo -e "\033[0;34m🧹 Clearing Walker/Elephant cache...\033[0m"
+          systemctl --user stop walker.service elephant.service 2>/dev/null || true
+          rm -rf "$HOME/.cache/walker" "$HOME/.cache/elephant"
+          systemctl --user start elephant.service walker.service 2>/dev/null || true
+          echo -e "\033[0;32m✅ Walker cache cleared!\033[0m"
+        }
+
+        # --- Vega Remote Notifications System ---
+        NOTIF_FILE="$HOME/.local/state/vega_notifications"
+        if [ -f "$NOTIF_FILE" ]; then
+          echo -e "\n\033[1;33m󰗠 Incoming Notifications from Vega:\033[0m"
+          cat "$NOTIF_FILE"
+          echo -e "\033[0;90m(Run 'vclear' to dismiss all notifications)\033[0m\n"
+        fi
+
+        # Remote notification receiver (called via SSH from Vega)
+        # Usage: vega-notify "Message"
+        vega-notify() {
+          local msg="$1"
+          local status="$2"
+          mkdir -p "$(dirname "$NOTIF_FILE")"
+          echo -e " [$(date +%H:%M)] \033[0;32m$status\033[0m: $msg" >> "$NOTIF_FILE"
+          
+          # Trigger desktop notification (Hyprland/KDE)
+          # We search for the current DBUS session to make notify-send work over SSH
+          local dbus_pid=$(pgrep -u $USER -n hyprland || pgrep -u $USER -n plasmashell)
+          if [ -n "$dbus_pid" ]; then
+            export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$(id -u)/bus"
+            notify-send -u normal -a "Vega Node" "Job Finished" "$msg ($status)"
+          fi
+        }
 
         if [ -n ''${IN_NIX_SHELL:-} ]; then
           echo "🐚 In nix-shell"

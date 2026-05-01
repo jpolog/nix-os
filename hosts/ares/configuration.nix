@@ -902,8 +902,6 @@
   environment.systemPackages = with pkgs; [
     # Home Manager CLI (useful for debugging)
     home-manager
-    radeontop
-    amdgpu_top
     brightnessctl
     desktop-file-utils
     shared-mime-info

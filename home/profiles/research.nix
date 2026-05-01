@@ -39,7 +39,6 @@ with lib;
       
       # Diagramming Tools
       (mkIf config.home.profiles.research.diagrams.enable [
-        pkgs.inkscape
       ])
       
       # PDF Visualization

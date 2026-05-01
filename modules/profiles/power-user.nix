@@ -65,7 +65,6 @@ with lib;
     (mkIf config.profiles.power-user.creative.enable {
       environment.systemPackages = with pkgs; [
         gimp
-        inkscape
         krita
       ]
       ++

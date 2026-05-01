@@ -17,8 +17,10 @@ with lib;
       elisa # music player
       # gwenview # image viewer
       # okular # pdf viewer
-      # kate # text editor
+      kate # text editor
       # khelpcenter
+      discover
+      systemsettings
     ];
 
     # KDE specific packages

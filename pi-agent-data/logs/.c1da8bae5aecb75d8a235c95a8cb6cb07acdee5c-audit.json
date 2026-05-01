@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": false,
+        "amount": 5
+    },
+    "auditLog": "/home/jpolo/.omp/logs/.c1da8bae5aecb75d8a235c95a8cb6cb07acdee5c-audit.json",
+    "files": [
+        {
+            "date": 1777633330458,
+            "name": "/home/jpolo/.omp/logs/omp.2026-05-01.log",
+            "hash": "7339f731d7a0aac3abfa83ad43cc20f5e0fc8f584596b41a8a3d629f6c662481"
+        }
+    ],
+    "hashType": "sha256"
+}

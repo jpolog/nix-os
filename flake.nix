@@ -174,6 +174,17 @@
             ./hosts/janus/configuration.nix
           ];
         };
+
+        # Headless GPU Compute Node (Vega 56)
+        vega = nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = {
+            inherit inputs self;
+          };
+          modules = sharedModules ++ [
+            ./hosts/vega/configuration.nix
+          ];
+        };
       };
 
       # ========================================================================
