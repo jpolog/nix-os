@@ -70,6 +70,11 @@
         owner = "jpolo";
         mode = "0400";
       };
+
+      ollama_cloud_api_key = {
+        owner = "jpolo";
+        mode = "0400";
+      };
     };
   };
   

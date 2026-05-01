@@ -1,0 +1,29 @@
+{
+  "profiles": {
+    "mom-sandbox": {
+      "provider": "docker",
+      "config": {
+        "image": "node:20-bookworm-slim",
+        "volumes": [
+          {
+            "hostPath": ".",
+            "containerPath": "/workspace",
+            "mode": "rw"
+          },
+          {
+            "hostPath": "/etc/nixos/certs",
+            "containerPath": "/etc/nixos/certs",
+            "mode": "ro"
+          }
+        ],
+        "workingDir": "/workspace",
+        "network": "bridge",
+        "containerNamePrefix": "pi-agent-secure-",
+        "restrictToProjectRoot": true,
+        "allowedExtraPaths": [
+          "/etc/nixos/certs"
+        ]
+      }
+    }
+  }
+}

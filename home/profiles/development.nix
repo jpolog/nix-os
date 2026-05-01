@@ -36,8 +36,7 @@ in
         gemini-cli.enable = mkEnableOption "Gemini CLI" // { default = true; };
         github-copilot-cli.enable = mkEnableOption "GitHub Copilot CLI" // { default = true; };
         claude-code.enable = mkEnableOption "Claude Code" // { default = false; };
-        goose.enable = mkEnableOption "Goose CLI agent" // { default = true; };
-        aider.enable = mkEnableOption "Aider AI pair programmer" // { default = true; };
+        pi-coding-agent.enable = mkEnableOption "Pi Coding Agent (omp)" // { default = true; };
       };
     };
   };
@@ -50,8 +49,7 @@ in
         gemini-cli.enable = config.home.profiles.development.ai.tools.gemini-cli.enable;
         github-copilot-cli.enable = config.home.profiles.development.ai.tools.github-copilot-cli.enable;
         claude-code.enable = config.home.profiles.development.ai.tools.claude-code.enable;
-        goose.enable = config.home.profiles.development.ai.tools.goose.enable;
-        aider.enable = config.home.profiles.development.ai.tools.aider.enable;
+        pi-coding-agent.enable = config.home.profiles.development.ai.tools.pi-coding-agent.enable;
       };
     };
 

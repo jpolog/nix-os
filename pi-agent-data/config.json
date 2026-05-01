@@ -1,0 +1,6 @@
+{
+  "model": "ollama-cloud/qwen3.6-plus:cloud",
+  "temperature": 0,
+  "cache_prompts": true,
+  "auto_run": true
+}
