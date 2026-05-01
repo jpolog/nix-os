@@ -1,8 +1,7 @@
 # Pi Agent Data ignores
-pi-agent-data/logs/
-pi-agent-data/agent/*.db*
-pi-agent-data/agent/*.yml
-pi-agent-data/agent/sessions/
-pi-agent-data/agent/terminal-sessions/
-pi-agent-data/agent/gpu_cache.json
-pi-agent-data/gpu_cache.json
+logs/
+agent/*.db*
+agent/sessions/
+agent/terminal-sessions/
+agent/gpu_cache.json
+gpu_cache.json
