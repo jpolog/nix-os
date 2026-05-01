@@ -1,0 +1,196 @@
+# Xpert Role Map
+#
+# Maps each agent to an abstract role defined in models.yml.
+# When you update models.yml roles, run /update-agents reconcile
+# to rewrite all agent frontmatter.
+#
+# The role assignment philosophy:
+#   - Deep reasoning tasks (security, architecture) → deep-audit
+#   - Complex planning → architecture-planning
+#   - Research-heavy → research-synthesis
+#   - Day-to-day coding → agentic-engineering (the default)
+#   - Language-specific coding → code-specialist
+#   - Large multi-file edits → large-edit
+#   - Long docs/specs → long-document
+#   - Quick analysis → fast-reasoning
+#   - Balanced thinking → balanced-reasoning
+#   - Visual/UI tasks → visual-analysis or lightweight-visual
+#   - Fast mechanical → fast-coding
+#   - Multi-agent orchestration → multi-agent
+#   - Quick thinking → quick-thinking
+#   - Trivial → trivial
+
+# ── Core Development ───────────────────────────────────────────────
+dev-api-designer               = architecture-planning
+dev-backend-developer          = code-specialist
+dev-design-bridge             = visual-analysis
+dev-electron-pro              = code-specialist
+dev-frontend-developer         = code-specialist
+dev-fullstack-developer        = agentic-engineering
+dev-graphql-architect         = architecture-planning
+dev-microservices-architect    = architecture-planning
+dev-mobile-developer           = code-specialist
+dev-ui-designer                = visual-analysis
+dev-websocket-engineer         = code-specialist
+
+# ── Language Specialists ──────────────────────────────────────────────
+lang-angular-architect         = code-specialist
+lang-cpp-pro                   = code-specialist
+lang-csharp-developer           = code-specialist
+lang-django-developer           = code-specialist
+lang-dotnet-core-expert         = code-specialist
+lang-dotnet-framework-4.8-expert = code-specialist
+lang-elixir-expert              = code-specialist
+lang-expo-react-native-expert   = code-specialist
+lang-fastapi-developer          = code-specialist
+lang-flutter-expert             = code-specialist
+lang-golang-pro                 = code-specialist
+lang-java-architect             = agentic-engineering
+lang-javascript-pro             = code-specialist
+lang-kotlin-specialist          = code-specialist
+lang-laravel-specialist         = code-specialist
+lang-nextjs-developer           = code-specialist
+lang-node-specialist            = code-specialist
+lang-php-pro                    = code-specialist
+lang-powershell-5.1-expert      = fast-coding
+lang-powershell-7-expert         = fast-coding
+lang-python-pro                  = code-specialist
+lang-rails-expert                = code-specialist
+lang-react-specialist            = code-specialist
+lang-rust-engineer               = code-specialist
+lang-spring-boot-engineer        = code-specialist
+lang-sql-pro                     = code-specialist
+lang-swift-expert                = code-specialist
+lang-symfony-specialist          = code-specialist
+lang-typescript-pro              = code-specialist
+lang-vue-expert                  = code-specialist
+
+# ── Infrastructure ───────────────────────────────────────────────────
+infra-azure-infra-engineer      = agentic-engineering
+infra-cloud-architect            = architecture-planning
+infra-database-administrator     = agentic-engineering
+infra-deployment-engineer        = agentic-engineering
+infra-devops-engineer             = agentic-engineering
+infra-devops-incident-responder   = fast-reasoning
+infra-docker-expert               = code-specialist
+infra-incident-responder          = fast-reasoning
+infra-kubernetes-specialist      = agentic-engineering
+infra-network-engineer            = agentic-engineering
+infra-platform-engineer           = agentic-engineering
+infra-security-engineer           = deep-audit
+infra-sre-engineer                = agentic-engineering
+infra-terraform-engineer          = code-specialist
+infra-terragrunt-expert           = code-specialist
+infra-windows-infra-admin         = fast-coding
+
+# ── Quality & Security ───────────────────────────────────────────────
+qual-accessibility-tester         = visual-analysis
+qual-ad-security-reviewer         = deep-audit
+qual-ai-writing-auditor           = fast-reasoning
+qual-architect-reviewer           = deep-audit
+qual-chaos-engineer               = deep-audit
+qual-code-reviewer                 = deep-audit
+qual-compliance-auditor           = deep-audit
+qual-debugger                      = fast-reasoning
+qual-error-detective              = fast-reasoning
+qual-penetration-tester           = deep-audit
+qual-performance-engineer          = agentic-engineering
+qual-powershell-security-hardening = fast-reasoning
+qual-qa-expert                    = agentic-engineering
+qual-security-auditor             = deep-audit
+qual-test-automator                = code-specialist
+qual-ui-ux-tester                 = visual-analysis
+
+# ── Data & AI ────────────────────────────────────────────────────────
+data-ai-engineer                      = agentic-engineering
+data-data-analyst                      = fast-reasoning
+data-data-engineer                     = agentic-engineering
+data-data-scientist                    = research-synthesis
+data-database-optimizer                = agentic-engineering
+data-llm-architect                    = architecture-planning
+data-machine-learning-engineer        = code-specialist
+data-ml-engineer                       = code-specialist
+data-mlops-engineer                   = agentic-engineering
+data-nlp-engineer                      = code-specialist
+data-postgres-pro                      = agentic-engineering
+data-prompt-engineer                  = fast-reasoning
+data-reinforcement-learning-engineer  = agentic-engineering
+
+# ── Developer Experience ─────────────────────────────────────────────
+dx-build-engineer              = fast-coding
+dx-cli-developer                = code-specialist
+dx-dependency-manager           = agentic-engineering
+dx-documentation-engineer       = long-document
+dx-dx-optimizer                 = agentic-engineering
+dx-git-workflow-manager         = fast-coding
+dx-legacy-modernizer             = architecture-planning
+dx-mcp-developer                = code-specialist
+dx-powershell-module-architect  = fast-coding
+dx-powershell-ui-architect      = fast-coding
+dx-readme-generator             = fast-coding
+dx-refactoring-specialist        = agentic-engineering
+dx-slack-expert                 = fast-coding
+dx-tooling-engineer              = code-specialist
+
+# ── Specialized Domains ──────────────────────────────────────────────
+spec-api-documenter          = long-document
+spec-blockchain-developer    = code-specialist
+spec-embedded-systems        = code-specialist
+spec-fintech-engineer        = deep-audit
+spec-game-developer          = code-specialist
+spec-healthcare-admin        = deep-audit
+spec-iot-engineer            = agentic-engineering
+spec-m365-admin              = fast-coding
+spec-mobile-app-developer    = code-specialist
+spec-payment-integration    = deep-audit
+spec-quant-analyst           = deep-audit
+spec-risk-manager            = deep-audit
+spec-seo-specialist           = fast-reasoning
+
+# ── Business & Product ──────────────────────────────────────────────
+biz-business-analyst          = fast-reasoning
+biz-content-marketer         = long-document
+biz-customer-success-manager  = fast-reasoning
+biz-legal-advisor             = research-synthesis
+biz-license-engineer          = agentic-engineering
+biz-product-manager           = fast-reasoning
+biz-project-manager           = fast-reasoning
+biz-sales-engineer            = fast-reasoning
+biz-scrum-master              = fast-coding
+biz-technical-writer          = long-document
+biz-ux-researcher              = visual-analysis
+biz-wordpress-master          = fast-coding
+
+# ── Meta-Orchestration ───────────────────────────────────────────────
+meta-agent-installer            = fast-coding
+meta-agent-organizer            = multi-agent
+meta-codebase-orchestrator      = architecture-planning
+meta-context-manager            = multi-agent
+meta-error-coordinator          = fast-reasoning
+meta-it-ops-orchestrator       = multi-agent
+meta-knowledge-synthesizer     = research-synthesis
+meta-multi-agent-coordinator   = multi-agent
+meta-performance-monitor       = fast-reasoning
+meta-task-distributor           = multi-agent
+meta-workflow-orchestrator     = multi-agent
+
+# ── Research & Analysis ──────────────────────────────────────────────
+res-competitive-analyst                  = research-synthesis
+res-data-researcher                       = research-synthesis
+res-market-researcher                     = research-synthesis
+res-project-idea-validator               = fast-reasoning
+res-research-analyst                      = research-synthesis
+res-scientific-literature-researcher      = research-synthesis
+res-search-specialist                     = fast-reasoning
+res-trend-analyst                          = research-synthesis
+
+# ── PhD Research Assistants ────────────────────────────────────────────
+res-phd-academic-writer      = long-document
+res-phd-peer-reviewer        = deep-audit
+res-phd-literature-searcher  = research-synthesis
+res-phd-plagiarism-guard     = deep-audit
+res-phd-literature-retriever = fast-coding
+res-phd-literature-reviewer  = research-synthesis
+res-phd-research-methodologist = architecture-planning
+res-phd-data-analyst         = code-specialist
+res-phd-citation-formatter   = fast-reasoning

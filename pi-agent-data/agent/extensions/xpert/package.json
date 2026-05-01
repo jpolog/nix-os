@@ -1,0 +1,6 @@
+{
+  "name": "xpert",
+  "omp": {
+    "extensions": ["./index.ts"]
+  }
+}

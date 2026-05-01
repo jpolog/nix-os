@@ -1,0 +1,9 @@
+1011 | async function quickToggle(pi: ExtensionAPI, ctx: { ui: { select: (msg: string, opts: string[]) => Promise<string | undefined>; notify: (msg: string, level: string) } }, agents: AgentInfo[]): Promise<void> {
+                                                                                                                                                   ^
+error: Expected ")" but found ":"
+    at /home/jpolo/.omp/agent/extensions/xpert/index.ts:1011:141
+
+1011 | async function quickToggle(pi: ExtensionAPI, ctx: { ui: { select: (msg: string, opts: string[]) => Promise<string | undefined>; notify: (msg: string, level: string) } }, agents: AgentInfo[]): Promise<void> {
+                                                                                                                                                     ^
+error: Unexpected string
+    at /home/jpolo/.omp/agent/extensions/xpert/index.ts:1011:143

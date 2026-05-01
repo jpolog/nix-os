@@ -1,0 +1,19 @@
+NAME                      STATUS
+artifacts-mongo           Up 2 days (healthy)
+artifacts-service         Up 8 seconds
+auth-postgres             Up 2 days (healthy)
+auth-service              Up 8 seconds
+config-mongo              Up 2 days (healthy)
+config-service            Up 8 seconds
+evaluation-mongo          Up 2 days (healthy)
+evaluation-service        Up 7 seconds (healthy)
+langgraph-orchestrator    Up 7 seconds (health: starting)
+langgraph-postgres        Up 2 days (healthy)
+qdrant                    Up 2 days (healthy)
+rag-service               Up 8 seconds (healthy)
+scenario-mongo            Up 2 days (healthy)
+scenario-writer-service   Up 8 seconds (healthy)
+src-langfuse-1            Up 2 days
+src-langfuse-db-1         Up 2 days
+traefik                   Up 2 days (healthy)
+webapp                    Up 7 seconds (healthy)

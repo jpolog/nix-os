@@ -1,0 +1,93 @@
+docker compose -f docker-compose.yml down
+time="2026-05-01T20:58:56+02:00" level=warning msg="The \"OPENROUTER_API_KEY\" variable is not set. Defaulting to a blank string."
+time="2026-05-01T20:58:56+02:00" level=warning msg="The \"ANTHROPIC_API_KEY\" variable is not set. Defaulting to a blank string."
+time="2026-05-01T20:58:56+02:00" level=warning msg="The \"OPENAI_API_KEY\" variable is not set. Defaulting to a blank string."
+time="2026-05-01T20:58:56+02:00" level=warning msg="The \"GOOGLE_API_KEY\" variable is not set. Defaulting to a blank string."
+time="2026-05-01T20:58:56+02:00" level=warning msg="The \"OPENROUTER_API_KEY\" variable is not set. Defaulting to a blank string."
+time="2026-05-01T20:58:56+02:00" level=warning msg="The \"ANTHROPIC_API_KEY\" variable is not set. Defaulting to a blank string."
+time="2026-05-01T20:58:56+02:00" level=warning msg="The \"OPENAI_API_KEY\" variable is not set. Defaulting to a blank string."
+time="2026-05-01T20:58:56+02:00" level=warning msg="The \"GOOGLE_API_KEY\" variable is not set. Defaulting to a blank string."
+time="2026-05-01T20:58:56+02:00" level=warning msg="The \"AGENT_BASE_URL\" variable is not set. Defaulting to a blank string."
+time="2026-05-01T20:58:56+02:00" level=warning msg="The \"AGENT_STRATEGIC_BASE_URL\" variable is not set. Defaulting to a blank string."
+time="2026-05-01T20:58:56+02:00" level=warning msg="The \"AGENT_TACTICAL_BASE_URL\" variable is not set. Defaulting to a blank string."
+time="2026-05-01T20:58:56+02:00" level=warning msg="The \"AGENT_WORKER_BASE_URL\" variable is not set. Defaulting to a blank string."
+time="2026-05-01T20:58:56+02:00" level=warning msg="The \"AGENT_VERIFIER_BASE_URL\" variable is not set. Defaulting to a blank string."
+time="2026-05-01T20:58:56+02:00" level=warning msg="The \"OPENAI_API_KEY\" variable is not set. Defaulting to a blank string."
+time="2026-05-01T20:58:56+02:00" level=warning msg="The \"ANTHROPIC_API_KEY\" variable is not set. Defaulting to a blank string."
+time="2026-05-01T20:58:56+02:00" level=warning msg="The \"GOOGLE_API_KEY\" variable is not set. Defaulting to a blank string."
+time="2026-05-01T20:58:56+02:00" level=warning msg="The \"OPENROUTER_API_KEY\" variable is not set. Defaulting to a blank string."
+time="2026-05-01T20:58:56+02:00" level=warning msg="The \"OPENAI_API_KEY\" variable is not set. Defaulting to a blank string."
+ Container evaluation-service Stopping 
+ Container webapp Stopping 
+ Container scenario-writer-service Stopping 
+ Container src-langfuse-1 Stopping 
+ Container webapp Stopped 
+ Container webapp Removing 
+ Container webapp Removed 
+ Container traefik Stopping 
+ Container auth-service Stopping 
+ Container langgraph-orchestrator Stopping 
+ Container traefik Stopped 
+ Container traefik Removing 
+ Container traefik Removed 
+ Container scenario-writer-service Stopped 
+ Container scenario-writer-service Removing 
+ Container scenario-writer-service Removed 
+ Container scenario-mongo Stopping 
+ Container evaluation-service Stopped 
+ Container evaluation-service Removing 
+ Container evaluation-service Removed 
+ Container evaluation-mongo Stopping 
+ Container src-langfuse-1 Stopped 
+ Container src-langfuse-1 Removing 
+ Container src-langfuse-1 Removed 
+ Container src-langfuse-db-1 Stopping 
+ Container scenario-mongo Stopped 
+ Container scenario-mongo Removing 
+ Container scenario-mongo Removed 
+ Container auth-service Stopped 
+ Container auth-service Removing 
+ Container auth-service Removed 
+ Container auth-postgres Stopping 
+ Container src-langfuse-db-1 Stopped 
+ Container src-langfuse-db-1 Removing 
+ Container langgraph-orchestrator Stopped 
+ Container langgraph-orchestrator Removing 
+ Container evaluation-mongo Stopped 
+ Container evaluation-mongo Removing 
+ Container src-langfuse-db-1 Removed 
+ Container evaluation-mongo Removed 
+ Container langgraph-orchestrator Removed 
+ Container rag-service Stopping 
+ Container artifacts-service Stopping 
+ Container config-service Stopping 
+ Container langgraph-postgres Stopping 
+ Container auth-postgres Stopped 
+ Container auth-postgres Removing 
+ Container auth-postgres Removed 
+ Container langgraph-postgres Stopped 
+ Container langgraph-postgres Removing 
+ Container langgraph-postgres Removed 
+ Container config-service Stopped 
+ Container config-service Removing 
+ Container config-service Removed 
+ Container config-mongo Stopping 
+ Container rag-service Stopped 
+ Container rag-service Removing 
+ Container artifacts-service Stopped 
+ Container artifacts-service Removing 
+ Container rag-service Removed 
+ Container qdrant Stopping 
+ Container artifacts-service Removed 
+ Container artifacts-mongo Stopping 
+ Container config-mongo Stopped 
+ Container config-mongo Removing 
+ Container qdrant Stopped 
+ Container qdrant Removing 
+ Container config-mongo Removed 
+ Container qdrant Removed 
+ Container artifacts-mongo Stopped 
+ Container artifacts-mongo Removing 
+ Container artifacts-mongo Removed 
+ Network src_co-creation-network Removing 
+ Network src_co-creation-network Removed 

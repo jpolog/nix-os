@@ -1,0 +1,842 @@
+URL: https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs/agentic-ai-and-llm-evaluation-lab
+Content-Type: text/html
+Method: jina
+
+---
+
+Title: Agentic AI and LLM Evaluation Lab
+
+URL Source: https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs/agentic-ai-and-llm-evaluation-lab
+
+Markdown Content:
+# Agentic AI and LLM Evaluation Lab
+[Skip to main content](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs/agentic-ai-and-llm-evaluation-lab#main-placeholder)
+
+[](https://www.sdu.dk/en/)
+
+*   [SDU Center for Energy Informatics](https://www.sdu.dk/en/forskning/centreforenergyinformatics) 
+    *   [About the center](https://www.sdu.dk/en/forskning/centreforenergyinformatics/about) 
+    *   [Significant achievements](https://www.sdu.dk/en/forskning/centreforenergyinformatics/significant-achievements) 
+    *   [Research Areas](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-areas) 
+        *   [Smart Buildings](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-areas/smart-buildings) 
+        *   [Smart Cities and Communities](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-areas/smart-cities-and-communities) 
+        *   [Smart Industries](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-areas/smart-industries) 
+        *   [Smart Energy Networks](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-areas/smart-energy-networks) 
+        *   [Smart Energy Ecosystems](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-areas/smart-energy-ecosystems) 
+        *   [Smart Energy Digital Infrastructure](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-areas/smart-energy-digital-infrastructure) 
+        *   [Innovation](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-areas/innovation) 
+
+    *   [Our Software Solutions](https://www.sdu.dk/en/forskning/centreforenergyinformatics/software-solutions) 
+        *   [AutoResearch – The Automated Literature Search and Reference Management Tool](https://www.sdu.dk/en/forskning/centreforenergyinformatics/software-solutions/autoresearch) 
+        *   [Building Digital Twin Generator](https://www.sdu.dk/en/forskning/centreforenergyinformatics/software-solutions/building-digital-twin-generator) 
+        *   [Building Digital Twin Inspector](https://www.sdu.dk/en/forskning/centreforenergyinformatics/software-solutions/building-digital-twin-inspector) 
+        *   [Building Digital Twin Optimizer](https://www.sdu.dk/en/forskning/centreforenergyinformatics/software-solutions/building-digital-twin-optimizer) 
+        *   [CSTEP Business Opportunity Identifier](https://www.sdu.dk/en/forskning/centreforenergyinformatics/software-solutions/cstep-business-opportunity-identifier) 
+        *   [Ecosystem Map Generator](https://www.sdu.dk/en/forskning/centreforenergyinformatics/software-solutions/ecosystem-map-generator) 
+        *   [IoT-Building-Cloud](https://www.sdu.dk/en/forskning/centreforenergyinformatics/software-solutions/iotbuildingcloud) 
+        *   [PAMSEN — Predictive Asset Management Smart Energy Network](https://www.sdu.dk/en/forskning/centreforenergyinformatics/software-solutions/pamsen) 
+        *   [Process-to-Market Evaluation Tool](https://www.sdu.dk/en/forskning/centreforenergyinformatics/software-solutions/processtomarket-evaluation-tool) 
+        *   [SENOM — Smart Energy Network Operation & Maintenance](https://www.sdu.dk/en/forskning/centreforenergyinformatics/software-solutions/senom) 
+        *   [Symbiosis](https://www.sdu.dk/en/forskning/centreforenergyinformatics/software-solutions/symbiosis) 
+        *   [DistrictHeat+](https://www.sdu.dk/en/forskning/centreforenergyinformatics/software-solutions/districtheat) 
+
+    *   [Employees](https://www.sdu.dk/en/forskning/centreforenergyinformatics/employeescei) 
+    *   [How to find us](https://www.sdu.dk/en/forskning/centreforenergyinformatics/how-to-find-us) 
+    *   [Research Labs](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs) 
+        *   [Agentic AI and LLM Evaluation Lab](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs/agentic-ai-and-llm-evaluation-lab) 
+            *   [About the Agentic AI and LLM Evaluation Lab](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs/agentic-ai-and-llm-evaluation-lab/about) 
+            *   [Contact](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs/agentic-ai-and-llm-evaluation-lab/contact) 
+
+        *   [Digital Twin and Agentic AI Infrastructure Lab](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs/digital-twin-and-agentic-ai-infrastructure-lab) 
+            *   [About the Digital Twin and Agentic AI Infrastructure Lab](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs/digital-twin-and-agentic-ai-infrastructure-lab/about-digital-twin-lab) 
+            *   [Case Studies](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs/digital-twin-and-agentic-ai-infrastructure-lab/case-study) 
+            *   [Contact](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs/digital-twin-and-agentic-ai-infrastructure-lab/contact) 
+
+        *   [Energy Asset Intelligence Lab](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs/energy-asset-intelligence-lab) 
+            *   [About the Energy Asset Intelligence Lab](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs/energy-asset-intelligence-lab/about-energy-asset) 
+            *   [Case Studies](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs/energy-asset-intelligence-lab/case-studies) 
+            *   [Contact](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs/energy-asset-intelligence-lab/contact) 
+
+        *   [SDU BuildIQ Lab](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs/sdu-buildiq-lab) 
+            *   [About](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs/sdu-buildiq-lab/about) 
+            *   [Mission and Vision](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs/sdu-buildiq-lab/mission-and-vision) 
+            *   [Physical Testbed and Data Ecosystem](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs/sdu-buildiq-lab/physical-testbed-and-data-ecosystem) 
+                *   [Data Ecosystem and Key Datasets](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs/sdu-buildiq-lab/physical-testbed-and-data-ecosystem/data-ecosystem-and-building-and-utility-consumption-records) 
+                *   [Integrated Management and Controls](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs/sdu-buildiq-lab/physical-testbed-and-data-ecosystem/integrated-management-and-controls) 
+                *   [SDU OU33 Smart Building Living Lab](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs/sdu-buildiq-lab/physical-testbed-and-data-ecosystem/u33-smart-building-living-lab) 
+                *   [SDU OU44 Smart Building Living Lab](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs/sdu-buildiq-lab/physical-testbed-and-data-ecosystem/u44-smart-building-living-lab) 
+                *   [UNITEN Smart Building Living Lab](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs/sdu-buildiq-lab/physical-testbed-and-data-ecosystem/uniten-smart-building-living-lab) 
+
+            *   [Offers and Services](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs/sdu-buildiq-lab/offers-and-services) 
+            *   [Collaboration Opportunities](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs/sdu-buildiq-lab/collab-opportunities) 
+            *   [Unique Value Proposition](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs/sdu-buildiq-lab/unique-value-proposition) 
+            *   [Visit SDU-CEI Smart Campus Living Lab](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs/sdu-buildiq-lab/visit-sdu-smart-campus-living-lab) 
+
+        *   [Energy Metaverse - A Virtual Living Lab of Energy Ecosystems](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs/energy-metaverse) 
+            *   [About the Energy Metaverse](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs/energy-metaverse/about-the-energy-metaverse) 
+            *   [Case Studies](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs/energy-metaverse/case-studies) 
+            *   [Contact](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs/energy-metaverse/contact) 
+
+    *   [Open positions](https://www.sdu.dk/en/forskning/centreforenergyinformatics/open-positions) 
+    *   [Student research activity](https://www.sdu.dk/en/forskning/centreforenergyinformatics/student-research-activity) 
+    *   [What-is-Energy-Informatics](https://www.sdu.dk/en/forskning/centreforenergyinformatics/what-is-energy-informatics) 
+    *   [Research publications](https://portal.findresearcher.sdu.dk/en/organisations/center-for-energy-informatics/publications/) 
+        *   [Reports](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-publications/reports) 
+
+    *   [Research projects](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects) 
+        *   [ThermoSense](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/thermosense) 
+        *   [CEBE – Civil Engineering and the Green Transition in the Built Environment](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/cebe) 
+        *   [Danish Participation in IEA ES Task 46: Application-Oriented Energy Storage Selection](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/eia-es-task-46) 
+        *   [Danish Participation in IEA IETS Task XXI Subtasks 4 & 5: Carbon Dioxide Capture in Industry and Facilitation of Industrial Symbiosis](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/iea-iets-task-xxi-subtasks-4-and-5) 
+        *   [REV-UP - IntegRated clean Energy harVesting modUlar enveloPe systems for Positive energy buildings](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/rev_up) 
+        *   [EnergyBuilder - A Lifecycle Approach for Clean Energy Integration through Digital Transformation of Buildings into Active Energy Prosumers](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/energybuilder) 
+        *   [Danish Participation in IEA Annex 93 - Energy Resilience of the Buildings in Remote Cold Regions](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/annex-93) 
+        *   [Danish Participation in IEA IETS Task XIX Subtask 3 - Industrial Electrification: System Integration and Decarbonization Strategies](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/iea-iets-task-xix-subtask-3) 
+        *   [Danish Participation in IEA IETS Task XVIII Subtask 4 - AI Methods in Industrial Energy Systems](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/iea-iets-task-xviii-subtask-4) 
+        *   [Danish Participation in IEA IETS Task XXIV Subtask 1 - Process Integration for Industry Decarbonization](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/iea-iets-task-xxiv-subtask-1) 
+        *   [Participation in IEA ISGAN Working Group 6 ‘Power T&D Systems](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/iea-isgan-group6) 
+        *   [Danish Participation in IEA IETS Task XXII - Climate Resilience and Energy Adaptation in Industry under Uncertainty](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/iea-iets-task-xxii) 
+        *   [Danish Participation in IEA EBC Annex 96 - Grid Integrated Control of Buildings](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/iea-ebc-annex-96) 
+        *   [Danish participation in IEA DHC Annex TS9: Digitalization of District Heating and Cooling – Improving Efficiency and Performance Through Data Integration](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/iea-dhc-annex-ts9) 
+        *   [Danish Participation in IEA Annex 91 - Open BIM for energy-efficient buildings](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/iea-annex-91) 
+        *   [Energy Informatics Academy Network Nordic (Annual Research Exchange, Conference and Summer School)](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/energy-informatics-academy-network-nordic) 
+        *   [Enabling sector coupling of energy-intensive industrial processes in energy systems (electricity and district heating)](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/enabling_sector_coupling) 
+        *   [Participation in IEA DHC Annex TS6 ‘Status assessment, ageing, lifetime prediction and as-set management of District Heating (DH) Pipes’](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/dhc-annex-ts6) 
+        *   [PowerGridOptimiser](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/powergridoptimiser) 
+        *   [SDU participation in IEA EBC Annex 89 - Ways to Implement Net-zero Whole Life Carbon Buildings](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/iea-annex-89) 
+        *   [Automated Data and Machine Learning Pipeline for Cost-Effective Energy Demand Forecasting in Sector Coupling](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/automated_data_and_machine_learning_pipeline) 
+        *   [Danish Participation in IEA ES Task 43 “Storage for renewables and flexibility through standardized use of building mass”](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/iea-es-task-43) 
+        *   [DanRETwin: A Digital Twin solution for optimal energy retrofit decision-making and decarbonization of the Danish building stock](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/danretwin) 
+        *   [DECODE](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/decode) 
+        *   [Driver Coach](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/driver-coach) 
+        *   [INNOMISSION II](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/innomission-ii) 
+        *   [ADRENALIN](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/adrenalin) 
+        *   [AI-based forecasting framework for sector coupling between electricity grids and district heating](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/ai-based-forecasting-framework-for-sector-coupling-between-electricity-grids-and-district-heating) 
+        *   [A Living Lab for Energy Efficient Public Buildings based on ICT Solutions](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/a-living-lab-for-energy-efficient-public-buildings-based-on-ict-solutions) 
+        *   [Big Data Driven Hybrid AI Method for Energy Demand Forecasting and Operational Planning in Industrial Greenhouse Production](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/big-data-driven-hybrid-ai-method-for-energy-demand-forecasting) 
+        *   [BuildCOM](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/buildcom) 
+        *   [CELSIUS](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/celsius) 
+        *   [ClusterSoutH2 - Designing a PtX Ecosystem in Southern Denmark](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/clustersouth2-designing-a-ptx-ecosystem-in-southern-denmark) 
+        *   [Control of cooling house](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/control-of-cooling-house) 
+        *   [COORDICY](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/coordicy) 
+            *   [COORDICY Newsletters](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/coordicy/newsletters) 
+
+        *   [Coordination and participation in IEA EBC Annex 79](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/coordination-and-participation-in-iea-ebc-annex-79) 
+        *   [Danish participation in IEA DHC Annex TS4](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/danish-participation-in-iea-dhc-annex-ts4) 
+        *   [Danish participation in IEA EBC Annex 66](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/danish-participation-in-iea-ebc-annex-66) 
+        *   [Danish participation in IEA EBC Annex 67](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/danish-participation-in-iea-ebc-annex-67-energy-flexible-buildings) 
+        *   [Danish participation in IEA EBC Annex 81 - Data-Driven Smart Buildings](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/danish-participation-in-iea-ebc-annex-81-data-driven-smart-buildings) 
+        *   [Danish participation in IEA EBC Annex 83 - Positive Energy Districts](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/danish-participation-in-iea-ebc-annex-83-positive-energy-districts) 
+        *   [Danish participation in IEA IETS Annex Task XVIII - Digitization, artificial intelligence and related technologies for energy efficiency and reduction of greenhouse gas emissions in industry](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/danish-participation-in-iea-iets-annex-task-xviii) 
+        *   [Data-based Energy Management on Device Level](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/data-based-energy-management-on-device-level) 
+        *   [Data-driven energy monitoring and optimization of industrial processes](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/data-driven-energy-monitoring-and-optimization-of-industrial-processes) 
+        *   [Demand Response](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/demand-response) 
+        *   [Digital Energy Hub](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/digital-energy-hub) 
+        *   [Digital Twin for the integration of industrial consumers in energy markets](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/digital-twin-for-the-integration-of-industrial-consumers-in-energy-markets) 
+        *   [DK live energy lab](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/dk-live-energy-lab) 
+        *   [Dynamic Office Environments on the Users Terms](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/dynamic-office-environments-on-the-users-terms) 
+        *   [Energy Informatics Academy Nordic 2024](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/eia-nordic-2024) 
+        *   [EnovHeat](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/enovheat) 
+        *   [Flexible Energy Denmark - FED](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/flexible-energy-denmark-fed) 
+        *   [FlexPtX](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/flexptx) 
+        *   [FlexReStore](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/flexrestore) 
+        *   [Green Growing](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/green-growing) 
+        *   [Greenhouse Industry 4.0](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/greenhouse-industry-4,-d-,0) 
+        *   [GreenLab designer Lite](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/greenlab-designer-lite) 
+        *   [IBPSA](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/ibpsa) 
+        *   [Danish Participation in IEA IETS Task XXI - Decarbonizing industrial systems in a circular economy framework](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/iea-iets-task-xxi) 
+        *   [Intelligent control of lighting based on daylight, weather forecasts and energy prices](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/intelligent-control) 
+        *   [IoT-Building-Cloud Making the World’s Buildings Greener: A low-cost intelligent energy management system for commercial and public buildings](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/iotbuildingcloud) 
+        *   [Leveraging Smart Meter Data to Optimize Grid Investments](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/leveraging-smart-meter-data-to-optimize-grid-investments) 
+        *   [Living Lab](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/living-lab) 
+        *   [Markedssimulator](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/markedssimulator) 
+        *   [Micro Grid Living Lab](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/micro-grid-living-lab) 
+        *   [NeGeV](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/negev) 
+        *   [ODEx - Open Data on Human Behavior](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/odex) 
+        *   [PROMA](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/proma) 
+        *   [Robotter i Energi-Effektive Bygninger](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/robotter-i-energi-effektive-bygninger) 
+        *   [Smart Fault](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/smart-fault) 
+        *   [Smart Green](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/smartgreen) 
+        *   [Smart Grid Ready Energy Efficient Lighting System for Green House Horticulture](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/smart-grid-ready-energy-efficient-lighting-system-for-green-house-horticulture) 
+        *   [Tech-IN](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/tech-in) 
+        *   [Towards the Thermal Grid](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/towards-the-thermal-grid) 
+        *   [Tsinghua Collaboration](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/tsinghua-collaboration) 
+        *   [Twin4Build](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/twin4build) 
+        *   [ZEM Ports NS](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-projects/zem-ports-ns) 
+
+    *   [PhD projects](https://www.sdu.dk/en/forskning/centreforenergyinformatics/phd-projects) 
+    *   [Education](https://www.sdu.dk/en/forskning/centreforenergyinformatics/education) 
+    *   [Cooperation](https://www.sdu.dk/en/forskning/centreforenergyinformatics/cooperation) 
+    *   [Contact](https://www.sdu.dk/en/forskning/centreforenergyinformatics/contact) 
+    *   [News](https://www.sdu.dk/en/forskning/centreforenergyinformatics/news) 
+
+*   [Students](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs/agentic-ai-and-llm-evaluation-lab#)
+    *   [itslearning Access to your courses](https://sdu.itslearning.com/)
+    *   [mySDU For students at SDU](https://mitsdu.dk/en/)
+    *   [SDUmail - Webmail service Outlook Web Mail](https://outlook.office.com/)
+    *   [SDU Student Self-Service Course registration, exams and results](https://sso.sdu.dk/client/sb.php)
+    *   [Library See your status, reservations and renew loans](https://mimer.sdu.dk/discovery/login?vid=45KBDK_SDUB:45SDUB&lang=en)
+    *   [DigitalExam Login to DigitalExam](https://digitaleksamen.sdu.dk/)
+
+*   [Employees](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs/agentic-ai-and-llm-evaluation-lab#)
+    *   [itslearning SDU's e-learn platform](https://sdu.itslearning.com/)
+    *   [SDUNet.dk SDU's intranet](https://sdunet.dk/)
+    *   [DigitalExam Login to DigitalExam](https://digitaleksamen.sdu.dk/)
+
+*   [Find](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs/agentic-ai-and-llm-evaluation-lab#)
+    *   [Find person Search for contact information on employees](https://www.sdu.dk/en/service/findperson)
+    *   [Directory Finding your way at the University of Southern Denmark](https://www.sdu.dk/en/service/vejviser)
+
+[University of Southern Denmark](https://www.sdu.dk/en/)
+
+*   [Students](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs/agentic-ai-and-llm-evaluation-lab#)
+    *   [itslearning Access to your courses](https://sdu.itslearning.com/)
+    *   [mySDU For students at SDU](https://mitsdu.dk/en/)
+    *   [SDUmail - Webmail service Outlook Web Mail](https://outlook.office.com/)
+    *   [SDU Student Self-Service Course registration, exams and results](https://sso.sdu.dk/client/sb.php)
+    *   [Library See your status, reservations and renew loans](https://mimer.sdu.dk/discovery/login?vid=45KBDK_SDUB:45SDUB&lang=en)
+    *   [DigitalExam Login to DigitalExam](https://digitaleksamen.sdu.dk/)
+
+*   [Employees](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs/agentic-ai-and-llm-evaluation-lab#)
+    *   [itslearning SDU's e-learn platform](https://sdu.itslearning.com/)
+    *   [SDUNet.dk SDU's intranet](https://sdunet.dk/)
+    *   [DigitalExam Login to DigitalExam](https://digitaleksamen.sdu.dk/)
+
+*   [Find](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs/agentic-ai-and-llm-evaluation-lab#)
+    *   [Find person Search for contact information on employees](https://www.sdu.dk/en/service/findperson)
+    *   [Directory Finding your way at the University of Southern Denmark](https://www.sdu.dk/en/service/vejviser)
+
+*   [Start page](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs/agentic-ai-and-llm-evaluation-lab)
+    *   [Login](https://www.sdu.dk/SSO-redirect?returnUrl=https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs/agentic-ai-and-llm-evaluation-lab?fromlogin=1)
+    *   [Reset default page](javascript:localStorage.setItem('defaultPage', 'none');alert('The default page has been reset.');location.reload();)
+    *   [Set as default page](javascript:localStorage.removeItem('none');localStorage.setItem('defaultPage', window.location.href);localStorage.setItem('defaultPageExpiry', '0');location.reload();)
+
+[University of Southern Denmark, SDU](https://www.sdu.dk/en/)
+
+[University of Southern Denmark, SDU](https://www.sdu.dk/en/?r=n)
+
+*   [Study at SDU](https://www.sdu.dk/en/uddannelse)
+
+What can I study?
+
+    *   [Bachelor's programmes](https://www.sdu.dk/en/uddannelse/bachelor)
+    *   [Master's programmes](https://www.sdu.dk/en/uddannelse/kandidat)
+    *   [Engineering programmes](https://www.sdu.dk/en/uddannelse/ingenioer)
+    *   [PhD](https://www.sdu.dk/en/forskning/phd)
+    *   [Exchange and guest studies](https://www.sdu.dk/en/uddannelse/exchange)
+    *   [International Summer School](https://www.sdu.dk/en/uddannelse/sdu_summer_school)
+
+How is student life?
+
+    *   [Why choose SDU?](https://www.sdu.dk/en/uddannelse/why-sdu)
+    *   [Living in Denmark](https://www.sdu.dk/en/uddannelse/living-in-denmark)
+    *   [Student cities](https://www.sdu.dk/en/uddannelse/studiebyer)
+    *   [Student housing](https://www.sdu.dk/en/uddannelse/studenthousing)
+    *   [Fees and Funding](https://www.sdu.dk/en/uddannelse/fees_and_funding)
+    *   [Meet SDU](https://www.sdu.dk/en/uddannelse/moedsdu)
+
+How do I apply?
+
+    *   [Admission to bachelor's studies](https://www.sdu.dk/en/uddannelse/bachelor/bachelor-admission)
+    *   [Apply for admission to master's studies](https://www.sdu.dk/en/uddannelse/kandidat/kandidat-erhvervskandidat)
+    *   [Exchange and guest admissions](https://www.sdu.dk/en/uddannelse/exchange/apply)
+    *   [Help and guidance](https://www.sdu.dk/en/uddannelse/vejledning)
+
+![Image 1](https://www.sdu.dk/-/media/images/uddannelse/uddannelsesforsider/mitsdu-menu.jpg)
+
+### [MySDU - for students at SDU Find the portal for your study programme - the direct way to all the relevant information about your programme. Read more](https://mitsdu.dk/)
+
+![Image 2](https://www.sdu.dk/-/media/images/uddannelse/uddannelsesforsider/mitsdu-menu.jpg)
+
+### [MySDU - for students at SDU Find the portal for your study programme - the direct way to all the relevant information about your programme. Read more](https://mitsdu.dk/)
+
+![Image 3](https://www.sdu.dk/-/media/images/uddannelse/uddannelsesforsider/mitsdu-menu.jpg)
+
+### [MySDU - for students at SDU Find the portal for your study programme - the direct way to all the relevant information about your programme. Read more](https://mitsdu.dk/)
+
+![Image 4](https://www.sdu.dk/-/media/images/uddannelse/uddannelsesforsider/mitsdu-menu.jpg)
+
+### [MySDU - for students at SDU Find the portal for your study programme - the direct way to all the relevant information about your programme. Read more](https://mitsdu.dk/)
+
+![Image 5](https://www.sdu.dk/-/media/images/uddannelse/uddannelsesforsider/mitsdu-menu.jpg)
+
+### [MySDU - for students at SDU Find the portal for your study programme - the direct way to all the relevant information about your programme. Read more](https://mitsdu.dk/)
+
+prev
+
+next
+
+*   [Research](https://www.sdu.dk/en/forskning)
+
+Find
+
+    *   [Research Units](https://www.sdu.dk/en/forskning/forskningsenheder)
+        *   [Faculty of Humanities](https://www.sdu.dk/en/forskning/forskningsenheder/hum)
+        *   [Faculty of Science](https://www.sdu.dk/en/forskning/forskningsenheder/nat)
+        *   [Faculty of Business and Social Sciences](https://www.sdu.dk/en/forskning/forskningsenheder/samf)
+        *   [Faculty of Health Sciences](https://www.sdu.dk/en/forskning/forskningsenheder/sund)
+        *   [Faculty of Engineering](https://www.sdu.dk/en/forskning/forskningsenheder/tek)
+
+    *   [Find researcher](https://portal.findresearcher.sdu.dk/en/persons/)
+    *   [Research output](https://portal.findresearcher.sdu.dk/en/publications/)
+    *   [Activities](https://portal.findresearcher.sdu.dk/en/activities/)
+    *   [Press clippings](https://portal.findresearcher.sdu.dk/en/clippings/)
+
+Research dissemination
+
+    *   [News from SDU](https://www.sdu.dk/en/nyheder)
+    *   [Festival of Research](https://www.sdu.dk/en/forskning/forskningsformidling/forskningensdoegn)
+    *   [Citizen science](https://www.sdu.dk/en/forskning/forskningsformidling/citizenscience)
+        *   [Our History](https://www.sdu.dk/en/forskning/forskningsformidling/citizenscience/vores-historie)
+        *   [SDU Moves](https://www.sdu.dk/en/forskning/forskningsformidling/citizenscience/sdu-bevaeger-sig)
+        *   [B-shapes](https://www.sdu.dk/en/forskning/forskningsformidling/citizenscience/b-shapes)
+        *   [EPICUR](https://www.sdu.dk/en/forskning/forskningsformidling/citizenscience/epicur)
+        *   [FUSION](https://www.sdu.dk/en/forskning/forskningsformidling/citizenscience/fusion)
+        *   [Intelligent Exercise – Implementation in Daily Life](https://www.sdu.dk/en/forskning/forskningsformidling/citizenscience/fysisk-aktivitet)
+        *   [Collaboration offer for high schools](https://www.sdu.dk/en/forskning/forskningsformidling/citizenscience/gymnasier)
+        *   [New honorary fellow to SDU](https://www.sdu.dk/en/forskning/forskningsformidling/citizenscience/honorary-fellow)
+        *   [Media’s role in the climate transition](https://www.sdu.dk/en/forskning/forskningsformidling/citizenscience/media-habits)
+        *   [Newsletter and sign up](https://www.sdu.dk/en/forskning/forskningsformidling/citizenscience/nyhedsbrev)
+        *   [Inequality in Health](https://www.sdu.dk/en/forskning/forskningsformidling/citizenscience/ulighed)
+        *   [Publications](https://www.sdu.dk/en/forskning/forskningsformidling/citizenscience/publicationcs)
+        *   [Previous Projects](https://www.sdu.dk/en/forskning/forskningsformidling/citizenscience/afviklede-cs-projekter)
+        *   [CSpub](https://www.sdu.dk/en/forskning/forskningsformidling/citizenscience/cspub)
+        *   [Citizen Science Network](https://www.sdu.dk/en/forskning/forskningsformidling/citizenscience/om-videncentret)
+        *   [Contact](https://www.sdu.dk/en/forskning/forskningsformidling/citizenscience/hvad-er-cs)
+        *   [Employees](https://www.sdu.dk/en/forskning/forskningsformidling/citizenscience/medarbejdere)
+        *   [Meet us](https://www.sdu.dk/en/forskning/forskningsformidling/citizenscience/moed-os)
+        *   [The Steering Committee](https://www.sdu.dk/en/forskning/forskningsformidling/citizenscience/styregruppen)
+
+    *   [News from the faculties](https://www.sdu.dk/en/nyheder/lokalenyheder)
+
+Research Support and PhD
+
+    *   [PhD Programmes](https://www.sdu.dk/en/forskning/phd)
+        *   [PhD programme at the Faculty of Science](https://www.sdu.dk/en/forskning/phd/naturvidenskabelig_phd_uddannelse)
+        *   [PhD Programme at the Faculty of Humanities](https://www.sdu.dk/en/forskning/phd/phd_humaniora)
+        *   [PhD Programme at the Faculty of Health Sciences](https://www.sdu.dk/en/forskning/phd/phdskolensundhedsvidenskab)
+        *   [PhD Programme at the Faculty of Engineering](https://www.sdu.dk/en/forskning/phd/phdtek)
+        *   [PhD Programme at the Faculty of Business and Social Sciences](https://www.sdu.dk/en/forskning/phd/phduddannelsen_under_samfundsvidenskab)
+        *   [Admission](https://www.sdu.dk/en/forskning/phd/adgangskrav)
+        *   [Research training programmes](https://www.sdu.dk/en/forskning/phd/forskeruddannelsesprogrammer)
+
+    *   [Research Support Hub](https://sdunet.dk/en/research)
+        *   [Call Calendar](https://sdunet.dk/en/research/call_calendar)
+        *   [Commercialisation](https://sdunet.dk/en/research/commercialisation)
+        *   [EU Funding](https://sdunet.dk/en/research/eu-funding)
+        *   [Financial guidance for your research](https://sdunet.dk/en/research/finance-support)
+        *   [Funding Application Process](https://sdunet.dk/en/research/funding-application-process)
+        *   [Funding Apps](https://sdunet.dk/en/research/funding-apps)
+        *   [Funding strategy](https://sdunet.dk/en/research/funding-strategy)
+        *   [Research Integrity and Ethics](https://sdunet.dk/en/research/research-integrity-and-ethics)
+        *   [Funding Support](https://sdunet.dk/en/research/funding-support)
+        *   [Grants at SDU](https://sdunet.dk/en/research/grants-at-sdu)
+        *   [Legal Services](https://sdunet.dk/en/research/legal-services)
+        *   [Open Access](https://sdunet.dk/en/research/open-access)
+        *   [Overview of funds](https://sdunet.dk/en/research/overview-of-funds)
+        *   [PhD Postdoc Hub](https://sdunet.dk/en/research/phd_postdoc_hub)
+        *   [Pure](https://sdunet.dk/en/research/pure)
+        *   [Open Science & Research Data Management](https://sdunet.dk/en/research/research-data-management-support)
+        *   [Research Support](https://sdunet.dk/en/research/research-support)
+        *   [Ethics and compliance in research](https://sdunet.dk/en/research/research-support-ethics)
+        *   [Scholary Publication](https://sdunet.dk/en/research/scholary-publication)
+
+![Image 6](https://www.sdu.dk/-/media/images/forsiden_nytsdu/megamenu_spots_270x170px/forskning_400x600px.png)
+
+### [Research SDU works purposefully to create dialogue between the university's researchers and the surrounding society. Read more](https://www.sdu.dk/en/forskning)
+
+![Image 7](https://www.sdu.dk/-/media/images/forsiden_nytsdu/megamenu_spots_270x170px/forskning_400x600px.png)
+
+### [Research SDU works purposefully to create dialogue between the university's researchers and the surrounding society. Read more](https://www.sdu.dk/en/forskning)
+
+![Image 8](https://www.sdu.dk/-/media/images/forsiden_nytsdu/megamenu_spots_270x170px/forskning_400x600px.png)
+
+### [Research SDU works purposefully to create dialogue between the university's researchers and the surrounding society. Read more](https://www.sdu.dk/en/forskning)
+
+![Image 9](https://www.sdu.dk/-/media/images/forsiden_nytsdu/megamenu_spots_270x170px/forskning_400x600px.png)
+
+### [Research SDU works purposefully to create dialogue between the university's researchers and the surrounding society. Read more](https://www.sdu.dk/en/forskning)
+
+![Image 10](https://www.sdu.dk/-/media/images/forsiden_nytsdu/megamenu_spots_270x170px/forskning_400x600px.png)
+
+### [Research SDU works purposefully to create dialogue between the university's researchers and the surrounding society. Read more](https://www.sdu.dk/en/forskning)
+
+prev
+
+next
+
+*   [News](https://www.sdu.dk/en/nyheder)
+
+News from
+
+    *   [News from SDU](https://www.sdu.dk/en/nyheder)
+    *   [Faculty of Humanities](https://www.sdu.dk/en/om-sdu/fakulteterne/humaniora/nyt_hum)
+    *   [Faculty of Science](https://www.sdu.dk/en/om-sdu/fakulteterne/naturvidenskab/nyheder-2025)
+    *   [Faculty of Business and Social Sciences](https://www.sdu.dk/en/om-sdu/fakulteterne/samfundsvidenskab/sam_nyhedsliste)
+    *   [Faculty of Health Sciences](https://www.sdu.dk/en/om-sdu/fakulteterne/sundhedsvidenskab/nyheder-2026)
+    *   [Faculty of Engineering](https://www.sdu.dk/en/om-sdu/fakulteterne/teknik/nyt_fra_det_tekniske_fakultet)
+
+Press services
+
+    *   [Press Services](https://www.sdu.dk/en/nyheder/presserummet)
+        *   [Design and Brandguide](https://designguide.sdu.dk/brandguide_en/)
+        *   [Logo](https://www.sdu.dk/en/nyheder/presserummet/logo_og_designguide)
+        *   [Expert Lists](https://www.sdu.dk/en/nyheder/presserummet/findekspert)
+        *   [Press photos](https://www.sdu.dk/en/nyheder/presserummet/pressefotos)
+
+    *   [Design and Brandguide](https://designguide.sdu.dk/brandguide_en/)
+    *   [Logo](https://www.sdu.dk/en/nyheder/presserummet/logo_og_designguide)
+    *   [Expert Lists](https://www.sdu.dk/en/nyheder/presserummet/findekspert)
+
+Research Dissemination
+
+    *   [Festival of Research](https://www.sdu.dk/en/forskning/forskningsformidling/forskningensdoegn)
+    *   [Citizen science](https://www.sdu.dk/en/forskning/forskningsformidling/citizenscience)
+        *   [Our History](https://www.sdu.dk/en/forskning/forskningsformidling/citizenscience/vores-historie)
+        *   [SDU Moves](https://www.sdu.dk/en/forskning/forskningsformidling/citizenscience/sdu-bevaeger-sig)
+        *   [B-shapes](https://www.sdu.dk/en/forskning/forskningsformidling/citizenscience/b-shapes)
+        *   [EPICUR](https://www.sdu.dk/en/forskning/forskningsformidling/citizenscience/epicur)
+        *   [FUSION](https://www.sdu.dk/en/forskning/forskningsformidling/citizenscience/fusion)
+        *   [Intelligent Exercise – Implementation in Daily Life](https://www.sdu.dk/en/forskning/forskningsformidling/citizenscience/fysisk-aktivitet)
+        *   [Collaboration offer for high schools](https://www.sdu.dk/en/forskning/forskningsformidling/citizenscience/gymnasier)
+        *   [New honorary fellow to SDU](https://www.sdu.dk/en/forskning/forskningsformidling/citizenscience/honorary-fellow)
+        *   [Media’s role in the climate transition](https://www.sdu.dk/en/forskning/forskningsformidling/citizenscience/media-habits)
+        *   [Newsletter and sign up](https://www.sdu.dk/en/forskning/forskningsformidling/citizenscience/nyhedsbrev)
+        *   [Inequality in Health](https://www.sdu.dk/en/forskning/forskningsformidling/citizenscience/ulighed)
+        *   [Publications](https://www.sdu.dk/en/forskning/forskningsformidling/citizenscience/publicationcs)
+        *   [Previous Projects](https://www.sdu.dk/en/forskning/forskningsformidling/citizenscience/afviklede-cs-projekter)
+        *   [CSpub](https://www.sdu.dk/en/forskning/forskningsformidling/citizenscience/cspub)
+        *   [Citizen Science Network](https://www.sdu.dk/en/forskning/forskningsformidling/citizenscience/om-videncentret)
+        *   [Contact](https://www.sdu.dk/en/forskning/forskningsformidling/citizenscience/hvad-er-cs)
+        *   [Employees](https://www.sdu.dk/en/forskning/forskningsformidling/citizenscience/medarbejdere)
+        *   [Meet us](https://www.sdu.dk/en/forskning/forskningsformidling/citizenscience/moed-os)
+        *   [The Steering Committee](https://www.sdu.dk/en/forskning/forskningsformidling/citizenscience/styregruppen)
+
+*   [Collaborate](https://www.sdu.dk/en/samarbejde)
+
+Collaborate with researchers
+
+    *   [Research and consultancy](https://www.sdu.dk/en/samarbejde/forskningssamarbejde)
+    *   [Public sector collaboration](https://www.sdu.dk/en/samarbejde/myndighedsbetjening)
+    *   [Research facilities](https://www.sdu.dk/en/samarbejde/faciliteter)
+    *   [Tailored business courses](https://www.sdu.dk/en/samarbejde/skraeddersyede-virksomhedskurser)
+    *   [Strategic partnership](https://www.sdu.dk/en/samarbejde/bliverhvervspartner)
+    *   [Technologies](https://www.sdu.dk/en/samarbejde/kommercielle-teknologier)
+
+Collaborate with students
+
+    *   [Project collaboration](https://www.sdu.dk/en/samarbejde/studerende/projektsamarbejde)
+    *   [Student assistant](https://www.sdu.dk/en/samarbejde/studerende/studentermedhjaelper)
+    *   [Career events](https://www.sdu.dk/en/samarbejde/studerende/karrierearrangementer)
+    *   [Student entrepreneurs](https://www.sdu.dk/en/samarbejde/studerende/studenterivaerksaettere)
+
+Involve SDU in your teaching
+
+    *   [Educational offers for schools](https://www.sdu.dk/en/samarbejde/undervisningstilbud)
+    *   [ATU (Academy for Talented Youth)](https://www.sdu.dk/en/samarbejde/undervisningstilbud/talentfulde-unge)
+    *   [Taster placement for school pupils](https://www.sdu.dk/en/samarbejde/undervisningstilbud/erhvervspraktik)
+
+![Image 11](https://www.sdu.dk/-/media/images/forsiden_nytsdu/megamenu_spots_270x170px/bliv-partner.png)
+
+### [SDU Jobbank SDU Jobbank is your company’s shortcut to collaboration and recruitment of students and graduates from SDU. Read more](https://www.sdu.dk/en/samarbejde/studerende/jobbank)
+
+![Image 12](https://www.sdu.dk/-/media/images/forsiden_nytsdu/megamenu_spots_270x170px/bliv-partner.png)
+
+### [SDU Jobbank SDU Jobbank is your company’s shortcut to collaboration and recruitment of students and graduates from SDU. Read more](https://www.sdu.dk/en/samarbejde/studerende/jobbank)
+
+![Image 13](https://www.sdu.dk/-/media/images/forsiden_nytsdu/megamenu_spots_270x170px/bliv-partner.png)
+
+### [SDU Jobbank SDU Jobbank is your company’s shortcut to collaboration and recruitment of students and graduates from SDU. Read more](https://www.sdu.dk/en/samarbejde/studerende/jobbank)
+
+![Image 14](https://www.sdu.dk/-/media/images/forsiden_nytsdu/megamenu_spots_270x170px/bliv-partner.png)
+
+### [SDU Jobbank SDU Jobbank is your company’s shortcut to collaboration and recruitment of students and graduates from SDU. Read more](https://www.sdu.dk/en/samarbejde/studerende/jobbank)
+
+![Image 15](https://www.sdu.dk/-/media/images/forsiden_nytsdu/megamenu_spots_270x170px/bliv-partner.png)
+
+### [SDU Jobbank SDU Jobbank is your company’s shortcut to collaboration and recruitment of students and graduates from SDU. Read more](https://www.sdu.dk/en/samarbejde/studerende/jobbank)
+
+prev
+
+next
+
+*   [Library](https://www.sdu.dk/en/bibliotek)
+
+Materials and facilities
+
+    *   [Search all resources](https://mimer.sdu.dk/discovery/search?vid=45KBDK_SDUB:45SDUB&lang=en)
+    *   [Resources](https://www.sdu.dk/en/bibliotek/materialer)
+        *   [Search all ressources](https://mimer.sdu.dk/discovery/search?vid=45KBDK_SDUB:45SDUB&lang=en)
+        *   [Electronic journals (BrowZine)](https://browzine.com/libraries/1182/subjects)
+        *   [Journals A-Z](https://mimer.sdu.dk/discovery/jsearch?vid=45KBDK_SDUB:45SDUB)
+        *   [Search for Theses](https://www.sdu.dk/en/bibliotek/materialer/find-specialer)
+        *   [Online and printed journals](https://www.sdu.dk/en/bibliotek/materialer/online-tidsskrifter)
+        *   [Databases](https://sdu-dk-en.libguides.com/az.php)
+        *   [Newspapers and Magazines](https://www.sdu.dk/en/bibliotek/materialer/aviser-og-magasiner)
+        *   [Electronic books](https://libguides.sdu.dk/eboger)
+        *   [$name](https://www.sdu.dk/en/bibliotek/materialer/az)
+        *   [E-hotel](https://www.sdu.dk/en/bibliotek/materialer/hostede-ressourcer)
+        *   [Maps](https://www.sdu.dk/en/bibliotek/materialer/kort)
+        *   [Scholarships and grants funds](https://www.sdu.dk/en/bibliotek/materialer/legater-og-fonde)
+        *   [Dictionaries](https://www.sdu.dk/en/bibliotek/materialer/ordboeger)
+        *   [Patents](https://www.sdu.dk/en/bibliotek/materialer/patenter)
+        *   [Radio and TV programmes](https://www.sdu.dk/en/bibliotek/materialer/radiotv)
+        *   [Standards](https://www.sdu.dk/en/bibliotek/materialer/standarder)
+        *   [Special Collections](https://www.sdu.dk/en/bibliotek/om-biblioteket/special-collections)
+        *   [$name](https://www.sdu.dk/en/bibliotek/materialer/scifi)
+
+For
+
+    *   [Library Services for Students](https://mitsdu.dk/en/service/bibliotek)
+        *   [Guides](https://mitsdu.dk/en/service/bibliotek/vejledninger)
+        *   [Facilities](https://mitsdu.dk/en/service/bibliotek/faciliteter)
+        *   [Resources](https://mitsdu.dk/en/service/bibliotek/materialer)
+        *   [Operating hours](https://mitsdu.dk/en/service/bibliotek/betjeningstider)
+        *   [Contact](https://mitsdu.dk/en/service/bibliotek/kontakt)
+
+    *   [Library Services For Employees](https://sdunet.dk/en/servicesider/bibliotek)
+        *   [Teach Legally](https://sdunet.dk/en/servicesider/bibliotek/undervis-lovligt)
+        *   [Information Search](https://sdunet.dk/en/servicesider/bibliotek/saadan-soeger-du)
+        *   [Reference Management](https://sdunet.dk/en/servicesider/bibliotek/referencehaandtering)
+        *   [Your Subject Specialist](https://sdunet.dk/en/servicesider/bibliotek/kontaktbibliotekar)
+        *   [Kurser](https://sdunet.dk/en/servicesider/bibliotek/kurser)
+        *   [$name](https://sdunet.dk/en/servicesider/bibliotek/plagiering)
+        *   [Understand Your Royalties](https://sdunet.dk/en/servicesider/bibliotek/vederlag)
+        *   [Guides](https://sdunet.dk/en/servicesider/bibliotek/guides)
+        *   [$name](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs/agentic-ai-and-llm-evaluation-lab)
+        *   [Semester Loan Shelf / Course Literature](https://sdunet.dk/en/servicesider/bibliotek/semesterlitteratur)
+        *   [Resources](https://sdunet.dk/en/servicesider/bibliotek/materialer)
+        *   [Contact](https://sdunet.dk/en/servicesider/bibliotek/kontakt)
+
+    *   [Library Services for PhD students](https://sdunet.dk/en/research/phd_postdoc_hub/phd-service-sdulibrary)
+    *   [Library](https://www.sdu.dk/en/bibliotek)
+        *   [Use the library](https://www.sdu.dk/en/bibliotek/brug-biblioteket)
+        *   [$name](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs/agentic-ai-and-llm-evaluation-lab)
+        *   [Search all resources](https://mimer.sdu.dk/discovery/search?vid=45KBDK_SDUB:45SDUB&lang=en)
+        *   [Resources](https://www.sdu.dk/en/bibliotek/materialer)
+        *   [Operating hours](https://www.sdu.dk/en/bibliotek/betjeningstider)
+        *   [Contact | Ask Us](https://www.sdu.dk/en/bibliotek/kontakt)
+        *   [Courses and Events](https://www.sdu.dk/en/bibliotek/kurser-og-events)
+        *   [About the Library](https://www.sdu.dk/en/bibliotek/om-biblioteket)
+
+Service hours and contact
+
+    *   [Operating hours](https://www.sdu.dk/en/bibliotek/betjeningstider)
+    *   [Use the library](https://www.sdu.dk/en/bibliotek/brug-biblioteket)
+        *   [Guides](https://www.sdu.dk/en/bibliotek/brug-biblioteket/vejledninger)
+        *   [Facilities](https://www.sdu.dk/en/bibliotek/brug-biblioteket/faciliteter)
+
+    *   [Courses and Events](https://www.sdu.dk/en/bibliotek/kurser-og-events)
+        *   [Working hours](https://www.sdu.dk/en/bibliotek/kurser-og-events/tap)
+        *   [Activities](https://www.sdu.dk/en/bibliotek/kurser-og-events/aktiviteter)
+
+    *   [About the Library](https://www.sdu.dk/en/bibliotek/om-biblioteket)
+        *   [Library strategy](https://www.sdu.dk/en/bibliotek/om-biblioteket/strategi)
+        *   [Annual Reports and Narratives](https://www.sdu.dk/en/bibliotek/om-biblioteket/aarsberetninger)
+        *   [Special Collections](https://www.sdu.dk/en/bibliotek/om-biblioteket/special-collections)
+        *   [Loan Rules](https://www.sdu.dk/en/bibliotek/om-biblioteket/laaneregler)
+        *   [Rules of conduct](https://www.sdu.dk/en/bibliotek/om-biblioteket/ordensregler)
+        *   [Fees](https://www.sdu.dk/en/bibliotek/om-biblioteket/gebyrer)
+        *   [Policy for protection of personal data](https://www.sdu.dk/en/bibliotek/om-biblioteket/persondatapolitik)
+        *   [$name](https://www.sdu.dk/en/bibliotek/om-biblioteket/job-og-karriere)
+        *   [Organization](https://www.sdu.dk/en/bibliotek/om-biblioteket/organisation)
+        *   [Key Figures](https://www.sdu.dk/en/bibliotek/om-biblioteket/noegletal)
+        *   [News](https://www.sdu.dk/en/bibliotek/om-biblioteket/nyheder)
+        *   [Sustainable Library at SDU](https://www.sdu.dk/en/bibliotek/om-biblioteket/baeredygtighed)
+
+    *   [Contact | Ask Us](https://www.sdu.dk/en/bibliotek/kontakt)
+        *   [Ask a Librarian](https://www.sdu.dk/en/bibliotek/kontakt/spoerg)
+        *   [Request form](https://www.sdu.dk/en/bibliotek/kontakt/bestilling)
+        *   [The Library is Getting a New IT System](https://www.sdu.dk/en/bibliotek/kontakt/nytsystem)
+        *   [OUH- and RSyd-employees](https://www.sdu.dk/en/bibliotek/kontakt/ouhogrsyd)
+        *   [Application form - library card](https://www.sdu.dk/en/bibliotek/kontakt/bliv-laaner)
+        *   [Addresses](https://www.sdu.dk/en/bibliotek/kontakt/adresser)
+        *   [Staff](https://www.sdu.dk/en/bibliotek/kontakt/ansatte)
+        *   [$name](https://www.sdu.dk/en/bibliotek/kontakt/brugerpanel)
+
+![Image 16](https://www.sdu.dk/-/media/images/forsiden_nytsdu/megamenu_spots_270x170px/bib-mega-2.png)
+
+### [When Google Is Not Enough At the library you will find evidence-based knowledge Read more](https://www.sdu.dk/en/bibliotek/materialer)
+
+![Image 17](https://www.sdu.dk/-/media/images/forsiden_nytsdu/megamenu_spots_270x170px/bib-mega-4.png)
+
+### [+1 mil Books We have the ressources for your project Read more](https://www.sdu.dk/en/bibliotek/materialer)
+
+![Image 18](https://www.sdu.dk/-/media/images/forsiden_nytsdu/megamenu_spots_270x170px/bib-mega-1.png)
+
+### [We are open 24/7 - also online The library can help you both online and at campus! Read more](https://www.sdu.dk/en/bibliotek/betjeningstider)
+
+![Image 19](https://www.sdu.dk/-/media/images/forsiden_nytsdu/megamenu_spots_270x170px/bib-mega-2.png)
+
+### [When Google Is Not Enough At the library you will find evidence-based knowledge Read more](https://www.sdu.dk/en/bibliotek/materialer)
+
+![Image 20](https://www.sdu.dk/-/media/images/forsiden_nytsdu/megamenu_spots_270x170px/bib-mega-4.png)
+
+### [+1 mil Books We have the ressources for your project Read more](https://www.sdu.dk/en/bibliotek/materialer)
+
+![Image 21](https://www.sdu.dk/-/media/images/forsiden_nytsdu/megamenu_spots_270x170px/bib-mega-1.png)
+
+### [We are open 24/7 - also online The library can help you both online and at campus! Read more](https://www.sdu.dk/en/bibliotek/betjeningstider)
+
+![Image 22](https://www.sdu.dk/-/media/images/forsiden_nytsdu/megamenu_spots_270x170px/bib-mega-2.png)
+
+### [When Google Is Not Enough At the library you will find evidence-based knowledge Read more](https://www.sdu.dk/en/bibliotek/materialer)
+
+prev
+
+next
+
+*   [About SDU](https://www.sdu.dk/en/om-sdu)
+
+Organisation
+
+    *   [Faculties](https://www.sdu.dk/en/om-sdu/fakulteterne)
+        *   [Faculty of Humanities](https://www.sdu.dk/en/om-sdu/fakulteterne/humaniora)
+        *   [Faculty of Science](https://www.sdu.dk/en/om-sdu/fakulteterne/naturvidenskab)
+        *   [Faculty of Business and Social Sciences](https://www.sdu.dk/en/om-sdu/fakulteterne/samfundsvidenskab)
+        *   [Faculty of Health Sciences](https://www.sdu.dk/en/om-sdu/fakulteterne/sundhedsvidenskab)
+        *   [Faculty of Engineering](https://www.sdu.dk/en/om-sdu/fakulteterne/teknik)
+
+    *   [Departments and centres](https://www.sdu.dk/en/om-sdu/institutter-centre)
+    *   [Management and administration](https://www.sdu.dk/en/om-sdu/ledelse-administration)
+        *   [Board of SDU](https://www.sdu.dk/en/om-sdu/ledelse-administration/bestyrelsen)
+        *   [Executive Board](https://www.sdu.dk/en/om-sdu/ledelse-administration/direktion)
+        *   [Board of Representatives](https://www.sdu.dk/en/om-sdu/ledelse-administration/faellesrepraesentantskabet)
+        *   [Administrative offices](https://www.sdu.dk/en/om-sdu/ledelse-administration/faellesadministrationen)
+
+    *   [Councils, boards and committees](https://www.sdu.dk/en/om-sdu/raad-naevn-udvalg)
+    *   [Campuses](https://www.sdu.dk/en/om-sdu/sdu-campusser)
+        *   [Odense](https://www.sdu.dk/en/om-sdu/sdu-campusser/odense)
+        *   [Esbjerg](https://www.sdu.dk/en/om-sdu/sdu-campusser/esbjerg)
+        *   [Kolding](https://www.sdu.dk/en/om-sdu/sdu-campusser/kolding)
+        *   [Copenhagen](https://www.sdu.dk/en/om-sdu/sdu-campusser/koebenhavn)
+        *   [Slagelse](https://www.sdu.dk/en/om-sdu/sdu-campusser/slagelse)
+        *   [Sønderborg](https://www.sdu.dk/en/om-sdu/sdu-campusser/soenderborg)
+        *   [Vejle](https://www.sdu.dk/en/om-sdu/sdu-campusser/vejle)
+
+Strategy and profile
+
+    *   [Strategy](https://www.sdu.dk/en/om-sdu/strategi-politikker/strategi2030)
+    *   [History](https://www.sdu.dk/en/om-sdu/historie)
+    *   [Strategy and policies](https://www.sdu.dk/en/om-sdu/strategi-politikker)
+        *   [Strategic development contract](https://www.sdu.dk/en/om-sdu/strategi-politikker/rammekontrakt)
+        *   [Investment Policy](https://www.sdu.dk/en/om-sdu/strategi-politikker/investeringspolitik)
+        *   [SDU’s Staff Policy](https://www.sdu.dk/en/om-sdu/strategi-politikker/personalepolitik)
+        *   [Climate](https://www.sdu.dk/en/om-sdu/strategi-politikker/klima-paa-sdu)
+        *   [Freedom within Academia](https://www.sdu.dk/en/nyheder/erklaering-om-forsknings-undervisnings-og-ytringsfrihed)
+        *   [Gender equality](https://www.sdu.dk/en/om-sdu/strategi-politikker/gender-equality)
+        *   [Quality assurance](https://www.sdu.dk/en/om-sdu/strategi-politikker/uddannelseskvalitet)
+
+    *   [International collaborations](https://www.sdu.dk/en/om-sdu/internationale-samarbejder)
+    *   [Key figures and documents](https://www.sdu.dk/en/om-sdu/noegletal)
+    *   [International rankings](https://www.sdu.dk/en/om-sdu/ranking)
+    *   [Events and awards](https://www.sdu.dk/en/om-sdu/begivenheder-priser)
+
+Job and contact
+
+    *   [Jobs and career at SDU](https://www.sdu.dk/en/om-sdu/job-sdu)
+    *   [For International Staff](https://www.sdu.dk/en/om-sdu/job-sdu/international-staff)
+    *   [Procurement at SDU](https://www.sdu.dk/en/om-sdu/indkoeb)
+    *   [Terms and conditions of sale](https://www.sdu.dk/en/om-sdu/salgsbetingelser)
+    *   [SDU Alumni Network](https://www.sdu.dk/en/om-sdu/alumner)
+
+![Image 23](https://www.sdu.dk/-/media/images/forsiden_nytsdu/megamenu_spots_270x170px/ledigestillinger_en_400x600px.png)
+
+### [Vacant positions We are always looking for talent that can bring our research to new hights Read more](https://www.sdu.dk/en/om-sdu/job-sdu)
+
+![Image 24](https://www.sdu.dk/-/media/images/forsiden_nytsdu/megamenu_spots_270x170px/ledigestillinger_en_400x600px.png)
+
+### [Vacant positions We are always looking for talent that can bring our research to new hights Read more](https://www.sdu.dk/en/om-sdu/job-sdu)
+
+![Image 25](https://www.sdu.dk/-/media/images/forsiden_nytsdu/megamenu_spots_270x170px/ledigestillinger_en_400x600px.png)
+
+### [Vacant positions We are always looking for talent that can bring our research to new hights Read more](https://www.sdu.dk/en/om-sdu/job-sdu)
+
+![Image 26](https://www.sdu.dk/-/media/images/forsiden_nytsdu/megamenu_spots_270x170px/ledigestillinger_en_400x600px.png)
+
+### [Vacant positions We are always looking for talent that can bring our research to new hights Read more](https://www.sdu.dk/en/om-sdu/job-sdu)
+
+![Image 27](https://www.sdu.dk/-/media/images/forsiden_nytsdu/megamenu_spots_270x170px/ledigestillinger_en_400x600px.png)
+
+### [Vacant positions We are always looking for talent that can bring our research to new hights Read more](https://www.sdu.dk/en/om-sdu/job-sdu)
+
+prev
+
+next
+
+## Search
+
+*   [Find person](https://www.sdu.dk/en/service/findperson)
+*   [Find your way to SDU](https://www.sdu.dk/en/service/vejviser)
+
+Search
+
+[SDU](https://www.sdu.dk/en/)[Research](https://www.sdu.dk/en/forskning)[SDU Center for Energy Informatics](https://www.sdu.dk/en/forskning/centreforenergyinformatics)[Research Labs](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs)[Agentic AI and LLM Evaluation Lab](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs/agentic-ai-and-llm-evaluation-lab)
+
+# Agentic AI and LLM Evaluation Lab
+
+![Image 28](https://www.sdu.dk/-/media/images/om_sdu/centre/center+for+energy+informatics/research-labs/agentic-ai-and-llm-evaluation-lab/image-1-agentic-ai-and-llm-evaluation-lab.png?h=1024&iar=0&w=1536&hash=F524DB69643E1BE36FA1C3AB09A4E144)
+
+The Agentic AI and LLM Evaluation Lab investigates large language models and agentic AI as enabling technologies for digital solutions in the energy sector. The lab focuses on how LLM based agents can be evaluated systematically with respect to reasoning quality, robustness, consistency, tool use, and suitability for complex domain specific tasks.
+
+The purpose of the lab is to develop knowledge and methods for assessing which models, orchestration patterns, and interaction strategies are most appropriate for agentic AI applications in energy informatics. This includes the benchmarking of models, the testing of agentic workflows, and the study of how AI agents can interact with data, software tools, digital twins, and human users in realistic settings.
+
+Through this work, the lab contributes scientific and technological foundations for the reliable use of agentic AI in the development of future digital solutions for the green transition of the energy sector.
+
+*   [About](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs/agentic-ai-and-llm-evaluation-lab/about)
+*   [Contact](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs/agentic-ai-and-llm-evaluation-lab/contact)
+
+## Share on
+
+[Facebook](javascript:Cabana.Share({'url':'https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs/agentic-ai-and-llm-evaluation-lab'}, 'facebook');)[X](javascript:Cabana.Share({'url':'https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs/agentic-ai-and-llm-evaluation-lab'}, 'twitter');)[Linkedin](javascript:Cabana.Share({'url':'https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs/agentic-ai-and-llm-evaluation-lab'}, 'linkedin');)[Email](javascript:Cabana.Share({'url':'https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs/agentic-ai-and-llm-evaluation-lab', 'options':{'subject': 'Agentic AI and LLM Evaluation Lab'}}, 'email');)[Copy link](https://www.sdu.dk/en/forskning/centreforenergyinformatics/research-labs/agentic-ai-and-llm-evaluation-lab "Copy URL To Clipboard")
+
+Last Updated 08.04.2026
+
+Research at SDU
+
+![Image 29: Syddansk Universitet Map](https://www.sdu.dk/-/media/genereltsystem/r-persp-solid.png)
+
+## Relevant perspectives across disciplines
+
+SDU’s research and study programmes derive value from constantly being put into relevant perspectives across disciplines and with a focus on the society we impact with our differences.
+
+The answers to societal challenges are often found in the interaction between highly specialized academic environments. When these environments collaborate, perspectives are expanded, and new insights emerge. 
+
+One example of this is Human Health – a cross-disciplinary effort within health communication focusing on narrative medicine. The goal is that SDU within a 5-year period will become leading in Europe both regarding the research and the clinical practice within health services.
+
+[Read more](https://www.sdu.dk/en/forskning)
+
+## Contact
+
+*   [Find Person](https://www.sdu.dk/en/service/findperson)
+*   [Directory](https://www.sdu.dk/en/service/vejviser)
+*   [Contact us](https://www.sdu.dk/en/service/kontakt)
+*   [sdu@sdu.dk](mailto:sdu@sdu.dk)
+
+## About SDU
+
+*   [Profile](https://www.sdu.dk/en/om-sdu)
+*   [Departments and Centres](https://www.sdu.dk/en/om-sdu/institutter-centre)
+*   [Vacant Positions](https://www.sdu.dk/en/om-sdu/job-sdu)
+*   [VAT-no. DK29283958](https://www.sdu.dk/en/om-sdu/indkoeb/elektroniske_fakturaer)
+
+## Programmes
+
+*   [Bachelor](https://www.sdu.dk/en/uddannelse/bachelor)
+*   [Master](https://www.sdu.dk/en/uddannelse/kandidat)
+*   [Engineering](https://www.sdu.dk/en/uddannelse/ingenioer)
+
+## Follow Us
+
+*   [](https://dk.linkedin.com/edu/syddansk-universitet-12017)
+*   [](https://www.instagram.com/uni_in_denmark)
+*   [](https://www.instagram.com/syddansk_universitet/)
+*   [](http://www.youtube.com/syddanskuniversitet)
+
+Phone: +45 6550 1000
+
+[Data Protection at SDU](https://www.sdu.dk/en/om-sdu/om-dette-websted/databeskyttelse)
+
+[Cookie Settings](javascript:CookieScript.instance.show())
+
+[Whistleblowing scheme at SDU](https://www.sdu.dk/en/service/kontakt/whistleblowerordning)
+
+![Image 30](blob:http://localhost/7f886cca467572b908580b61fa801eef)
+
+Danish
+
+![Image 31](blob:http://localhost/eb4b1fac5aa59698c9c65e8912312ff6)
+
+English
+
+![Image 32](blob:http://localhost/7f886cca467572b908580b61fa801eef)
+
+Danish
+
+×
+
+This website uses tracking cookies
+
+We use cookies to personalize our content and to show you social media features and to analyze our traffic. We also share information about your use of our website with our social media partners and analytics partners. Our partners may combine this data with other information that you have provided to them or that they have collected from your use of their services. Select "Show details" below to see futher information.[Read more](https://www.sdu.dk/en/om_sdu/Om_dette_websted/Brug_af_cookies)
+
+- [x] 
+
+Necessary 
+
+- [x] 
+
+Third-party statistics 
+
+- [x] 
+
+Marketing 
+
+- [x] 
+
+non-classified cookies 
+
+Show details Hide details
+
+Save selected cookies and close
+
+Accept all cookies
+
+Do not allow cookies
+
+Cookieerklæring
+
+About cookies
+
+Necessary
+
+Third-party statistics
+
+Marketing
+
+non-classified cookies
+
+These cookies make it possible to use basic website functionality, e.g. navigation etc. The website does not work without these cookies.
+
+Cookie report| Name | Provider / Domæne | Udløb | Description |
+| --- | --- | --- | --- |
+| ARRAffinity | [Microsoft Corporation](https://privacy.microsoft.com/privacystatement) .sdu.dk | Session | This cookie is set by websites run on the Windows Azure cloud platform. It is used for load balancing to make sure the visitor page requests are routed to the same server in any browsing session. |
+| CookieScriptConsent | [CookieScript](https://cookie-script.com/privacy-policy.html) www.sdu.dk | 12 months | This cookie is used by Cookie-Script.com service to remember visitor cookie consent preferences. It is necessary for Cookie-Script.com cookie banner to work properly. |
+| ASP.NET_SessionId | [Microsoft Corporation](https://privacy.microsoft.com/privacystatement) www.sdu.dk | Session | General purpose platform session cookie, used by sites written with Microsoft .NET based technologies. Usually used to maintain an anonymised user session by the server. |
+| ARRAffinitySameSite | [Microsoft Corporation](https://privacy.microsoft.com/privacystatement) .sdu.dk | Session | When using Microsoft Azure as a hosting platform and enabling load balancing, this cookie ensures that requests from one visitor browsing session are always handled by the same server in the cluster. |
+| website#lang | [Sitecore Holding II A/S](https://www.sitecore.com/trust/privacy-policy) www.sdu.dk | Session | This is most likely to be a cookie that stores a preferred language setting to enable localisation functionality in a site. |
+| nmstat | [Siteimprove A/S](https://siteimprove.com/en/privacy/privacy-policy/) .sdu.dk | 1 year 1 month | This cookie is set by SiteImprove. It registers statistical data on visitors' behaviour on the website. Used for internal analytics by the website operator. |
+
+Third-party statistics cookies provide the university with anonymised data on how the user interacts with the website. For example, information about how often the user visits the website, and which pages the user visits.
+
+Cookie report| Name | Provider / Domæne | Udløb | Description |
+| --- | --- | --- | --- |
+| _gid | [Google LLC](https://policies.google.com/privacy) .sdu.dk | 1 day | This cookie is set by Google Analytics. It stores and update a unique value for each page visited and is used to count and track pageviews. |
+| _ga_Z6LB1V9XDR | .sdu.dk | 1 year 1 month | Denne cookie bruges af Google Analytics til at fortsætte sessionstilstanden. |
+| _dc_gtm_UA-5108699-1 | .sdu.dk | 60 seconds | Denne cookie indstilles af Google Analytics. Den gemmer og opdaterer en unik værdi for hver besøgte side og bruges til at tælle og spore sidevisninger. |
+| _ga | [Google LLC](https://policies.google.com/privacy) .sdu.dk | 1 year 1 month | This cookie name is associated with Google Universal Analytics - which is a significant update to Google's more commonly used analytics service. This cookie is used to distinguish unique users by assigning a randomly generated number as a client identifier. It is included in each page request in a site and used to calculate visitor, session and campaign data for the sites analytics reports. |
+| _ga_260071200 | .sdu.dk | 1 year 1 month | Denne cookie bruges af Google Analytics til at fortsætte sessionstilstanden. |
+
+These cookies make it possible for the university to target advertising on our websites and social media, so you will see the content that is most relevant for you.
+
+Cookie report| Name | Provider / Domæne | Udløb | Description |
+| --- | --- | --- | --- |
+| C | .adform.net | 29 days | Denne cookie giver et unikt tildelt, maskingenereret bruger-id og indsamler data om aktivitet på hjemmesiden. Disse data kan sendes til en 3. part til analyse og rapportering. |
+| receive-cookie-deprecation | .adform.net | 1 month 29 days | Denne cookie indstilles af adform for at afgøre, om webstedsbesøgendes browser understøtter cookies. |
+| IDE | [Google LLC](https://policies.google.com/privacy) .doubleclick.net | 1 year | This cookie is set by Doubleclick and carries out information about how the end user uses the website and any advertising that the end user may have seen before visiting the said website. |
+| test_cookie | [Google LLC](https://policies.google.com/privacy) .doubleclick.net | 15 minutes | This cookie is set by DoubleClick (which is owned by Google) to determine if the website visitor's browser supports cookies. |
+| _fbp | [Meta Platform Inc.](https://www.facebook.com/policy.php) .sdu.dk | 3 months | Used by Meta to deliver a series of advertisement products such as real time bidding from third party advertisers |
+| uid | .adform.net | 1 month 29 days | This cookie provides a uniquely assigned, machine-generated user ID and gathers data about activity on the website. This data may be sent to a 3rd party for analysis and reporting. |
+
+Ikke-klassificerede cookies er cookies, der ikke hører til nogen anden kategori eller at vi i færd med at kategorisere dem.
+
+Cookie report| Name | Provider / Domæne | Udløb | Description |
+| --- | --- | --- | --- |
+| shell#lang | www.sdu.dk | Session | Denne cookie, gemmer en foretrukken sprogindstilling for at muliggøre lokaliseringsfunktionalitet på et websted. |
+
+A cookie is a text file, that is stored on your computer, mobile or similar device. When visiting our website it is sent forth and back between your browser and a web server. It is used by SDU or a third party, which is described more specific under the cookie descriptions at the bottom of this page. Cookies cannot contain malicious code such as virus.
+
+ Cookies can be either temporary or permanent. The temporary cookies are linked to one specific visit, and are deleted again when you close the website. The permanent cookie is saved on your computer, mobile or tablet for a period of time. How long the various cookies remain is described in the cookie descriptions at the bottom of the page. Each time you visit the website, however, the cookie will be renewed and the period will thus start all over again
+
+Cookies consent ID: 
+
+Cookie [report](https://cookie-script.com/cookie-report?identifier=2a56caa3493090fedc1786d8dc903dfc) created by [CookieScript](https://cookie-script.com/ "CookieScript Consent Management Platform")

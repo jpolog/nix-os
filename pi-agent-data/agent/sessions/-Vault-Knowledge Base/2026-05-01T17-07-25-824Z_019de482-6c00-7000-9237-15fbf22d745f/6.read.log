@@ -1,0 +1,878 @@
+URL: https://webs.um.es/jruiperez/publication.html
+Content-Type: text/html
+Method: jina
+
+---
+
+Title: José A. Ruipérez Valiente - Professional page
+
+URL Source: https://webs.um.es/jruiperez/publication.html
+
+Markdown Content:
+#### ALAS-KA: A learning analytics extension for better understanding the learning process in the Khan Academy platform.
+
+Journal Paper Computers in Human Behavior. 47, 139–148. 2015.
+
+#### Abstract
+
+The Khan Academy platform enables powerful on-line courses in which students can watch videos, solve exercises, or earn badges. This platform provides an advanced learning analytics module with useful visualizations. Nevertheless, it can be improved. In this paper, we describe ALAS-KA, which provides an extension of the learning analytics support for the Khan Academy platform. We herein present an overview of the architecture of ALAS-KA. In addition, we report the different types of visualizations and information provided by ALAS-KA, which have not been available previously in the Khan Academy platform. ALAS-KA includes new visualizations for the entire class and also for individual students. Individual visualizations can be used to check on the learning styles of students based on all the indicators available. ALAS-KA visualizations help teachers and students to make decisions in the learning process. The paper presents some guidelines and examples to help teachers make these decisions based on data from undergraduate courses, where ALAS-KA was installed. These courses (physics, chemistry, and mathematics) for freshmen were developed at Universidad Carlos III de Madrid (UC3M) and were taken by more than 300 students.
+
+#### Detection and evaluation of emotions in Massive Open Online Courses
+
+Leony, D., Muñoz-Merino, P. J., **Ruipérez-Valiente, J. A.**, Pardo, A., Martín-Caro, D. A., & Delgado Kloos, C.
+
+Journal Paper Journal of Universal Computer Science, 21(5), 638–655. 2015.
+
+#### Abstract
+
+Massive Open Online Courses (MOOCs) have grown up to the point of becoming a new learning scenario for the support of large amounts of students. Among current research efforts related to MOOCs, some are studying the application of well-known characteristics and technologies. An example of these characteristics is adaptation, in order to personalize the MOOC experience to the learners skills, objectives and profile. Several educational adaptive systems have emphasized the advantages of including affective information in the learner profile. Our hypothesis, based on theoretical models for the appraisal of emotions, is that we can infer the learners emotions by analysing their actions with tools in the MOOC platform. We propose four models, each to detect an emotion known to correlate with learning gains and they have been implemented in the Khan Academy Platform. This article presents the four models proposed, the pedagogical theories supporting them, their implementation and the result of a first user study.
+
+#### Analyzing the Impact of Using Optional Activities in Self-Regulated Learning
+
+**Ruipérez-Valiente, J. A.**, Muñoz-Merino, P. J., Delgado Kloos, C., Niemann, K., Scheffel, M., & Wolpers, M.
+
+Journal Paper IEEE Transactions on Learning Technologies, 9(3), 231–243. 2016.
+
+#### Abstract
+
+Self-regulated learning (SRL) environments provide students with activities to improve their learning (e.g., by solving exercises), but they might also provide optional activities (e.g., changing an avatar image or setting goals) where students can decide whether they would like to use or do them and how. Few works have dealt with the use of optional activities in SRL environments. This paper thus analyzes the use of optional activities in two case studies with a SRL approach. We found that the level of use of optional activites was low with only 23.1 percent of students making use of some functionality, while the level of use of learning activities was higher. Optional activities which are not related to learning are used more. We also explored the behavior of students using some of the optional activities in the courses such as setting goals and voting comments, finding that students finished the goals they set in more than 50 percent of the time and that they voted their peers' comments in a positive way. We also found that gender and the type of course can influence which optional activities are used. Moreover, the relations of the use of optional activities with proficient exercises and learning gains is low when taking out third variables, but we believe that optional activities might motivate students and produce better learning in an indirect way.
+
+#### Precise Effectiveness Strategy for analyzing the effectiveness of students with educational resources and activities in MOOCs
+
+Muñoz-Merino, P. J., **Ruipérez-Valiente, J. A.**, Alario-Hoyos, C., Pérez-Sanagustín, M., & Delgado Kloos, C.
+
+Journal Paper Computers in Human Behavior, 47, 108–118. 2015.
+
+#### Abstract
+
+Present MOOC and SPOC platforms do not provide teachers with precise metrics that represent the effectiveness of students with educational resources and activities. This work proposes and illustrates the application of the Precise Effectiveness Strategy (PES). PES is a generic methodology for defining precise metrics that enable calculation of the effectiveness of students when interacting with educational resources and activities in MOOCs and SPOCs, taking into account the particular aspects of the learning context. PES has been applied in a case study, calculating the effectiveness of students when watching video lectures and solving parametric exercises in four SPOCs deployed in the Khan Academy platform. Different visualizations within and between courses are presented combining the metrics defined following PES. We show how these visualizations can help teachers make quick and informed decisions in our case study, enabling the whole comparison of a large number of students at a glance, and a quick comparison of the four SPOCs divided by videos and exercises. Also, the metrics can help teachers know the relationship of effectiveness with different behavioral patterns. Results from using PES in the case study revealed that the effectiveness metrics proposed had a moderate negative correlation with some behavioral patterns like recommendation listener or video avoider.
+
+#### Scaling to Massiveness with ANALYSE: A Learning Analytics Tool for Open edX.
+
+**Ruipérez-Valiente, J. A.**, Muñoz-Merino, P. J., Gascón-Pinedo, J. A., & Delgado Kloos, C.
+
+Journal Paper IEEE Transactions on Human-Machine Systems, 47(6), 909-914. 2017.
+
+#### Abstract
+
+The emergence of massive open online courses (MOOCs) has caused a major impact on online education. However, learning analytics support for MOOCs still needs to improve to fulfill requirements of instructors and students. In addition, MOOCs pose challenges for learning analytics tools due to the number of learners, such as scalability in terms of computing time and visualizations. In this work, we present different visualizations of our “Add-on of the learNing AnaLYtics Support for open Edx” (ANALYSE), which is a learning analytics tool that we have designed and implemented for Open edX, based on MOOC features, teacher feedback, and pedagogical foundations. In addition, we provide a technical solution that addresses scalability at two levels: first, in terms of performance scalability, where we propose an architecture for handling massive amounts of data within educational settings; and, second, regarding the representation of visualizations under massiveness conditions, as well as advice on color usage and plot types. Finally, we provide some examples on how to use these visualizations to evaluate student performance and detect problems in resources.
+
+#### Flipping the Classroom to Improve Learning with MOOCs Technology
+
+Muñoz-Merino, P. J., **Ruipérez-Valiente, J. A.**, Delgado Kloos, C., Auger, M. A., Briz, S., Castro, V. De, & Santalla, S. N.
+
+Journal Paper Computer Applications in Engineering Education, 25(1), 15–25. 2016.
+
+#### Abstract
+
+The use of Massive Open Online Courses (MOOCs) is increasing worldwide and brings a revolution in education. The application of MOOCs has technological but also pedagogical implications. MOOCs are usually driven by short video lessons, automatic correction exercises, and the technological platforms can implement gamification or learning analytics techniques. However, much more analysis is required about the success or failure of these initiatives in order to know if this new MOOCs paradigm is appropriate for different learning situations. This work aims at analyzing and reporting whether the introduction of MOOCs technology was good or not in a case study with the Khan Academy platform at our university with students in a remedial Physics course in engineering education. Results show that students improved their grades significantly when using MOOCs technology, student satisfaction was high regarding the experience and for most of the different provided features, and there were good levels of interaction with the platform (e.g., number of completed videos or proficient exercises), and also the activity distribution for the different topics and types of activities was appropriate.
+
+#### Evaluation of a Learning Analytics Application for Open edX Platform
+
+**Ruipérez-Valiente, J. A.**, Muñoz-Merino, P. J., Pijeira Díaz, H. J., Santofimia Ruiz, J., & Delgado Kloos, C.
+
+Journal Paper Computer Science and Information Systems, 14(1), 51–73. 2016.
+
+#### Abstract
+
+Massive open online courses (MOOCs) have recently emerged as a revolution in education. Due to the huge amount of users, it is difficult for teachers to provide personalized instruction. Learning analytics computer applications have emerged as a solution. At present, MOOC platforms provide low support for learning analytics visualizations, and a challenge is to provide useful and effective visualization applications about the learning process. At this paper we review the learning analytics functionality of Open edX and make an overview of our learning analytics application ANALYSE. We present a usability and effectiveness evaluation of ANALYSE tool with 40 students taking a Design of Telematics Applications course. The survey obtained very positive results in a system usability scale (SUS) questionnaire (78.44/100) in terms of the usefulness of visualizations (3.68/5) and the effectiveness ratio (92/100) of the actions required for the respondents. Therefore, we can conclude that the implemented learning analytics application is usable and effective.
+
+#### Copying@Scale: Using Harvesting Accounts for Collecting Correct Answers in a MOOC
+
+Alexandron, G., **Ruipérez-Valiente, J. A.**, Chen, Z., Pedro J. Muñoz-Merino, & Pritchard, D. E.
+
+Journal Paper Computers & Education, 108, 96–114. 2017.
+
+#### Abstract
+
+This paper presents a detailed study of a form of academic dishonesty that involves the use of multiple accounts for harvesting solutions in a Massive Open Online Course (MOOC). It is termed CAMEO – Copying Answers using Multiple Existence Online. A person using CAMEO sets up one or more harvesting accounts for collecting correct answers; these are then submitted in the user's master account for credit. The study has three main goals: Determining the prevalence of CAMEO, studying its detailed characteristics, and inferring the motivation(s) for using it. For the physics course that we studied, about 10% of the certificate earners used this method to obtain more than 1% of their correct answers, and more than 3% of the certificate earners used it to obtain the majority (>50%) of their correct answers. We discuss two of the likely consequences of CAMEO: jeopardizing the value of MOOC certificates as academic credentials, and generating misleading conclusions in educational research. Based on our study, we suggest methods for reducing CAMEO. Although this study was conducted on a MOOC, CAMEO can be used in any learning environment that enables students to have multiple accounts.
+
+#### Detecting and Clustering Students by their Gamification Behavior with Badges: A Case Study in Engineering Education
+
+**Ruipérez-Valiente, J. A.**, Muñoz-Merino, P. J., & Delgado Kloos, C.
+
+Journal Paper The International Journal of Engineering Education, 33(2), 816–830. 2017.
+
+#### Abstract
+
+Engineering degrees are often regarded as complex and one usual issue is that students struggle and feel discouraged during the learning process. Gamification is starting to play an important role in education with the objective of providing engagement and improving the motivation of students. One specific example is the use of badges. The analysis of users’ interactions and behaviors with the badge system can be used to improve the learning process, e.g. by adapting the learning materials and giving game-based activities to students depending on their interest toward badges. In this work we propose some metrics that provide information regarding the behavior of students with badges, including if they are intentionally earning them, the concentration for achieving them and their time efficiency. We validate these metrics by providing an extensive analysis of 291 different students interacting with a local instance of Khan Academy within our courses for freshmen at Universidad Carlos III de Madrid. This analysis includes relationship mining between badge indicators and others related to the learning process, the analysis of specific archetypal profiles of students that represent a broader population and also by clustering students by their badge indicators with the objective of customizing learning experiences. We finalize by discussing the implications of the results for engineering education, providing guidelines into how instructors can take advantage of the findings of the research and how researchers can replicate experiments similar to this one in other general contexts.
+
+#### Design, Implementation and Evaluation of SPOCs at the Universidad Carlos III de Madrid
+
+Muñoz-Merino, P. J., Méndez Rodríguez, E., Delgado Kloos, C., &**Ruipérez-Valiente, J.A.**
+
+Journal Paper Journal of Universal Computer Science, 23(2), 167–186. 2017.
+
+#### Abstract
+
+The Universidad Carlos III de Madrid has been offering several face-to-face remedial courses for new students to review or learn concepts and practical skills that they should know before starting their degree program. During 2012 and 2013, our University adopted MOOC-like technologies to support some of these courses so that a blended learning methodology could be applied in a particular educational context, i.e. by using SPOCs (Small Private Online Courses). This paper gathers a list of issues, challenges and solutions when implementing these SPOCs. Based on these challenges and issues, a design process is proposed for the implementation of SPOCs. In addition, an evaluation is presented of the different use of the offered courses based on indicators such as the number of videos accessed, number of exercises accessed, number of videos completed, number of exercises correctly solved or time spent on the platform.
+
+#### Using Machine Learning to Detect "Multiple-Account" Cheating and Analyze the Influence of Student and Problem Features
+
+**Ruipérez-Valiente, J. A.**, Muñoz-Merino, P. J., Alexandron, G., and Pritchard, D. E.
+
+Journal Paper In IEEE Transactions on Learning Technologies, 12(1), pages 112-122, 2017.
+
+#### Abstract
+
+One of the reported methods of cheating in online environments in the literature is CAMEO (Copying Answers using Multiple Existences Online), where harvesting accounts are used to obtain correct answers that are later submitted in the master account which gives the student credit to obtain a certificate. In previous research we developed an algorithm to identify and label submissions that were cheated using the CAMEO method; this algorithm relied on the IP of the submissions. In this study we use this tagged sample of submissions to i) compare the influence of student and problems characteristics on CAMEO and ii) build a random forest classifier that detects submissions as CAMEO without relying on IP, achieving sensitivity and specificity levels of 0.966 and 0.996, respectively. Finally, we analyze the importance of the different features of the model finding that student features are the most important variables towards the correct classification of CAMEO submissions, concluding also that student features have more influence on CAMEO than problem features.
+
+#### Improving the prediction of learning outcomes in educational platforms including higher level interaction indicators
+
+**Ruipérez-Valiente, J. A.**, Muñoz-Merino, P. J., & Delgado Kloos, C.
+
+Journal Paper Expert Systems 35(6). 2018.
+
+#### Abstract
+
+One of the most investigated questions in education is to know which factors or variables affect learning. The prediction of learning outcomes can be used to act on students in order to improve their learning process. Several studies have addressed the prediction of learning outcomes in intelligent tutoring systems environments with intensive use of exercises, but few of them addressed this prediction in other web‐based environments with intensive use not only of exercises but also, for example, of videos. In addition, most works on prediction of learning outcomes are based on low level indicators such as number of accesses or time spent in resources. In this paper, we approach the prediction of learning gains in an educational experience using a local instance of Khan Academy platform with an intensive use of exercises and taking into account not only low level indicators but also higher level indicators such as students' behaviours. Our proposed regression model is able to predict 68% of the learning gains variability with the use of six variables related to the learning process. We discuss these results providing explanation of the influence of each variable in the model and comparing these results with other prediction models from other works.
+
+#### The MOOC Pivot
+
+Reich, J. and **Ruipérez-Valiente, J. A.**
+
+Journal Paper Science 363(6423), pages 130-131. 2019.
+
+#### Abstract
+
+When massive open online courses (MOOCs) first captured global attention in 2012, advocates imagined a disruptive transformation in postsecondary education. Video lectures from the world's best professors could be broadcast to the farthest reaches of the networked world, and students could demonstrate proficiency using innovative computer-graded assessments, even in places with limited access to traditional education. But after promising a reordering of higher education, we see the field instead coalescing around a different, much older business model: helping universities outsource their online master's degrees for professionals. To better understand the reasons for this shift, we highlight three patterns emerging from data on MOOCs provided by Harvard University and Massachusetts Institute of Technology (MIT) via the edX platform: The vast majority of MOOC learners never return after their first year, the growth in MOOC participation has been concentrated almost entirely in the world's most affluent countries, and the bane of MOOCs—low completion rates—has not improved over 6 years.
+
+#### Are MOOC Learning Analytics Results Trustworthy? With Fake Learners, They Might Not Be!
+
+Alexandron, G., Yoo, L. Y., **Ruipérez-Valiente, J. A.**, Lee, S., & Pritchard, D. E
+
+Journal Paper In International Journal of Artificial Intelligence in Education, 9(4), 484-506, 2019.
+
+#### Abstract
+
+The rich data that Massive Open Online Courses (MOOCs) platforms collect on the behavior of millions of users provide a unique opportunity to study human learning and to develop data-driven methods that can address the needs of individual learners. This type of research falls into the emerging field of learning analytics. However, learning analytics research tends to ignore the issue of the reliability of results that are based on MOOCs data, which is typically noisy and generated by a largely anonymous crowd of learners. This paper provides evidence that learning analytics in MOOCs can be significantly biased by users who abuse the anonymity and open-nature of MOOCs, for example by setting up multiple accounts, due to their amount and aberrant behavior. We identify these users, denoted fake learners, using dedicated algorithms. The methodology for measuring the bias caused by fake learners’ activity combines the ideas of Replication Research and Sensitivity Analysis. We replicate two highly-cited learning analytics studies with and without fake learners data, and compare the results. While in one study, the results were relatively stable against fake learners, in the other, removing the fake learners’ data significantly changed the results. These findings raise concerns regarding the reliability of learning analytics in MOOCs, and highlight the need to develop more robust, generalizable and verifiable research methods.
+
+#### Using multi-platform learning analytics to compare regional and global MOOC learning in the Arab world
+
+**Ruipérez-Valiente, J. A.**, Halawa S., Slama R. & Reich, J.
+
+Journal Paper Computers & Education, 103776. 2020.
+
+#### Abstract
+
+Recent studies of massive open online courses (MOOCs) have focused on global providers such as edX, Coursera, and FutureLearn, with less attention to local initiatives that target regional learners. In this study we combine data from the main edX platform and one regional MOOC provider, Edraak in Jordan, to explore differences in learners’ behavior and preferences. We find that regional provider Edraak attracts younger learners, more females and those with lower levels of education compared to global providers. Edraak learners value local courses because they cater to their interests and learning needs. We document our multi-platform learning analytics procedure, where we establish a common data format and script that enables an "apples-to-apples" comparison without exchanging data — a common privacy and data security concern. These findings suggest the potential of this methodological approach to study and learn from regional MOOC providers, particularly around the questions of equity and access in the global MOOC ecosystem.
+
+#### Patterns of Engagement in an Educational Massive Multiplayer Online Game: A Multidimensional View
+
+**Ruipérez-Valiente, J. A.**, Gaydos, M., Rosenheck L., Kim Y.J., and Klopfer E.
+
+Journal Paper IEEE Transactions on Learning Technologies (In press). 2020.
+
+#### Abstract
+
+Learning games have great potential to become an integral part of new classrooms of the future. One of the key reported benefits is the capacity to keep students deeply engaged during their learning process. Therefore, it is necessary to develop models that can measure quantitatively how learners are engaging with learning games to inform game designers and educators, and to find ways to maximize learner engagement. In this work, we present our proposal to multidimensionally measure engagement in a learning game over four dimensions: general activity, social, exploration and quests. We apply metrics from these dimensions to data from The Radix Endeavor, an inquiry-based online game for STEM learning that has been tested in K12 classrooms as part of a pilot study across numerous schools. Based on these dimensions, we apply clustering and report four different engagement profiles that we define as: "integrally engaged", "lone achiever", "social explorer" and "non-engaged."" We also use three variables (account type, class grade, and gender) to perform a cross-sectional analysis finding interesting, statistically significant differences in engagement. For example, in-school students and accounts registered to males engaged socially much more than out-of-school learners or accounts registered to females, and that older students have better performance metrics than younger ones.
+
+#### Studying Learner Behavior in Online Courses With Free-Certificate Coupons: Results From Two Case Studies
+
+Littenberg-Tobias, J., **Ruipérez-Valiente, J. A.**, Reich, J.
+
+Journal Paper International Review of Research in Open and Distributed Learning, 21(1), pages 1-22. 2020.
+
+#### Abstract
+
+The relationship between pricing and learning behavior is an important topic in research on massive open online courses (MOOCs). We report on two case studies where cohorts of learners were offered coupons for free certificates to explore how price reductions might influence behavior in MOOC-based online learning settings. In Case Study 1, we compare participation and certification rates between courses with and without free-certificate coupons. In the courses with a free-certificate track, participants signed up for the verified-certificate track at higher rates, and completion rates among verified students were higher than in the paid-certificate track courses. In Case Study 2, we compare learner behavior within the same courses by whether they received access to a free-certificate track. Access to free certificates was associated with lower certification rates, but overall, certification rates remained high, particularly among those who viewed the courses. These findings suggest that some incentives, other than simply the cost of paying for a verified-certificate track, may motivate learners to complete MOOCs.
+
+#### Overview of embedded systems to build reliable and safe ADAS and AD systems
+
+Belmonte, F. J., Martin, S., Sancristobal E., **Ruipérez-Valiente, J. A.**, and Castro M.
+
+Journal Paper IEEE Intelligent Transportation Systems Magazine (In press). 2020.
+
+#### Abstract
+
+Automotive industry is a key sector in developed countries, taking advantage from Electronic and Semiconductor industries, for which this work is focused on, including an overview of embedded systems and related technologies for Advanced Driver Assistance Systems (ADAS) development, end user applications and their implementation (SoCs, Application Processors-APs, MCUs, software and boards), manufacturers solutions, architectures, trends and other aspects (like methodologies) to improve functional safety, reliability and performances. The current status to permit the transition from ADAS to Autonomous Driving (AD) systems and Self-Driving Cars (SDC) is also explored.
+
+#### Reviewing and Analyzing Peer Review Inter-Rater Reliability in a MOOC Platform
+
+Loro-Garcia, F., Garcia S., **Ruipérez-Valiente, J. A.**, San Cristobal, E. and Castro M.
+
+Journal Paper Computers & Education, 103894. 2020.
+
+#### Abstract
+
+Peer assessment activities might be one of the few personalized assessment alternatives to the implementation of auto-graded activities at scale in Massive Open Online Course (MOOC) environments. However, teacher's motivation to implement peer assessment activities in their courses might go beyond the most straightforward goal (i.e., assessment), as peer assessment activities also have other side benefits, such as showing evidence and enhancing the critical thinking, comprehension or writing capabilities of students. However, one of the main drawbacks of implementing peer review activities, especially when the scoring is meant to be used as part of the summative assessment, is that it adds a high degree of uncertainty to the grades. Motivated by this issue, this paper analyses the reliability of all the peer assessment activities performed as part of the MOOC platform of the Spanish University for Distance Education (UNED) UNED-COMA. The following study has analyzed 63 peer assessment activities from the different courses in the platform, and includes a total of 27,745 validated tasks and 93,334 peer reviews. Based on the Krippendorff's alpha statistic, which measures the agreement reached between the reviewers, the results obtained clearly point out the low reliability, and therefore, the low validity of this dataset of peer reviews. We did not find that factors such as the topic of the course, number of raters or number of criteria to be evaluated had a significant effect on reliability. We compare our results with other studies, discuss about the potential implications of this low reliability for summative assessment, and provide some recommendations to maximize the benefit of implementing peer activities in online courses.
+
+#### A Scalable Architecture for the Dynamic Deployment of Multimodal Learning Analytics Applications in Smart Classrooms
+
+Huertas Celdrán, A., **Ruipérez-Valiente, J. A.**, J.A., García Clemente, F.J., Rodríguez-Triana, M.J., Shankar, S.K. and Martínez Pérez, G
+
+Journal Paper Sensors 2020, 2923. 2020.
+
+#### Abstract
+
+The smart classrooms of the future will use different software, devices and wearables as an integral part of the learning process. These educational applications generate a large amount of data from different sources. The area of Multimodal Learning Analytics (MMLA) explores the affordances of processing these heterogeneous data to understand and improve both learning and the context where it occurs. However, a review of different MMLA studies highlighted that ad-hoc and rigid architectures cannot be scaled up to real contexts. In this work, we propose a novel MMLA architecture that builds on software-defined networks and network function virtualization principles. We exemplify how this architecture can solve some of the detected challenges to deploy, dismantle and reconfigure the MMLA applications in a scalable way. Additionally, through some experiments, we demonstrate the feasibility and performance of our architecture when different classroom devices are reconfigured with diverse learning tools. These findings and the proposed architecture can be useful for other researchers in the area of MMLA and educational technologies envisioning the future of smart classrooms. Future work should aim to deploy this architecture in real educational scenarios with MMLA applications.
+
+#### El Proceso de Implementación de Analíticas de Aprendizaje (The Implementation Process of Learning Analytics)
+
+**Ruipérez-Valiente, J. A.**
+
+Journal Paper Revista Iberoamericana de Educación a Distancia (RIED), 23(2), pp. 85-101. 2020
+
+#### Abstract
+
+Con el despegue de la popularidad del área de analítica de aprendizaje durante la última década, numerosas investigaciones han surgido y la opinión pública se ha hecho eco de esta tendencia. Sin embargo, la realidad es que el impacto que ha tenido en la práctica ha sido bastante bajo, y se está produciendo poca transferencia a las instituciones educativas. Una de las posibles causas es la elevada complejidad del campo, y que no existan procesos claros; por ello, en este trabajo, se propone un pragmático proceso de implementación de analíticas de aprendizaje en cinco etapas: 1) entornos de aprendizaje, 2) recolección de datos en crudo, 3) manipulación de datos e ingeniería de características, 4) análisis y modelos y 5) aplicación educacional. Además, se revisan una serie de factores transversales que afectan esta implementación, como la tecnología, ciencias del aprendizaje, privacidad, instituciones y políticas educacionales. El proceso que se detalla puede resultar de utilidad para investigadores, analistas de datos educacionales, educadores e instituciones educativas que busquen introducirse en el área. Alcanzar el verdadero potencial de las analíticas de aprendizaje requerirá de estrecha colaboración y conversación entre todos los actores involucrados en su desarrollo, que permita su implementación de forma sistemática y productiva.
+
+#### Learning analytics and data-driven education: A growing field
+
+Domínguez Figaredo, D., Reich, J., and **Ruipérez-Valiente, J. A.**
+
+Journal Paper Revista Iberoamericana de Educación a Distancia (RIED), 23(2), pp. 33-43. 2020
+
+#### Abstract
+
+The growing presence of digital mediation systems in most educational spaces —whether face-to-face or not, formalized or open, and at basic or lifelong learning levels— has accelerated the advance of learning analytics and the use of data in education as a common practice. Using digital educational tools facilitates the interaction between students, teachers and learning resources in the digital world, and generates a remarkable volume of data that can be analyzed by applying a variety of methodologies. Thus, research focused on information generated by student activity in digital spaces has risen exponentially. Based on this evidence, this special issue shows a set of studies in the field of data-driven educational research and the field of digital learning, which enriches knowledge about learning processes and management of teaching in digitally mediated spaces.
+
+#### Identifying and Characterizing Students Suspected of Academic Dishonesty in SPOCs for Credit through Learning Analytics
+
+Jaramillo-Morillo, D. A., **Ruipérez-Valiente, J. A.**, Solarte, M. and Ramírez, G.
+
+Journal Paper International Journal of Educational Technology in Higher Education, 17, 45. 2020
+
+#### Abstract
+
+Massive Open Online Massive Open Online Courses (MOOCs) have been transitioning slowly from being completely open and without clear recognition in universities or industry, to private settings through the emergence of Small and Massive Private Online Courses (SPOCs and MPOCs). Courses in these new formats are often for credit and have clear market value through the acquisition of competencies and skills. However, the endemic issue of academic dishonesty remains lingering and generating untrustworthiness regarding what students did to complete these courses. In this case study, we focus on SPOCs with academic recognition developed at the University of Cauca in Colombia and hosted in their Open edX instance called Selene Unicauca. We have developed a learning analytics algorithm to detect dishonest students based on submission time and exam responses providing as output a number of indicators that can be easily used to identify students. Our results in two SPOCs suggest that 17% of the students that interacted enough with the courses have performed academic dishonest actions, and that 100% of the students that were dishonest passed the courses, compared to 62% for the rest of students. Contrary to what other studies have found, in this study, dishonest students were similarly or even more active with the courseware than the rest, and we hypothesize that these might be working groups taking the course seriously and solving exams together to achieve a higher grade. With MOOC-based degrees and SPOCs for credit becoming the norm in distance learning, we believe that if this issue is not tackled properly, it might endanger the future of the reliability and value of online learning credentials.
+
+#### Analyzing and Testing Viewability Methods in an Advertising Network
+
+Expósito-Ventura, M. **Ruipérez-Valiente, J. A.**, and & Forné.
+
+Journal Paper IEEE Access, 8, pages 118751-118761. 2020
+
+#### Abstract
+
+Many of the current online businesses base completely their revenue models in earnings from online advertisement. A problematic fact is that according to recent studies more than half of display ads are not being detected as viewable. The International Advertising Bureau (IAB) has defined a viewable impression as an impression that at least 50% of its pixels are rendered in the viewport during at least one continuous second. Although there is agreement on this definition for measuring viewable impressions in the industry, there is no systematic methodologies on how it should be implemented or the trustworthiness of these methods. In fact, the Media Rating Council (MRC) announced that there are inconsistencies across multiple reports attempting to measure this metric. In order to understand the magnitude of the problem, we conduct an analysis of different methods to track viewable impressions. Then, we test a subset of geometric and strong interaction methods in a webpage registered in the worldwide ad-network ExoClick, which currently serves over 7 billion geo-targeted ads a day to a global network of 65000 web/mobile publisher platforms. We find that the Intersection Observer API is the method that detects more viewable impressions given its robustness towards the technological constraints that face the rest of implementations available. The motivation of this work is to better understand the limitations and advantages of such methods, which can have an impact at a standardisation level in online advertising industry, as well as to provide guidelines for future research based on the lessons learned.
+
+#### Autonomous Sensor Network for Rural Agriculture Environments, Low Cost, and Energy Self-Charge
+
+Rodriguez-Robles, J., Martin, A., Garcia S., **Ruipérez-Valiente, J. A.**, Castro M. Expósito-Ventura, M.
+
+Journal Paper MDPI Sustainability, 12, 5913. 2020
+
+#### Abstract
+
+Over the last years, existing technologies have been applied to agricultural environments, resulting in new precision agriculture systems. Some of the multiple profits of developing new agricultural technologies and applications include the cost reduction around the building and deployment of them, together with more energy-efficient consumption. Therefore, agricultural precision systems focus on developing better, easier, cheaper, and overall more efficient ways of handling agricultural monitoring and actuation. To achieve this vision, we use a set of technologies such as Wireless Sensor Networks, Sensors devices, Internet of Things, or data analysis. More specifically, in this study, we proposed a combination of all these technologies to design and develop a prototype of a precision agriculture system for medium and small agriculture plantations that highlights two major advantages: efficient energy management with self-charging capabilities and a low-cost policy. For the development of the project, several prototype nodes were built and deployed within a sensor network connected to the cloud as a self-powered system. The final target of this system is, therefore, to gather environment data, analyze it, and actuate by activating the watering installation. An analysis of the exposed agriculture monitoring system, in addition to results, is exposed in the paper.
+
+#### Effects of Solo vs. Collaborative Play in a Digital Learning Game on Geometry: Results from a K12 Experiment
+
+**Ruipérez-Valiente, J. A.**& Kim, Y. J
+
+Journal Paper Computers & Education, 159, 104008. 2020
+
+#### Abstract
+
+Digital games for learning are one of the most prominent examples of the use of technologies in the classroom, where numerous studies have presented promising results among children and adolescents. However, scarce evidence exists regarding different ways of implementing games within the classroom and how those affect students' learning and behaviors. In this study we explore the effect that collaboration can have in digital gameplay in a K12 context. More specifically, we have designed a 2 × 2 experimental study in which high school first year students participated in solo or collaborative gameplay in pairs, solving puzzles of diverse difficulty, using Shadowspect, a digital game on geometry. Our main results, computed by applying learning analytics on the trace data results, suggest that students playing solo had higher in-game engagement and solved more puzzles, while students collaborating were less linear in their pathways, skipping more tutorial levels and were more exploratory with Shadowspect features. These significant differences that we observe in solo and collaborative gameplay call for more experimentation around the effect of having K12 students collaborate on digital tasks, so that teachers can take better decisions about how to implement these practices in the classrooms of the future.
+
+#### The unMOOCing Process: Extending the Impact of MOOC Educational Resources as OERs.
+
+**Ruipérez-Valiente, J. A.**, Garcia S., Reich, J. & Castro M.
+
+Journal Paper MDPI Sustainability, 12, 7346. 2020
+
+#### Abstract
+
+Massive Open Online Courses (MOOCs) came into the educational ecosystem attracting the attention of the public media, businesses, teachers, and learners from all over the world. The original courses were completely open and free, targeting the worldwide population. However, current MOOC providers have pivoted towards more private directions, and we often find that MOOC materials are completely closed within their hosting platforms and cannot be retrieved from them by their learners. This diminishes the potential of MOOCs by making content available to a small proportion of learners and severely limits the reusability of the educational resources. In this paper, we present a process that we call ‘unMOOCing’, in which we transform the resources of a MOOC into OERs. We taught a MOOC on Open Education in the UNED Abierta platform, and we ‘unMOOCed’ all of its educational resources, making them available to download by the learners that are taking the course. The results of the unMOOCing were very encouraging: the possibility of downloading the course resources was the most highly rated component of the course. Additionally, the two unMOOCed materials that were considered as most useful (presentations and contents in a PDF) were downloaded by 90% of the learners. Now that the majority of MOOC providers are moving towards a more closed educational approach, we believe that this paper sends a powerful message for bringing back the original MOOC concept of ‘Openness’ with the unMOOCing process, thus contributing to the wider dissemination and democratization of education across the globe.
+
+#### Spotting political social bots in Twitter: A use case of the 2019 Spanish general election
+
+Pastor-Galindo, J., Zago, M., Nespoli, P., Lopez Bernal, S., Huertas Celdrán, A., Gil Pérez, M., **Ruipérez-Valiente, J. A.**, Martínez Pérez, G., & Gómez Mármol F.
+
+Journal Paper IEEE Transactions on Network and Service Management, 17, 4, pages 2156-2170. 2020.
+
+#### Abstract
+
+While social media has been proved as an exceptionally useful tool to interact with other people and massively and quickly spread helpful information, its great potential has been ill-intentionally leveraged as well to distort political elections and manipulate constituents. In this article at hand, we analyzed the presence and behavior of social bots on Twitter in the context of the November 2019 Spanish general election. Throughout our study, we classified involved users as social bots or humans, and examined their interactions from a quantitative (i.e., amount of traffic generated and existing relations) and qualitative (i.e., user’s political affinity and sentiment towards the most important parties) perspectives. Results demonstrated that a non-negligible amount of those bots actively participated in the election, supporting each of the five principal political parties.
+
+#### Twitter social bots: the 2019 Spanish general election data.
+
+Pastor-Galindo, J., Zago, M., Nespoli, P., Lopez Bernal, S., Huertas Celdrán, A., Gil Pérez, M., **Ruipérez-Valiente, J. A.**, Martínez Pérez, G., & Gómez Mármol F.
+
+Journal Paper Data in Brief, 32, 106047. 2020.
+
+#### Abstract
+
+The term social bots refer to software-controlled accounts that actively participate in the social platforms to influence public opinion toward desired directions. To this extent, this data descriptor presents a Twitter dataset collected from October 4th to November 11th, 2019, within the context of the Spanish general election. Starting from 46 hashtags, the collection contains almost eight hundred thousand users involved in political discussions, with a total of 5.8 million tweets. The proposed data descriptor is related to the research article available at [1]. Its main objectives are: i) to enable worldwide researchers to improve the data gathering, organization, and preprocessing phases; ii) to test machine-learning-powered proposals; and, finally, iii) to improve state-of-the-art solutions on social bots detection, analysis, and classification. Note that the data are anonymized to preserve the privacy of the users. Throughout our analysis, we enriched the collected data with meaningful features in addition to the ones provided by Twitter. In particular, the tweets collection presents the tweets’ topic mentions and keywords (in the form of political bag-of-words), and the sentiment score. The users’ collection includes one field indicating the likelihood of one account being a bot. Furthermore, for those accounts classified as bots, it also includes a score that indicates the affinity to a political party and the followers/followings list.
+
+#### Defining and Measuring Completion and Assessment Biases with Respect to English Language and Development Status: Not All MOOCs are Equal.
+
+Karp, S., **Ruipérez-Valiente, J. A.**, & Alexandron, G.
+
+Journal Paper International Journal of Educational Technology in Higher Education, 18, Article 41. 2021.
+
+#### Abstract
+
+The emergence of Massive Open Online Courses (MOOCs) broadened the educational landscape by providing free access to quality learning materials for anyone with a device connected to the Internet. However, open access does not guarantee equals opportunities to learn, and research has repetitively reported that learners from affluent countries benefit the most from MOOCs. In this work, we delve into this gap by defining and measuring completion and assessment biases with respect to learners’ language and development status. We do so by performing a large-scale analysis across 158 MITx MOOC runs from 120 different courses offered on edX between 2013 and 2018, with 2.8 million enrollments. We see that learners from developing countries are less likely to complete MOOCs successfully, but we do not find evidence regarding a negative effect of not being English-native. Our findings point out that not only the specific population of learners is responsible for this bias, but also that the course itself has a similar impact. Independent of and less frequent than completion bias, we found assessment bias, that is when the mean ability gained by learners from developing countries is lower than that of learners from developed countries. The ability is inferred from the responses of the learners to the course-assessment using item response theory (IRT). Finally, we applied differential item functioning (DIF) methods with the objective of detecting items that might be causing the assessment bias, obtaining weak, yet positive results with respect to the magnitude of the bias reduction. Our results provide statistical evidence on the role that course design might have on these biases, with a call for action so that the future generation of MOOCs focus on strengthening their inclusive design approaches.
+
+#### Data-driven Detection and Characterization of Communities of Accounts Collaborating in MOOCs.
+
+**Ruipérez-Valiente, J. A.**, Jaramillo-Morillo, D. A., Joksimovic, S., Kovanovic, V., Muñoz-Merino, P. J, Gasevic, D.
+
+Journal Paper Future Generation Computer Systems, 125, pages 590-603. 2021
+
+#### Abstract
+
+Collaboration is considered as one of the main drivers of learning and it has been broadly studied across numerous contexts, including Massive Open Online Courses (MOOCs). The research on MOOCs has risen exponentially during the last years and there have been a number of works focused on studying collaboration. However, these previous studies have been restricted to the analysis of collaboration based on the forum and social interactions, without taking into account other possibilities such as the synchronicity in the interactions with the platform. Therefore, in this work we performed a case study with the goal of implementing a data-driven approach to detect and characterize collaboration in MOOCs. We applied an algorithm to detect synchronicity links based on their submission times to quizzes as an indicator of collaboration, and applied it to data from two large Coursera MOOCs. We found three different profiles of user accounts, that were grouped in couples and larger communities exhibiting different types of associations between user accounts. The characterization of these user accounts suggested that some of them might represent genuine online learning collaborative associations, but that in other cases dishonest behaviors such as free-riding or multiple account cheating might be present. These findings call for additional research on the study of the kind of collaborations that can emerge in online settings.
+
+#### Ideating and Developing a Visualization Dashboard to Support Teachers Using Educational Games in the Classroom.
+
+**Ruipérez-Valiente, J. A.**, Gomez, M., Martinez, P. A., & Kim, Y. J.
+
+Journal Paper IEEE Access, 9, pages 83467-83481. 2021
+
+#### Abstract
+
+Technology has become an integral part of our everyday life, and its use in educational environments keeps growing. Additionally, video games are one of the most popular mediums across cultures and ages. There is ample evidence that supports the benefits of using games for learning and assessment, and educators are mainly supportive of using games in classrooms. However, we do not usually find educational games within the classroom activities. One of the main problems is that teachers report difficulties to actually know how their students are using the game so that they can analyze properly the effect of the activity and the interaction of students. To support teachers, educational games should incorporate learning analytics to transform data generated by students when playing useful information in a friendly and understandable way. For this work, we build upon Shadowspect , a 3D geometry puzzle game that has been used by teachers in a group of schools in the US. We use learning analytics techniques to generate a set of metrics implemented in a live dashboard that aims to facilitate that teachers can understand students’ interaction with Shadowspect . We depict the multidisciplinary design process that we have followed to generate the metrics and the dashboard with great detail. Finally, we also provide uses cases that exemplify how teachers can use the dashboard to understand the global progress of their class and each of their students at an individual level, in order to intervene, adapt their classes and provide personalize feedback when appropriate.
+
+#### Remote experimentation through Arduino-based Remote Laboratories.
+
+Fernández-Pacheco, A., Garcia S., **Ruipérez-Valiente, J. A.**, German Carro, & Castro M.
+
+Journal Paper IEEE Revista Iberoamericana de Tecnologías del Aprendizaje (IEEE-RITA), 16(2), pages 180-186. 2021
+
+#### Abstract
+
+This paper describes the architecture of an Arduino remote lab that supports the deployment of many Arduino-based experiments, such as a sensors remote lab consisting on eleven sensors and a LCD display connected to an Arduino MEGA, or a 3D RGB LED cube remote lab consisting on 16 RGB LEDs connected to an Arduino UNO-compatible board. The proposed on-line system allows students to write code on a website to be executed on these experiments. The execution results can be observed in real time through an IP camera. The use of this kind of on-line didactic tools is very important to provide high quality on-line education programs on technical fields.
+
+#### Applying Learning Analytics to Detect Sequences of Actions and Common Errors in a Geometry Game.
+
+Gomez, M., **Ruipérez-Valiente, J. A.**, Martinez, P. A., & Kim, Y. J.
+
+Journal Paper Sensors, 21(4):1025. 2021.
+
+#### Abstract
+
+Games have become one of the most popular activities across cultures and ages. There is ample evidence that supports the benefits of using games for learning and assessment. However, incorporating game activities as part of the curriculum in schools remains limited. Some of the barriers for broader adoption in classrooms is the lack of actionable assessment data, the fact that teachers often do not have a clear sense of how students are interacting with the game, and it is unclear if the gameplay is leading to productive learning. To address this gap, we seek to provide sequence and process mining metrics to teachers that are easily interpretable and actionable. More specifically, we build our work on top of Shadowspect, a three-dimensional geometry game that has been developed to measure geometry skills as well other cognitive and noncognitive skills. We use data from its implementation across schools in the U.S. to implement two sequence and process mining metrics in an interactive dashboard for teachers. The final objective is to facilitate that teachers can understand the sequence of actions and common errors of students using Shadowspect so they can better understand the process, make proper assessment, and conduct personalized interventions when appropriate.
+
+#### A Survey of the Role of Viewability within the Online Advertising Ecosystem
+
+Expósito-Ventura, M. **Ruipérez-Valiente, J. A.**, Parra-Arnau, J., and & Forné, J.
+
+Journal Paper IEEE Access, 9, pages 134593-134610. 2021.
+
+#### Abstract
+
+Within the online advertising ecosystem, viewability is defined as the metric that measures if an ad impression had the chance of being viewable by a potential consumer. Although this metric has been presented as a potential game-changer within the ad industry, it has not been fully adopted by the stakeholders, mainly due to disagreement between the different parties on the standards to implement and measure it, and its potential benefits and drawbacks. In this study, we present a survey of the role that viewability can have on the main challenges of the online advertising ecosystem depicting the main applications, benefits and issues. With this objective, we provide an overall picture of how viewability can fit within the ecosystem, which can help the different stakeholders to work on its adoption, integration and establishing a research agenda.
+
+#### Global and Regional MOOC Providers: Differences in Learners' Demographics, Preferences, and Perceptions
+
+**Ruipérez-Valiente, J. A.**, Staubitz, T., Jenner, M., Halawa, S., Zhang, J., Despujol, I., Maldonado-Mahauad, J., Montoro, G., Peffer, M., Rohloff, T., Lane, J., Turro, C., Li, X., Pérez-Sanagustín, M. & Reich, J.
+
+Journal Paper Computers & Education, 180, 104426. 2022.
+
+#### Abstract
+
+Massive Open Online Courses (MOOCs) remarkably attracted global media attention, but the spotlight has been concentrated on a handful of English-language providers. While Coursera, edX, Udacity, and FutureLearn received most of the attention and scrutiny, an entirely new ecosystem of local MOOC providers was growing in parallel. This ecosystem is harder to study than the major players: they are spread around the world, have less staff devoted to maintaining research data, and operate in multiple languages with university and corporate regional partners. To better understand how online learning opportunities are expanding through this regional MOOC ecosystem, we created a research partnership among 15 different MOOC providers from nine countries. We gathered data from over eight million learners in six thousand MOOCs, and we conducted a large-scale survey with more than 10 thousand participants. From our analysis, we argue that these regional providers may be better positioned to meet the goals of expanding access to higher education in their regions than the better-known global providers. To make this claim we highlight three trends: first, regional providers attract a larger local population with more inclusive demographic profiles; second, students predominantly choose their courses based on topical interest, and regional providers do a better job at catering to those needs; and third, many students feel more at ease learning from institutions they already know and have references from. Our work raises the importance of local education in the global MOOC ecosystem, while calling for additional research and conversations across the diversity of MOOC providers.
+
+#### Analyzing trends and patterns across the educational technology communities using Fontana framework
+
+Gomez, M., **Ruipérez-Valiente, J. A.**, & García Clemente, F. J.
+
+Journal Paper IEEE Access, 10, pages 35336 - 35351. 2022.
+
+#### Abstract
+
+Nowadays, the use of technology in continuously increasing, making a significant impact in almost every area, including education. New areas have gained much popularity in the last years in educational technology (EdTech), such as Massive Open Online Courses (MOOCs) or computer-supported collaborative learning. In addition, research and interest in this area have also been growing over the years. The quantity of research and scientific publications in EdTech is constantly increasing, and trying to analyze and extract information from a set of research papers is often a very time-consuming task. To make this process easier and solve these limitations, we present Fontana, a framework that can quickly perform trend and social network analysis using any corpus of documents and its metadata. Specifically, the framework can: 1) Discover the latest trends given any corpus of documents, using Natural Language Processing (NLP) analysis and keywords (bibliometric approach); 2) Discover the evolution of the trends previously identified over the years; 3) Discover the primary authors and papers, along with hidden relationships between existing communities. To test its functionality, we evaluated the framework using a corpus of papers from the EdTech research field. We also followed an open science methodology making the entire framework available in Open Science Framework (OSF) easy to access and use. The case study successfully proved the capabilities of the framework, revealing some of the most frequent topics in the area, such as “EDM,” “learning analytics,” or “collaborative learning.” We expect our work to help identifying trends and patterns in the EdTech area, using natural language processing and social network analysis to objectively process large amounts of research.
+
+#### A Survey on Data-Driven Evaluation of Competencies and Capabilities across Multimedia Environments
+
+Sofia Strukova, **Ruipérez-Valiente, J. A.**, and Félix Gómez Mármol.
+
+Journal Paper International Journal of Interactive Multimedia and Artificial Intelligence, (in press). 2022.
+
+#### Abstract
+
+The rapid evolution of technology directly impacts the skills and jobs needed in the next decade. Users can, intentionally or unintentionally, develop different skills by creating, interacting with, and consuming the content from online environments and portals where informal learning can emerge. These environments generate large amounts of data; therefore, big data can have a significant impact on education. Moreover, the educational landscape has been shifting from a focus on contents to a focus on competencies and capabilities that will prepare our society for an unknown future during the 21st century. Therefore, the main goal of this literature survey is to examine diverse technology-mediated environments that can generate rich data sets through the users' interaction and where data can be used to explicitly or implicitly perform a data-driven evaluation of different competencies and capabilities. We thoroughly and comprehensively surveyed the state of the art to identify and analyse digital environments, the data they are producing and the capabilities they can measure and/or develop. Our survey revealed four key multimedia environments that include sites for content sharing & consumption, video games, online learning and social networks that fulfilled our goal. Moreover, different methods were used to measure a large array of diverse capabilities such as expertise, language proficiency and soft skills. Our results prove the potential of the data from diverse digital environments to support the development of lifelong and lifewide 21st-century capabilities for the future society.
+
+#### SmartFC: Mobile Application for High School Students Supported in Flipped Classroom with Low Connectivity Conditions
+
+Sotelo Gomez F., Pastes Urbano, L. M., Terán, H. S., Solarte, M. F., and **Ruipérez-Valiente, J. A.**
+
+Journal Paper IEEE Revista Iberoamericana de Tecnologías del Aprendizaje (IEEE-RITA), 17(1), pages 9-16. 2022.
+
+#### Abstract
+
+This article presents the SmartFC mobile application, an application aimed at students which allows the implementation of the flipped classroom model compatible with the use of ICT (Information and Communications Technologies) even in conditions of low or no connectivity. This proposal not only allows the visualization of open educational resources but also capturing the record of the effort made by students during the development of an academic activity, which represents a significant advantage over the majority of applications used to deliver thematic content. Besides, this application allows two-way communication between students and teachers.
+
+#### Inferring higher level learning information from low level data for the Khan Academy platform
+
+Muñoz-Merino, P. J., **Ruipérez Valiente, J. A.**, & Kloos, C. D.
+
+Conference Papers In Proceedings of the Third International Conference on Learning Analytics and Knowledge - LAK ’13 (pp. 112–116). 2013.
+
+#### Abstract
+
+To process low level educational data in the form of user events and interactions and convert them into information about the learning process that is both meaningful and interesting presents a challenge. In this paper, we propose a set of high level learning parameters relating to total use, efficient use, activity time distribution, gamification habits, or exercise-making habits, and provide the measures to calculate them as a result of processing low level data. We apply these parameters and measures in a real physics course with more than 100 students using the Khan Academy platform at Universidad Carlos III de Madrid. We show how these parameters can be meaningful and useful for the learning process based on the results from this experience.
+
+#### An architecture for extending the learning analytics support in the Khan Academy framework
+
+**Ruipérez-Valiente, J. A**, Muñoz-Merino, P. J., & Delgado Kloos, C.
+
+Conference Papers In Proceedings of the First International Conference on Technological Ecosystem for Enhancing Multiculturality (pp. 277–284)
+
+#### Abstract
+
+The Khan Academy platform enables powerful on-line courses in which students can watch videos, solve exercises or earn badges. This platform provides an advanced learning analytics module with useful visualizations for teachers and students. Nevertheless, this learning analytics support can be improved with recommendations and new useful higher level visualizations in order to try to improve the learning process. In this paper, we describe our architecture for processing data from the Khan Academy platform in order to show new higher level learning visualizations and recommendations. The different involved elements of the architecture are presented and the different decisions are justified. In addition, we explain some initial examples of new useful visualizations and recommendations for teachers and students as part of our extension of the learning analytics module for the Khan Academy platform. These examples use data from an undergraduate Physics course developed at Universidad Carlos III de Madrid with more than 100 students using the Khan Academy system.
+
+#### A demonstration of ALAS-KA: A learning analytics tool for the Khan Academy platform
+
+**Ruipérez-Valiente, J. A**, Muñoz-Merino, P. J., & Delgado Kloos, C.
+
+Conference Papers In 9th European Conference on Technology Enhanced Learning (EC-TEL 2014) (pp. 518–521)
+
+#### Abstract
+
+Instructors and students have problems monitoring the learning process from low level interactions in on-line courses because it is hard to make sense of raw data. In this paper we present a demonstration of the Add-on of the Learning Analytics Support in the Khan Academy platform (ALAS-KA). Our tool processes the raw data in order to transform it into useful information that can be used by the students and instructors through visualizations. ALAS-KA is an interactive tool that allows teachers and students to select the provided information divided by courses and type of information. The demonstration is illustrated with different examples based on real experiments data.
+
+#### Towards the Development of a Learning Analytics Extension in Open edX
+
+Santofimia Ruiz, J., Pijeira Díaz, H. J., **Ruipérez-Valiente, J. A.**, Muñoz-Merino, P. J., & Delgado Kloos, C.
+
+Conference Papers In Proceedings of the Second International Conference on Technological Ecosystems for Enhancing Multiculturality (pp. 299–306)
+
+#### Abstract
+
+The emergence of platforms to support MOOCs (Massive Open Online Courses) strengthens the need of a powerful learning analytics support since teachers cannot be aware of so many students. However, the learning analytics support in MOOC platforms is in an early stage nowadays. The edX platform, one of the most important MOOC platforms, has few learning analytics functionalities at present. In this paper, we analyze the learning analytics support given by the edX platform, and the main initiatives to implement learning analytics in edX. We also present our initial steps to implement a learning analytics extension in edX. We review technical aspects, difficulties, solutions, the architecture and the different elements involved. Finally, we present some new visualizations in the edX platform for teachers and students to help them understand the learning process.
+
+#### Experiences of running MOOCs and SPOCs at UC3M
+
+Delgado Kloos, C., Muñoz-Merino, P. J., Muñoz-Organero, M., Alario-Hoyos, C., Pérez-Sanagustin, M., Parada G., H. A., **Ruipérez-Valiente, J. A.**, Sanz, J. L.
+
+Conference Papers In IEEE Global Engineering Education Conference, EDUCON (pp. 884–891).
+
+#### Abstract
+
+The appearance of MOOCs has boosted the use of educational technology in all possible contexts. Universities are trying to understand this new phenomenon, while carrying out the first trials. Best practices are still scarce and will be developed in the coming months. In this paper, we present first experiences carried out at Universidad Carlos III de Madrid, both with MOOCs (Massive Open Online Courses) and with SPOCs (Small Private Online Courses), which are MOOC counterparts for internal use.
+
+#### Do Optional Activities Matter in Virtual Learning Environments?
+
+**Ruipérez-Valiente, J. A.**, Muñoz-Merino, P. J., Delgado Kloos, C., Niemann, K., & Scheffel, M.
+
+Conference Papers In Ninth European Conference on Technology Enhanced Learning (pp. 331–344)
+
+#### Abstract
+
+Virtual Learning Environments (VLEs) provide studentts with activities to improve their learning (e.g., reading texts, watching videos or solving exercises). But VLEs usually also provide optional activities (e.g., changing an avatar profile or setting goals). Some of these have a connection with the learning process, but are not directly devoted to learning concepts (e.g., setting goals). Few works have dealt with the use of optional activities and the relationships between these activities and other metrics in VLEs. This paper analyzes the use of optional activities at different levels in a specific case study with 291 students from three courses (physics, chemistry and mathematics) using the Khan Academy platform. The level of use of the different types of optional activities is analyzed and compared to that of learning activities. In addition, the relationship between the usage of optional activities and different student behaviors and learning metrics is presented.
+
+#### A Predictive Model of Learning Gains for a Video and Exercise Intensive Learning Environment
+
+**Ruipérez-Valiente, J. A.**, Muñoz-Merino, P. J., & Delgado Kloos, C.
+
+Conference Papers In International Conference on Artificial Intelligence in Education (pp. 760–763)
+
+#### Abstract
+
+This work approaches the prediction of learning gains in an environment with intensive use of exercises and videos, specifically using the Khan Academy platform. We propose a linear regression model which can explain 57.4% of the learning gains variability, with the use of four variables obtained from the low level data generated by the students. We found that two of these variables are related to exercises (the proficient exercises and the average number of attempts in exercises), and one is related to both videos and exercises (the total time spent in both) related to exercises, whereas only one is related to videos.
+
+#### Using Video Visualizations in Open edX to Understand Learning Interactions of Students
+
+Pijeira, H. J., Santofimia, J., **Ruipérez-Valiente, J. A.**, Muñoz-Merino, P. J., & Delgado Kloos, C.
+
+Conference Papers In 10th European Conference on Technology Enhanced Learning (pp. 522–525). 2015.
+
+#### Abstract
+
+The emergence of Massive Open Online Courses (MOOCs) has caused a high disrupting effect on online education. One of the most extended MOOC platforms is Open edX. There is a demanding necessity by the instructors and students of these courses to provide timely analytics tools that can help understand the learning process at any moment. In this direction we have developed the Add-on of learNing AnaLYtics Support for open Edx (ANALYSE), which is our learning analytics contribution for Open edX. In this demonstration paper we will provide guidelines on how to use some of the ANALYSE video visualizations in order to detect problems in video resources, so that the learning process can be improved.
+
+#### An analysis of the use of badges in an educational experiment
+
+**Ruipérez-Valiente, J. A.**, Muñoz-Merino, P. J., & Delgado Kloos, C.
+
+Conference Papers In Frontiers in Education Conference (pp. 1--8), 2016.
+
+#### Abstract
+
+The use of badges in educational contexts its starting to gain popularity. However many studies do not offer an extensive analysis of the results regarding the use of badges after the educational experiment is finished. In this work we offer an evaluation of the results of three courses (physics, chemistry and mathematics) that we have conducted using Khan Academy with a wide badge system and 291 different students. We analyze these results regarding the distribution of badges per student, analyzing also the different badge types and which of them were delivered more often. We also explore the influence of factors such as the difficulty of problems or video length in the amount of badges triggered by exercises and videos respectively. We compare the results among the three courses trying to find possible explanations to these differences. We also put the lessons learned into context and give recommendations so that our findings can be used by instructional designers and other researchers.
+
+#### A Demonstration of ANALYSE: A Learning Analytics Tool for Open edX
+
+Pijeira Díaz, H. J., Santofimia Ruiz, J., **Ruipérez-Valiente, J. A.**, Muñoz-Merino, P. J., & Delgado Kloos, C.
+
+Conference Papers In Proceedings of the Third ACM Conference on Learning@Scale (pp. 329–330). 2016.
+
+#### Abstract
+
+Education is being powered by technology in many ways. One of the main advantages is making use of data to improve the learning process. The massive open online course (MOOC) phenomenon became viral some years ago, and with it many different platforms emerged. However most of them are proprietary solutions (i.e. Coursera, Udacity) and cannot be used by interested stakeholders. At the moment Open edX is placed as the primary open source application to support MOOCs. The community using Open edX is growing at a fast pace with many interested institutions. Nevertheless, the learning analytics support of Open edX is still in its first steps. In this paper we present an overview and demonstration of ANALYSE, an open source learning analytics tool for Open edX. ANALYSE includes currently 12 new visualizations that can be used by both instructors and students.
+
+#### Analyzing students' intentionality towards badges within a case study using Khan academy
+
+**Ruipérez-Valiente, J. A.**, Muñoz-Merino, P. J., & Delgado Kloos, C.
+
+Conference Papers In Proceedings of the Sixth International Conference on Learning Analytics & Knowledge (pp. 536–537)
+
+#### Abstract
+
+One of the most common gamification techniques in education is the use of badges as a reward for making specific student actions. We propose two indicators to gain insight about students' intentionality towards earning badges and use them with data from 291 students interacting with Khan Academy courses. The intentionality to earn badges was greater for repetitive badges, and this can be related to the fact that these are easier to achieve. We provide the general distribution of students depending on these badge indicators, obtaining different profiles of students which can be used for adaptation purposes.
+
+#### Using multiple accounts for harvesting solutions in MOOCs
+
+**Ruipérez-Valiente, J. A.**, Alexandron, G., Chen, Z., & Pritchard, D. E.
+
+Conference Papers In Proceedings of the Third ACM Conference on Learning@Scale (pp. 63–70)
+
+#### Abstract
+
+The study presented in this paper deals with copying answers in MOOCs. Our findings show that a significant fraction of the certificate earners in the course that we studied have used what we call harvesting accounts to find correct answers that they later submitted in their main account, the account for which they earned a certificate. In total, around 2.5% of the users who earned a certificate in the course obtained the majority of their points by using this method, and around 10% of them used it to some extent. This paper has two main goals. The first is to define the phenomenon and demonstrate its severity. The second is characterizing key factors within the course that affect it, and suggesting possible remedies that are likely to decrease the amount of cheating. The immediate implication of this study is to MOOCs. However, we believe that the results generalize beyond MOOCs, since this strategy can be used in any learning environments that do not identify all registrants.
+
+#### A Data-driven Method for the Detection of Close Submitters in Online Learning Environments
+
+**Ruipérez-Valiente, J. A.**, Joksimovic, S., Kovanovic, V., Gasevic, D., Muñoz-Merino, P. J., & Delgado Kloos, C.
+
+Conference Papers In Proceedings of the 26th International Conference on World Wide Web Companion (pp. 361–368). 2017.
+
+#### Abstract
+
+Online learning has become very popular over the last decade. However, there are still many details that remain unknown about the strategies that students follow while studying online. In this study, we focus on the direction of detecting 'invisible' collaboration ties between students in online learning environments. Specifically, the paper presents a method developed to detect student ties based on temporal proximity of their assignment submissions. The paper reports on findings of a study that made use of the proposed method to investigate the presence of close submitters in two different massive open online courses. The results show that most of the students (i.e., student user accounts) were grouped as couples, though some bigger communities were also detected. The study also compared the population detected by the algorithm with the rest of user accounts and found that close submitters needed a statistically significant lower amount of activity with the platform to achieve a certificate of completion in a MOOC. These results confirm that the detected close submitters were performing some collaboration or even engaged in unethical behaviors, which facilitates their way into a certificate. However, more work is required in the future to specify various strategies adopted by close submitters and possible associations between the user accounts.
+
+#### Early Prediction and Variable Importance of Certificate Accomplishment in a MOOC
+
+**Ruipérez-Valiente, J. A.**, Cobos, R., Muñoz-Merino, P. J., Andújar, A., & Delgado Kloos, C.
+
+Conference Papers In Proceedings of the European Conference on Massive Open Online Courses (pp. 263–272). 2017.
+
+#### Abstract
+
+The emergence of MOOCs (Massive Open Online Courses) makes available big amounts of data about students’ interaction with online educational platforms. This allows for the possibility of making predictions about future learning outcomes of students based on these interactions. The prediction of certificate accomplishment can enable the early detection of students at risk, in order to perform interventions before it is too late. This study applies different machine learning techniques to predict which students are going to get a certificate during different timeframes. The purpose is to be able to analyze how the quality metrics change when the models have more data available. From the four machine learning techniques applied finally we choose a boosted trees model which provides stability in the prediction over the weeks with good quality metrics. We determine the variables that are most important for the prediction and how they change during the weeks of the course.
+
+#### Evaluating the Robustness of Learning Analytics Results Against Fake Learners
+
+Alexandron, G., **Ruipérez-Valiente, J. A.**, Lee, Sunbok., & Pritchard, D. E.
+
+Conference Papers In Proceedings of the 13th European Conference on Technology Enhanced Learning (pp. 74-87). 2018.
+
+#### Abstract
+
+Massive Open Online Courses (MOOCs) collect large amounts of rich data. A primary objective of Learning Analytics (LA) research is studying these data in order to improve the pedagogy of interactive learning environments. Most studies make the underlying assumption that the data represent truthful and honest learning activity. However, previous studies showed that MOOCs can have large cohorts of users that break this assumption and achieve high performance through behaviors such as Cheating Using Multiple Accounts or unauthorized collaboration, and we therefore denote them fake learners. Because of their aberrant behavior, fake learners can bias the results of Learning Analytics (LA) models. The goal of this study is to evaluate the robustness of LA results when the data contain a considerable number of fake learners. Our methodology follows the rationale of ‘replication research’. We challenge the results reported in a well-known, and one of the first LA/Pedagogic-Efficacy MOOC papers, by replicating its results with and without the fake learners (identified using machine learning algorithms). The results show that fake learners exhibit very different behavior compared to true learners. However, even though they are a significant portion of the student population ( ∼ 15%), their effect on the results is not dramatic (does not change trends). We conclude that the LA study that we challenged was robust against fake learners. While these results carry an optimistic message on the trustworthiness of LA research, they rely on data from one MOOC. We believe that this issue should receive more attention within the LA research community, and can explain some ‘surprising’ research results in MOOCs.
+
+#### Participation of the Arab World in MOOCs
+
+**Ruipérez-Valiente, J. A.** and Reich J.
+
+Conference Papers In Learning With MOOCS (LWMOOCS) (pp. 47-50). IEEE. Madrid, Spain. 2018.
+
+#### Abstract
+
+One of the original purposes of MOOCs is to democratize education worldwide in order to advance towards a fairer society and universal human development. However, initial findings suggest that there are a number of challenges that MOOCs face to achieve their maximum potential in developing countries and regions with complex issues of access to high quality education. The majority of research studies on MOOCs focus on one or a small number of courses, or an overview of an entire platform or system, such as edX or FutureLearn. However, these kinds of investigations can mask important regional variation in different parts of the world. In this study we conduct a longitudinal analysis using data from six years of courses from MITx and HarvardX, focusing on the particular Arab world sub-population, and comparing to the rest of the world and also on their human development index. A close investigation of this subpopulation will help us better understand what kinds of course registration and course-taking patterns are influenced by regional cultural factors, and what dimensions of MOOC learning are more universal. In this work we present initial results after conducting exploratory analysis on 452 MOOCs (~ 4.5M unique learners) from MITx and HarvardX, which show that despite the important cultural and geographical contrasts, the general trends are quite similar. Still, we observe some significant differences, such as lower completion metrics for Arabic countries when performing this comparison within each human development category and also some differences in percentage of enrolments per course category.
+
+#### Towards a Process to Integrate Learning Analytics and Evidence-Centered Design for Game-based Assessment
+
+Kim Y.J.,**Ruipérez-Valiente, J. A.** Tan P., Rosenheck L. and Klopfer E.
+
+Conference Papers In Companion Proceedings of the 9th International Learning Analytics and Knowledge Conference (LAK'19), (pp. 204-205). Tempe (AZ), USA. 2019.
+
+#### Abstract
+
+To fully leverage data-driven approaches for measuring learning in complex and interactive game environments, the field needs to develop methods to coherently integrate learning analytics (LA) throughout the design, development, and evaluation processes to overcome the downfalls of a purely data approach. In this paper, we introduce a process that weaves three distinctive disciplines together--assessment science, game design, and learning analytics--for the purpose of creating digital games for educational assessment.
+
+#### Impact of Free-Certificate Coupons on Learner Behavior in Online Courses: Results from Two Case Studies
+
+Littenberg-Tobias, J. **Ruipérez-Valiente, J. A.**& Reich, J.
+
+Conference Papers Sixth ACM Conference on Learning @ Scale (L@S'19). Article No. 41. Chicago (IL), USA. 2019.
+
+#### Abstract
+
+The relationship between pricing and learning behavior is an increasingly important topic in MOOC (massive open online course) research. We report on two case studies where cohorts of learners were offered coupons for free-certificates to explore price reductions might influence user behavior in MOOC-based online learning settings. In Case Study #1, we compare participation and certification rates between courses with and without coupons for free-certificates. In the courses with a free-certificate track, participants signed up for the verified certificate track at higher rates and completion rates among verified students were higher than in the paid-certificate track courses. In Case Study #2, we compare the behaviors of learners within the same courses based on whether they received access to a free-certificate track. Access to free-certificates was associated with somewhat lower certification rates, but overall certification rates remained high particularly among those who viewed the courses. These findings suggests that some other incentives, other than simply the sunk-cost of paying for a verified certificate-track, may motivate learners to complete MOOC courses.
+
+#### Multiplatform MOOC Analytics: Comparing Global and Regional Patterns in edX and Edraak
+
+**Ruipérez-Valiente, J. A.**, Halawa S. and Reich, J.
+
+Conference Papers Sixth ACM Conference on Learning @ Scale (L@S'19). Article No. 3. Chicago (IL), USA. 2019.
+
+#### Abstract
+
+While global massive open online course (MOOC) providers such as edX, Coursera, and FutureLearn have garnered the bulk of attention from researchers and the popular press, MOOCs are also provisioned by a series of regional providers, who are often using the Open edX platform. We leverage the data infrastructure shared by the main edX instance and one regional Open edX provider, Edraak in Jordan, to compare the experience of learners from Arab countries on both platforms. Comparing learners from Arab countries on edX to those on Edraak, the Edraak population has a more even gender balance, more learners with lower education levels, greater participation from more developing countries, higher levels of persistence and completion, and a larger total population of learners. This "apples to apples" comparison of MOOC learners is facilitated by an approach to multiplatform MOOC analytics, which employs parallel research processes to create joint aggregate datasets without sharing identifiable data across institutions. Our findings suggest that greater research attention should be paid towards regional MOOC providers, and regional providers may have an important role to play in expanding access to higher education.
+
+#### Towards a General Purpose Anomaly Detection Method to Identify Cheaters in Massive Open Online Courses
+
+Alexandron, G., **Ruipérez-Valiente, J. A.**& Pritchard, D. E.
+
+Conference Papers 12th international conference on educational data mining (pp. 480-483). Montreal, Canada. 2019.
+
+#### Abstract
+
+We propose a general-purpose method for detecting cheating in Massive Open Online Courses (MOOCs) using an Anomaly Detection technique. Using features that are based on measures of aberrant behavior, we show that a classifier that is trained on data of one type of cheating (Copying Using Multiple Accounts) can detect users who perform another type of cheating (unauthorized collaboration). The study exploits the fact that we have dedicated algorithms for detecting these two methods of cheating, which are used as reference models. The contribution of this paper is twofold. First, we demonstrate that a detection method that is based on anomaly detection, which is trained on a known set of cheaters, can generalize to detect cheaters who use other methods. Second, we propose a new time-based person-fit aberrant behavior statistic.
+
+#### Assessment that matters: Balancing reliability and learner-centered pedagogy in MOOC assessment
+
+Alexandron, G., Wiltrout, M.E., Berg, A. &**Ruipérez-Valiente, J. A.**
+
+Conference Papers In 10th International Learning Analytics and Knowledge Conference (LAK'20). Frankfurt, Germany. 2020.
+
+#### Abstract
+
+Learner-centered pedagogy highlights active learning and formative feedback. Instructors often incentivize learners to engage in such formative assessment activities by crediting their completion and score in the final grade, a pedagogical practice that is very relevant to MOOCs as well. However, previous studies have shown that too many MOOC learners exploit the anonymity to abuse the formative feedback, which is critical in the learning process, to earn points without effort. Unfortunately, limiting feedback and access to decrease cheating is counter-pedagogic and reduces the openness of MOOCs. We aimed to identify and analyze a MOOC assessment strategy that balances this tension between learner-centered pedagogy, incentive design, and reliability of the assessment. In this study, we evaluated an assessment model that MITx Biology introduced in a MOOC to reduce cheating with respect to its effect on two aspects of learner behavior – the amount of cheating and learners' engagement in formative course activities. The contribution of the paper is twofold. First, this work provides MOOC designers with an ‘analytically-verified’ MOOC assessment model to reduce cheating without compromising learner engagement in formative assessments. Second, this study provides a learning analytics methodology to approximate the effect of such an intervention.
+
+#### Macro MOOC Learning Analytics: Exploring Trends Across Global and Regional Providers
+
+**Ruipérez-Valiente, J. A.**, Jenner, M., Staubitz, T., Li, X., Rohloff, T., Halawa, S., Turro, C., Cheng, Y., Zhang, J., Despujol, I. & Reich, J.
+
+Conference Papers In 10th International Learning Analytics and Knowledge Conference (LAK'20). Frankfurt, Germany. 2020.
+
+#### Abstract
+
+Massive Open Online Courses (MOOCs) have opened new educational possibilities for learners around the world. Numerous providers have emerged, which usually have different targets (geographical, topics or language), but most of the research and spotlight has been concentrated on the global providers and studies with limited generalizability. In this work we apply a multi-platform approach generating a joint and comparable analysis with data from millions of learners and more than ten MOOC providers that have partnered to conduct this study. This allows us to generate learning analytics trends at a macro level across various MOOC providers towards understanding which MOOC trends are globally universal and which of them are context-dependent. The analysis reports preliminary results on the differences and similarities of trends based on the country of origin, level of education, gender and age of their learners across global and regional MOOC providers. This study exemplifies the potential of macro learning analytics in MOOCs to understand the ecosystem and inform the whole community, while calling for more large scale studies in learning analytics through partnerships among researchers and institutions.
+
+#### Measuring Online Advertising Viewability and Analyzing its Variability Across Different Dimensions
+
+Expósito-Ventura, M., **Ruipérez-Valiente, J. A.**, & Forné.
+
+Conference Papers In 10th edition of the International Conference on Web Intelligence, Mining and Semantics (WIMS 2020) (pp. 117–122). Biarritz, France. 2020.
+
+#### Abstract
+
+Many of the current online business base completely their revenue models in earnings from online advertisement. A problematic fact is that according to Google more than half of display ads are not being seen. The International Advertising Bureau (IAB) has defined a viewable impression as an impression that at least 50% of its pixels are rendered in the viewport during at least one continuous second. Although there is agreement on this definition for measuring viewable impressions in the industry, there is no systematic methodologies on how it should be implemented or the trustworthiness of these implementations. In fact, the Media Rating Council (MRC) announced that there are inconsistencies across multiple reports attempting to measure this metric. For this reason, we select a subset of implementations to track viewable impressions and we perform a case study by implementing them in a webpage registered in the worldwide ad-network ExoClick in order to see their results on different dimensions. Our results show that the Intersection Observer API is the implementation that detects more viewable impressions and that there are significant viewability differences depending on the banner location on the website. Finally, we also propose an ensemble viewability method that proves to be able to detect a higher number of viewable impressions.
+
+#### Data-driven Game Design: The Case of Difficulty in Educational Games.
+
+Kim Y.J. &**Ruipérez-Valiente, J. A.**
+
+Conference Papers In 15th European Conference on Technology Enhanced Learning (pp. 449--454), Heidelberg, Germany, 2020.
+
+#### Abstract
+
+There is increasing interest in using data to design digital games that serve the purposes of learning and assessment. One game element, difficulty, could benefit vastly from applying data-driven methods as it affects both players’ overall enjoyment and efficiency of learning and qualities of assessment. However, how difficulty is being defined varies across the learning, assessment, and game perspectives, yet little is known about how educational difficulty can be balanced in educational games for each of the potentially conflicting goals. In this paper, we first review varying definitions of difficulty and then we discuss how we came up with a difficulty metric and used it to refine our game-based assessment Shadowspect. The design guidelines, metrics and lessons learned will be useful for designers of learning games and educators interested in balancing difficulty before they implement these tools in the classroom.
+
+#### Participation of Latin America in MOOCs: Exploring Trends Across Providers
+
+Maldonado-Mahauad, J., **Ruipérez-Valiente, J. A.**, Pérez-Sanagustín, M., Jenner, M, Despujol, I., Turró, C. Staubitz, T., Rohloff, T., Montoro, G., & Reich, J.
+
+Conference Papers In 7th IEEE Learning with MOOCs (pp. 25--30). Antigua, Gautemala. 2020.
+
+#### Abstract
+
+Massive Online Open Courses (MOOCs) have become popular in various regions of the world through the years. Since 2008, this phenomenon has received plenty of attention from higher education and universities across countries began to produce these courses. The countries of Europe and the United States are the world's leading producers of MOOCs and research studies reporting on this topic. This previous research has focused on (1) analysing data from global providers such as edX, Coursera or FutureLearn; (2) describing learners' characteristics from a small sample of courses in these regions; and (3) offering overviews of courses and platforms. However, research in other regions such as Latin America or Africa are very scarce. As a consequence, little is known about local initiatives in Latin America region, and about the needs and characteristics of its learners. Moreover, this has generated an unequal and biased perspective of what we know today about MOOC learners. To close this inequality gap, this work, presents a cross-platform exploratory study in Latin America, using data from more than three million learners and seven different MOOC providers to generate a joint comparable analysis about students' characteristics in this region with others regions in the world. Preliminary results report on the differences and similarities of trends based on level of education, age, gender of students, their level of activity and performance of learners in Latin America through the different providers of MOOCs. These results help us understand the MOOC ecosystem in Latin America and report results to the entire community, while at the same time calling for more large-scale studies between researchers and institutions.
+
+#### Educational Robotics for all gender, diversity, and inclusion in STEAM
+
+Plaza, P., Castro, M., Merino, J., Restivo, T., Peixoto A., Gonzalez C., Menacho A., García-Loro, F. Sancristobal, E., Blazquez M., Diaz P., Plaza, I., Fondón, I., Sarmiento, A., Civantos, I., Fernandez C., Lord S., Rover, D., Chan R., Ciampi, M., Meier, R., Tovar, E., Salazar, M., Zvacek, S., **Ruipérez-Valiente, J. A.**, Quintana, B., Martín, S., Botella, G., López-Rey, Á., Guedey, M., Abreu, P., Urbano, D., and Strachan, R.
+
+Conference Papers In 7th IEEE Learning with MOOCs (pp. 19--24). Antigua, Gautemala. 2020.
+
+#### Abstract
+
+The pedagogy of science, technology, engineering, arts, and mathematics (STEAM) can be easily developed by using robotics and computational thinking tools. Also, inclusion and integration of diverse groups of students can be promoted using these tools. Today we can find many tools for teaching robotics. This kind of tools allow us to promote innovation and motivation of students. In this way, students will be able to work during the learning process in an innovative and motivating way. Since it is increasingly common to find robots in our daily lives, it is important to integrate robots into education as well. There are already cooking robots, autonomous cars, vacuum cleaner robots in houses and gardens, or prostheses. This paper describes a course focused on a combination of teaching methodologies, educational robotics tools, and a student learning management methodology, all within an inclusive framework to strengthen the presence of women and other under-represented groups in engineering.
+
+#### Exploring the Affordances of Sequence Mining in Educational Games
+
+Gomez, M., **Ruipérez-Valiente, J. A.**, Martinez, P. A., & Kim, Y. J.
+
+Conference Papers In Eight International Conference on Technological Ecosystem for Enhancing Multiculturality (pp. 648--654). Salamanca, Spain. 2020.
+
+#### Abstract
+
+Games have become one of the most popular mediums across cultures and ages and the use of educational games is growing. There is ample evidence that supports the benefits of using games for learning and assessment. However, we do not usually find games incorporated into educational environments. One of the main problems that teachers face is to actually know how students are interacting with the game as they cannot analyze properly the effect of the activity on the students. To improve this issue, we can use the data generated by the interaction of students with such educational games to analyze the sequences and errors by transforming raw data into meaningful sequences that are interpretable and actionable for teachers. In this study we use a data collection from our game Shadowspect and implement learning analytics with process and sequence mining techniques to generate two metrics that aim to help teachers make proper assessment and better understand the process.
+
+#### Bibliometric Analysis of the Last Ten Years of the European Conference on Technology-Enhanced Learning
+
+Manuel J. Gomez, **Ruipérez-Valiente, J. A.**, & Félix J. García Clemente
+
+Conference Papers In 17th European Conference on Technology Enhanced Learning (pp. 337-341). Online. 2021.
+
+#### Abstract
+
+Over the last decade, we have seen a large amount of research being performed in technology-enhanced learning. The European Conference on Technology-enhanced Learning (EC-TEL) is one of the conferences with the most extended trajectory in this area. The goal of this paper is to provide an overview of the last ten years of the conference. We collected all papers from the last ten years of the conference, along with the metadata, and used their keywords to find the most important ones across the papers. We also parsed papers’ full text automatically, and used it to extract information about this year’s conference topic. These results will shed some light on the latest trends and evolution of EC-TEL.
+
+#### Promoting Computational Thinking through Visual Block Programming Tools
+
+Pedro Plaza, Manuel Castro, Jose Manuel Sáez-López, Elio Sancristobal, Rosario Gil, Antonio Menacho, Félix García-Loro, Blanca Quintana, Sergio Martin, Manuel Blázquez, Alejandro Macho, Pablo Baizán, Francisco Mur, German Carro, Clara Pérez, Ramón Carrasco, África López-Rey, Miguel Rodriguez-Artacho, &**Ruipérez-Valiente, J. A.**
+
+Conference Papers In 2021 IEEE Global Engineering Education Conference (EDUCON), 1131--1136. Online. 2021.
+
+#### Abstract
+
+Computational Thinking is a competence that is developed more in the last few years. This is due to the multitude of benefits it has in the classroom. Throughout this article we show a series of activities that promote the development of Computational Thinking using tools that allow visual block programming. The particularity of these activities is that some of them were performed during the confinement due to the COVID-19 and other activities were performed later, in the period known as the new normality. Throughout the article, details are provided about the different sessions. The different visual programming tools by blocks and the educational scenarios used are also indicated. In addition, the results obtained are shown.
+
+#### Promoting Computational Thinking through Visual Block Programming Tools
+
+Carina Gonzalez, Alicia García-Holgado, Pedro Plaza, Manuel Castro, Aruquia Peixoto, Julia Merino, Elio Sancristobal, Antonio Menacho, Diana Urbano, Manuel Blázquez, Félix García-Loro, Teresa Restivo, Rebecca Strachan, Paloma Diaz, Inmaculada Plaza, Cristina Fernandez, Susan Lord, Diane Rover, Rosana Chan, Melany Ciampi, Russ Meier, Edmundo Tovar, Magdalena Salazar, Susan Zvacek, **Ruipérez-Valiente, J. A.**, Blanca Quintana, Sergio Martín, Guillermo Botella, África López-Rey, & Paulo Abreu
+
+Conference Papers In 2021 IEEE Global Engineering Education Conference (EDUCON), 1630--1634. Online. 2021.
+
+#### Abstract
+
+Computational Thinking is a competence that is developed more in the last few years. This is due to the multitude of benefits it has in the classroom. Throughout this article we show a series of activities that promote the development of Computational Thinking using tools that allow visual block programming. The particularity of these activities is that some of them were performed during the confinement due to the COVID-19 and other activities were performed later, in the period known as the new normality. Throughout the article, details are provided about the different sessions. The different visual programming tools by blocks and the educational scenarios used are also indicated. In addition, the results obtained are shown.
+
+#### MOOC Monetization Changes and Completion Rates: Are Learners from Countries of Different Development Status Equally Affected?
+
+Sa'Ar Karp Gershon, **Ruipérez-Valiente, J. A.**, & Giora Alexandron
+
+Conference Papers In 2021 European Conference on Massive Open Online Course, 169-179. Online. 2021.
+
+#### Abstract
+
+Massive Open Online Courses (MOOCs) offer online courses at low cost for anyone with an internet access. At its early days, the MOOC movement raised the flag of democratizing education, but soon enough, this utopian idea collided with the need to find sustainable business models. Moving from open access to a new financially sustainable certification and monetization policy in December 2015 we aim at this change-point and observe the completion rates before and after this monetary change. In this study we investigate the impact of the change on learners from countries of different development status. Our findings suggest that this change has lowered the completion rates among learners from developing countries, increasing gaps that already existed between global learners from countries of low and high development status. This suggests that more inclusive monetization policies may help MOOCs benefits to spread more equally among global learners.
+
+#### Data-Driven Performance Prediction in a Geometry Game Environment
+
+Sofia Strukova, **Ruipérez-Valiente, J. A.**, & Félix Gómez Mármol
+
+Conference Papers In 2021 Conference on Information Technology for Social Good (GoodIT'21), 283–288. Online. 2021.
+
+#### Abstract
+
+The rapid technological evolution of the last years motivated students to develop competencies and capabilities that will prepare them for an unknown future of the 21st century. In this context, teachers intend to optimise the process of learning and make it more dynamic and exciting by introducing gamification. Thus, this paper focuses on a data-driven assessment of geometry competencies, which are essential for developing problem-solving and higher-order thinking skills. We explored them in the domain of knowledge inference, whose primary goal is to predict or measure the students' knowledge over questions as they interact with a learning platform at a specific time. Hence, the main goal of the current paper is to compare several well-known algorithms applied to the data of a geometry game named Shadowspect in order to predict students' performance in terms of classifier metrics such as Area Under Curve (AUC), accuracy, and F1 score. We found Elo to be the algorithm with the best prediction power. However, the rest of the algorithms also showed decent results, and, therefore, we can conclude that all the algorithms hold the potential to measure and estimate the actual knowledge of students. In turn, this means that they can be applied in formal education to improve teaching, learning, organisational efficiency and, as a consequence, this can serve as a basement for a change in the system.
+
+#### Assessment activities in massive open on-line courses: Assessment activities in MOOCs.
+
+Muñoz-Merino, P. J., **Ruipérez-Valiente, J. A.**, Moreno, J. L. S., & Kloos, C. D.
+
+Book Chapter In Furthering higher education possibilities through massive open online courses (pp. 165-192). IGI Global. **ISBN-10:** 1466682795
+
+#### Abstract
+
+This chapter analyzes the different implications of the new MOOC paradigm in assessment activities, emphasizing the differences with respect to other non MOOC educational technology environments and giving an insight about the redesign of assessment activities for MOOCs. The chapter also compares the different assessment activities that are available in some of the most used MOOC platforms at present. In addition, the process of design of MOOC assessment activities is analyzed. Specific examples are given about how to design and create different types of assessment activities. The Genghis authoring tool as a solution for the creation of some types of exercises in the Khan Academy platform is presented. Finally, there is an analysis of the learning analytics features related to assessment activities that are present in MOOCs. Moreover, some guidelines are provided about how to interpret and take advantage of this information.
+
+#### Diseño e Implementación de un Módulo de Analítica de Aprendizaje, y su Aplicación para la Evaluación de Experiencias Educativas (Design and Implementation of a Learning Analytics Module, and its Application for Evaluating Educational Experiences).
+
+**Ruipérez-Valiente, J. A.**, Muñoz-Merino, P. J., & Delgado Kloos, C.
+
+Book Chapter In TICs para el Aprendizaje de la Ingeniería (TICAI) (pp. 77–84). IGI Global. **ISBN:** 978-84-8158-711-1
+
+#### Abstract
+
+Most e-learning platforms are able to collect large datasets of students' interactions as events; however that data is difficult to be interpreted directly by learning stakeholders. In this work we unify and connect several of our previous research studies giving a general context of our learning analytics research on Khan Academy. We propose a set of interesting indicators in order to learn more about the learning process. Furthermore, we have designed and implemented a learning analytics module called ALAS-KA which displays individual and class visualizations for these parameters. Finally we make use of ALAS-KA and the parameters to evaluate learning experiences.
+
+#### What Does Exploration Look Like? Painting a Picture of Learning Pathways Using Learning Analytics.
+
+**Ruipérez-Valiente, J. A.**, Rosenheck L. & Kim Y.J.
+
+Book Chapter Game-Based Assessment Revisited. Advances in Game-Based Learning. (pp. 281-300). Springer. **ISBN:** 978-3-030-15569-8
+
+#### Abstract
+
+Game-based learning is becoming one of the major trends in education as it brings together numerous benefits. However, due to the open-ended and less linear nature of these environments, it is often complicated for instructors to really understand the learning process of students within a game. Learning analytics can play a meaningful role in transforming learning pathways in games into interpretable information for teachers. In this study, we propose three novel metrics that focus more on the learning process of students than on the outcomes. We apply these metrics to data from The Radix Endeavor, an inquiry-based learning game on STEM topics that has been tested in multiple schools across the US. We also report correlations between these metrics and in-game learning outcomes and discuss the importance and potential use of metrics to understand students’ learning processes.
+
+#### Expanding Teacher Assessment Literacy with the Use of Data Visualizations in Game-based Assessment
+
+Kim Y.J., Lin, G. &**Ruipérez-Valiente, J. A.**
+
+Book Chapter Visualizations and dashboards for learning analytics. (pp. 399 - 419). Springer. **ISBN:** 978-3-030-81222-5
+
+#### Abstract
+
+The use of learning analytics (LA) in educational technology has emerged as a key interest to researchers with the promise that this technology will help teachers and schools make data-informed decisions that were not feasible without big data and AI-driven algorithms. Despite its potential, LA has not yet effectively connected research and practice broadly. In the field, we have yet to understand how research-based advances in LA can become accessible assets for teachers, and often LA tools are generally not aligned with teachers’ needs. To see the real impact of LA in classrooms, the first step is to understand teacher literacy for using sophisticated technology-enhanced learning systems that use algorithms and analytics. In this chapter, we present a framework that enables a collaborative design and development process for learning analytics and data visualizations, specifically using games developed for learning and assessment purposes. Using a 3D puzzle game, Shadowspect, the team has been exploring a balanced design of data visualization that considers teachers’ needs and desires as well as their assessment literacy. In this chapter, we (1) define what it means to be assessment literate in the context of game-based learning and assessment, (2) present a process of creating data visualizations with teachers as co-designers, and (3) present several use cases. This chapter can contribute to establishing the foundations of how to design dashboard systems for learning games that can lead to broad use of game data in classrooms.
+
+#### Unveiling the Potential of Learning Analytics in Game-based Learning: Case Studies with a Geometry Game
+
+**Ruipérez-Valiente, J. A.**
+
+Book Chapter Handbook of Research on Promoting Economic and Social Development Through Serious Games. (pp. 524-544). IGI Global. **ISBN:** 9781799897323
+
+#### Abstract
+
+Due to technological advancement, the authors see a huge change in the way of teaching and learning. Game-based learning (GBL) is applied in order to motivate students, improve their knowledge, and make the process of education more enjoyable. This chapter will focus on explaining the process of learning analytics (LA) in the context of GBL, which can play a meaningful role in transforming learning pathways in games into interpretable information for teachers. Respectively, the overarching aim of this work is to verify the potential of GBL and LA applied to the educational process through four case studies, each of which presents an important metric in the geometry game Shadowspect, developed in order to train geometry and spatial reasoning skills by solving a series of geometry puzzles. The case studies will be focused on data-driven game design, learner modelling and adaptive learning, game-based assessment (GBA) of 21st-century skills, and teacher-oriented visualization dashboards.
+
+#### The Interplay Between In-game Activity, Learning Gains, and Enjoyment in a Serious Game on STEM
+
+**Ruipérez-Valiente, J. A.**
+
+Book Chapter Handbook of Research on Promoting Economic and Social Development Through Serious Games. (pp. 21-42). IGI Global. **ISBN:** 9781799897323
+
+#### Abstract
+
+The exponential growth of technology is transforming most existing sectors in the world. One of the technologies that is significantly impacting our society is video games, which have become a new cultural form of expression. Moreover, research suggests that, especially within educational contexts, they present great learning opportunities. However, little is known in serious games about the interplay of the in-game activity, learning gains, and enjoyment with the game. Therefore, in this chapter, the authors use data from a pilot study conducted with a STEM inquiry-learning serious game to compute behavioral metrics and analyze their relationship with the learning gains and enjoyment of students based on survey responses. The author reports on the exploratory results of the different metrics and correlation analysis to analyze the interplay between these three sets of metrics. This work will exemplify the potential that learning analytics approaches and serious games have to transform education and training across contexts.
+
+#### Evaluation of engagement and desirability of different teaching techniques of energy concepts -- How to rise energy literacy of the general public in educational institutions
+
+Ramallo, A. and **Ruipérez-Valiente, J. A.**
+
+Book Chapter Innovative Economic, Social, and Environmental Practices for Progressing Future Sustainability (pp. 61-80). IGI Global. **ISBN:** 9781799895909
+
+#### Abstract
+
+Although energy concepts and climate change are highly present on everyone's life, educational systems are in cases still lacking on their curricula the teaching of what energy is, how it is produced, and what is the relationship between energy use and climate change. It is suggested by the many that a society which is not literate about energy will never be capable of using it more effectively. This chapter presents a research performed with more than 100 participants from different backgrounds and age ranges with three different learning activities to educate on energy with different rationales including digital technologies. The authors measured the beliefs and intentions before and after the activity. They found that overall the values were high and there was no significant gain after the activity. Also, they found that learners experienced similar learning with all activities, but that engagement was significantly higher with the embodied activity.
+
+#### Using Online Digital Data to Infer Valuable Skills for the Modern Workforce
+
+Strukova, S. and **Ruipérez-Valiente, J. A.**
+
+Book Chapter Handbook of Research on New Media, Training, and Skill Development for the Modern Workforce (pp. 89-109). IGI Global. **ISBN:** 9781668439968
+
+#### Abstract
+
+This chapter uncovers the opportunities that online media portals like content sharing and consumption sites or photography sites have for informal and formal learning. The authors explored online portals that can provide evidence of evaluating, inferring, measuring skills, and/or contributing to the development of competencies and capabilities of the 21st century with two case studies. The first one is focused on identifying data science topical experts across the Reddit community. The second one uses online Flickr data to apply a model on the photographs to rate them as aesthetically attractive and technically sound, which can serve as a base for measuring the photography capabilities of Flickr users. The presented results can serve as a base to replicate these methodologies to infer other competencies and capabilities across online portals. This novel approach can be an effective alternative evaluation of key 21st century skills for the modern workforce with multiple applications.
+
+#### Analyzing the Evolution of Digital Assessment in Education Literature Using Bibliometrics and Natural Language Processing
+
+Gomez, M. J. and **Ruipérez-Valiente, J. A.**
+
+Book Chapter Handbook of Research on Digital-Based Assessment and Innovative Practices in Education (pp. 178 - 200). IGI Global. **ISBN:** 9781668424681
+
+#### Abstract
+
+Over the last decade, we have seen a large amount of research being performed in technology-enhanced learning. Within this area, the use of digital assessment has been gaining a lot of popularity. Researchers aim to identify the main topics in this area, proposing a new methodology to perform a text analytics and bibliometrics driven approach, using the metadata and full text from papers within the last 15 years. The analysis in this work is focused on three objectives: 1) discover which are the main topics based on topic modeling and keywords analysis, 2) discover the evolution of said topics over the last 15 years of research, and 3) discover the primary authors and papers, along with hidden relationships between existing communities.
+
+#### Rule-based detection of emotions in the Khan Academy platform.
+
+Leony, D., Muñoz-Merino, P. J., Pardo, A., **Ruipérez-Valiente, J. A.**, Martín-Caro, D. A., & Kloos, C. D.
+
+Workshop In V Congreso Internacional sobre Calidad y Accessibilidad de la Formacion Virtual (CAFVIR 2014). International Workshop on Massive Open Online Courses (pp. 556–562)
+
+#### Abstract
+
+The current relevance of Massive Open Online Courses (MOOCs) has provoked researchers in educational technology to work towards improving their pedagogical outcomes. Adaptive MOOCs are an example within this context. Given the importance of affective information within the adaptive systems, we propose a set of models to detect four emotions known to correlate with learning gains. The implementation of the models and the initial results from its application in a case study dataset are also provided.
+
+#### Combining Learning Analytics and the Flipped Classroom in a MOOC of Maths.
+
+Redondo, D., Muñoz-Merino, P. J., **Ruipérez-Valiente, J. A.**, Delgado Kloos, C., Pijeira Díaz, H. J., & Santofimia Ruiz, J.
+
+Workshop Trends in Digital Education. In International Workshop on Applied and Practical Learning Analytics (pp. 71–79)
+
+#### Abstract
+
+This paper describes the configuration, setup and initial analysis examples of an experience for introducing learning analytics in a MOOC of maths for adult high school education, using the flipped the classroom methodology. An overview of the MOOC of maths is provided, as well as an overview of the ANALYSE learning analytics tool which is used to analyze the learning process. We describe how the learning analytics tool can be useful in this setup and methodology and we illustrate specific examples of conclusions in the MOOC of maths.
+
+#### Learning analytics for the precise evaluation of student effectiveness with educational resources and activities.
+
+Muñoz-Merino, P. J., **Ruipérez-Valiente, J. A.**, Alario-Hoyos, C., Pérez-Sanagustín, M., & Kloos, C. D.
+
+Workshop In Proceedings of the 9th Iberian Conference on Information Systems and Technologies (CISTI 2014) (pp. 1–6).
+
+#### Abstract
+
+In current online courses, most learning analytics techniques collect, analyze and display low-level data about the interactions of students with educational activities and resources. These data are used to detect students with difficulties in the course, as well as educational activities and resources which might be problematic. This paper presents the Precise Effectiveness Strategy (PES) which enables to calculate the effectiveness of students with educational activities and resources in online courses from low-level events in a quantitative way, taking into account different aspects of the learning context. The PES is particularized for specific educational activities and resources, which are video resources and parametric exercises. Finally, we propose some visualizations related to video and exercise effectiveness in a real course in physics.
+
+#### Visualizing Educational Game Data: A Case Study of Visualizations to Support Teachers. In Learning Analytics Summer Institute Spain
+
+Martinez, P. A., Gomez, M. J., **Ruipérez-Valiente, J. A.**, Martínez Pérez, G., & Kim.
+
+Workshop In Learning Analytics Summer Institute Spain. CEUR Workshop Proceedings, Vol 2671, 97-111. 2020.
+
+#### Abstract
+
+Video games have become one of the most popular mediums across cultures and ages. There is ample evidence that supports the benefits of using games for learning and assessment, and educators are largely supportive of using games in classrooms. However, the implementation of educational games as part of the curriculum and classroom practices has been rather scarce. One of the main barriers is that teachers face to actually know how their students are using the game so that they can analyze properly the effect of the activity and the interaction of students. Therefore, to support teachers to fully leverage the potential benefits of games in classrooms and make data-based decisions, educational games should incorporate learning analytics by transforming click-stream data generated from the gameplay into meaningful metrics and present visualizations of those metrics so that teachers can receive the information in an interactive and friendly way. For this work, we use data collected in a case study where teachers used Shadowspect geometry puzzle games in their classrooms. We apply learning analytics techniques to generate a series of metrics and visualizations that seek to facilitate that teachers can understand the interaction of students with the game. In this way, teachers can be more aware of the global progress of the class and each one of their students at an individual level, and intervene and adapt their classes when necessary.
+
+#### Global Learning @ Scale
+
+Joyner, D. A., Carlon M., Cross, J., Corpeño, E., Hernández Rizzardini, R., Rodas O., Shah, D., Cortes-Mendez, M., Staubitz, T., and **Ruipérez-Valiente, J. A.**
+
+Workshop In 7th ACM Conference on Learning @ Scale (229--232). ACM, New York, NY, USA, 2020.
+
+#### Abstract
+
+This workshop proposes specifically soliciting contributions and presentations from initiatives, programs, and platforms around the world. While many of these may already be presented at the full conference, we are also interested in more casual experience reports, case studies, and background presentations from individuals more closely acquainted with how learning at scale initiatives-including MOOCs, for-credit degree programs, informal learning environments, government initiatives, and so on-have unique needs and opportunities based on their local context. We refer to this as Global Learning @ Scale. For the purposes of this workshop, we take two views of Global Learning @ Scale.
+
+#### Exploring the Affordances of Multimodal Data to Improve Cybersecurity Training with Cyber Range Environment
+
+Mariano Albaladejo-Gonzalez, Sofia Strukova, **Ruipérez-Valiente, J. A.**, and Félix Gómez Mármol
+
+Workshop In 6th Jornadas Nacionales de Investigación en Ciberseguridad (JNIC 2021), 231-234. 2021.
+
+#### Abstract
+
+During the last years, the constant cybersecurity breaches being reported are remarking the necessity of raising the number of cybersecurity experts that can tackle such threats. In this sense, educational technology environments can help to generate more immersive and realistic environments, and within this context, cyber range systems are one of the foremost solutions. However, these systems might not provide rich and detailed feedback to instructors and students regarding the performance in each cyberexercise. In this paper we discuss the potential of multimodal data, including clickstream, console commands, biometrics, and other sensor data, to improve the feedback and evaluation process in cyber range environments. We present the affordances that these techniques can bring to cybersecurity training as well as a preliminary architecture to implement them. We argue that these technologies can become a new generation of high-quality, realistic, and adaptive cybersecurity training that can have a dual (civil and military) impact on our society.
+
+#### COBRA: Cibermaniobras adaptativas y personalizables de simulación hiperrealista de APTs y entrenamiento en ciberdefensa usando gamificación
+
+Félix Gómez Mármol, **Ruipérez-Valiente, J. A.**, Pantaleone Nespoli, Gregorio Martinez Perez, Diego Rivera Pinto, Xavier Larriva Novo, Manuel Álvarez-Campana, Víctor Villagrá González, Jorge Maestre Vidal, Francisco Antonio Rodriguez López, Miguel Páramo Castrillo, Javier Ignacio Rojo Lacal and Ramón García-Abril Alonso
+
+Workshop In 6th Jornadas Nacionales de Investigación en Ciberseguridad (JNIC 2021), 227-230. 2021.
+
+#### Abstract
+
+Una formación en ciberdefensa de alta calidad que permita adquirir competencias que luego sean aplicables en escenarios reales es altamente compleja. A pesar de que la mayoría de las organizaciones y cuerpos involucrados en este área están de acuerdo en afirmar que generar mecanismos para el desarrollo de estas capacidades es prioritario, aún existen importantes carencias a nivel de metodologías y competencias, así como de sistemas y entornos de entrenamiento. En este sentido, el proyecto COBRA de “Cibermaniobras adaptativas y personalizables de simulación hiperrealista de APTs y entrenamiento en ciberdefensa usando gamificación” es ambicioso en combinar diversas tecnologías para alcanzar este objetivo, teniendo intrínsecamente un carácter multidisciplinar pero con unas metas claras.

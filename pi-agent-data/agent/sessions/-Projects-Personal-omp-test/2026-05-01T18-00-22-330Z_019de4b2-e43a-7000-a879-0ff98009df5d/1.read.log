@@ -1,0 +1,779 @@
+URL: https://dev.elsevier.com/policy.html
+Content-Type: text/html
+Method: jina
+
+---
+
+Title: Elsevier Developer Portal
+
+URL Source: https://dev.elsevier.com/policy.html
+
+Markdown Content:
+1.   [Home](https://dev.elsevier.com/)
+2.   Documentation: Use Policies
+
+## Use Policies
+
+**A policy for each use case**
+
+ Elsevier's RESTful APIs provide access to content from platforms like ScienceDirect, Scopus and Engineering Village for various use cases. These use cases are governed by the policies outlined on this page. These policies define how clients are allowed to use content retrieved through Elsevier's APIs.
+
+**What if your use case is not listed**
+
+ If the policies defined here do not cover your use case, we may still allow your application to use the APIs to retrieve content for use in your system or application. If you are affiliated with an institution that subscribes to the product associated with the API you wish to use (e.g. Scopus or SciVal), then please liaise with your librarian or information specialist to get in touch with an Elsevier account manager or customer consultant. Alternatively, please visit the corresponding product support page on our [Support Center](https://service.elsevier.com/).
+
+**Policy changes**
+
+ We retain the right to change these policies without prior notice, and it is your responsibility to check the policies regularly to see if you are still complying with them. But, to hopefully alleviate some of the concerns this may give:
+
+*   New policies for new use cases will be added on an ongoing basis, and as that happens we will attempt to consolidate them to make them easier to understand.
+*   Existing policies are unlikely to change often.
+*   We will maintain a policy revision history so that you can go back and see what changed, when.
+
+Definition: The end product is a scholarly published work that utilizes publications in Scopus for a research effort. The researcher wants to publish a scholarly work regarding Scopus data relationships.
+
+Examples:
+
+*   Analysis of abstract cited-by counts across a specific, singular academic discipline.
+*   Relationship between authors' geographic locations and their academic affiliations.
+*   Analysis of the relationship of citing works from a limited set of publications.
+
+We allow this use case under the following conditions:
+
+*   Research is for non-commercial, academic purposes only - no commercial, government or funding body access is permitted.
+*   Research is to be performed by approved representative of the applying institution - no 3rd party or consultant access is permitted.
+*   Research is limited in scope to a specific discipline - no mining of the entire Scopus dataset is permitted.
+*   Retention of original research dataset is limited to archival purposes and reproduction of the research results. Data use outside of the scope of the original research is not permitted. 
+    *   Public sharing of data for purpose of reproducibility with a specific party is permissible upon written request and explicit written approval.
+
+*   Scopus is identified as the data source as described in the [Scopus Attribution Guide](https://dev.elsevier.com/tecdoc_attribution_scopus.html). 
+    *   If the user is a bibliometrician doing work outside this use case, we ask that the user contacts Elsevier's [International Center for the Study of Research](https://www.elsevier.com/icsr) to discuss your needs.
+
+This use case does not allow :
+
+*   Display of Scopus data on a website or in any other public forum outside of the output format of the scholarly published work.
+
+Permitted metadata (fields other than those listed are explicitly prohibited in this use case):
+
+1.   Record IDs (Scopus ID and/or EID)
+2.   DOI
+3.   PubMed ID
+4.   The Scopus author IDs of the authors of the document (this includes the IDs for co-authors of the document not affiliated with the institute)
+5.   Abstract
+6.   Authors' names
+7.   Author IDs (ORCID ids)
+8.   Authors' countries of residence
+9.   Authors' affiliations
+10.   Author Profile 
+    *   Author Metrics 
+        *   H-Index
+
+        *   Doc Number
+
+        *   Citation count
+
+        *   Cited by
+
+11.   Author Keywords
+12.   Document title
+13.   Document publication year
+14.   Source (journal) title
+15.   ISSN
+16.   Source type (journal, conference proceeding, etc.)
+17.   Volume/issue/pages/article number
+18.   Source/Journal Metrics 
+    *   CiteScore (forthcoming)
+
+    *   SNIP
+
+    *   SJR
+
+19.   Document type (e.g. research article, review article, etc)
+20.   Publisher
+21.   Subject category (per ASJC)
+22.   Citation count (number of times cited by other articles)
+23.   Cited works (bibliography) titles and record IDs
+24.   Citing works titles and record IDs
+
+Definition: the client application is any website or part of a website, operated by an individual or an organization, that wants to show a list of scientific publications. Examples are:
+
+*   a researcher's home page with his/her list of publications
+*   a university library's home page with the list of most-cited articles by the institute's researchers.
+
+Scopus data retrieved from the Scopus APIs can be a source of that data.
+
+We allow this use case under the following conditions:
+
+*   The client application needs to be free of use and non-commercial. This also means that it should be free of advertising.
+*   The client application needs to use an API Key obtained by registering [here](https://dev.elsevier.com/apikey/manage). 
+*   The owner/operator of the client application does not have to have a Scopus license (1)
+*   The client application needs to run within, and execute the API calls, from the user's browser and not proxy the calls through a server-side component.
+*   The client application needs to link back to Scopus records as described in the [Scopus Attribution Guide](https://dev.elsevier.com/tecdoc_attribution_scopus.html).
+
+(1) While the application's developer does not have to have a Scopus license, the APIs have a built-in authorization mechanism that checks if the application's user has a Scopus license based on its client IP address. If so, the API can return more data than if the user is not Scopus-licensed. In order for this mechanism to work, the client application needs to run in the user's browser.
+
+Definition: the client application is a website or webpage that has publications (papers, journals) that are also covered by Scopus. The owner of the website wants to show the number of times the papers have been cited by other papers covered by Scopus. Examples:
+
+*   a researcher's home page with his/her list of publications
+*   a university library's home page with the list of most-cited articles by the institute's researchers
+*   a publisher's website with electronic journals covered by Scopus.
+
+We allow this use case under the following conditions:
+
+*   The client application needs to use the[Abstract Citations Count API](http://api.elsevier.com/documentation/AbstractCitationCountAPI.wadl) to render Scopus cited-by images, using an API Key obtained through self-registration
+*   Scopus cited-by counts/images must link to corresponding Scopus abstract page as described in the [Scopus Attribution Guide](https://dev.elsevier.com/tecdoc_attribution_scopus.html)
+*   If the web site has both a paid-for and a free layer, the Scopus citation count needs to be available on both
+*   The citation count image may be cached for performance reasons, but needs to refreshed at least weekly
+*   The owner/operator of the application does not have to have a Scopus license
+*   The application is not primarily a (scientific) search engine, A&I database or full-text aggregator.
+
+### Scopus data in institutional repositories, research information systems, VIVO
+
+Definition: the client application is:
+
+*   An institutional repository (IR) in which the institution's research output is captured by storing a record / version of each paper written by its researchers, and/or
+*   Current research information system (CRIS) that tracks an institution's research performance by, amongst others, capturing each paper written by its researchers, and/or
+*   A local VIVO installation ([http://vivoweb.org/](http://vivoweb.org/) about, [http://vivo.sourceforge.net/](http://vivo.sourceforge.net/)) in which an institute's researchers are profiled. These researcher profiles often need to be complemented with their publication
+*   Other internal reporting systems that track research output, similar to the above
+
+A common challenge for managers of these applications is to identify every paper written by the institution's researchers, and abstracting and indexing services like Scopus make that task easier by profiling researchers and their affiliations and publications, and making them accessible through APIs.
+
+We allow this use case under the following conditions:
+
+*   The application needs to be operated by, or on behalf of an academic institution that has a subscription for Scopus. If the developer and/or operator of the application is a third party contracted by the institution, this third party needs to have a separate agreement with Elsevier to use the APIs.
+*   If the application is developed and/or operated by a third party, the third party is not allowed to differentiate the fees for the use of the application based on Scopus data being in- or excluded by the application
+*   For as long as the institution has the Scopus license, the application is allowed to query the APIs to identify publications written by its researchers (also those published prior to a researcher's affiliation with the institute), and to retrieve the following metadata for these publications from the APIs: 
+    *   The record IDs (Scopus ID and/or eid)
+    *   DOI
+    *   PubMed ID
+    *   the Scopus author IDs of the authors of the document (this includes the IDs for co-authors of the document not affiliated with the institute)
+    *   authors' names
+    *   authors' countries of residence
+    *   authors' affiliations
+    *   document title
+    *   document publication year
+    *   source (journal) title
+    *   ISSN
+    *   source type (journal, conference proceeding, etc.)
+    *   volume/issue/pages/article number
+    *   document type (e.g. research article, review article, etc.
+    *   Publisher
+    *   Subject category (per ASJC)
+    *   citation count (number of times cited by other articles)
+    *   Author Metrics 
+        *   H-Index
+
+        *   Doc Number
+
+        *   Citation count
+
+        *   Cited by
+
+    *   Source/Journal Metrics 
+        *   CiteScore (forthcoming)
+
+        *   SNIP
+
+        *   SJR
+
+*   The following Scopus items may **not** be displayed publicly: 
+    *   abstracts
+
+    *   CAS registration numbers
+
+    *   author email addresses
+
+    *   non-English language tags
+
+    *   chemical names
+
+    *   controlled vocabulary
+
+*   The institution is allowed to store this metadata in its IR/CRIS in perpetuity even after it has cancelled its Scopus license (in which case it is not allowed to continue to retrieve new records through the APIs)
+*   The metadata in the IR retrieved from Scopus through the APIs can be shown to any IR/CRIS user, regardless of this user being affiliated with the institution or not
+*   Cited-by counts can be aggregated for use in internal bibliometric analysis, but not be aggregated for external display.
+*   Scopus should be identified as a source and a link to the Scopus record and cited-by results list should be displayed as described in the [Scopus Attribution Guide](https://dev.elsevier.com/tecdoc_attribution_scopus.html).
+
+Please note that this policy is also reflected by a clause in standard Scopus license agreements.
+
+### Using ScienceDirect APIs to enhance your institutional repository
+
+We allow this use case under the following conditions:
+
+*   The metadata fields that can be retrieved and displayed are those listed for the ScienceDirect Search API ([definition](https://api.elsevier.com/documentation/search/SCIDIRSearchViews.htm)) and the Article Hosting Permission API ([example](https://api.elsevier.com/documentation/retrieval/articlePermissionsResp.xml)).
+*   Search results/records need to be clearly marked as leading to the final published version and need to link back to the article or chapter on ScienceDirect.
+*   Along with each link to an article or chapter on ScienceDirect, an indicator needs to be displayed that informs the user if (s)he has access to this article/chapter on ScienceDirect, based on the user’s IP address.
+*   In case more than one instance of the article or chapter is available in the system, the ScienceDirect version should show up higher on the page in at least the same font size as the other links.
+*   The system may, but is not required to, embed the final version of a ScienceDirect article/chapter within its web pages, subject to the user’s IP address being authorized for access to that article/chapter on ScienceDirect.
+*   The system is allowed to store this metadata in perpetuity even after it has discontinued its use of the ScienceDirect API to retrieve publication metadata.
+
+The ScienceDirect API services as described in the IR/CRIS/VIVO use case, are available to all IRs free of charge upon acceptance of a click-through agreement when registering for an API key. If your institution cannot accept a click-through agreement, you can contact your local sales representative for a ScienceDirect Amendment or an Agreement for non-ScienceDirect customers.
+
+To start with the ScienceDirect API services program for your institutional repository, please follow this three step approach:
+
+1.   Register for an API key [here](https://dev.elsevier.com/myapikey.html).
+
+2.   Register for the institutional repository program here and submit your API key: [https://www.elsevier.com/solutions/sciencedirect/forms/institutional-repository-managers?rURL=Direct](https://www.elsevier.com/solutions/sciencedirect/forms/institutional-repository-managers?rURL=Direct). The Elsevier integration support team will add the ScienceDirect IR settings to your API key, and confirm back. If your institution already has a Scopus API key, you can submit this API key to have the settings for the SD IR services added.
+
+3.   Develop your IR software. Detailed technical documentation on the ScienceDirect API integration can be found [here](https://dev.elsevier.com/tecdoc_sd_ir_integration.html).
+
+### SciVal metrics in institutional repositories, research information systems, VIVO
+
+Definition: the client application is:
+
+*   An institutional repository (IR) in which the institution's research output is captured by storing a record / version of each paper written by its researchers, and/or
+*   Current research information system (CRIS) that tracks an institution's research performance by, amongst others, capturing each paper written by its researchers, and/or
+*   A local VIVO installation ([http://vivoweb.org/](http://vivoweb.org/) about, [http://vivo.sourceforge.net/](http://vivo.sourceforge.net/)) in which an institute's researchers are profiled. These researcher profiles often need to be complemented with their publication
+*   Other internal reporting systems that track research output, similar to the above.
+
+By utilizing the SciVal API, the managers of these applications can download the most common metrics for institutions and researchers. It allows them to automate repetitive tasks, thus saving time and effort. 
+
+We allow this use case under the following conditions:
+
+*   The client application needs to be free of use and non-commercial. This also means that it should be free of advertising.
+*   The client application needs to obtain an API key by registering [here](https://dev.elsevier.com/apikey/create).
+*   The owner/operator of the client application needs to have a SciVal license, or operate the application on behalf on an institution that has a SciVal license.
+*   The client application needs to run within, and execute the API calls, from the user's browser and not proxy the calls through a server-side component.
+*   The client application needs to link back to SciVal records as described in the [SciVal Attribution Guide](https://dev.elsevier.com/tecdoc_attribution_scival.html).
+
+Definition: the client application is a search tool that takes the user's query, passes it on to different search indexes through APIs, gets the results from those APIs and combines them into a single result list for the user to see. This practice is common in digital library portals at universities, and the search indexes of Elsevier platforms are common targets for this.
+
+We allow this use case under the following conditions:
+
+*   The products for which federated search through the Elsevier APIs is supported, are:
+
+    *   ScienceDirect
+    *   Scopus
+    *   Engineering Village
+
+*   The developer of the federated search application must be affiliated with an organization that has a subscription for the product, or with a third-party vendor that markets the federated search application to organizations that have subscriptions.
+*   The organization using the application must have a subscription to each supported Elsevier products for which search results are shown in the application.
+*   If the application is provided to Elsevier customers by a third-party vendor, this vendor should have a direct license with Elsevier.
+*   The users of the application must be limited to authorized users at the organization holding the subscription.
+*   For Scopus and Engineering Village, the application can only show the core bibliographic data for each search result; abstracts and references are off-limits. For results from ScienceDirect, the display of abstracts is allowed.
+*   Results must be marked as coming from the corresponding Elsevier product, and each result must link back to the corresponding article or record page on the product's website.
+*   The application must use the RESTful APIs; it must not use the search functionality of any of the product's user interfaces.
+*   Data retrieved through the APIs cannot be indexed or stored in a data repository, other than temporarily for performance reasons (e.g. non-permanent caching). 
+
+Policy updated: 06-Sep-2017
+
+Definition: the client application is any website, operated by an individual or an organization, where users can search or read research information. The website wants to show a list of scientific publications from ScienceDirect as a widget on the page.
+
+Examples:
+
+*   A search widget showing metadata for related documents from ScienceDirect next to a search results list with content from other sources or next to another abstract of full-text article that is shown on the page.
+*   A widget on the website of a research institution that showing metadata of the most recent publications by authors from the institution.
+*   A widget showing metadata of the most recent publications for a journal on a society website.
+
+We support this use case with the ScienceDirect search API; see [here](https://dev.elsevier.com/tecdoc_search_request.html) for detailed documentation. We allow this use case under the following conditions:
+
+*   The owner/operator of the client application does not need to have a ScienceDirect subscription
+*   You are allowed to show the following metadata to all users: Journal/book title, Article title, Authors, publication date, journal / issue, page numbers, author keywords, and abstracts (to subscribed users) or abstract snippets (to non-subscribed users).
+*   If you want to leverage the API's ability to show full abstracts to users that are subscribed, the client application needs to run within, and execute the API calls, from the user's browser and not proxy the calls through a server-side component
+*   Each article citation needs to link back to SD using DOI or PII, regardless of a user's entitlements. The URL for this link is provided in API responses.
+*   Caching of data from the API is allowed (and encouraged) for performance / capacity considerations.
+*   If the application is provided by a third-party vendor, this vendor is not allowed to differentiate the fees for the use of the application based on ScienceDirect data being in- or excluded by the application
+
+**Current version is v1.0, Feb-2014 - Initial content policy rollout.**
+
+Definition: the client application is any website, operated by an individual or an organization, where users can search or read or otherwise interact with research information. The website wants to show a list of scientific publications from ScienceDirect as a widget on the page.
+
+Examples:
+
+*   A widget showing journals or books for a specific subject area
+*   A knowledge base using the API to track changes in content on SD to maintain their A-Z list.
+
+We support these use cases with the Serial and Non-Serial Title APIs; see [here](https://dev.elsevier.com/tecdoc_ir_cris_vivo.html)for detailed documentation
+
+You are allowed to show all metadata returned by the APIs to all users
+
+We allow this use case under the following conditions:
+
+*   The owner/operator or the user of the client application does not need to have a ScienceDirect or Scopus license
+*   Each display of a title's metadata needs to include a link that points to that title on ScienceDirect. The URL for this link is provided in API responses.
+*   If the application is provided by a third-party vendor, this vendor is not allowed to differentiate the fees for the use of the application based on ScienceDirect data being in- or excluded by the application
+
+### Showing Journal Metrics: CiteScore, SJR and SNIP
+
+Definition: the client application is a website that shows journal-level metadata and metrics to users in various contexts. Examples:
+
+*   A journal's home page on a publisher's website
+*   Information about a journal on an editor's or author's personal website
+*   Lists or links of recommended journals by a university or a learned society
+*   Information in a researcher's bibliography about the citation impact of the journals the researcher published in
+
+We allow this use case under the following conditions:
+
+*   You follow the guidelines presented in the [Scopus attribution guide](https://dev.elsevier.com/tecdoc_attribution_scopus.html)
+*   You do not aggregate citation and document counts to represent entities other than those provided)
+*   You can use all of the CiteScore metrics, plus SNIP and SJR as long as you do not replicate the functionality on journalmetrics.scopus.com or Scopus.com)
+*   You do not extract, develop or use journal metrics in any direct or indirect commercial activity, unless you obtain written permission from Elsevier)
+*   When you display a title's CiteScore value, you must hyperlink from the CiteScore value to the title's Scopus title page. This will give the users additional information about the title and also allow them to drill down into the underlying papers that make up the numerator and denominator of the CiteScore.)
+
+For more information about the journal metrics, please refer to the [Journal Metrics How-To Guide](https://dev.elsevier.com/tecdoc_journal_metrics.html), the FAQ on the [Scopus Journal Metrics page](https://journalmetrics.scopus.com/) or contact us if you wish to use Scopus journal metrics for any purpose other than detailed in this policy.
+
+Definition: the client application is any website or part of a website, operated by an individual or an organization, that wants to show metrics associated with a researcher or institution. Examples are:
+
+*   a researcher's own home page, listing her/his CV, publications, etc.
+*   a university web site that showcases individual affiliated researchers and their work, including publications and publication metrics.
+*   a university web site that showcases the work of the university or a department as a whole, including publication metrics.
+
+We allow the SciVal API to be be a source of that data under the following conditions:
+
+*   The client application must be freely available for use and non-commercial. This also means that it should be free of advertising.
+*   The client application must obtain an API key by registering [here.](https://dev.elsevier.com/apikey/manage)
+*   The owner/operator of the client application must have a SciVal license.
+*   The client application must run within, and execute the API calls, from the user's browser and not proxy the calls through a server-side component.
+*   The client application must refer, and link back, to SciVal as described in the SciVal Attribution Guide.
+
+Definition: incorporates within the client application a search tool that takes the user's query, passes it on to different search indexes through APIs, gets the results from those APIs and combines them into a single result list for the user to see. This practice is common in digital library portals at universities, and Engineering Village's indexes are common targets for this. It also provides the ability to retrieve those results based on unique, individual document identifiers.
+
+We allow this use case under the following conditions:
+
+*   The developer of the federated search application needs to be an organization that has a license for Engineering Village, or should be building the application for an organization who has a license
+*   The organization is only allowed API access to Engineering Village databases that are licensed on the Engineering Village web site.
+*   If the application is provided to Elsevier customers by a third-party vendor, this vendor is not allowed to differentiate the fees for the use of the application based on Engineering Village data being in- or excluded by the application
+*   The users of the application should be limited to authorized users at the organization holding the license
+*   The application can only show the core abstract, author, and publisher data for each search and/or retrieval result from Engineering Village - the record's indexing terms are off-limits
+*   Results need to be marked as coming from Engineering Village, and may link back to the article on the Engineering Village web site.
+*   The application can use the RESTful APIs.
+
+* * *
+
+#### ARCHIVE
+
+You can retrieve Scopus journal metrics Source Normalized Impact per Paper (SNIP), SCImago Journal Rank (SJR) and Impact per Publication (IPP), via Serial Title Metadata API. In addition, you can retrieve percent 'not cited docs', percent review articles, etc. If this is something you want to do, you can request access [integrationsupport@elsevier.com](mailto:integrationsupport@elsevier.com?subject=journal%20metrics%20access%20request) to our REST endpoints directly for metrics retrieval. In order for us to approve that request we'll want to know a bit more about your site - such as its main purpose, audience, and traffic volume.
+
+Definition: The end product is a scholarly published work that utilizes publications in Scopus for a research effort. The researcher wants to publish a scholarly work regarding Scopus data relationships.
+
+Examples:
+
+*   Analysis of abstract cited-by counts across a specific, singular academic discipline.
+*   Relationship between authors' geographic locations and their academic affiliations.
+*   Analysis of the relationship of citing works from a limited set of publications.
+
+We allow this use case under the following conditions:
+
+*   Research is for non-commercial, academic purposes only - no commercial, government or funding body access is permitted.
+*   Research is to be performed by approved representative of the applying institution - no 3rd party or consultant access is permitted.
+*   Research is limited in scope to a specific discipline - no mining of the entire Scopus dataset is permitted.
+*   Retention of original research dataset is limited to archival purposes and reproduction of the research results. Data use outside of the scope of the original research is not permitted. 
+    *   Public sharing of data for purpose of reproducibility with a specific party is permissible upon written request and explicit written approval.
+
+*   Scopus is identified as the data source. The phrase "Data provided by Scopus.com" must be included in an attribution footnote. 
+    *   If user is a bibliometrician doing work outside this use case, please contact integration support team at integrationsupport@elsevier.com with detailed description of your use case.
+
+This use case does not allow :
+
+*   Display of Scopus data on a website or in any other public forum outside of the output format of the scholarly published work.
+
+Permitted metadata (fields other than those listed are explicitly prohibited in this use case):
+
+1.   Record IDs (Scopus ID and/or EID)
+2.   DOI
+3.   PubMed ID
+4.   The Scopus author IDs of the authors of the document (this includes the IDs for co-authors of the document not affiliated with the institute)
+5.   Abstract
+6.   Authors' names
+7.   Author IDs (ORCID ids)
+8.   Authors' countries of residence
+9.   Authors' affiliations
+10.   Author Profile 
+    *   Author Metrics 
+        *   H-Index
+
+        *   Doc Number
+
+        *   Citation count
+
+        *   Cited by
+
+11.   Author Keywords
+12.   Document title
+13.   Document publication year
+14.   Source (journal) title
+15.   ISSN
+16.   Source type (journal, conference proceeding, etc.)
+17.   Volume/issue/pages/article number
+18.   Source/Journal Metrics 
+    *   CiteScore (forthcoming)
+
+    *   SNIP
+
+    *   SJR
+
+19.   Document type (e.g. research article, review article, etc)
+20.   Publisher
+21.   Subject category (per ASJC)
+22.   Citation count (number of times cited by other articles)
+23.   Cited works (bibliography) titles and record IDs
+24.   Citing works titles and record IDs
+
+Definition: the client application is any website or part of a website, operated by an individual or an organization, that wants to show a list of scientific publications. Examples are:
+
+*   a researcher's home page with his/her list of publications
+*   a university library's home page with the list of most-cited articles by the institute's researchers.
+
+Scopus data retrieved from the Scopus APIs can be a source of that data.
+
+We allow this use case under the following conditions:
+
+*   The client application needs to be free of use and non-commercial. This also means that it should be free of advertising.
+*   The client application needs to use an API Key obtained by registering [here](https://dev.elsevier.com/apikey/manage). 
+*   The owner/operator of the client application does not have to have a Scopus license (1)
+*   The client application needs to run within, and execute the API calls, from the user's browser and not proxy the calls through a server-side component.
+*   The client application needs to link back to Scopus records wherever possible.
+
+(1) While the application's developer does not have to have a Scopus license, the APIs have a built-in authorization mechanism that checks if the application's user has a Scopus license based on its client IP address. If so, the API can return more data than if the user is not Scopus-licensed. In order for this mechanism to work, the client application needs to run in the user's browser.
+
+Definition: the client application is any website or part of a website, operated by an individual or an organization, that wants to show a list of scientific publications. Examples are:
+
+*   a researcher's home page or social network page with his/her list of publications
+*   an iGoogle widget that shows the most recent publications for a journal
+*   a university library's home page with the list of most-cited articles by the institute's researchers.
+
+Scopus data retrieved from the Scopus APIs can be a source of that data.
+
+We allow this use case under the following conditions:
+
+*   The client application needs to be free of use and non-commercial. This also means that it should be free of advertising.
+*   The client application needs to use the JavaScript APIs using an API Key obtained by registering [here](https://dev.elsevier.com/apikey/manage). 
+*   The owner/operator of the client application does not have to have a Scopus license
+*   The client application needs to run within, and execute the API calls, from the user's browser and not proxy the calls through a server-side component.
+*   The client application needs to honor the HTML rendering imposed by the JavaScript API, such as styling and branding of the results, and the links leading back to Scopus records.
+
+1 While the application's developer does not have to have a Scopus license, the JavaScript APIs have a built-in authorization mechanism that checks if the application's user has a Scopus license based on its client IP address. If so, the API can return more data than if the user is not Scopus-licensed. In order for this mechanism to work, the client application needs to run in the user's browser.
+
+Definition: the client application is a website or webpage that has publications (papers, journals) that are also covered by Scopus. The owner of the website wants to show the number of times the papers have been cited by other papers covered by Scopus. Examples:
+
+*   a researcher's home page with his/her list of publications
+*   a university library's home page with the list of most-cited articles by the institute's researchers
+*   a publisher's website with electronic journals covered by Scopus.
+
+We allow this use case under the following conditions:
+
+*   The client application needs to use the[Abstract Citations Count API](http://api.elsevier.com/documentation/AbstractCitationCountAPI.wadl) to render Scopus cited-by images, using an API Key obtained through self-registration
+*   Scopus cited-by counts/images must link to corresponding Scopus abstract page for which counts are provided
+*   If the web site has both a paid-for and a free layer, the Scopus citation count needs to be available on both
+*   The citation count image may be cached for performance reasons, but needs to refreshed at least weekly
+*   The owner/operator of the application does not have to have a Scopus license
+*   The application is not primarily a (scientific) search engine, A&I database or full-text aggregator.
+
+### Scopus data in institutional repositories, research information systems, VIVO
+
+Definition: the client application is:
+
+*   An institutional repository (IR) in which the institution's research output is captured by storing a record / version of each paper written by its researchers, and/or
+*   Current research information system (CRIS) that tracks an institution's research performance by, amongst others, capturing each paper written by its researchers, and/or
+*   A local VIVO installation ([http://vivoweb.org/](http://vivoweb.org/) about, [http://vivo.sourceforge.net/](http://vivo.sourceforge.net/)) in which an institute's researchers are profiled. These researcher profiles often need to be complemented with their publication
+*   Other institutional systems for tracking a publication history similar to the above
+
+A common challenge for managers of these applications is to identify every paper written by the institution's researchers, and abstracting and indexing services like Scopus make that task easier by profiling researchers and their affiliations and publications, and making them accessible through APIs.
+
+We allow this use case under the following conditions:
+
+*   The application needs to be operated by, or on behalf of an academic institution that has a subscription for Scopus. If the developer and/or operator of the application is a third party contracted by the institution, this third party needs to have a separate agreement with Elsevier to use the APIs.
+*   If the application is developed and/or operated by a third party, the third party is not allowed to differentiate the fees for the use of the application based on Scopus data being in- or excluded by the application
+*   For as long as the institution has the Scopus license, the application is allowed to query the APIs to identify publications written by its researchers (also those published prior to a researcher's affiliation with the institute), and to retrieve the following metadata for these publications from the APIs: 
+    *   The record IDs (Scopus ID and/or eid)
+    *   DOI
+    *   PubMed ID
+    *   the Scopus author IDs of the authors of the document (this includes the IDs for co-authors of the document not affiliated with the institute)
+    *   authors' names
+    *   authors' countries of residence
+    *   authors' affiliations
+    *   document title
+    *   document publication year
+    *   source (journal) title
+    *   ISSN
+    *   source type (journal, conference proceeding, etc.)
+    *   volume/issue/pages/article number
+    *   document type (e.g. research article, review article, etc.
+    *   Publisher
+    *   Subject category (per ASJC)
+    *   citation count (number of times cited by other articles)
+    *   Author Metrics 
+        *   H-Index
+
+        *   Doc Number
+
+        *   Citation count
+
+        *   Cited by
+
+    *   Source/Journal Metrics 
+        *   CiteScore (forthcoming)
+
+        *   SNIP
+
+        *   SJR
+
+*   The following Scopus items may **not** be displayed publicly: 
+    *   abstracts
+
+    *   CAS registration numbers
+
+    *   author email addresses
+
+    *   non-English language tags
+
+    *   chemical names
+
+    *   controlled vocabulary
+
+*   The institution is allowed to store this metadata in its IR/CRIS in perpetuity even after it has cancelled its Scopus license (in which case it is not allowed to continue to retrieve new records through the APIs)
+*   The metadata in the IR retrieved from Scopus through the APIs can be shown to any IR/CRIS user, regardless of this user being affiliated with the institution or not
+*   Cited-by counts can be aggregated for use in internal bibliometric analysis, but not be aggregated for external display.
+*   Scopus should be identified as a source and a link to the Scopus record and cited-by results list should be displayed as described in the [Scopus Attribution Guide](https://dev.elsevier.com/tecdoc_attribution_scopus.html).
+
+Please note that this policy is also reflected by a clause in standard Scopus license agreements.
+
+### Scopus data in institutional repositories, research information systems, VIVO
+
+Definition: the client application is:
+
+*   An institutional repository (IR) in which the institution's research output is captured by storing a record / version of each paper written by its researchers, and/or
+*   Current research information system (CRIS) that tracks an institution's research performance by, amongst others, capturing each paper written by its researchers, and/or
+*   A local VIVO installation ([http://vivoweb.org/](http://vivoweb.org/) about, [http://vivo.sourceforge.net/](http://vivo.sourceforge.net/)) in which an institute's researchers are profiled. These researcher profiles often need to be complemented with their publication
+*   Other institutional systems for tracking a publication history similar to the above
+
+A common challenge for managers of these applications is to identify every paper written by the institution's researchers, and abstracting and indexing services like Scopus make that task easier by profiling researchers and their affiliations and publications, and making them accessible through APIs.
+
+We allow this use case under the following conditions:
+
+*   The application needs to be operated by, or on behalf of an academic institution that has a subscription for Scopus. If the developer and/or operator of the application is a third party contracted by the institution, this third party needs to have a separate agreement with Elsevier to use the APIs.
+*   If the application is developed and/or operated by a third party, the third party is not allowed to differentiate the fees for the use of the application based on Scopus data being in- or excluded by the application
+*   For as long as the institution has the Scopus license, the application is allowed to query the APIs to identify publications written by its researchers (also those published prior to a researcher's affiliation with the institute), and to retrieve the following metadata for these publications from the APIs: 
+    *   The record IDs (Scopus ID and/or eid)
+    *   DOI
+    *   PubMed ID
+    *   the Scopus author IDs of the authors of the document (this includes the IDs for co-authors of the document not affiliated with the institute)
+    *   authors' names
+    *   authors' countries of residence
+    *   authors' affiliations
+    *   document title
+    *   document publication year
+    *   source (journal) title
+    *   ISSN
+    *   source type (journal, conference proceeding, etc.)
+    *   volume/issue/pages/article number
+    *   document type (e.g. research article, review article, etc.
+    *   Publisher
+    *   Subject category (per ASJC)
+    *   citation count (number of times cited by other articles)
+    *   Author Metrics 
+        *   H-Index
+
+        *   Doc Number
+
+        *   Citation count
+
+        *   Cited by
+
+    *   Source/Journal Metrics 
+        *   CiteScore (forthcoming)
+
+        *   SNIP
+
+        *   SJR
+
+*   The following Scopus items may **not** be displayed publicly: 
+    *   abstracts
+
+    *   CAS registration numbers
+
+    *   author email addresses
+
+    *   non-English language tags
+
+    *   chemical names
+
+    *   controlled vocabulary
+
+*   The institution is allowed to store this metadata in its IR/CRIS in perpetuity even after it has cancelled its Scopus license (in which case it is not allowed to continue to retrieve new records through the APIs)
+*   The metadata in the IR retrieved from Scopus through the APIs can be shown to any IR/CRIS user, regardless of this user being affiliated with the institution or not
+*   Cited-by counts can be aggregated for use in internal bibliometric analysis, but not be aggregated for external display.
+*   Scopus should be identified as a source and a link to the Scopus record and cited-by results list should be displayed.
+
+Please note that this policy is also reflected by a clause in standard Scopus license agreements.
+
+### Scopus data in institutional repositories, research information systems, VIVO
+
+Definition: the client application is:
+
+*   An institutional repository (IR) in which the institution's research output is captured by storing a record / version of each paper written by its researchers, and/or
+*   Current research information system (CRIS) that tracks an institution's research performance by, amongst others, capturing each paper written by its researchers, and/or
+*   A local VIVO installation ([http://vivoweb.org/](http://vivoweb.org/) about, [http://vivo.sourceforge.net/](http://vivo.sourceforge.net/)) in which an institute's researchers are profiled. These researcher profiles often need to be complemented with their publication
+*   Other institutional systems for tracking a publication history similar to the above
+
+A common challenge for managers of these applications is to identify every paper written by the institution's researchers, and abstracting and indexing services like Scopus make that task easier by profiling researchers and their affiliations and publications, and making them accessible through APIs.
+
+We allow this use case under the following conditions:
+
+*   The application needs to be operated by, or on behalf of an academic institution that has a subscription for Scopus. If the developer and/or operator of the application is a third party contracted by the institution, this third party needs to have a separate agreement with Elsevier to use the APIs.
+*   If the application is developed and/or operated by a third party, the third party is not allowed to differentiate the fees for the use of the application based on Scopus data being in- or excluded by the application
+*   For as long as the institution has the Scopus license, the application is allowed to query the APIs to identify publications written by its researchers (also those published prior to a researcher's affiliation with the institute), and to retrieve the following metadata for these publications from the APIs (other fields than those listed are explicitly excluded): 
+    *   The record IDs (Scopus ID and/or eid)
+    *   DOI
+    *   PubMed ID
+    *   the Scopus author IDs of the authors of the document (this includes the IDs for co-authors of the document not affiliated with the institute)
+    *   the ORCIDs of the authors of the document (this includes the IDs for co-authors of the document not affiliated with the institute), where available
+    *   authors' names
+    *   authors' countries of residence
+    *   authors' affiliations
+    *   document title
+    *   document publication year
+    *   source (journal) title
+    *   ISSN
+    *   source type (journal, conference proceeding, etc.)
+    *   volume/issue/pages/article number
+    *   document type (e.g. research article, review article, etc.
+    *   Publisher
+    *   Subject category (per ASJC)
+    *   citation count (number of times cited by other articles)
+    *   Author Metrics 
+        *   H-Index
+
+        *   Doc Number
+
+        *   Citation count
+
+        *   Cited by
+
+    *   Source/Journal Metrics 
+        *   CiteScore (forthcoming)
+
+        *   SNIP
+
+        *   SJR
+
+*   The institution is allowed to store this metadata in its IR/CRIS in perpetuity even after it has cancelled its Scopus license (in which case it is not allowed to continue to retrieve new records through the APIs)
+*   The metadata in the IR retrieved from Scopus through the APIs can be shown to any IR/CRIS user, regardless of this user being affiliated with the institution or not
+*   Cited-by counts can be aggregated for use in internal bibliometric analysis, but not be aggregated for external display.
+*   Scopus should be identified as a source and a link to the Scopus record and cited-by results list should be displayed.
+
+Please note that this policy is also reflected by a clause in standard Scopus license agreements.
+
+### Scopus data in institutional repositories, research information systems, VIVO
+
+Definition: the client application is:
+
+*   An institutional repository (IR) in which the institution's research output is captured by storing a record / version of each paper written by its researchers, and/or
+*   Current research information system (CRIS) that tracks an institution's research performance by, amongst others, capturing each paper written by its researchers, and/or
+*   A local VIVO installation ([http://vivoweb.org/](http://vivoweb.org/) about, [http://vivo.sourceforge.net/](http://vivo.sourceforge.net/)) in which an institute's researchers are profiled. These researcher profiles often need to be complemented with their publication
+*   Other institutional systems for tracking a publication history similar to the above
+
+A common challenge for managers of these applications is to identify every paper written by the institution's researchers, and abstracting and indexing services like Scopus make that task easier by profiling researchers and their affiliations and publications, and making them accessible through APIs.
+
+We allow this use case under the following conditions:
+
+*   The developer of the application needs to be an organization that has a license for Scopus, or be building the application for an organization who has a license
+*   The institution needs to be an organization that has a license for Scopus;
+*   If the application is provided to Elsevier customers by a third-party vendor, this vendor is not allowed to differentiate the fees for the use of the application based on Scopus data being in- or excluded by the application
+*   For as long as the institution has the Scopus license, the application is allowed to query the APIs to identify publications written by its researchers (also those published prior to a researcher's affiliation with the institute), and to retrieve the following metadata for these publications from the APIs (other fields than those listed are explicitly excluded): 
+    *   The record IDs (Scopus ID and/or eid)
+    *   DOI
+    *   PubMed ID
+    *   the Scopus author IDs of the authors of the document (this includes the IDs for co-authors of the document not affiliated with the institute)
+    *   authors' names
+    *   authors' countries of residence
+    *   authors' affiliations
+    *   document title
+    *   document publication year
+    *   source (journal) title
+    *   ISSN
+    *   source type (journal, conference proceeding, etc.)
+    *   volume/issue/pages/article number
+    *   document type (e.g. research article, review article, etc.
+    *   Publisher
+    *   Subject category (per ASJC)
+    *   citation count (number of times cited by other articles)
+    *   Author Metrics 
+        *   H-Index
+
+        *   Doc Number
+
+        *   Citation count
+
+        *   Cited by
+
+    *   Source/Journal Metrics 
+        *   CiteScore (forthcoming)
+
+        *   SNIP
+
+        *   SJR
+
+*   The institution is allowed to store this metadata in its IR/CRIS in perpetuity even after it has cancelled its Scopus license (in which case it is not allowed to continue to retrieve new records through the APIs)
+*   The metadata in the IR retrieved from Scopus through the APIs can be shown to any IR/CRIS user, regardless of this user being affiliated with the institution or not
+*   Cited-by counts can be aggregated for use in internal bibliometric analysis, but not be aggregated for external display.
+*   Scopus should be identified as a source and a link to the Scopus record and cited-by results list should be displayed
+*   The application can query the RESTful API endpoints directly and does not have to use the Scopus JavaScript APIs
+
+Please note that this policy is also reflected by a clause in standard Scopus license agreements.
+
+### Using ScienceDirect APIs to enhance your institutional repository
+
+We allow this use case under the following conditions:
+
+*   Search results/records need to be clearly marked as leading to the final published version and need to link back to the article or chapter on ScienceDirect.
+*   In case more than one instance of the article or chapter is available in the index, the ScienceDirect version should show up higher on the page in at least the same font size as the other links.
+*   Display of user access level to content on ScienceDirect is mandatory, and embedding of final version is optional.
+
+The ScienceDirect API services as described in the IR/CRIS/VIVO use case, are available to all IRs free of charge upon acceptance of a click-through agreement when registering for an API key. If your institution cannot accept a click-through agreement, you can contact your local sales representative for a ScienceDirect Amendment or an Agreement for non-ScienceDirect customers.
+
+To start with the ScienceDirect API services program for your institutional repository, please follow this three step approach:
+
+1.   Register for an API key [here](https://dev.elsevier.com/myapikey.html).
+
+2.   Register for the institutional repository program here and submit your API key: [https://www.elsevier.com/solutions/sciencedirect/forms/institutional-repository-managers?rURL=Direct](https://www.elsevier.com/solutions/sciencedirect/forms/institutional-repository-managers?rURL=Direct). The Elsevier integration support team will add the ScienceDirect IR settings to your API key, and confirm back. If your institution already has a Scopus API key, you can submit this API key to have the settings for the SD IR services added.
+
+3.   Develop your IR software. Detailed technical documentation on the ScienceDirect API integration can be found [here](https://dev.elsevier.com/tecdoc_sd_ir_integration.html). Institutions using DSpace open source repository software can download the plugins for DSpace we have developed. For more information visit ([https://github.com/atmire/Elsevier](https://github.com/atmire/Elsevier)).
+
+### Using ScienceDirect APIs to enhance your institutional repository
+
+We allow this use case under the following conditions:
+
+*   Search results/records need to be clearly marked as leading to the final published version and need to link back to the article or chapter on ScienceDirect.
+*   In case more than one instance of the article is available in the index, the ScienceDirect version should show up higher on the page in at least the same font size as the other links.
+*   Display of user access level to article on ScienceDirect is mandatory, and embedding of final article is optional.
+
+The ScienceDirect API services as described in the IR/CRIS/VIVO use case, are available to all IRs free of charge upon acceptance of a click-through agreement when registering for an API key. If your institution cannot accept a click-through agreement, you can contact your local sales representative for a ScienceDirect Amendment or an Agreement for non-ScienceDirect customers.
+
+To start with the ScienceDirect API services program for your institutional repository, please follow this three step approach:
+
+1.   Register for an API key [here](https://dev.elsevier.com/apikey/manage).
+
+2.   Register for the institutional repository program here and submit your API key: [https://www.elsevier.com/solutions/sciencedirect/forms/institutional-repository-managers?rURL=Direct](https://www.elsevier.com/solutions/sciencedirect/forms/institutional-repository-managers?rURL=Direct). The Elsevier integration support team will add the ScienceDirect IR settings to your API key, and confirm back. If your institution already has a Scopus API key, you can submit this API key to have the settings for the SD IR services added.
+
+3.   Develop your IR software. Detailed technical documentation on the ScienceDirect API integration can be found [here](https://dev.elsevier.com/tecdoc_sd_ir_integration.html). Institutions using DSpace open source repository software can download the plugins for DSpace we have developed. For more information visit ([https://github.com/atmire/Elsevier](https://github.com/atmire/Elsevier)).
+
+### Using ScienceDirect APIs to enhance your institutional repository
+
+We allow this use case under the following conditions:
+
+*   Search results/records need to be clearly marked as leading to the final published version and need to link back to the article or chapter on ScienceDirect,
+*   In case more than one instance of the article is available in the index, the ScienceDirect version should show up higher on the page in at least the same font size as the other links.
+*   Display of user access level to article on SD is mandatory, and embedding of final articles is optional.
+
+To start with the ScienceDirect API services program, institutions need to follow three steps:
+
+1.   Register your interest below
+2.   Sign a ScienceDirect Amendment or Agreement for non-SD customers 
+3.   Register your details on the developer's website for an API key. You will receive a unique API token that will enable the delivery of the SD API program and Dspace plugins (if applicable).
+
+1.   Register here:
+
+Please register your interest here, and you will be contacted shortly: [https://www.elsevier.com/solutions/sciencedirect/forms/institutional-repository-managers?rURL=Direct](https://www.elsevier.com/solutions/sciencedirect/forms/institutional-repository-managers?rURL=Direct).
+
+2.   Sign a ScienceDirect Amendment or Agreement for non-SD customers
+
+ScienceDirect customers can benefit from the program by accepting the terms and conditions as specified in the ScienceDirect Amendment which can be found here ([https://www.elsevier.com/__data/assets/pdf_file/0004/182047/E-LtrAmendment-Institutional-Repositories-20151001.pdf](https://www.elsevier.com/__data/assets/pdf_file/0004/182047/E-LtrAmendment-Institutional-Repositories-20151001.pdf)). Institutions that do not have a ScienceDirect license can register their interest to receive a full agreement.
+
+3.   Register for an API key
+
+The registration for the API is can be done [here](https://dev.elsevier.com/myapikey.html) on our [developer's website](https://dev.elsevier.com/index.html). After registration submit the API key to integration support to have the SD IR settings added. If your institution already has a Scopus API key, you use this to have the settings for the IR services configured.
+
+Detailed technical documentation and software development instructions on the ScienceDirect API offering can be found [here](https://dev.elsevier.com/tecdoc_sd_ir_integration.html).
+
+Should you use Dspace software in your repository, you can benefit from the software we had developed. The following Dspace plugin software is available: a backport for version 5.3 and version 5.4 and patches for version 5.3 and 5.4. From version 6.0 this development is part of the Dspace standard code ([https://atmire.github.io/Elsevier/#/](https://atmire.github.io/Elsevier/#/)).
