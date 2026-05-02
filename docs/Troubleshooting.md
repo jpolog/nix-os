@@ -1,623 +1,515 @@
 ---
-title: Troubleshooting Guide
-tags: [troubleshooting, debugging, fixes, help]
-created: 2026-01-06
-related: [[README]], [[Installation]], [[FAQ]]
+tags:
+  - operations
+  - troubleshooting
+  - reference
 ---
 
-# Troubleshooting Guide
+# Troubleshooting
 
-Solutions to common issues and problems.
+Solutions to common problems across the NixOS configuration. Each section covers a specific subsystem with diagnostic commands and fixes.
 
-## 🚨 Boot Issues
+```mermaid
+graph TD
+    BUILD[Build Failures] --> SYNTAX[Syntax / Hash]
+    BUILD --> HM[Home Manager]
+    BUILD --> SOPS[SOPS / Secrets]
 
-### System Won't Boot
+    DESK[Desktop Issues] --> HYP[Hyprland]
+    DESK --> KMON[KMonad]
 
-**Symptoms**: Black screen, GRUB error, kernel panic
+    NET[Network Issues] --> EDU[Eduroam]
+    NET --> VPN[VPN / Tailscale]
+    NET --> DOCKER[Docker Networking]
 
-**Solutions**:
+    VM[VM Issues] --> KVM[KVM / libvirtd]
+    PWR[Power Issues] --> TLP_T[TLP / thinkfan]
 
-1. **Boot previous generation**:
-   - At boot, press Space to show boot menu
-   - Select previous generation
-   - Once booted, rollback:
-     ```bash
-     sudo nixos-rebuild switch --rollback
-     ```
+    style BUILD fill:#f44336,color:#fff
+    style DESK fill:#ff9800,color:#fff
+    style NET fill:#2196f3,color:#fff
+    style VM fill:#9c27b0,color:#fff
+    style PWR fill:#4caf50,color:#fff
+```
 
-2. **Boot from live USB**:
-   - Mount your system
-   - Fix configuration
-   - Reinstall
+---
 
-3. **Check kernel parameters**:
-   ```bash
-   # Edit boot parameters in GRUB
-   # Add: systemd.unit=rescue.target
-   ```
+## 1. Build Failures
 
-### Boot Takes Too Long
+### Syntax errors
 
-**Solutions**:
+```bash
+# Validate the flake — reports parse errors with file and line
+nix flake check
 
-1. **Check systemd services**:
-   ```bash
-   systemd-analyze blame
-   systemd-analyze critical-chain
-   ```
+# Build without switching to see full error trace
+nh os build -- .
+```
 
-2. **Disable slow services**:
-   ```nix
-   systemd.services.slow-service.enable = false;
-   ```
+Look for the `error:` line in the output. Common causes:
+- Missing semicolons, unmatched braces, or wrong option paths
+- Using `=` instead of `:` in let bindings
+- Referencing an option that does not exist in the module system
 
-## 🖥️ Display Issues
+### Hash mismatches
 
-### Black Screen After Login
+```bash
+# Bump all flake inputs to resolve stale hashes
+nix flake update
 
-**Symptoms**: Login works, but screen stays black
+# Bump a single input
+nix flake lock --update-input nixpkgs
+```
 
-**Solutions**:
+After updating, rebuild. If the hash still mismatches, the upstream package may have been republished — verify in `flake.lock` that the `narHash` matches the fetched store path.
 
-1. **Switch to TTY** (Ctrl+Alt+F2):
-   ```bash
-   # Check Hyprland logs
-   journalctl -u display-manager -b
-   
-   # Try starting Hyprland manually
-   Hyprland
-   ```
+### Missing inputs
 
-2. **Check SDDM**:
-   ```bash
-   sudo systemctl status display-manager
-   sudo systemctl restart display-manager
-   ```
+Check `flake.nix` inputs for typos or missing entries. Each input must be declared and then passed into `outputs`:
 
-3. **Driver issues**:
-   ```bash
-   # Check loaded modules
-   lsmod | grep amdgpu
-   
-   # Force module load
-   sudo modprobe amdgpu
-   ```
+```bash
+# List current inputs and their revisions
+nix flake metadata
+```
 
-### Screen Tearing
+### Profile conflicts — mkForce overrides
 
-**Solutions**:
+If a profile setting does not take effect, another module may override it with `mkForce` or `mkDefault`. Trace the winning definition:
 
-1. **Enable VRR** in `home/hyprland/hyprland-config.nix`:
-   ```nix
-   misc = {
-     vrr = 2;
-   };
-   ```
+```bash
+# Find which module sets an option
+nix repl '<nixpkgs/nixos>'
+nix-repl> :p config.services.tlp.enable
+```
 
-2. **Disable for troubleshooting**:
-   ```nix
-   misc = {
-     vrr = 0;
-   };
-   ```
+Or search the config directly:
 
-### Wrong Resolution
+```bash
+grep -r "mkForce" modules/ hosts/
+grep -r "mkDefault" modules/ hosts/
+```
 
-**Solution**:
+See [[Profile System]] for profile priority rules.
 
-Edit monitor configuration in `home/hyprland/hyprland-config.nix`:
+---
+
+## 2. Home Manager Issues
+
+### hm-backup files
+
+Home Manager creates `.backup` files when an existing file conflicts with a managed one:
+
+```
+Existing file '/home/jpolo/.bashrc' is in the way of '/home/jpolo/.bashrc'
+```
+
+**Fix**: Remove the backup file after verifying the managed version is correct:
+
+```bash
+rm ~/.bashrc.backup
+# Or remove all hm backups at once
+find ~ -name '*.backup' -list
+find ~ -name '*.backup' -delete
+```
+
+### Activation script failures
+
+```bash
+# List recent Home Manager generations
+home-manager generations
+
+# Check activation errors
+home-manager build
+# Or view the activation script output
+home-manager switch --show-trace
+```
+
+### Profile not applying
+
+Verify that the home profile is enabled in the user's host config:
+
 ```nix
-monitor = [
-  "eDP-1,2880x1800@90,0x0,1.5"
-];
+home.users.jpolo.profiles.desktop.enable = true;
 ```
 
-Find your monitor name:
+Check [[Home Profiles]] for the full profile list and composition.
+
+---
+
+## 3. SOPS / Secrets Issues
+
+### Key not found
+
 ```bash
-hyprctl monitors
+# Verify the age key exists and is readable
+ls -la ~/.config/sops/age/keys.txt
+
+# Show the public key fingerprint
+age-keygen -y ~/.config/sops/age/keys.txt
 ```
 
-## 🔊 Audio Issues
+If the file is missing, regenerate:
 
-### No Sound
-
-**Solutions**:
-
-1. **Check PipeWire status**:
-   ```bash
-   systemctl --user status pipewire
-   systemctl --user status wireplumber
-   ```
-
-2. **Restart audio**:
-   ```bash
-   systemctl --user restart pipewire
-   systemctl --user restart wireplumber
-   ```
-
-3. **Check volume**:
-   ```bash
-   pamixer --get-volume
-   pamixer --unmute
-   pamixer --set-volume 50
-   ```
-
-4. **Check output device**:
-   ```bash
-   pactl list sinks
-   pavucontrol  # GUI
-   ```
-
-### Crackling/Distorted Audio
-
-**Solutions**:
-
-1. **Adjust buffer size** in PipeWire config:
-   ```nix
-   # Add to audio.nix
-   environment.etc."pipewire/pipewire.conf.d/99-custom.conf".text = ''
-     context.properties = {
-       default.clock.rate = 48000
-       default.clock.quantum = 1024
-     }
-   '';
-   ```
-
-2. **Disable power saving**:
-   ```bash
-   # Add to audio.nix
-   sound.mediaKeys.enable = true;
-   ```
-
-### Bluetooth Audio Quality Poor
-
-**Solutions**:
-
-1. **Enable high-quality codec**:
-   Already enabled in config (A2DP)
-
-2. **Check Bluetooth connection**:
-   ```bash
-   bluetoothctl
-   info <MAC_ADDRESS>
-   ```
-
-## 📡 Network Issues
-
-### WiFi Not Working
-
-**Solutions**:
-
-1. **Check NetworkManager**:
-   ```bash
-   sudo systemctl status NetworkManager
-   sudo systemctl restart NetworkManager
-   ```
-
-2. **Check interface**:
-   ```bash
-   nmcli device status
-   nmcli radio wifi on
-   ```
-
-3. **Scan for networks**:
-   ```bash
-   nmcli device wifi list
-   ```
-
-4. **Check driver**:
-   ```bash
-   lspci -k | grep -A 3 Network
-   ```
-
-### WiFi Keeps Disconnecting
-
-**Solutions**:
-
-1. **Disable power saving**:
-   ```nix
-   # In network.nix
-   networking.networkmanager.wifi.powersave = false;
-   ```
-
-2. **Check signal strength**:
-   ```bash
-   nmcli device wifi list
-   ```
-
-### Can't Connect to Network
-
-**Solutions**:
-
-1. **Forget and reconnect**:
-   ```bash
-   nmcli connection delete <SSID>
-   nmcli device wifi connect <SSID> password <password>
-   ```
-
-2. **Check firewall**:
-   ```bash
-   sudo nix-shell -p iptables --run "iptables -L"
-   ```
-
-## 🔵 Bluetooth Issues
-
-### Bluetooth Not Available
-
-**Solutions**:
-
-1. **Check service**:
-   ```bash
-   sudo systemctl status bluetooth
-   sudo systemctl start bluetooth
-   ```
-
-2. **Unblock bluetooth**:
-   ```bash
-   rfkill unblock bluetooth
-   ```
-
-3. **Check hardware**:
-   ```bash
-   lsusb | grep -i bluetooth
-   ```
-
-### Can't Pair Device
-
-**Solutions**:
-
-1. **Reset Bluetooth**:
-   ```bash
-   bluetoothctl
-   power off
-   power on
-   scan on
-   ```
-
-2. **Remove old pairing**:
-   ```bash
-   bluetoothctl
-   devices
-   remove <MAC_ADDRESS>
-   ```
-
-3. **Trust device**:
-   ```bash
-   bluetoothctl
-   trust <MAC_ADDRESS>
-   ```
-
-## 🔋 Battery/Power Issues
-
-### Battery Drains Fast
-
-**Solutions**:
-
-1. **Check power consumption**:
-   ```bash
-   sudo powertop
-   ```
-
-2. **Verify TLP is running**:
-   ```bash
-   sudo systemctl status tlp
-   tlp-stat
-   ```
-
-3. **Check running processes**:
-   ```bash
-   btop
-   ```
-
-4. **Reduce display brightness**:
-   ```bash
-   brightnessctl set 30%
-   ```
-
-### Not Charging/Charging Slowly
-
-**Solutions**:
-
-1. **Check battery thresholds**:
-   ```bash
-   tlp-stat -b
-   ```
-
-2. **Temporarily disable thresholds**:
-   ```bash
-   sudo tlp fullcharge
-   ```
-
-3. **Check power adapter**:
-   ```bash
-   acpi -V
-   ```
-
-## 🖱️ Input Issues
-
-### Touchpad Not Working
-
-**Solutions**:
-
-1. **Check device**:
-   ```bash
-   libinput list-devices
-   ```
-
-2. **Restart Hyprland**:
-   ```bash
-   Super + M  # Exit
-   # Login again
-   ```
-
-3. **Check configuration**:
-   Verify touchpad settings in `home/hyprland/hyprland-config.nix`
-
-### Keyboard Keys Not Working
-
-**Solutions**:
-
-1. **Check layout**:
-   ```bash
-   hyprctl devices
-   ```
-
-2. **Reset keyboard**:
-   ```bash
-   # Unplug and replug USB keyboard
-   # For built-in, restart
-   ```
-
-## 🔐 Authentication Issues
-
-### Fingerprint Not Working
-
-**Solutions**:
-
-1. **Check fprintd**:
-   ```bash
-   sudo systemctl status fprintd
-   ```
-
-2. **Re-enroll**:
-   ```bash
-   fprintd-delete jpolo
-   fprintd-enroll
-   ```
-
-3. **Verify PAM config**:
-   Check `modules/system/security.nix`
-
-### Can't Login
-
-**Solutions**:
-
-1. **TTY login** (Ctrl+Alt+F2):
-   ```bash
-   # Login with username and password
-   ```
-
-2. **Reset password**:
-   ```bash
-   passwd jpolo
-   ```
-
-3. **Check display manager**:
-   ```bash
-   sudo systemctl status display-manager
-   ```
-
-## 💻 Hyprland Issues
-
-### Hyprland Crashes
-
-**Solutions**:
-
-1. **Check logs**:
-   ```bash
-   cat /tmp/hypr/$(ls -t /tmp/hypr/ | head -n 1)/hyprland.log
-   ```
-
-2. **Disable plugins**:
-   Comment out plugins in `home/hyprland/hyprland-config.nix`
-
-3. **Reset config**:
-   ```bash
-   mv ~/.config/hypr ~/.config/hypr.bak
-   ```
-
-### Windows Not Tiling Properly
-
-**Solutions**:
-
-1. **Check layout**:
-   ```nix
-   general = {
-     layout = "dwindle";  # or "master"
-   };
-   ```
-
-2. **Reset layout**:
-   ```bash
-   Super + J  # Toggle split
-   ```
-
-### Animations Laggy
-
-**Solutions**:
-
-1. **Reduce animation complexity**:
-   ```nix
-   animations = {
-     enabled = true;
-     animation = [
-       "windows, 1, 3, default"  # Faster
-     ];
-   };
-   ```
-
-2. **Disable blur**:
-   ```nix
-   decoration = {
-     blur.enabled = false;
-   };
-   ```
-
-## 📦 Package/Build Issues
-
-### Build Fails
-
-**Solutions**:
-
-1. **Update flake inputs**:
-   ```bash
-   nix flake update
-   ```
-
-2. **Clean build**:
-   ```bash
-   nix-collect-garbage -d
-   sudo nix-collect-garbage -d
-   ```
-
-3. **Check syntax**:
-   ```bash
-   nix flake check
-   ```
-
-### Package Not Found
-
-**Solutions**:
-
-1. **Search package**:
-   ```bash
-   nix search nixpkgs <package>
-   ```
-
-2. **Update nixpkgs**:
-   ```bash
-   nix flake lock --update-input nixpkgs
-   ```
-
-3. **Use unstable**:
-   Already configured to use unstable
-
-### Out of Disk Space
-
-**Solutions**:
-
-1. **Clean old generations**:
-   ```bash
-   sudo nix-collect-garbage -d
-   nix-collect-garbage -d
-   ```
-
-2. **Delete old boot entries**:
-   ```bash
-   sudo nix-env --list-generations --profile /nix/var/nix/profiles/system
-   sudo nix-env --delete-generations old --profile /nix/var/nix/profiles/system
-   ```
-
-3. **Check disk usage**:
-   ```bash
-   df -h
-   du -sh /nix/store
-   ```
-
-## 🔧 General Tips
-
-### Enable Debug Mode
-
-**Hyprland**:
 ```bash
-# Start with debug logging
-Hyprland --log-level debug
+mkdir -p ~/.config/sops/age
+age-keygen -o ~/.config/sops/age/keys.txt
 ```
 
-### View System Logs
+Then add the new public key to `.sops.yaml` and re-encrypt (see below).
+
+### Secret decryption fails
+
+Check that `.sops.yaml` references the correct age public key:
 
 ```bash
-# All logs
-journalctl -b
-
-# Specific service
-journalctl -u service-name
-
-# Follow logs
-journalctl -f
-
-# Since last boot
-journalctl -b -1
+# Show the keys that can decrypt
+sops --output-type yaml -d secrets/secrets.yaml
 ```
 
-### Test Configuration
+If keys have rotated, re-encrypt the secrets file:
 
 ```bash
-# Build without switching
-sudo nixos-rebuild build --flake .#ares
+sops updatekeys secrets/secrets.yaml
+```
 
-# Test (reverts on reboot)
+Commit the updated file. See [[Secrets Management]] for the full setup workflow.
+
+### Permission denied
+
+SOPS secrets have explicit `owner` and `mode` declarations. If a service cannot read its secret, check the module config:
+
+```nix
+sops.secrets.eduroam_password = {
+  owner = "root";
+  group = "networkmanager";
+  mode = "0440";
+};
+```
+
+Common issues:
+- `mode "0400"` with wrong `owner` — the service user cannot read the file
+- Missing `group` — prevents group-based access (e.g., NetworkManager needs `networkmanager` group)
+
+---
+
+## 4. Hyprland Issues
+
+### NIXOS_OZONE_WL not set
+
+Some Electron apps (VS Code, Chromium) default to XWayland if this variable is unset. Verify:
+
+```bash
+echo $NIXOS_OZONE_WL
+# Should output "1"
+```
+
+Check the NixOS config in `environment.sessionVariables`:
+
+```nix
+environment.sessionVariables = {
+  NIXOS_OZONE_WL = "1";
+};
+```
+
+After changing, rebuild with [[Deployment Guide]] steps.
+
+### XDG portal problems
+
+Hyprland requires `xdg-desktop-portal-hyprland`. Verify it is installed and the portal service is running:
+
+```bash
+# Check which portal is active
+echo $XDG_CURRENT_DESKTOP
+# Should include "Hyprland"
+
+# Verify portal packages
+nix-store -qR /run/current-system/sw | grep portal
+```
+
+If portals conflict (e.g., both KDE and Hyprland portals installed), ensure only `xdg-desktop-portal-hyprland` is in the environment. Check `modules/desktop/xdg.nix`.
+
+### Screen tearing
+
+Edit Hyprland config to enable VRR or adjust the tear-free setting:
+
+```nix
+# In home/hyprland/hyprland-config.nix
+misc = {
+  vrr = 2;        # 0=off, 1=monitors only, 2=fullscreen only
+};
+```
+
+For immediate tearing reduction, set `decoration.blur.enabled = false` and reduce animation complexity.
+
+See [[Hyprland]] for full configuration details.
+
+---
+
+## 5. KMonad Issues
+
+### Device path not found
+
+KMonad needs the exact `/dev/input/` path to the keyboard device. List available devices:
+
+```bash
+ls /dev/input/by-id/
+ls /dev/input/by-path/
+```
+
+Find the device that matches your keyboard, then verify it in the KMonad config:
+
+```nix
+# In home/programs/kmonad.nix or host config
+services.kmonad.keyboards.internal.device = "/dev/input/by-id/usb-...-event-kbd";
+```
+
+### Permission denied
+
+The user must be in the `input` group or use `uinput`:
+
+```bash
+# Check group membership
+groups jpolo
+
+# Add to input group (then log out and back in)
+sudo usermod -aG input jpolo
+```
+
+Alternatively, ensure `services.kmonad.keyboards.internal.device = "/dev/input/by-id/..."` points to a device readable by the configured group.
+
+---
+
+## 6. Network Issues
+
+### Eduroam won't connect
+
+The [[Network & VPN]] eduroam module uses WPA2-Enterprise with MSCHAPv2. If it fails:
+
+1. **Verify identity and password** — check that `networking.eduroam.networks.<name>.identity` matches your university username and that the sops secret `eduroam_password` decrypts correctly.
+2. **Check CA certificate** — if `caCertificate` is set, ensure the cert path exists on disk.
+3. **Check the injector service**:
+
+```bash
+systemctl status eduroam-password-injector
+journalctl -u eduroam-password-injector
+```
+
+4. **Manual test**:
+
+```bash
+nmcli connection up university-eduroam
+```
+
+### VPN won't connect
+
+For the university VPN (IKEv2/strongSwan):
+
+1. **Check gateway** — verify `vpn.um.es` resolves and is reachable:
+
+```bash
+ping vpn.um.es
+```
+
+2. **Certificate** — ensure `certs/harica-tls-root-2021.pem` exists.
+3. **Split tunneling** — check that `splitTunnelRoutes` only includes the university CIDR (`155.54.0.0/16`). If all traffic routes through VPN, `never-default` may be unset.
+
+```bash
+nmcli connection show um-vpn | grep ipv4.never-default
+```
+
+### Tailscale issues
+
+```bash
+# Check status
+tailscale status
+
+# Check auth key
+# Verify the sops secret 'tailscale_key' decrypts correctly
+sops -d secrets/secrets.yaml | grep tailscale
+
+# Re-authenticate
+sudo tailscale up --authkey=$(cat /run/secrets.d/tailscale_key)
+```
+
+See [[Network & VPN]] for Tailscale configuration details.
+
+---
+
+## 7. Docker Networking
+
+### Container port not accessible from host
+
+Check that iptables rules allow Docker bridges and that IP forwarding is enabled:
+
+```bash
+# Verify ip_forward
+sysctl net.ipv4.ip_forward
+# Should be 1
+
+# Check iptables for Docker rules
+sudo iptables -L DOCKER -n
+sudo iptables -t nat -L -n | grep 12000
+```
+
+On Ares, the firewall uses `extraCommands` to allow traffic on Docker bridges since `trustedInterfaces` does not support wildcards. Check `modules/system/network.nix` for the `networking.firewall` block.
+
+### DNS resolution in containers
+
+If containers cannot resolve hostnames:
+
+```bash
+# Verify systemd-resolved is running
+systemctl status systemd-resolved
+
+# Check container DNS
+docker run --rm alpine cat /etc/resolv.conf
+```
+
+Common fix: add `--dns 127.0.0.53` to the Docker run command or set `dns` in `docker-compose.yml`.
+
+---
+
+## 8. VM Issues
+
+### VM won't start
+
+```bash
+# Check that KVM modules are loaded
+lsmod | grep kvm
+
+# Verify libvirtd is running
+sudo systemctl status libvirtd
+
+# Check VM status
+virsh list --all
+
+# View VM logs
+virsh console win11
+# Or
+journalctl -u libvirtd
+```
+
+If KVM modules are missing:
+
+```bash
+sudo modprobe kvm_amd
+```
+
+### Performance
+
+Enable nested virtualization and use the optimization script:
+
+```bash
+# Run the vm-optimize script from scripts/
+scripts/vm-optimize
+
+# Verify nested virtualization
+cat /sys/module/kvm_amd/parameters/nested
+# Should output "1"
+```
+
+The Windows 11 VM is configured with 8 GB RAM, 4 vCPUs, and an 80 GB disk using virtio-win drivers and OVMF (UEFI). See [[Virtualization]] for the full module reference.
+
+---
+
+## 9. Power / Battery Issues
+
+### Battery drains fast
+
+```bash
+# Verify TLP is active
+sudo tlp-stat -s
+
+# Check current power draw
+sudo tlp-stat -b
+
+# See which devices consume power
+sudo powertop
+```
+
+Common fixes:
+- Check TLP battery thresholds (configured in `modules/system/power.nix`)
+- Verify `power-profiles-daemon` is disabled where TLP is active (conflicts cause both to fight for governor control)
+- On Ares, `thinkfan` manages thermals — verify it is running:
+
+```bash
+systemctl status thinkfan
+```
+
+### Fan too loud
+
+Adjust thinkfan levels in the host config. On Ares, fan curves are in `hosts/ares/default.nix`:
+
+```bash
+# View current fan level and temperature
+cat /proc/acpi/ibm/fan
+cat /proc/acpi/ibm/thermal
+
+# Thinkfan config location
+cat /etc/thinkfan.conf
+```
+
+See [[Power Management]] for TLP and thinkfan configuration details.
+
+---
+
+## 10. General Recovery
+
+### Rollback
+
+```bash
+# Rollback to previous generation
+sudo nixos-rebuild switch --rollback
+
+# Or select a generation at boot
+# Press Space at GRUB to show the boot menu
+```
+
+### Clean up
+
+```bash
+# Remove old generations (keep 5, older than 14 days)
+nh clean all --keep 5 --keep-since 14d
+
+# System-level garbage collection
+sudo nix-collect-garbage -d
+
+# User-level
+nix-collect-garbage -d
+```
+
+### Check generations
+
+```bash
+# List system generations
+nix-env --list-generations --profile /nix/var/nix/profiles/system
+
+# List Home Manager generations
+home-manager generations
+
+# Show current generation
+nixos-version
+```
+
+### Build without switching
+
+```bash
+# Dry-run to verify the config compiles
+nh os build -- .
+
+# Test (applies but reverts on reboot)
 sudo nixos-rebuild test --flake .#ares
 ```
 
-### Emergency Recovery
-
-1. Boot from NixOS USB
-2. Mount system:
-   ```bash
-   mount /dev/nvme0n1p2 /mnt
-   mount /dev/nvme0n1p1 /mnt/boot
-   ```
-3. Fix configuration
-4. Reinstall or rollback
-
-## 📚 Getting Help
-
-### Log Files
-
-- **Hyprland**: `/tmp/hypr/*/hyprland.log`
-- **System**: `journalctl -b`
-- **X11 fallback**: `~/.xsession-errors`
-
-### Useful Commands
-
-```bash
-# System info
-neofetch
-lshw -short
-
-# Hardware
-lspci -k
-lsusb
-dmesg
-
-# Services
-systemctl status
-systemctl --failed
-```
-
-### Community Resources
-
-- NixOS Discourse
-- NixOS Wiki
-- Hyprland Wiki
-- GitHub Issues
-
-## 📚 Related Documentation
-
-- [[Installation]] - Installation help
-- [[FAQ]] - Frequently asked questions
-- [[Hardware-Support]] - Hardware issues
-- [[System-Configuration]] - System config
+See [[Deployment Guide]] for the full deployment workflow.
 
 ---
 
-**Last Updated**: 2026-01-06
+## Related Pages
 
-## 💡 Pro Tips
-
-1. Always check logs first
-2. Test changes in VM or with `nixos-rebuild test`
-3. Keep backups of working configurations
-4. Use git to track changes
-5. Don't panic - NixOS is rollback-friendly!
+- [[Deployment Guide]] — Rebuilding, rolling back, and deploying
+- [[Secrets Management]] — SOPS/age key setup and secret rotation
+- [[Network & VPN]] — Eduroam, VPN, Tailscale, Docker networking
+- [[Virtualization]] — QEMU/KVM, Windows 11 VM module
+- [[Power Management]] — TLP, thinkfan, power profiles
+- [[Hyprland]] — Compositor config, XDG portals, keybindings
