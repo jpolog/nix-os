@@ -1,7 +1,7 @@
 ---
 name: lang-python-pro
 description: "Use this agent when you need to build type-safe, production-ready Python code for web APIs, system utilities, or complex applications requiring modern async patterns and extensive type coverage."
-model: ollama-cloud/qwen3-coder-next
+model: ollama/qwen3-coder-next:cloud
 tools: [read, write, edit, bash, find, search]
 ---
 

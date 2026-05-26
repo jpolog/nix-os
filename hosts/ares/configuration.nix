@@ -167,7 +167,6 @@
   # themes.active = "thinknix"; # Disabled as Stylix/Themes module removed
 
   profiles.development.enable = true; # Development tools
-  profiles.gaming.enable = false; # Gaming infrastructure (drivers, isolated user)
 
   # Configure development tools
   profiles.development.languages = {
@@ -209,31 +208,6 @@
     ];
     shell = pkgs.zsh;
   };
-
-  users.users.gaming = {
-    isNormalUser = true;
-    description = "Gaming User";
-    initialPassword = "gaming";
-    extraGroups = [
-      "networkmanager"
-      "video"
-      "audio"
-      "input"
-    ];
-    shell = pkgs.bash;
-  };
-
-  # ============================================================================
-  # Home Manager - User Configuration
-  # ============================================================================
-
-  home-manager.users.gaming =
-    { ... }:
-    {
-      imports = [ ../../home/users/gaming.nix ];
-      home.profiles.desktop.environment = "kde";
-    };
-
   home-manager.users.jpolo =
     { lib, ... }:
     {
@@ -499,6 +473,10 @@
   services.tlp = {
     enable = true;
     settings = {
+      # Battery charge thresholds
+      START_CHARGE_THRESH_BAT0 = lib.mkForce 70;
+      STOP_CHARGE_THRESH_BAT0 = lib.mkForce 80;
+
       CPU_SCALING_GOVERNOR_ON_AC = lib.mkForce "powersave";
       CPU_SCALING_GOVERNOR_ON_BAT = lib.mkForce "powersave";
       CPU_ENERGY_PERF_POLICY_ON_AC = lib.mkForce "balance_performance";
@@ -594,19 +572,16 @@
   };
 
   # ============================================================================
-  # Gaming Hardware Support (Manual)
+  # Graphics Support
   # ============================================================================
 
   hardware.graphics = {
     enable = true;
-    enable32Bit = true;
     extraPackages = with pkgs; [
       libva-utils
       libvdpau-va-gl
     ];
   };
-
-  programs.gamemode.enable = true;
 
   # ============================================================================
   # Home Manager Integration -
@@ -621,9 +596,6 @@
     "d /nix/var/nix/profiles/per-user/jpolo 0755 jpolo users -"
     "d /home/jpolo/.local/state/home-manager 0755 jpolo users -"
     "d /home/jpolo/.local/state/home-manager/gcroots 0755 jpolo users -"
-
-    "d /nix/var/nix/profiles/per-user/gaming 0755 gaming users -"
-    "d /home/gaming/.local/state/home-manager 0755 gaming users -"
   ];
 
   # ============================================================================
@@ -905,6 +877,55 @@
     brightnessctl
     desktop-file-utils
     shared-mime-info
+    wgnord
+    (writeShellScriptBin "nordvpn" ''
+      set -euo pipefail
+
+      usage() {
+        cat <<'EOF'
+Usage: nordvpn <command> [args]
+  login <token>        Login using NordVPN access token
+  connect <country>    Connect to a country (example: spain)
+  disconnect           Disconnect VPN
+  account              Show account information
+  help                 Show this help
+EOF
+      }
+
+      cmd="''${1:-help}"
+      case "$cmd" in
+        login)
+          token="''${2:-}"
+          if [ -z "$token" ]; then
+            echo "Missing token. Usage: nordvpn login <token>" >&2
+            exit 1
+          fi
+          exec ${wgnord}/bin/wgnord l "$token"
+          ;;
+        connect)
+          country="''${2:-}"
+          if [ -z "$country" ]; then
+            echo "Missing country. Usage: nordvpn connect <country>" >&2
+            exit 1
+          fi
+          exec sudo ${wgnord}/bin/wgnord c "$country"
+          ;;
+        disconnect)
+          exec sudo ${wgnord}/bin/wgnord d
+          ;;
+        account|status)
+          exec ${wgnord}/bin/wgnord a
+          ;;
+        help|-h|--help)
+          usage
+          ;;
+        *)
+          echo "Unknown command: $cmd" >&2
+          usage
+          exit 1
+          ;;
+      esac
+    '')
   ];
 
   # ============================================================================

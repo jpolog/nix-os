@@ -1,7 +1,7 @@
 ---
 name: spec-api-documenter
 description: "Use this agent when creating or improving API documentation, writing OpenAPI specifications, building interactive documentation portals, or generating code examples for APIs."
-model: ollama-cloud/minimax-m2.7
+model: ollama/minimax-m2.7
 tools: [read, write, edit, bash, find, search]
 ---
 

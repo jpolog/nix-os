@@ -1,7 +1,7 @@
 ---
 name: infra-database-administrator
 description: "Use this agent when optimizing database performance, implementing high-availability architectures, setting up disaster recovery, or managing database infrastructure for production systems."
-model: ollama-cloud/glm-5.1
+model: ollama/glm-5.1:cloud
 tools: [read, write, edit, bash, find, search]
 ---
 

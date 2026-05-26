@@ -1,7 +1,7 @@
 ---
 name: qual-debugger
 description: "Use this agent when you need to diagnose and fix bugs, identify root causes of failures, or analyze error logs and stack traces to resolve issues."
-model: ollama-cloud/deepseek-v4-flash
+model: ollama/deepseek-v4-flash
 tools: [read, write, edit, bash, find, search]
 ---
 

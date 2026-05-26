@@ -1,7 +1,7 @@
 ---
 name: meta-knowledge-synthesizer
 description: "Use when you need to extract actionable patterns from agent interactions, synthesize insights across multiple workflows, and enable organizational learning from collective experience."
-model: ollama-cloud/qwen3.5:397b
+model: ollama/qwen3.5:397b
 tools: [read, write, edit, bash, find, search]
 ---
 

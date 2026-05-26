@@ -1,7 +1,7 @@
 ---
 name: lang-swift-expert
 description: "Use this agent when building native iOS, macOS, or server-side Swift applications requiring advanced concurrency patterns, protocol-oriented architecture, and Swift-specific optimizations. Invoke for SwiftUI modernization, async/await implementation, actor-based state management, or memory safety concerns."
-model: ollama-cloud/qwen3-coder-next
+model: ollama/qwen3-coder-next:cloud
 tools: [read, write, edit, bash, find, search]
 ---
 

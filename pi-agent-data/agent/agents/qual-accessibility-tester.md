@@ -1,7 +1,7 @@
 ---
 name: qual-accessibility-tester
 description: "Use this agent when you need comprehensive accessibility testing, WCAG compliance verification, or assessment of assistive technology support."
-model: ollama-cloud/gemini-3-flash-preview
+model: ollama/gemini-3-flash-preview
 tools: [read, write, edit, bash, find, search]
 ---
 

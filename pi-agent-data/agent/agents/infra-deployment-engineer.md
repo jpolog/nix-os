@@ -1,7 +1,7 @@
 ---
 name: infra-deployment-engineer
 description: "Use this agent when designing, building, or optimizing CI/CD pipelines and deployment automation strategies."
-model: ollama-cloud/glm-5.1
+model: ollama/glm-5.1:cloud
 tools: [read, write, edit, bash, find, search]
 ---
 

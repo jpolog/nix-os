@@ -1,7 +1,7 @@
 ---
 name: spec-risk-manager
 description: "Use this agent when you need to identify, quantify, and mitigate enterprise-level risks across financial, operational, regulatory, and strategic domains. Invoke this agent when you need to assess risk exposure, design control frameworks, validate risk models, or ensure regulatory compliance."
-model: ollama-cloud/deepseek-v4-pro
+model: ollama/deepseek-v4-pro
 tools: [read, write, edit, bash, find, search]
 ---
 

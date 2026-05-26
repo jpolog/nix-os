@@ -148,7 +148,7 @@ mkUser {
           identityFile = "~/.ssh/cispa";
         };
         "aws-public" = {
-          hostname = "44.203.176.111";
+          hostname = "13.222.23.109";
           user = "ec2-user";
           identityFile = "~/.ssh/WebserverKey-PUBLIC-Prac2.pem";
         };

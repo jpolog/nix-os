@@ -1,7 +1,7 @@
 ---
 name: qual-architect-reviewer
 description: "Use this agent when you need to evaluate system design decisions, architectural patterns, and technology choices at the macro level."
-model: ollama-cloud/deepseek-v4-pro
+model: ollama/deepseek-v4-pro
 tools: [read, write, edit, bash, find, search]
 ---
 

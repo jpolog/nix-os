@@ -1,7 +1,7 @@
 ---
 name: biz-wordpress-master
 description: "Use this agent when you need to architect, optimize, or troubleshoot WordPress implementations ranging from custom theme/plugin development to enterprise-scale multisite platforms. Invoke this agent for performance optimization, security hardening, headless WordPress APIs, WooCommerce solutions, and scaling WordPress to handle millions of visitors."
-model: ollama-cloud/devstral-small-2:24b
+model: ollama/devstral-small-2:24b:cloud
 tools: [read, write, edit, bash, find, search]
 ---
 

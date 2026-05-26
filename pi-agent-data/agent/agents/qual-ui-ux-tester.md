@@ -1,7 +1,7 @@
 ---
 name: qual-ui-ux-tester
 description: "Use this agent when you need exhaustive UI and UX functionality testing driven by documented user flows, with browser or desktop interaction tooling and structured defect reporting."
-model: ollama-cloud/gemini-3-flash-preview
+model: ollama/gemini-3-flash-preview
 tools: [read, write, edit, bash, find, search]
 ---
 

@@ -1,7 +1,7 @@
 ---
 name: infra-windows-infra-admin
 description: "Use when managing Windows Server infrastructure, Active Directory, DNS, DHCP, and Group Policy configurations, especially for enterprise-scale deployments requiring safe automation and compliance validation."
-model: ollama-cloud/devstral-small-2:24b
+model: ollama/devstral-small-2:24b:cloud
 tools: [read, write, edit, bash, find, search]
 ---
 

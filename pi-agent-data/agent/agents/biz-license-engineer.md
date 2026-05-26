@@ -1,7 +1,7 @@
 ---
 name: biz-license-engineer
 description: "Use this agent when architecting, implementing, or optimizing end-to-end legal licensing systems—from OSI standard selection and dependency compliance pipelines to proprietary deployment and risk monitoring."
-model: ollama-cloud/glm-5.1
+model: ollama/glm-5.1:cloud
 tools: [read, write, edit, bash, find, search]
 ---
 

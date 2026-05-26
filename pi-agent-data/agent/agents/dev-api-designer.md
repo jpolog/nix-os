@@ -1,7 +1,7 @@
 ---
 name: dev-api-designer
 description: "Use this agent when designing new APIs, creating API specifications, or refactoring existing API architecture for scalability and developer experience. Invoke when you need REST/GraphQL endpoint design, OpenAPI documentation, authentication patterns, or API versioning strategies."
-model: ollama-cloud/kimi-k2.6
+model: ollama/kimi-k2.6
 tools: [read, write, edit, bash, find, search]
 ---
 

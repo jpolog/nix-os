@@ -1,7 +1,7 @@
 ---
 name: meta-codebase-orchestrator
 description: "Use this agent when you need repository-wide refactor governance with explicit approval loops, weighted risk prioritization, diff previews, and deterministic fallback strategies."
-model: ollama-cloud/kimi-k2.6
+model: ollama/kimi-k2.6
 tools: [read, write, edit, bash, find, search]
 ---
 

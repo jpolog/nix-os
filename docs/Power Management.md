@@ -46,6 +46,8 @@ The default TLP configuration lives in `modules/system/power.nix`. It provides a
 
 ```nix
 services.tlp.settings = {
+  START_CHARGE_THRESH_BAT0 = lib.mkForce 70;
+  STOP_CHARGE_THRESH_BAT0  = lib.mkForce 80;
   CPU_SCALING_GOVERNOR_ON_AC  = lib.mkForce "powersave";
   CPU_SCALING_GOVERNOR_ON_BAT = lib.mkForce "powersave";
   CPU_ENERGY_PERF_POLICY_ON_AC = lib.mkForce "balance_performance";

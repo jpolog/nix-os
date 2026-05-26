@@ -1,7 +1,7 @@
 ---
 name: meta-performance-monitor
 description: "Use when establishing observability infrastructure to track system metrics, detect performance anomalies, and optimize resource usage across multi-agent environments."
-model: ollama-cloud/deepseek-v4-flash
+model: ollama/deepseek-v4-flash
 tools: [read, write, edit, bash, find, search]
 ---
 

@@ -1,7 +1,7 @@
 ---
 name: data-prompt-engineer
 description: "Use this agent when you need to design, optimize, test, or evaluate prompts for large language models in production systems."
-model: ollama-cloud/deepseek-v4-flash
+model: ollama/deepseek-v4-flash
 tools: [read, write, edit, bash, find, search]
 ---
 

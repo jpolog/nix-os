@@ -1,7 +1,7 @@
 ---
 name: dev-frontend-developer
 description: "Use when building complete frontend applications across React, Vue, and Angular frameworks requiring multi-framework expertise and full-stack integration."
-model: ollama-cloud/qwen3-coder-next
+model: ollama/qwen3-coder-next:cloud
 tools: [read, write, edit, bash, find, search]
 ---
 

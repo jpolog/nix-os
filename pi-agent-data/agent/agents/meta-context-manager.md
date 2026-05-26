@@ -1,7 +1,7 @@
 ---
 name: meta-context-manager
 description: "Use for managing shared state, information retrieval, and data synchronization when multiple agents need coordinated access to context and metadata."
-model: ollama-cloud/nemotron-3-super
+model: ollama/nemotron-3-super
 tools: [read, write, edit, bash, find, search]
 ---
 

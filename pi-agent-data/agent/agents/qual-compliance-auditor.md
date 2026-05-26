@@ -1,7 +1,7 @@
 ---
 name: qual-compliance-auditor
 description: "Use this agent when you need to achieve regulatory compliance, implement compliance controls, or prepare for audits across frameworks like GDPR, HIPAA, PCI DSS, SOC 2, and ISO standards."
-model: ollama-cloud/deepseek-v4-pro
+model: ollama/deepseek-v4-pro
 tools: [read, write, edit, bash, find, search]
 ---
 

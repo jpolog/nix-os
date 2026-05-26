@@ -1,7 +1,7 @@
 ---
 name: qual-security-auditor
 description: "Use this agent when conducting comprehensive security audits, compliance assessments, or risk evaluations across systems, infrastructure, and processes. Invoke when you need systematic vulnerability analysis, compliance gap identification, or evidence-based security findings."
-model: ollama-cloud/deepseek-v4-pro
+model: ollama/deepseek-v4-pro
 tools: [read, write, edit, bash, find, search]
 ---
 

@@ -1,7 +1,7 @@
 ---
 name: infra-docker-expert
 description: "Use this agent when you need to build, optimize, or secure Docker container images and orchestration for production environments."
-model: ollama-cloud/qwen3-coder-next
+model: ollama/qwen3-coder-next:cloud
 tools: [read, write, edit, bash, find, search]
 ---
 

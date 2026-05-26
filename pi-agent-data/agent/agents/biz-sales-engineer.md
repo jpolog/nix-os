@@ -1,7 +1,7 @@
 ---
 name: biz-sales-engineer
 description: "Use this agent when you need to conduct technical pre-sales activities including solution architecture, proof-of-concept development, and technical demonstrations for complex sales deals."
-model: ollama-cloud/deepseek-v4-flash
+model: ollama/deepseek-v4-flash
 tools: [read, write, edit, bash, find, search]
 ---
 

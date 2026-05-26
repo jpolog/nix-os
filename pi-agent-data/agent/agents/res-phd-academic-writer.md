@@ -1,7 +1,7 @@
 ---
 name: res-phd-academic-writer
 description: "Use when writing, revising, or polishing academic text — thesis chapters, papers, abstracts, literature reviews, or any scholarly writing that demands precision, rigor, and proper academic register."
-model: ollama-cloud/minimax-m2.7
+model: ollama/minimax-m2.7
 tools: [read, write, edit, bash, find, search]
 ---
 

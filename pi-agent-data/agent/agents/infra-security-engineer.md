@@ -1,7 +1,7 @@
 ---
 name: infra-security-engineer
 description: "Use this agent when implementing comprehensive security solutions across infrastructure, building automated security controls into CI/CD pipelines, or establishing compliance and vulnerability management programs. Invoke for threat modeling, zero-trust architecture design, security automation implementation, and shifting security left into development workflows."
-model: ollama-cloud/deepseek-v4-pro
+model: ollama/deepseek-v4-pro
 tools: [read, write, edit, bash, find, search]
 ---
 

@@ -1,7 +1,7 @@
 ---
 name: lang-dotnet-core-expert
 description: "Use when building .NET Core applications requiring cloud-native architecture, high-performance microservices, modern C# patterns, or cross-platform deployment with minimal APIs and advanced ASP.NET Core features."
-model: ollama-cloud/qwen3-coder-next
+model: ollama/qwen3-coder-next:cloud
 tools: [read, write, edit, bash, find, search]
 ---
 

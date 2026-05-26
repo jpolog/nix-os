@@ -1,0 +1,267 @@
+#!/usr/bin/env bash
+# ollama-discover — Query local Ollama instance and produce a models.local.json
+# that the omp xpert extension can merge into its model catalog.
+#
+# Usage:
+#   ollama-discover                    # write to ~/.omp/models.local.json
+#   ollama-discover --output PATH      # write to custom path
+#   ollama-discover --url URL          # custom Ollama URL (default: http://localhost:11434)
+#   ollama-discover --dry-run          # print to stdout instead of writing
+#
+# The script infers basic capability metadata from model names/sizes and
+# produces JSON entries for models NOT already in the curated models.yml.
+# These discovered models become selectable overrides in the omp model picker.
+
+set -euo pipefail
+
+URL="${OLLAMA_HOST:-http://localhost:11434}"
+OUTPUT=""
+DRY_RUN=false
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --output) OUTPUT="$2"; shift 2 ;;
+        --url) URL="$2"; shift 2 ;;
+        --dry-run) DRY_RUN=true; shift ;;
+        -h|--help)
+            echo "Usage: ollama-discover [--output PATH] [--url URL] [--dry-run]"
+            echo ""
+            echo "Discovers locally available Ollama models and writes a"
+            echo "models.local.json supplement for omp model selection."
+            exit 0 ;;
+        *) echo "Unknown option: $1" >&2; exit 1 ;;
+    esac
+done
+
+if [[ -z "$OUTPUT" ]]; then
+    OUTPUT="$HOME/.omp/models.local.json"
+fi
+
+# ── Query Ollama ──────────────────────────────────────────────────────────
+
+if ! model_data=$(curl -sf --max-time 5 "${URL}/api/tags" 2>/dev/null); then
+    echo "ollama-discover: Cannot reach Ollama at ${URL}" >&2
+    echo "Is the Ollama service running?" >&2
+    echo '{"local_models":[]}' | if $DRY_RUN; then cat; else tee "$OUTPUT" > /dev/null; fi
+    exit 1
+fi
+
+# ── Generate models.local.json ────────────────────────────────────────────
+
+if ! command -v python3 &>/dev/null; then
+    echo "ollama-discover: Requires python3 for JSON processing" >&2
+    exit 1
+fi
+
+# Read models.yml to get the exact curated model IDs (with tags).
+# This ensures we only skip models that are EXACTLY in the curated catalog.
+# e.g. 'qwen3-coder-next:cloud' is curated but 'qwen3-coder-next:latest' is not.
+MODELS_YML="/etc/nixos/pi-agent-data/agent/models.yml"
+if [[ ! -f "$MODELS_YML" ]]; then
+    MODELS_YML="$HOME/.omp/agent/models.yml"
+fi
+
+local_models=$(python3 -c "
+import json, sys, re, os
+
+data = json.load(sys.stdin)
+models = data.get('models', [])
+
+# ── Load curated model IDs from models.yml ──────────────────────────────
+# Extract all 'id = "ollama/..."' entries to build the curated set.
+# These are full IDs like 'ollama/qwen3-coder-next:cloud'.
+curated_full_ids = set()  # e.g. 'ollama/qwen3-coder-next:cloud'
+curated_base_ids = set()  # e.g. 'qwen3-coder-next'
+
+models_yml_path = os.environ.get('MODELS_YML', '${MODELS_YML}')
+try:
+    with open(models_yml_path, 'r') as f:
+        for line in f:
+            m = re.match(r'^\s*id\s*=\s*\"(ollama/.+?)\"', line)
+            if m:
+                full_id = m.group(1)
+                curated_full_ids.add(full_id)
+                # Extract base: 'ollama/qwen3-coder-next:cloud' -> 'qwen3-coder-next'
+                # Strip 'ollama/' prefix and tag suffix
+                no_prefix = full_id.removeprefix('ollama/')
+                base = no_prefix.split(':')[0]
+                curated_base_ids.add(base)
+except FileNotFoundError:
+    pass  # No models.yml found — discover everything
+
+cloud_tags = {'cloud', 'server'}
+
+def is_curated(name):
+    '''Check if this exact model variant is already in the curated catalog.'''
+    # Build the full ID format: 'ollama/<name>'
+    # name from Ollama includes tag, e.g. 'qwen3-coder-next:cloud'
+    full_id = f'ollama/{name}'
+
+    # Exact match against curated IDs
+    if full_id in curated_full_ids:
+        return True
+
+    # Also check base name match, but ONLY for models without an explicit tag
+    # in the curated set. If models.yml has 'ollama/qwen3-coder-next:cloud'
+    # and Ollama returns 'qwen3-coder-next:latest', that's a DIFFERENT variant.
+    # However, if models.yml has 'ollama/deepseek-v4-pro' (no tag) and
+    # Ollama returns 'deepseek-v4-pro:cloud', the ':cloud' variant IS the
+    # curated one.
+    base = name.split(':')[0]
+    if base in curated_base_ids:
+        # The base name is curated. Check if the tag matches any curated entry.
+        # If NO curated entry for this base has an explicit tag, then any
+        # tag variant is considered curated (it's the same model family).
+        # If there ARE tagged variants, only the matching tag is curated.
+        tagged_variants = [cid for cid in curated_full_ids
+                          if cid.removeprefix('ollama/').split(':')[0] == base
+                          and ':' in cid.removeprefix('ollama/')]
+        untagged_variants = [cid for cid in curated_full_ids
+                            if cid.removeprefix('ollama/').split(':')[0] == base
+                            and ':' not in cid.removeprefix('ollama/')]
+
+        if tagged_variants:
+            # Curated entries have explicit tags. Only match if our tag matches.
+            tag = name.split(':')[1] if ':' in name else 'latest'
+            for tv in tagged_variants:
+                curated_tag = tv.removeprefix('ollama/').split(':')[1]
+                if tag == curated_tag:
+                    return True
+            # Tag doesn't match any curated variant — this is a new variant
+            return False
+        else:
+            # Only untagged curated entries — any variant is the same model
+            return True
+
+    return False
+
+def is_cloud_tag(name):
+    tag = name.split(':')[-1].lower() if ':' in name else ''
+    return tag in cloud_tags
+
+def infer_reasoning(name):
+    n = name.lower()
+    if any(x in n for x in ['deepseek-r1', 'deepseek-v4', 'reason', 'think',
+                              'qwq', 'kimi', 'glm', 'ministral', 'nemotron',
+                              'gpt-oss', 'gemma4', 'qwen3.5', 'qwen3-vl',
+                              'phi4', 'mistral-small3', 'llama4', 'llama3']):
+        return True
+    return False
+
+def infer_context(name):
+    n = name.lower()
+    if 'deepseek-v4' in n: return 1048576
+    if 'gemini-3' in n: return 1048576
+    if 'glm-5' in n: return 202752
+    if any(x in n for x in ['qwen3', 'kimi', 'devstral']): return 262144
+    if 'gemma4' in n: return 256000
+    if any(x in n for x in ['ministral', 'gpt-oss']): return 131072
+    if 'rnj' in n: return 32768
+    if 'llama4' in n: return 1048576
+    if 'llama3' in n: return 131072
+    if 'phi4' in n: return 131072
+    return 131072
+
+def infer_max_tokens(name):
+    n = name.lower()
+    if 'deepseek-v4-pro' in n: return 384000
+    if 'glm-5' in n: return 131072
+    if any(x in n for x in ['kimi', 'qwen3-coder', 'devstral-small']): return 65536
+    if any(x in n for x in ['ministral', 'qwen3.5']): return 32768
+    if any(x in n for x in ['gpt-oss', 'gemma4']): return 16384
+    if 'llama4' in n: return 32768
+    if 'phi4' in n: return 16384
+    return 8192
+
+def infer_multimodal(name):
+    n = name.lower()
+    return any(x in n for x in ['vl', 'vision', 'gemini', 'gemma4',
+                                  'minicpm', 'llava', 'moondream', 'qwen3-vl',
+                                  'phi4-mm'])
+
+def format_params(raw):
+    if not raw:
+        return None
+    s = str(raw).lower().strip()
+    if s.isdigit():
+        n = int(s)
+        if n >= 1_000_000_000_000: return f'{n // 1_000_000_000_000}T'
+        if n >= 1_000_000_000: return f'{n // 1_000_000_000}B'
+        if n >= 1_000_000: return f'{n // 1_000_000}M'
+        return s
+    # Human-readable: '80B', '14B'
+    if re.match(r'^[\d.]+[tmbk]$', s):
+        return s.upper()
+    # MoE annotations: '284B MoE (13B active)'
+    return s
+
+results = []
+for m in models:
+    name = m.get('name', '')
+    model_id = f'ollama/{name}'
+
+    if is_curated(name):
+        continue
+
+    details = m.get('details', {})
+    param_str = format_params(details.get('parameter_size', ''))
+
+    # Fallback: extract params from model name
+    if not param_str:
+        size_match = re.search(r'[:\-_](\d+[bmt])', name, re.IGNORECASE)
+        if size_match:
+            param_str = size_match.group(1).upper()
+
+    cloud = is_cloud_tag(name)
+
+    entry = {
+        'id': model_id,
+        'name': details.get('name', '') or name.split(':')[0],
+        'params': param_str or 'unknown',
+        'reasoning': infer_reasoning(name),
+        'context': infer_context(name),
+        'max_tokens': infer_max_tokens(name),
+        'local': not cloud,
+        'cloud': cloud,
+        'source': 'cloud' if cloud else 'local',
+        'strengths': [
+            'Available via Ollama' + (' Cloud' if cloud else ' (locally pulled)'),
+        ],
+        'weaknesses': [
+            'Auto-discovered — metadata is inferred, not curated',
+        ],
+    }
+
+    # Add available detail fields
+    family = details.get('family', '')
+    if family:
+        entry['family'] = family
+    quant = details.get('quantization_level', '')
+    if quant:
+        entry['quantization'] = quant
+
+    if infer_multimodal(name):
+        entry['multimodal'] = True
+        entry['strengths'] = entry.get('strengths', []) + ['Multimodal (text + image)']
+
+    if infer_reasoning(name):
+        entry['thinking'] = 'effort'
+
+    results.append(entry)
+
+output = {'local_models': results, 'ollama_url': '${URL}', 'generated_at': None}
+# Add timestamp
+import datetime
+output['generated_at'] = datetime.datetime.now().isoformat()
+
+print(json.dumps(output, indent=2))
+" <<< "$model_data")
+
+if $DRY_RUN; then
+    echo "$local_models"
+else
+    mkdir -p "$(dirname "$OUTPUT")"
+    echo "$local_models" > "$OUTPUT"
+    count=$(echo "$local_models" | python3 -c "import json,sys; d=json.load(sys.stdin); print(len(d['local_models']))")
+    echo "ollama-discover: Wrote ${count} discovered model(s) to ${OUTPUT}"
+fi

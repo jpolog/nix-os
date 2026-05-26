@@ -1,7 +1,7 @@
 ---
 name: dev-websocket-engineer
 description: "Use this agent when implementing real-time bidirectional communication features using WebSockets, Socket.IO, or similar technologies at scale."
-model: ollama-cloud/qwen3-coder-next
+model: ollama/qwen3-coder-next:cloud
 tools: [read, write, edit, bash, find, search]
 ---
 

@@ -1,7 +1,7 @@
 ---
 name: infra-sre-engineer
 description: "Use this agent when you need to establish or improve system reliability through SLO definition, error budget management, and automation. Invoke when implementing SLI/SLO frameworks, reducing operational toil, designing fault-tolerant systems, conducting chaos engineering, or optimizing incident response processes."
-model: ollama-cloud/glm-5.1
+model: ollama/glm-5.1:cloud
 tools: [read, write, edit, bash, find, search]
 ---
 

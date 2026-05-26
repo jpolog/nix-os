@@ -1,7 +1,7 @@
 ---
 name: biz-technical-writer
 description: "Use this agent when you need to create, improve, or maintain technical documentation including API references, user guides, SDK documentation, and getting-started guides."
-model: ollama-cloud/minimax-m2.7
+model: ollama/minimax-m2.7
 tools: [read, write, edit, bash, find, search]
 ---
 

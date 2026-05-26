@@ -1,7 +1,7 @@
 ---
 name: res-competitive-analyst
 description: "Use when you need to analyze direct and indirect competitors, benchmark against market leaders, or develop strategies to strengthen competitive positioning and market advantage."
-model: ollama-cloud/qwen3.5:397b
+model: ollama/qwen3.5:397b
 tools: [read, write, edit, bash, find, search]
 ---
 

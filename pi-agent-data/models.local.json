@@ -1,0 +1,79 @@
+{
+  "local_models": [
+    {
+      "id": "ollama/deepseek-v3.2:cloud",
+      "name": "deepseek-v3.2",
+      "params": "671B",
+      "reasoning": false,
+      "context": 131072,
+      "max_tokens": 8192,
+      "local": false,
+      "cloud": true,
+      "source": "cloud",
+      "strengths": [
+        "Available via Ollama Cloud"
+      ],
+      "weaknesses": [
+        "Auto-discovered \u2014 metadata is inferred, not curated"
+      ],
+      "family": "deepseek3.2",
+      "quantization": "fp8"
+    },
+    {
+      "id": "ollama/minimax-m2.5:cloud",
+      "name": "minimax-m2.5",
+      "params": "unknown",
+      "reasoning": false,
+      "context": 131072,
+      "max_tokens": 8192,
+      "local": false,
+      "cloud": true,
+      "source": "cloud",
+      "strengths": [
+        "Available via Ollama Cloud"
+      ],
+      "weaknesses": [
+        "Auto-discovered \u2014 metadata is inferred, not curated"
+      ]
+    },
+    {
+      "id": "ollama/glm-5:cloud",
+      "name": "glm-5",
+      "params": "unknown",
+      "reasoning": true,
+      "context": 202752,
+      "max_tokens": 131072,
+      "local": false,
+      "cloud": true,
+      "source": "cloud",
+      "strengths": [
+        "Available via Ollama Cloud"
+      ],
+      "weaknesses": [
+        "Auto-discovered \u2014 metadata is inferred, not curated"
+      ],
+      "thinking": "effort"
+    },
+    {
+      "id": "ollama/qwen3-coder-next:latest",
+      "name": "qwen3-coder-next",
+      "params": "80B",
+      "reasoning": false,
+      "context": 262144,
+      "max_tokens": 65536,
+      "local": true,
+      "cloud": false,
+      "source": "local",
+      "strengths": [
+        "Available via Ollama (locally pulled)"
+      ],
+      "weaknesses": [
+        "Auto-discovered \u2014 metadata is inferred, not curated"
+      ],
+      "family": "qwen3next",
+      "quantization": "FP8"
+    }
+  ],
+  "ollama_url": "http://localhost:11434",
+  "generated_at": "2026-05-26T18:12:33.995129"
+}

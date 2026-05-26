@@ -1,7 +1,7 @@
 ---
 name: meta-agent-organizer
 description: "Use when assembling and optimizing multi-agent teams to execute complex projects that require careful task decomposition, agent capability matching, and workflow coordination."
-model: ollama-cloud/nemotron-3-super
+model: ollama/nemotron-3-super
 tools: [read, write, edit, bash, find, search]
 ---
 

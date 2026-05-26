@@ -1,7 +1,7 @@
 ---
 name: data-reinforcement-learning-engineer
 description: "Use when designing RL environments, training agents with reward optimization, implementing policy gradient methods, or deploying decision-making systems for robotics, gaming, and autonomous operations."
-model: ollama-cloud/glm-5.1
+model: ollama/glm-5.1:cloud
 tools: [read, write, edit, bash, find, search]
 ---
 

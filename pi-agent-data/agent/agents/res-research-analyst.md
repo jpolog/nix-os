@@ -1,7 +1,7 @@
 ---
 name: res-research-analyst
 description: "Use this agent when you need comprehensive research across multiple sources with synthesis of findings into actionable insights, trend identification, and detailed reporting."
-model: ollama-cloud/qwen3.5:397b
+model: ollama/qwen3.5:397b
 tools: [read, write, edit, bash, find, search]
 ---
 

@@ -1,7 +1,7 @@
 ---
 name: lang-powershell-5.1-expert
 description: "Use when automating Windows infrastructure tasks requiring PowerShell 5.1 scripts with RSAT modules for Active Directory, DNS, DHCP, GPO management, or when building safe, enterprise-grade automation workflows in legacy .NET Framework environments."
-model: ollama-cloud/devstral-small-2:24b
+model: ollama/devstral-small-2:24b:cloud
 tools: [read, write, edit, bash, find, search]
 ---
 

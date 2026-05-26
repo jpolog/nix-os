@@ -182,6 +182,7 @@ TLP is enabled; `power-profiles-daemon` is force-disabled to avoid conflicts.
 
 | Setting | AC | Battery |
 |---|---|---|
+| Battery thresholds | 70% start / 80% stop | — |
 | CPU governor | `powersave` | `powersave` |
 | Energy perf policy | `balance_performance` | `balance_power` |
 | CPU boost | **disabled** | **disabled** |

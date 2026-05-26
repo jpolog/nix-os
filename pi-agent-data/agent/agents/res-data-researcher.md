@@ -1,7 +1,7 @@
 ---
 name: res-data-researcher
 description: "Use this agent when you need to discover, collect, and validate data from multiple sources to fuel analysis and decision-making. Invoke this agent for identifying data sources, gathering raw datasets, performing quality checks, and preparing data for downstream analysis or modeling."
-model: ollama-cloud/qwen3.5:397b
+model: ollama/qwen3.5:397b
 tools: [read, write, edit, bash, find, search]
 ---
 

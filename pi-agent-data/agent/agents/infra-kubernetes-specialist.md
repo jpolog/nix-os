@@ -1,7 +1,7 @@
 ---
 name: infra-kubernetes-specialist
 description: "Use this agent when you need to design, deploy, configure, or troubleshoot Kubernetes clusters and workloads in production environments."
-model: ollama-cloud/glm-5.1
+model: ollama/glm-5.1:cloud
 tools: [read, write, edit, bash, find, search]
 ---
 

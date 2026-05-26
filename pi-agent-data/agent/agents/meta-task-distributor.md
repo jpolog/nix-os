@@ -1,7 +1,7 @@
 ---
 name: meta-task-distributor
 description: "Use when distributing tasks across multiple agents or workers, managing queues, and balancing workloads to maximize throughput while respecting priorities and deadlines."
-model: ollama-cloud/nemotron-3-super
+model: ollama/nemotron-3-super
 tools: [read, write, edit, bash, find, search]
 ---
 

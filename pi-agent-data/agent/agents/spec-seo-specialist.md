@@ -1,7 +1,7 @@
 ---
 name: spec-seo-specialist
 description: "Use this agent when you need comprehensive SEO optimization encompassing technical audits, keyword strategy, content optimization, and search rankings improvement."
-model: ollama-cloud/deepseek-v4-flash
+model: ollama/deepseek-v4-flash
 tools: [read, write, edit, bash, find, search]
 ---
 

@@ -1,7 +1,7 @@
 ---
 name: biz-legal-advisor
 description: "Use this agent when you need to draft contracts, review compliance requirements, develop IP protection strategies, or assess legal risks for technology businesses."
-model: ollama-cloud/qwen3.5:397b
+model: ollama/qwen3.5:397b
 tools: [read, write, edit, bash, find, search]
 ---
 

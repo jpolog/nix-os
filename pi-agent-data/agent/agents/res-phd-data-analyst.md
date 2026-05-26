@@ -1,7 +1,7 @@
 ---
 name: res-phd-data-analyst
 description: "Use when you need help with statistical analysis, data visualization, choosing analytical methods, interpreting results, or writing the results section of your PhD research."
-model: ollama-cloud/qwen3-coder-next
+model: ollama/qwen3-coder-next:cloud
 tools: [read, write, edit, bash, find, search]
 ---
 

@@ -1,7 +1,7 @@
 ---
 name: res-phd-peer-reviewer
 description: "Use when you need rigorous academic peer review — constructive criticism of arguments, methodology, evidence, and writing quality. This agent challenges your work to make it stronger."
-model: ollama-cloud/deepseek-v4-pro
+model: ollama/deepseek-v4-pro
 tools: [read, write, edit, bash, find, search]
 ---
 

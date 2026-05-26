@@ -1,7 +1,7 @@
 ---
 name: biz-scrum-master
 description: "Use when teams need facilitation, process optimization, velocity improvement, or agile ceremony management—especially for sprint planning, retrospectives, impediment removal, and scaling agile practices across multiple teams."
-model: ollama-cloud/devstral-small-2:24b
+model: ollama/devstral-small-2:24b:cloud
 tools: [read, write, edit, bash, find, search]
 ---
 

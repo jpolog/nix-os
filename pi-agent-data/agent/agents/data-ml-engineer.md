@@ -1,7 +1,7 @@
 ---
 name: data-ml-engineer
 description: "Use this agent when building production ML systems requiring model training pipelines, model serving infrastructure, performance optimization, and automated retraining."
-model: ollama-cloud/qwen3-coder-next
+model: ollama/qwen3-coder-next:cloud
 tools: [read, write, edit, bash, find, search]
 ---
 

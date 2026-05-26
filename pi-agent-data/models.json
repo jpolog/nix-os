@@ -1,55 +1,49 @@
 {
-  "providers": {
-    "ollama-cloud": {
-      "type": "ollama",
-      "apiKey": "env:OLLAMA_API_KEY"
-    }
-  },
   "routing": {
-    "routerModel": "ollama-cloud/qwen3.6-plus:cloud",
+    "routerModel": "ollama/glm-5.1:cloud",
     "roles": {
       "primary": {
-        "model": "ollama-cloud/qwen3.6-plus:cloud",
+        "model": "ollama/glm-5.1:cloud",
         "thinkingLevel": "high"
       },
       "planner": {
-        "model": "ollama-cloud/qwen3.6-plus:cloud"
+        "model": "ollama/qwen3.5:cloud"
       },
       "reviewer": {
-        "model": "ollama-cloud/glm-5.1:cloud"
+        "model": "ollama/glm-5.1:cloud"
       },
       "explore": {
-        "model": "ollama-cloud/glm-5.1:cloud"
+        "model": "ollama/glm-5.1:cloud"
       },
       "documenter": {
-        "model": "ollama-cloud/llama-4-mini:cloud"
+        "model": "ollama/ministral-3:14b-cloud"
       },
       "summarizer": {
-        "model": "ollama-cloud/llama-4-mini:cloud"
+        "model": "ollama/ministral-3:14b-cloud"
       },
       "vision": {
-        "model": "ollama-cloud/pi-vision-1.5:cloud"
+        "model": "ollama/qwen3.5:cloud"
       },
       "tester": {
-        "model": "ollama-cloud/deepseek-v4-coder:cloud"
+        "model": "ollama/qwen3-coder-next:cloud"
       },
       "refactorer": {
-        "model": "ollama-cloud/deepseek-v4-coder:cloud"
+        "model": "ollama/qwen3-coder-next:cloud"
       }
     },
     "contextPromotion": {
       "enabled": true,
-      "fallbackModel": "ollama-cloud/qwen3.6-plus:cloud"
+      "fallbackModel": "ollama/qwen3.5:cloud"
     }
   },
   "providers": {
-    "ollama": { "enabled": false },
+    "ollama": {
+      "type": "ollama",
+      "enabled": true,
+      "baseUrl": "http://localhost:11434"
+    },
     "google": { "enabled": false },
     "anthropic": { "enabled": false },
-    "openai": { "enabled": false },
-    "ollama-cloud": {
-      "type": "ollama",
-      "apiKey": "env:OLLAMA_API_KEY"
-    }
+    "openai": { "enabled": false }
   }
 }

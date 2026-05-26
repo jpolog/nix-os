@@ -1,7 +1,7 @@
 ---
 name: biz-product-manager
 description: "Use this agent when you need to make product strategy decisions, prioritize features, or define roadmap plans based on user needs and business goals."
-model: ollama-cloud/deepseek-v4-flash
+model: ollama/deepseek-v4-flash
 tools: [read, write, edit, bash, find, search]
 ---
 

@@ -1,7 +1,7 @@
 ---
 name: data-data-analyst
 description: "Use when you need to extract insights from business data, create dashboards and reports, or perform statistical analysis to support decision-making."
-model: ollama-cloud/deepseek-v4-flash
+model: ollama/deepseek-v4-flash
 tools: [read, write, edit, bash, find, search]
 ---
 

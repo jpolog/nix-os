@@ -125,122 +125,32 @@ in {
     rr = "ranger";
   };
 
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-    viAlias = true;
-    vimAlias = true;
-    
-    # --- 3. RUNTIME BINARIES (Replacing Mason) ---
-    extraPackages = with pkgs; [
-      # -- System Tools --
-      git
-      lazygit
-      ripgrep
-      fd
-      curl
-      gzip
-      gnutar
-      imagemagick  # For image rendering in Neovim (image.nvim/molten-nvim)
-      
-      # -- Clipboard Support (Wayland) --
-      wl-clipboard      # Provides wl-copy and wl-paste for system clipboard
-      
-      # -- Build Tools (for nvim-treesitter health checks) --
-      gcc
-      tree-sitter
-      
-      # -- Lua --
-      lua-language-server
-      stylua
-      
-      # -- Nix --
-      nixd
-      nixfmt
-      
-      # -- Python --
-      pyright
-      ruff
-      
-      # -- TypeScript/JS/Web --
-      nodePackages.typescript-language-server
-      nodePackages.vscode-langservers-extracted
-      prettierd
-      eslint_d
-      tailwindcss-language-server
-      
-      # -- Rust --
-      rust-analyzer
-      rustfmt
-      
-      # -- Go --
-      gopls
-      gofumpt
-      golangci-lint
-      
-      # -- C/C++ --
-      clang-tools
-      
-      # -- Data/Markup --
-      taplo
-      yaml-language-server
-      marksman
-      markdownlint-cli2
-      texlab
-      shfmt
-      shellcheck
-    ];
-
-    # --- 4. TREESITTER (keep for parser installation) ---
-    plugins = [
-      pkgs.vimPlugins.nvim-treesitter.withAllGrammars
-    ];
-
-    # --- 5. LUA PACKAGES ---
-    extraLuaPackages = ps: [
-      ps.magick # For image.nvim
-    ];
-
-    # --- 6. CONFIGURATION ---
-    initLua = ''
-      -- Disable netrw to avoid double explorer issue
-      vim.g.loaded_netrw = 1
-      vim.g.loaded_netrwPlugin = 1
-
-      -- Bootstrap lazy.nvim from Nix
-      local lazypath = vim.env.NIX_LAZY_PATH .. "/lazy.nvim"
-      vim.opt.rtp:prepend(lazypath)
-      
-      -- System clipboard integration
-      vim.opt.clipboard = "unnamedplus"
-      
-      -- Load LazyVim config
-      require("config.options")
-      require("config.lazy")
-
-      -- Toggle Light Mode User Command
-      vim.api.nvim_create_user_command("ToggleLightMode", function()
-        if vim.o.background == "dark" then
-          vim.o.background = "light"
-          vim.cmd("colorscheme catppuccin-latte")
-        else
-          vim.o.background = "dark"
-          vim.cmd("colorscheme catppuccin-mocha")
-        end
-      end, {})
-
-      -- Keybinding for ToggleLightMode
-      vim.keymap.set("n", "<leader>uL", ":ToggleLightMode<CR>", { desc = "Toggle Light Mode" })
-
-      -- AI Autocomplete Toggle (Power User)
-      vim.g.ai_cmp_enabled = true
-      vim.api.nvim_create_user_command("ToggleAI", function()
-        vim.g.ai_cmp_enabled = not vim.g.ai_cmp_enabled
-        print("AI Completion: " .. (vim.g.ai_cmp_enabled and "Enabled" or "Disabled"))
-      end, {})
-      vim.keymap.set("n", "<leader>ua", ":ToggleAI<CR>", { desc = "Toggle AI Autocomplete" })
-    '';
-  };
+  # programs.neovim = {
+  #   enable = true;
+  #   defaultEditor = true;
+  #   viAlias = true;
+  #   vimAlias = true;
+  #   
+  #   # --- 3. RUNTIME BINARIES (Replacing Mason) ---
+  #   extraPackages = with pkgs; [
+  #     # ... (keeping it short for the tool)
+  #   ];
+  #
+  #   # --- 4. TREESITTER (keep for parser installation) ---
+  #   plugins = [
+  #     { plugin = pkgs.vimPlugins.nvim-treesitter.withAllGrammars; }
+  #   ];
+  #
+  #   # --- 5. LUA PACKAGES ---
+  #   extraLuaPackages = ps: [
+  #     ps.magick # For image.nvim
+  #   ];
+  #
+  #   # --- 6. CONFIGURATION ---
+  #   initLua = ''
+  #     -- ...
+  #   '';
+  # };
 
   # --- 7. Ranger Configuration ---
   programs.ranger = {

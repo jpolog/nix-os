@@ -29,6 +29,23 @@ interface SkillInfo {
 	description: string;
 	dir: string;
 }
+interface DiscoveredModel {
+	id: string;
+	name: string;
+	params: string;
+	reasoning: boolean;
+	context: number;
+	max_tokens: number;
+	local: boolean;
+	cloud: boolean;
+	source: string;
+	strengths: string[];
+	weaknesses: string[];
+	multimodal?: boolean;
+	thinking?: string;
+	family?: string;
+	quantization?: string;
+}
 
 interface CommandContext {
 	ui: {
@@ -43,6 +60,7 @@ interface CommandContext {
 const AGENTS_DIR = path.join(os.homedir(), ".omp", "agent", "agents");
 const SKILLS_DIR = path.join(os.homedir(), ".omp", "agent", "skills");
 const CONFIG_PATH = path.join(os.homedir(), ".omp", "agent", "config.yml");
+const MODELS_LOCAL_PATH = path.join(os.homedir(), ".omp", "models.local.json");
 
 // ── Team definitions ────────────────────────────────────────────────────
 // Every one of the 154 custom agents must appear in at least one team.
@@ -652,6 +670,16 @@ function parseYamlConfig(content: string): Record<string, unknown> {
 	}
 }
 
+function loadDiscoveredModels(): DiscoveredModel[] {
+	try {
+		const content = fs.readFileSync(MODELS_LOCAL_PATH, "utf-8");
+		const data = JSON.parse(content) as { local_models: DiscoveredModel[] };
+		return data.local_models || [];
+	} catch {
+		return [];
+	}
+}
+
 function stringifyYamlConfig(config: Record<string, unknown>): string {
 	return yaml.dump(config, { lineWidth: -1, noRefs: true });
 }
@@ -860,6 +888,48 @@ export default function xpertExtension(pi: ExtensionAPI) {
 				return;
 			}
 
+			// ── /xpert models ──────────────────────────────────────────
+			if (arg === "models") {
+				const discovered = loadDiscoveredModels();
+				const config = parseYamlConfig(fs.readFileSync(CONFIG_PATH, "utf-8"));
+				const currentDefault = ((config.modelRoles || {}) as Record<string, string>).default || "ollama/glm-5.1:cloud";
+
+				let content = "**Ollama Model Catalog**\n\n";
+				content += `Default model: \`${currentDefault}\`\n\n`;
+
+				if (discovered.length === 0) {
+					content += "_No locally discovered models beyond the curated catalog._\n";
+					content += "_Pull a model with `ollama pull <model>` and run `ollama-discover` to make it appear here._\n";
+				} else {
+					content += `Discovered **${discovered.length}** additional model(s) available in your local Ollama:\n\n`;
+					for (const m of discovered) {
+						const source = m.source === "cloud" ? "☁️" : "🏠";
+						const reasoning = m.reasoning ? "🧠" : "";
+						const multimodal = m.multimodal ? "👁️" : "";
+						const ctx = m.context >= 262144 ? `${Math.round(m.context / 1024)}K` : `${m.context}`;
+						const maxTok = m.max_tokens >= 1024 ? `${Math.round(m.max_tokens / 1024)}K` : `${m.max_tokens}`;
+						content += `${source} \`${m.id}\` — ${m.name}`;
+						if (m.params && m.params !== "unknown") content += ` (${m.params})`;
+						content += `\n`;
+						content += `   ${reasoning}${multimodal} ctx=${ctx} out=${maxTok}`;
+						if (m.quantization) content += ` quant=${m.quantization}`;
+						content += `\n`;
+					}
+					content += `\nTo use a discovered model, set it in config.yml:\n`;
+					content += `\`\`\`yaml\nmodelRoles:\n  default: ollama/<model-name>:<tag>\n\`\`\`\n`;
+					content += `\nOr override a specific role:\n\`\`\`yaml\nmodelRoles:\n  agentic-engineering: ollama/<model-name>:<tag>\n\`\`\``;
+				}
+
+				pi.sendMessage({
+					customType: "xpert-models",
+					content,
+					display: true,
+					attribution: "user",
+				}, { triggerTurn: false });
+				ctx.ui.notify(`Found ${discovered.length} discovered model(s)`, "info");
+				return;
+			}
+
 			// ── /xpert on <team-id> ────────────────────────────────────
 			if (arg.startsWith("on ")) {
 				const teamId = arg.slice(3).trim();
@@ -915,6 +985,7 @@ export default function xpertExtension(pi: ExtensionAPI) {
 				"🏷️ Browse Categories",
 				"⚡ Quick Toggle",
 				"📊 Status Overview",
+				"🔮 Discovered Models",
 			];
 
 			const mainChoice = await ctx.ui.select("Xpert — Agent Team Manager", mainOptions);
@@ -949,6 +1020,48 @@ export default function xpertExtension(pi: ExtensionAPI) {
 				ctx.ui.notify("Status overview loaded", "info");
 				return;
 			}
+
+			// ── Discovered Models ────────────────────────────────────────
+			if (mainChoice === "🔮 Discovered Models") {
+				const discovered = loadDiscoveredModels();
+				const config = parseYamlConfig(fs.readFileSync(CONFIG_PATH, "utf-8"));
+				const currentDefault = ((config.modelRoles || {}) as Record<string, string>).default || "ollama/glm-5.1:cloud";
+
+				let content = "**Ollama Model Catalog**\n\n";
+				content += `Default model: \`${currentDefault}\`\n\n`;
+
+				if (discovered.length === 0) {
+					content += "_No locally discovered models beyond the curated catalog._\n";
+					content += "_Pull a model with `ollama pull <model>` and run `ollama-discover` to make it appear here._\n";
+				} else {
+					content += `Discovered **${discovered.length}** additional model(s) available in your local Ollama:\n\n`;
+					for (const m of discovered) {
+						const source = m.source === "cloud" ? "☁️" : "🏠";
+						const reasoning = m.reasoning ? "🧠" : "";
+						const multimodal = m.multimodal ? "👁️" : "";
+						const ctx = m.context >= 262144 ? `${Math.round(m.context / 1024)}K` : `${m.context}`;
+						const maxTok = m.max_tokens >= 1024 ? `${Math.round(m.max_tokens / 1024)}K` : `${m.max_tokens}`;
+						content += `${source} \`${m.id}\` — ${m.name}`;
+						if (m.params && m.params !== "unknown") content += ` (${m.params})`;
+						content += `\n`;
+						content += `   ${reasoning}${multimodal} ctx=${ctx} out=${maxTok}`;
+						if (m.quantization) content += ` quant=${m.quantization}`;
+						content += `\n`;
+					}
+					content += `\nTo use a discovered model, set it in config.yml:\n`;
+					content += `\`\`\`yaml\nmodelRoles:\n  default: ollama/<model-name>:<tag>\n\`\`\`\n`;
+					content += `\nOr override a specific role:\n\`\`\`yaml\nmodelRoles:\n  agentic-engineering: ollama/<model-name>:<tag>\n\`\`\``;
+				}
+
+				pi.sendMessage({
+					customType: "xpert-models",
+					content,
+					display: true,
+					attribution: "user",
+				}, { triggerTurn: false });
+				ctx.ui.notify(`Found ${discovered.length} discovered model(s)`, "info");
+				return;
+			}
 		},
 	});
 
@@ -962,6 +1075,16 @@ export default function xpertExtension(pi: ExtensionAPI) {
 			`Xpert: ${activeTeams.length}/${TEAMS.length} teams active (${teamSummary}). Use /xpert to manage.`,
 			"info",
 		);
+
+		// Notify about newly discovered models
+		const discovered = loadDiscoveredModels();
+		if (discovered.length > 0) {
+			const modelNames = discovered.map(m => m.id.split("/").pop()).join(", ");
+			ctx.ui.notify(
+				`Ollama: ${discovered.length} additional model(s) available — /xpert models to see them`,
+				"info",
+			);
+		}
 	});
 }
 

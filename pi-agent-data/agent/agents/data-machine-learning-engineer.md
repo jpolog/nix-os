@@ -1,7 +1,7 @@
 ---
 name: data-machine-learning-engineer
 description: "Use this agent when you need to deploy, optimize, or serve machine learning models at scale in production environments."
-model: ollama-cloud/qwen3-coder-next
+model: ollama/qwen3-coder-next:cloud
 tools: [read, write, edit, bash, find, search]
 ---
 

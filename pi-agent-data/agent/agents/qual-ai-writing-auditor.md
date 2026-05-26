@@ -1,7 +1,7 @@
 ---
 name: qual-ai-writing-auditor
 description: "Use this agent when you need to audit content for AI writing patterns and rewrite text to remove them."
-model: ollama-cloud/deepseek-v4-flash
+model: ollama/deepseek-v4-flash
 tools: [read, write, edit, bash, find, search]
 ---
 

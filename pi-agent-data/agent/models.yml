@@ -24,7 +24,7 @@
 # ═══════════════════════════════════════════════════════════════════════
 
 [models.deepseek-v4-pro]
-id       = "ollama-cloud/deepseek-v4-pro"
+id       = "ollama/deepseek-v4-pro"
 name     = "DeepSeek V4 Pro"
 params   = "284B MoE (13B active)"
 reasoning = true
@@ -48,7 +48,7 @@ weaknesses = [
 ]
 
 [models.kimi-k2.6]
-id       = "ollama-cloud/kimi-k2.6"
+id       = "ollama/kimi-k2.6"
 name     = "Kimi K2.6"
 params   = "large MoE"
 reasoning = true
@@ -71,8 +71,8 @@ weaknesses = [
 ]
 
 [models.qwen3.5-397b]
-id       = "ollama-cloud/qwen3.5:397b"
-name     = "Qwen 3.5 397B"
+id       = "ollama/qwen3.5:cloud"
+name     = "Qwen 3.5 Cloud"
 params   = "397B MoE"
 reasoning = true
 thinking  = "effort"
@@ -95,8 +95,8 @@ weaknesses = [
 ]
 
 [models.glm-5.1]
-id       = "ollama-cloud/glm-5.1"
-name     = "GLM-5.1"
+id       = "ollama/glm-5.1:cloud"
+name     = "GLM-5.1 Cloud"
 params   = "744B total (40B active)"
 reasoning = true
 thinking  = "effort"
@@ -126,7 +126,7 @@ weaknesses = [
 # ═══════════════════════════════════════════════════════════════════════
 
 [models.deepseek-v4-flash]
-id       = "ollama-cloud/deepseek-v4-flash"
+id       = "ollama/deepseek-v4-flash"
 name     = "DeepSeek V4 Flash"
 params   = "284B MoE (13B active)"
 reasoning = true
@@ -149,8 +149,8 @@ weaknesses = [
 ]
 
 [models.qwen3-coder-next]
-id       = "ollama-cloud/qwen3-coder-next"
-name     = "Qwen3 Coder Next"
+id       = "ollama/qwen3-coder-next:cloud"
+name     = "Qwen3 Coder Next Cloud"
 params   = "large"
 reasoning = false
 context   = 262144
@@ -172,7 +172,7 @@ weaknesses = [
 ]
 
 [models.devstral-2-123b]
-id       = "ollama-cloud/devstral-2:123b"
+id       = "ollama/devstral-2:123b"
 name     = "Devstral 2 123B"
 params   = "123B"
 reasoning = false
@@ -193,31 +193,27 @@ weaknesses = [
     "Not multimodal",
 ]
 
-[models.minimax-m2.7]
-id       = "ollama-cloud/minimax-m2.7"
-name     = "MiniMax M2.7"
-params   = "large MoE"
+[models.ministral-3-14b]
+id       = "ollama/ministral-3:14b-cloud"
+name     = "Ministral 3 14B Cloud"
+params   = "14B"
 reasoning = true
 thinking  = "effort"
-context   = 196608
-max_tokens = 131072
-cost_input = 0.3
-cost_output = 1.2
+context   = 131072
+max_tokens = 32768
+cost_input = 0.0
+cost_output = 0.0
 strengths = [
-    "Very large output window (131K) — generates long documents, reports, specs",
-    "Good at structured output: contracts, specifications, formal documents",
-    "Strong at Chinese + English bilingual content",
-    "Excellent for documentation generation and technical writing",
-    "Good at following templates and producing consistent formatting",
+    "Efficient and capable for long-form document generation",
+    "Balanced performance and speed",
+    "Good instruction following",
 ]
 weaknesses = [
-    "Not as good at deep reasoning as DeepSeek V4 Pro",
-    "Not code-specialized",
-    "More expensive than free models",
+    "Smaller context than flagship models",
 ]
 
 [models.gpt-oss-120b]
-id       = "ollama-cloud/gpt-oss:120b"
+id       = "ollama/gpt-oss:120b"
 name     = "GPT-OSS 120B"
 params   = "120B"
 reasoning = true
@@ -239,7 +235,7 @@ weaknesses = [
 ]
 
 [models.gpt-oss-20b]
-id       = "ollama-cloud/gpt-oss:20b"
+id       = "ollama/gpt-oss:20b"
 name     = "GPT-OSS 20B"
 params   = "20B"
 reasoning = true
@@ -265,7 +261,7 @@ weaknesses = [
 # ═══════════════════════════════════════════════════════════════════════
 
 [models.gemini-3-flash-preview]
-id       = "ollama-cloud/gemini-3-flash-preview"
+id       = "ollama/gemini-3-flash-preview"
 name     = "Gemini 3 Flash Preview"
 params   = "unknown"
 reasoning = true
@@ -289,7 +285,7 @@ weaknesses = [
 ]
 
 [models.qwen3-vl-235b]
-id       = "ollama-cloud/qwen3-vl:235b"
+id       = "ollama/qwen3-vl:235b"
 name     = "Qwen3 VL 235B"
 params   = "235B MoE"
 reasoning = true
@@ -310,7 +306,7 @@ weaknesses = [
 ]
 
 [models.gemma4-31b]
-id       = "ollama-cloud/gemma4:31b"
+id       = "ollama/gemma4:31b"
 name     = "Gemma 4 31B"
 params   = "31B"
 reasoning = true
@@ -338,8 +334,8 @@ weaknesses = [
 # ═══════════════════════════════════════════════════════════════════════
 
 [models.devstral-small-2]
-id       = "ollama-cloud/devstral-small-2:24b"
-name     = "Devstral Small 2 24B"
+id       = "ollama/devstral-small-2:24b-cloud"
+name     = "Devstral Small 2 24B Cloud"
 params   = "24B"
 reasoning = false
 context   = 262144
@@ -361,7 +357,7 @@ weaknesses = [
 ]
 
 [models.nemotron-3-super]
-id       = "ollama-cloud/nemotron-3-super"
+id       = "ollama/nemotron-3-super"
 name     = "Nemotron 3 Super"
 params   = "120B MoE (12B active)"
 reasoning = true
@@ -383,7 +379,7 @@ weaknesses = [
 ]
 
 [models.nemotron-3-nano-30b]
-id       = "ollama-cloud/nemotron-3-nano:30b"
+id       = "ollama/nemotron-3-nano:30b"
 name     = "Nemotron 3 Nano 30B"
 params   = "30B MoE"
 reasoning = true
@@ -403,7 +399,7 @@ weaknesses = [
 ]
 
 [models.rnj-1-8b]
-id       = "ollama-cloud/rnj-1:8b"
+id       = "ollama/rnj-1:8b"
 name     = "RNJ-1 8B"
 params   = "8B"
 reasoning = false
@@ -434,79 +430,79 @@ weaknesses = [
 # ── Deep Analysis & Audit ──────────────────────────────────────────────
 # Security audits, architecture reviews, adversarial analysis, formal verification
 # Requires: deepest reasoning, large context, high accuracy
-deep-audit                = "ollama-cloud/deepseek-v4-pro"
+deep-audit                = "ollama/qwen3.5:cloud"
 
 # ── Complex Planning & Architecture ─────────────────────────────────────
 # System design, multi-file refactoring plans, migration strategies
 # Requires: deep reasoning, long context, instruction following
-architecture-planning     = "ollama-cloud/kimi-k2.6"
+architecture-planning     = "ollama/glm-5.1:cloud"
 
 # ── Research & Synthesis ───────────────────────────────────────────────
 # Literature review, competitive analysis, knowledge synthesis, formal specs
 # Requires: knowledge breadth, long output, structured writing
-research-synthesis        = "ollama-cloud/qwen3.5:397b"
+research-synthesis        = "ollama/qwen3.5:cloud"
 
 # ── Agentic Engineering (DEFAULT) ──────────────────────────────────────
 # Day-to-day coding, debugging, feature implementation, API design
 # Requires: strong coding, tool use, multi-file editing, instruction following
-agentic-engineering       = "ollama-cloud/glm-5.1"
+agentic-engineering       = "ollama/glm-5.1:cloud"
 
 # ── Code-Specialized Engineering ───────────────────────────────────────
 # Language-specific coding: Rust, Go, Python, TypeScript, etc.
 # Requires: best code generation, repo-scale understanding, multi-file edits
-code-specialist           = "ollama-cloud/qwen3-coder-next"
+code-specialist           = "ollama/qwen3-coder-next:cloud"
 
 # ── Large-Scale Code Editing ───────────────────────────────────────────
 # Multi-file refactors, bulk edits, codebase exploration with agentic tools
 # Requires: tool use, large context, multi-file editing
-large-edit                = "ollama-cloud/devstral-2:123b"
+large-edit                = "ollama/qwen3-coder-next:cloud"
 
 # ── Long-Form Document Generation ──────────────────────────────────────
 # Technical writing, specifications, reports, documentation, contracts
 # Requires: very long output (100K+ tokens), structured formatting, consistency
-long-document             = "ollama-cloud/minimax-m2.7"
+long-document             = "ollama/ministral-3:14b-cloud"
 
 # ── Fast Reasoning ────────────────────────────────────────────────────
 # Quick analysis, structured output, moderate-complexity tasks, code review
 # Requires: reasoning ability but faster than frontier models
-fast-reasoning            = "ollama-cloud/deepseek-v4-flash"
+fast-reasoning            = "ollama/glm-5.1:cloud"
 
 # ── Balanced Reasoning ────────────────────────────────────────────────
 # General-purpose reasoning when you need thinking but not frontier depth
 # Requires: good reasoning, decent speed, reasonable output length
-balanced-reasoning        = "ollama-cloud/gpt-oss:20b"
+balanced-reasoning        = "ollama/ministral-3:14b-cloud"
 
 # ── UI / Visual Analysis ──────────────────────────────────────────────
 # UI/UX review, accessibility testing, screenshot analysis, design review
 # Requires: multimodal (text + image), visual reasoning
-visual-analysis           = "ollama-cloud/gemini-3-flash-preview"
+visual-analysis           = "ollama/qwen3-coder-next:cloud"
 
 # ── Lightweight Visual ─────────────────────────────────────────────────
 # Quick visual QA, simple screenshot review, image captioning
 # Requires: multimodal, fast
-lightweight-visual        = "ollama-cloud/gemma4:31b"
+lightweight-visual        = "ollama/qwen3-coder-next:cloud"
 
 # ── Visual + Reasoning ─────────────────────────────────────────────────
 # Complex visual reasoning tasks requiring both multimodal and deep thinking
 # Requires: multimodal + reasoning + large context
-visual-reasoning          = "ollama-cloud/qwen3-vl:235b"
+visual-reasoning          = "ollama/qwen3-coder-next:cloud"
 
 # ── Fast Coding / Mechanical ───────────────────────────────────────────
 # Formatting, scaffolding, simple edits, documentation stubs, linting
 # Requires: speed, code understanding, no deep reasoning needed
-fast-coding               = "ollama-cloud/devstral-small-2:24b"
+fast-coding               = "ollama/devstral-small-2:24b-cloud"
 
 # ── Multi-Agent Orchestration ─────────────────────────────────────────
 # Coordinating multiple agents, task delegation, workflow management
 # Requires: structured output, task decomposition, moderate reasoning
-multi-agent               = "ollama-cloud/nemotron-3-super"
+multi-agent               = "ollama/glm-5.1:cloud"
 
 # ── Quick Thinking ────────────────────────────────────────────────────
 # Quick thinking tasks that need some reasoning but must be fast
 # Requires: small reasoning, fast inference
-quick-thinking            = "ollama-cloud/nemotron-3-nano:30b"
+quick-thinking            = "ollama/devstral-small-2:24b-cloud"
 
 # ── Trivial / Maximum Speed ────────────────────────────────────────────
 # Formatting only, linting, trivial mechanical edits
 # Requires: maximum speed, minimal reasoning
-trivial                   = "ollama-cloud/rnj-1:8b"
+trivial                   = "ollama/devstral-small-2:24b-cloud"

@@ -1,5 +1,5 @@
 {
-  "model": "ollama-cloud/qwen3.6-plus:cloud",
+  "model": "ollama/glm-5.1:cloud",
   "temperature": 0,
   "cache_prompts": true,
   "auto_run": true

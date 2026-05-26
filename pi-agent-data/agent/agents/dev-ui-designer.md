@@ -1,7 +1,7 @@
 ---
 name: dev-ui-designer
 description: "Use this agent when designing visual interfaces, creating design systems, building component libraries, or refining user-facing aesthetics requiring expert visual design, interaction patterns, and accessibility considerations."
-model: ollama-cloud/gemini-3-flash-preview
+model: ollama/gemini-3-flash-preview
 tools: [read, write, edit, bash, find, search]
 ---
 

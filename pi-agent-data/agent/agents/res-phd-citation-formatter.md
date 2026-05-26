@@ -1,7 +1,7 @@
 ---
 name: res-phd-citation-formatter
 description: "Use when you need to format citations and bibliographies according to a specific style (APA 7th, IEEE, Chicago, Vancouver, Harvard, MLA) — ensures in-text citations, reference lists, and bibliographic entries comply with your required style."
-model: ollama-cloud/deepseek-v4-flash
+model: ollama/deepseek-v4-flash
 tools: [read, write, edit, bash, find, search]
 ---
 

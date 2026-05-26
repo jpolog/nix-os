@@ -1,7 +1,7 @@
 ---
 name: meta-workflow-orchestrator
 description: "Use this agent when you need to design, implement, or optimize complex business process workflows with multiple states, error handling, and transaction management."
-model: ollama-cloud/nemotron-3-super
+model: ollama/nemotron-3-super
 tools: [read, write, edit, bash, find, search]
 ---
 

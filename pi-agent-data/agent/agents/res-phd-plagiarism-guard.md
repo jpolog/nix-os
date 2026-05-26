@@ -1,7 +1,7 @@
 ---
 name: res-phd-plagiarism-guard
 description: "Use when you need to check text for plagiarism risk, AI-generated artifacts, and style consistency. Maintains a personal style guide to ensure all your writing sounds naturally human."
-model: ollama-cloud/deepseek-v4-pro
+model: ollama/deepseek-v4-pro
 tools: [read, write, edit, bash, find, search]
 ---
 

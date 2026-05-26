@@ -1,7 +1,7 @@
 ---
 name: res-phd-literature-reviewer
 description: "Use when you need to deeply read, analyze, and synthesize academic literature — extract key findings, evaluate methodology, identify theoretical frameworks, and write coherent literature reviews with proper citation."
-model: ollama-cloud/qwen3.5:397b
+model: ollama/qwen3.5:397b
 tools: [read, write, edit, bash, find, search]
 ---
 

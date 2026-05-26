@@ -6,9 +6,29 @@
     "auditLog": "/home/jpolo/.omp/logs/.c1da8bae5aecb75d8a235c95a8cb6cb07acdee5c-audit.json",
     "files": [
         {
-            "date": 1777633330458,
-            "name": "/home/jpolo/.omp/logs/omp.2026-05-01.log",
-            "hash": "7339f731d7a0aac3abfa83ad43cc20f5e0fc8f584596b41a8a3d629f6c662481"
+            "date": 1778541095550,
+            "name": "/home/jpolo/.omp/logs/omp.2026-05-12.log",
+            "hash": "c9267519fc07da24f06ad73713dddc63c3f3e87f78c91edec8f9b82bb4ae8fb7"
+        },
+        {
+            "date": 1778672033299,
+            "name": "/home/jpolo/.omp/logs/omp.2026-05-13.log",
+            "hash": "6be85d04d1e106448553ef35b519bf5b2abde51b376df88c84357e3e50ed5242"
+        },
+        {
+            "date": 1778709626228,
+            "name": "/home/jpolo/.omp/logs/omp.2026-05-14.log",
+            "hash": "e64f5c575c0970e2077d677857fe72991df0c4ea848e2cb81c4a6eddf7f58b93"
+        },
+        {
+            "date": 1778796023826,
+            "name": "/home/jpolo/.omp/logs/omp.2026-05-15.log",
+            "hash": "257ed36a77e30b5b7ec81bd0ae86ddde9053c4d17f080d22ed13f7adcb0f7d29"
+        },
+        {
+            "date": 1778927893551,
+            "name": "/home/jpolo/.omp/logs/omp.2026-05-16.log",
+            "hash": "c38c6017f868edaf456698134f482cc9adcb1d45fd425f1e55a5efa99b5f7706"
         }
     ],
     "hashType": "sha256"

@@ -1,14 +1,26 @@
-lastChangelogVersion: 14.5.14
-modelRoles:
-  default: ollama-cloud/glm-5.1
-theme:
+lastChangelogVersion: 15.0.0
+modelRoles: 
+  default: ollama-cloud/glm-5
+  smol: ollama/devstral-small-2:24b-cloud
+  slow: ollama/glm-5.1:cloud
+  plan: ollama/glm-5.1:cloud
+theme: 
   dark: titanium
-statusLine:
+statusLine: 
   separator: powerline-thin
-display:
+display: 
   showTokenUsage: true
-task:
-  disabledAgents:
+extensions: 
+  - ./extensions/xpert
+disabledExtensions: 
+  []
+versioning: 
+  enabled: true
+  type: git-mini-repo
+  autoCheckpoint: true
+  historyLimit: 100
+task: 
+  disabledAgents: 
     - biz-business-analyst
     - biz-content-marketer
     - biz-customer-success-manager
@@ -21,6 +33,7 @@ task:
     - biz-technical-writer
     - biz-ux-researcher
     - biz-wordpress-master
+    - data-ai-engineer
     - data-data-analyst
     - data-data-engineer
     - data-data-scientist
@@ -104,16 +117,9 @@ task:
     - lang-typescript-pro
     - lang-vue-expert
     - meta-agent-installer
-    - meta-agent-organizer
-    - meta-codebase-orchestrator
-    - meta-context-manager
     - meta-error-coordinator
     - meta-it-ops-orchestrator
-    - meta-knowledge-synthesizer
-    - meta-multi-agent-coordinator
     - meta-performance-monitor
-    - meta-task-distributor
-    - meta-workflow-orchestrator
     - obsidian-vault-manager
     - qual-accessibility-tester
     - qual-ad-security-reviewer
@@ -161,3 +167,4 @@ task:
     - spec-quant-analyst
     - spec-risk-manager
     - spec-seo-specialist
+hideThinkingBlock: true

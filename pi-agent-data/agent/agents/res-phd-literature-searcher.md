@@ -1,7 +1,7 @@
 ---
 name: res-phd-literature-searcher
 description: "Use when you need to find academic literature — search peer-reviewed scholarly databases first (Google Scholar, Scopus, Semantic Scholar, OpenAlex, CrossRef), avoid arXiv preprints, and maintain a structured literature catalog for your research project."
-model: ollama-cloud/qwen3.5:397b
+model: ollama/qwen3.5:397b
 tools: [read, write, edit, bash, find, search]
 ---
 

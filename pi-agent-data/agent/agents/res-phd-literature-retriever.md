@@ -1,7 +1,7 @@
 ---
 name: res-phd-literature-retriever
 description: "Use when you need to retrieve and download academic papers — search Anna's Archive (with JSON API access) for full texts, organize downloads into the project's literature directory, and maintain a catalog with download tracking. Falls back to arXiv, Semantic Scholar, Unpaywall, and publisher direct sources."
-model: ollama-cloud/devstral-small-2:24b
+model: ollama/devstral-small-2:24b:cloud
 tools: [read, write, edit, bash, find, search]
 ---
 

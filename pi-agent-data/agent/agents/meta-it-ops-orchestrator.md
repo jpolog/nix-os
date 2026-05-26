@@ -1,7 +1,7 @@
 ---
 name: meta-it-ops-orchestrator
 description: "Use for orchestrating complex IT operations tasks that span multiple domains (PowerShell automation, .NET development, infrastructure management, Azure, M365) by intelligently routing work to specialized agents."
-model: ollama-cloud/nemotron-3-super
+model: ollama/nemotron-3-super
 tools: [read, write, edit, bash, find, search]
 ---
 

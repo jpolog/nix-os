@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -29,6 +24,16 @@ in
       );
       default = null;
       description = "Acceleration method (rocm for AMD, cuda for NVIDIA).";
+    };
+
+    autoDiscover = {
+      enable = mkEnableOption "Automatic Ollama model discovery for omp" // { default = true; };
+
+      interval = mkOption {
+        type = types.str;
+        default = "30min";
+        description = "Systemd timer interval for periodic model discovery (e.g. '5min', '30min', '1h').";
+      };
     };
   };
 
@@ -58,6 +63,42 @@ in
 
       Install = {
         WantedBy = [ "default.target" ];
+      };
+    };
+
+    # ── Ollama Model Discovery ─────────────────────────────────────────
+    # Periodically polls Ollama /api/tags and writes discovered models
+    # to ~/.omp/models.local.json for use by the omp model picker.
+    # Also runs on omp launch via the wrapper script for immediate updates.
+    systemd.user.services.ollama-discover = mkIf cfg.autoDiscover.enable {
+      Unit = {
+        Description = "Discover locally available Ollama models";
+        After = [ "ollama.service" ];
+        Wants = [ "ollama.service" ];
+      };
+
+      Service = {
+        Type = "oneshot";
+        ExecStart = "${pkgs.writeShellScriptBin "ollama-discover-timer" ''
+          export PATH="${pkgs.curl}/bin:${pkgs.python3}/bin:$PATH"
+          exec ollama-discover --url http://localhost:11434
+        ''}/bin/ollama-discover-timer";
+      };
+    };
+
+    systemd.user.timers.ollama-discover = mkIf cfg.autoDiscover.enable {
+      Unit = {
+        Description = "Periodically discover locally available Ollama models";
+      };
+
+      Timer = {
+        OnBootSec = "2min";
+        OnUnitActiveSec = cfg.autoDiscover.interval;
+        AccuracySec = "1min";
+      };
+
+      Install = {
+        WantedBy = [ "timers.target" ];
       };
     };
   };

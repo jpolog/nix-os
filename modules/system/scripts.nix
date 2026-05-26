@@ -16,6 +16,7 @@ let
   docker-mon = pkgs.writeShellScriptBin "docker-mon" (builtins.readFile ../../scripts/dev/docker-mon);
   nix-repl-advanced = pkgs.writeShellScriptBin "nix-repl-advanced" (builtins.readFile ../../scripts/dev/nix-repl-advanced);
   git-recent = pkgs.writeShellScriptBin "git-recent" (builtins.readFile ../../scripts/dev/git-recent);
+  ollama-discover = pkgs.writeShellScriptBin "ollama-discover" (builtins.readFile ../../scripts/dev/ollama-discover);
   
   # Utility scripts
   quick-backup = pkgs.writeShellScriptBin "quick-backup" (builtins.readFile ../../scripts/util/quick-backup);
@@ -42,6 +43,7 @@ in
     docker-mon
     nix-repl-advanced
     git-recent
+    ollama-discover
     quick-backup
     sysmon
     sys-analyze
