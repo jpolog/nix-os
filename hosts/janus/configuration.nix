@@ -48,6 +48,9 @@
 
   networking.networkmanager.enable = true;
 
+  # Keyboard layout at login screen (SDDM) — Spanish for family users
+  services.xserver.xkb.layout = "es";
+
   # ============================================================================
   # Nix Settings
   # ============================================================================
@@ -71,7 +74,7 @@
   time.timeZone = "Europe/Madrid";
 
   i18n = {
-    defaultLocale = "en_US.UTF-8";
+    defaultLocale = "es_ES.UTF-8";  # Spanish UI in SDDM and system messages
     extraLocaleSettings = {
       LC_ADDRESS = "es_ES.UTF-8";
       LC_IDENTIFICATION = "es_ES.UTF-8";
@@ -146,6 +149,9 @@
 
     # Home Manager CLI
     home-manager
+
+    # Miracast / wireless display (cast screen to smart TVs over Wi-Fi Direct)
+    gnome-network-displays
   ];
 
   # ============================================================================
@@ -192,9 +198,9 @@
   # ============================================================================
 
   # KDE is enabled via profiles.desktop above (modules/desktop/kde.nix)
-  # SDDM is enabled via the KDE module but we ensure it here for clarity
+  # SDDM greeter runs in X11 mode (wayland.enable = false, the default) so
+  # QML themes render correctly.  The KDE plasma session itself is still Wayland.
   services.displayManager.sddm.enable = true;
-  services.displayManager.sddm.wayland.enable = true;
 
   # Touchpad / input
   services.libinput = {
@@ -220,6 +226,7 @@
       "audio"
       "input"
       "power"
+      "docker"
     ];
     shell = pkgs.zsh;
   };
@@ -237,10 +244,25 @@
     shell = pkgs.bash;
   };
 
-  users.users.padres = {
+  # Fran is added to the "rosa" group so she can read/manage Rosa's files.
+  users.users.fran = {
     isNormalUser = true;
-    description = "Padres";
-    initialPassword = "padres"; # CHANGE on first login with `passwd`
+    description = "Fran";
+    initialPassword = "fran"; # CHANGE on first login with `passwd`
+    extraGroups = [
+      "networkmanager"
+      "video"
+      "audio"
+      "input"
+      "rosa"   # Access to Rosa's home dir (mode 0750, via tmpfiles rule above)
+    ];
+    shell = pkgs.bash;
+  };
+
+  users.users.rosa = {
+    isNormalUser = true;
+    description = "Rosa";
+    initialPassword = "rosa"; # CHANGE on first login with `passwd`
     extraGroups = [
       "networkmanager"
       "video"
@@ -270,15 +292,30 @@
       home.profiles.master.enable = lib.mkForce false;
       home.profiles.creative.enable = lib.mkForce false;
 
-      # Keep power-user but lighter: no upscayl, keep CLI utils
+      # janus is a family multimedia PC — keep admin tools, strip dev/hacking tools
       home.profiles.power-user = {
         enable = true;
-        upscayl.enable = lib.mkForce false;
+        network.enable   = lib.mkForce false;  # No wireshark/nmap/socat on family PC
+        dev-gui.enable   = lib.mkForce false;  # No imhex/insomnia
+        upscayl.enable   = lib.mkForce false;
         torrenting.enable = lib.mkForce false;
+        # system.enable stays true → btop, qdirstat, gparted, cpu-x
+        # cli-utils.enable stays true → jq, ffmpeg, ripgrep, fd, etc.
+        # productivity.enable stays true → obsidian, calibre
       };
 
       # Disable Ollama service (no ROCm on a general-use PC)
       services.ollama-service.enable = lib.mkForce false;
+
+      # Keyboard: US as default, Spanish as secondary (switch via system tray)
+      home.file.".config/kxkbrc".text = ''
+        [Layout]
+        DisplayNames=,
+        LayoutList=us,es
+        Model=pc105
+        Use=true
+        VariantList=,
+      '';
 
       # Install Claude Code independently of the development profile
       programs.ai-tools = {
@@ -293,11 +330,35 @@
       imports = [ ../../home/users/elena.nix ];
     };
 
-  home-manager.users.padres =
+  home-manager.users.fran =
     { ... }:
     {
-      imports = [ ../../home/users/padres.nix ];
+      imports = [ ../../home/users/fran.nix ];
     };
+
+  home-manager.users.rosa =
+    { ... }:
+    {
+      imports = [ ../../home/users/rosa.nix ];
+    };
+
+  # ============================================================================
+  # Containers
+  # ============================================================================
+
+  virtualisation.docker.enable = true;
+
+  # ============================================================================
+  # Screen Sharing & Connectivity
+  # ============================================================================
+
+  # KDE Connect: phone integration, remote control, clipboard sync.
+  # Also enables casting to some Android/Samsung TVs.
+  # Opens firewall ports 1714-1764 TCP+UDP automatically.
+  programs.kdeconnect.enable = true;
+
+  # Bluetooth (for wireless keyboards, speakers, headphones, BT TVs)
+  modules.system.bluetooth.enable = true;
 
   # ============================================================================
   # System Services
@@ -308,6 +369,42 @@
 
   # Plex client firewall rules (GDM network discovery + downloads/sync)
   services.plex-client.enable = true;
+
+  # ============================================================================
+  # Spanish Government Certificate Tools
+  # ============================================================================
+
+  # ConfiguradorFNMT — configures the FNMT digital certificate in browsers
+  # Available to all users system-wide
+  programs.configuradorfnmt.enable = true;
+
+  # ============================================================================
+  # Flatpak — for apps not in nixpkgs (e.g. official gov binaries)
+  # Managed declaratively via nix-flatpak (github:gmodena/nix-flatpak).
+  # ============================================================================
+
+  services.flatpak = {
+    enable = true;
+
+    # Add Flathub as the package source
+    remotes = [
+      {
+        name     = "flathub";
+        location = "https://dl.flathub.org/repo/flathub.flatpakrepo";
+      }
+    ];
+
+    # Packages installed system-wide (available to all users).
+    # These are the unmodified official binaries as published by their authors.
+    packages = [
+      # AutoFirma — Spanish government digital signature app (official build)
+      { appId = "es.gob.afirma.autofirma"; origin = "flathub"; }
+    ];
+
+    # Don't auto-update on every nixos-rebuild switch;
+    # update manually with: flatpak update
+    update.onActivation = false;
+  };
 
   # ============================================================================
   # Compatibility
@@ -345,8 +442,15 @@
     "d /nix/var/nix/profiles/per-user/elena  0755 elena  users -"
     "d /home/elena/.local/state/home-manager 0755 elena  users -"
 
-    "d /nix/var/nix/profiles/per-user/padres 0755 padres users -"
-    "d /home/padres/.local/state/home-manager 0755 padres users -"
+    "d /nix/var/nix/profiles/per-user/fran  0755 fran  users -"
+    "d /home/fran/.local/state/home-manager 0755 fran  users -"
+    "d /home/fran/.local/state/home-manager/gcroots 0755 fran users -"
+
+    # Rosa's home is group-readable so Fran (member of group "rosa") can manage her files
+    "d /home/rosa 0750 rosa rosa -"
+    "d /nix/var/nix/profiles/per-user/rosa  0755 rosa  users -"
+    "d /home/rosa/.local/state/home-manager 0755 rosa  users -"
+    "d /home/rosa/.local/state/home-manager/gcroots 0755 rosa users -"
   ];
 
   # ============================================================================
@@ -357,6 +461,41 @@
 
   # Allow unfree packages (VLC codecs, libdvdcss, etc.)
   nixpkgs.config.allowUnfree = true;
+
+  # ============================================================================
+  # SDDM Rotating Wallpaper
+  # ============================================================================
+
+  # On every boot, pick a random KDE wallpaper and write it to an SDDM
+  # drop-in config before the display manager starts.
+  systemd.services.sddm-randomize-wallpaper = {
+    description = "Pick a random SDDM login screen wallpaper";
+    before = [ "display-manager.service" ];
+    wantedBy = [ "display-manager.service" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = pkgs.writeShellScript "sddm-randomize-wallpaper" ''
+        set -euo pipefail
+        WALLPAPER_BASE="/run/current-system/sw/share/wallpapers"
+        [ -d "$WALLPAPER_BASE" ] || exit 0
+
+        # Collect one image per wallpaper (highest-res from contents/images/, else screenshot)
+        images=()
+        while IFS= read -r -d $'\0' dir; do
+          img=$(find "$dir/contents/images" -name "*.jpg" -o -name "*.png" 2>/dev/null | sort -V | tail -1)
+          [ -z "$img" ] && img=$(find "$dir" -maxdepth 1 -name "screenshot.*" 2>/dev/null | head -1)
+          [ -n "$img" ] && images+=("$img")
+        done < <(find "$WALLPAPER_BASE" -mindepth 1 -maxdepth 1 -type d -print0 | sort -z)
+
+        count=''${#images[@]}
+        [ "$count" -eq 0 ] && exit 0
+
+        selected="''${images[$((RANDOM % count))]}"
+        mkdir -p /etc/sddm.conf.d
+        printf '[Theme]\nBackground=%s\n' "$selected" > /etc/sddm.conf.d/99-wallpaper.conf
+      '';
+    };
+  };
 
   # ============================================================================
   # Optimizations

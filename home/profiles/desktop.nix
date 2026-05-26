@@ -29,8 +29,15 @@ with lib;
     };
 
     browsers = {
-      firefox = mkEnableOption "firefox";
-      chromium = mkEnableOption "chromium";
+      firefox   = mkEnableOption "Firefox";
+      chromium  = mkEnableOption "Chromium (open-source)";
+      chrome    = mkEnableOption "Google Chrome (proprietary, Widevine/DRM)";
+    };
+
+    # Power-user tools: terminal emulators + CLI-adjacent GUI tools.
+    # Disable for regular users to keep the app menu clean.
+    powerUserTools = {
+      enable = mkEnableOption "terminal emulators and power-user GUI tools (kitty, alacritty, yazi, neovim)" // { default = true; };
     };
   };
 
@@ -39,32 +46,26 @@ with lib;
       # Applications provided by the Desktop Profile
       home.packages =
         with pkgs;
-        (
-          if config.home.profiles.desktop.browsers.firefox then
-            [ firefox ]
-          else
-            [ ]
-        )
-        ++ (
-          if config.home.profiles.desktop.browsers.chromium then
-            [ chromium ]
-          else
-            [ ]
-        )
-        ++ [
-          # Terminals
+        # Browsers
+        (optionals config.home.profiles.desktop.browsers.firefox  [ firefox ])
+        ++ (optionals config.home.profiles.desktop.browsers.chromium [ chromium ])
+        ++ (optionals config.home.profiles.desktop.browsers.chrome   [ google-chrome ])
+        # Power-user terminal + file-manager tools (disabled for regular users)
+        ++ (optionals config.home.profiles.desktop.powerUserTools.enable [
           kitty
           alacritty
-
-          # File Managers (Modern replacements)
           yazi
-
+        ])
+        ++ [
           # Identity
           bitwarden-desktop
 
           # Theming & Utils
           qt6Packages.qt6ct
           gtk3 # Provides gtk-launch
+
+          # Android Quick Share (Google Nearby Share protocol, tray icon, works on KDE & Hyprland)
+          rquickshare
         ]
         ++ (optionals (config.home.profiles.desktop.environment == "hyprland") [
           # Hyprland specific desktop tools
@@ -84,9 +85,6 @@ with lib;
           swayosd
           qalculate-gtk
           walker
-
-          # QuickShare
-          rquickshare
 
           #youtube ad-free
           freetube
@@ -201,21 +199,19 @@ with lib;
         x11.enable = true;
         package = pkgs.bibata-cursors;
         name = "Bibata-Modern-Classic";
-        size = 24;
+        size = 20;
       };
 
-      # Configure Kitty (package installed by system)
-      programs.kitty = {
-        # enable = true; # Handled by programs/kitty.nix
-        # Font settings handled by Stylix
+      # Configure Kitty (power users only; package + enable handled by programs/kitty.nix)
+      programs.kitty = mkIf config.home.profiles.desktop.powerUserTools.enable {
         settings = {
           enable_audio_bell = false;
           confirm_os_window_close = 0;
         };
       };
 
-      # Configure Neovim (package installed by system)
-      programs.neovim = {
+      # Configure Neovim (power users only; neovim.nix also guards this)
+      programs.neovim = mkIf config.home.profiles.desktop.powerUserTools.enable {
         enable = true;
         defaultEditor = true;
         viAlias = true;

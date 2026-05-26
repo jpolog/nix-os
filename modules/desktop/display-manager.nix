@@ -7,7 +7,9 @@ with lib;
     # Display Manager - SDDM for Wayland support
     services.displayManager.sddm = {
       enable = true;
-      wayland.enable = true;
+      # wayland.enable = false (default) — SDDM greeter runs in X11 mode;
+      # the KDE/Hyprland session itself still runs on Wayland.
+      # Enabling wayland.enable breaks QML theme rendering.
       theme = "breeze";
     };
 

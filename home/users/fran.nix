@@ -3,6 +3,9 @@
 let
   mkUser = (import ./lib.nix { inherit lib; }).mkUser;
 
+  # -----------------------------------------------------------------------
+  # Shared LibreOffice → familiar Windows name aliases (app-menu entries)
+  # -----------------------------------------------------------------------
   libreofficeAliasEntries = {
     "lo-word" = {
       name = "Word";
@@ -49,19 +52,19 @@ let
   };
 in
 mkUser {
-  username = "elena";
-  fullName = "Elena";
+  username = "fran";
+  fullName = "Fran";
   email = "";
 
   profiles = {
     base.enable = true;
-    cli.enable = false;
+    cli.enable = false;      # No terminal power tools
 
     desktop = {
       enable = true;
       environment = "kde";
-      browsers.chrome = true;
-      powerUserTools.enable = false;
+      browsers.chrome = true;        # Google Chrome (Widevine for Netflix/Plex)
+      powerUserTools.enable = false; # No yazi, kitty, neovim, etc.
     };
 
     development.enable = false;
@@ -73,7 +76,7 @@ mkUser {
         enable = true;
         onlyoffice = false;
         libreoffice = true;
-        okular = true;
+        okular = true;       # Single PDF/document viewer
       };
       media = {
         enable = true;
@@ -81,11 +84,11 @@ mkUser {
         plexamp = true;
         plex = true;
         vlc = true;
-        mpv = false;
+        mpv = false;         # VLC only — no duplicate media player
       };
       communication = {
         enable = true;
-        discord = true;    # Elena uses Discord
+        discord = false;     # Fran does not use Discord
         telegram = true;
       };
       productivity = {
@@ -95,9 +98,9 @@ mkUser {
       };
       tools = {
         enable = true;
-        image-editing = true;
+        image-editing = true;   # Pinta (light)
         screenshot = false;     # KDE Spectacle already installed system-wide
-        video-tools = false;
+        video-tools = false;    # Use Kdenlive instead
       };
     };
   };
@@ -134,13 +137,21 @@ mkUser {
 
     # ---- Additional apps ----
     home.packages = with pkgs; [
+      # Video editing (light)
       kdePackages.kdenlive
+
+      # Cloud storage client
       nextcloud-client
+
+      # Icon theme so web-app shortcuts show proper icons
       papirus-icon-theme
+
+      # Spell-check
       hunspellDicts.es_ES
       hunspellDicts.es_MX
     ];
 
+    # Papirus as the icon theme (makes web-app shortcuts display brand icons)
     gtk.iconTheme = {
       package = pkgs.papirus-icon-theme;
       name = "Papirus";
@@ -161,6 +172,7 @@ mkUser {
     # ---- LibreOffice → Windows-style app-menu entries ----
     xdg.desktopEntries = libreofficeAliasEntries;
 
+    # ---- Shell aliases (for the rare terminal session) ----
     home.shellAliases = {
       word       = "libreoffice --writer";
       excel      = "libreoffice --calc";

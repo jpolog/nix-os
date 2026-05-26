@@ -1,7 +1,10 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
+
+with lib;
 
 {
-  home.packages = with pkgs; [
-    evince
-  ];
+  # Evince is a lightweight GNOME PDF viewer useful on Hyprland/mixed setups.
+  # Regular KDE users get Okular instead, so we skip Evince for them.
+  home.packages = with pkgs;
+    optionals config.home.profiles.desktop.powerUserTools.enable [ evince ];
 }

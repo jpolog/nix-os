@@ -5,15 +5,13 @@ with lib;
 let
   cfg = config.programs.web-apps;
   browserPkg =
-    if config.home.profiles.desktop.browsers.chromium then
-      pkgs.chromium
-    else
-      pkgs.firefox;
+    if config.home.profiles.desktop.browsers.chrome then pkgs.google-chrome
+    else if config.home.profiles.desktop.browsers.chromium then pkgs.chromium
+    else pkgs.firefox;
   browserExec =
-    if config.home.profiles.desktop.browsers.chromium then
-      "${browserPkg}/bin/chromium --app="
-    else
-      "${browserPkg}/bin/firefox";
+    if config.home.profiles.desktop.browsers.chrome then "${browserPkg}/bin/google-chrome-stable --app="
+    else if config.home.profiles.desktop.browsers.chromium then "${browserPkg}/bin/chromium --app="
+    else "${browserPkg}/bin/firefox --new-window";
 
   createWebApp = { name, genericName, url, icon, categories ? [ "Network" "WebBrowser" ] }: {
     name = name;
@@ -200,6 +198,14 @@ in
         url = "https://docs.google.com";
         icon = "google-docs";
         categories = [ "Office" "WordProcessor" ];
+      });
+
+      gdrive = mkIf cfg.apps.gdrive (createWebApp {
+        name = "Google Drive";
+        genericName = "Cloud Storage";
+        url = "https://drive.google.com";
+        icon = "google-drive";
+        categories = [ "Network" "FileTransfer" ];
       });
 
       office365 = mkIf cfg.apps.office365 (createWebApp {

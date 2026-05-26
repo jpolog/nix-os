@@ -71,9 +71,15 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Declarative Flatpak management (used on janus for apps not in nixpkgs)
+    nix-flatpak.url = "github:gmodena/nix-flatpak";
+
+    # Spanish government digital certificate tools (AutoFirma, ConfiguradorFNMT)
+    autofirma-nix.url = "github:nix-community/autofirma-nix";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-stable, home-manager, nix-index-database, firefox-addons, sops-nix, ...}@inputs:
+  outputs = { self, nixpkgs, nixpkgs-stable, home-manager, nix-index-database, firefox-addons, sops-nix, nix-flatpak, autofirma-nix, ...}@inputs:
     let
       system = "x86_64-linux";
       
@@ -164,13 +170,15 @@
           ];
         };
 
-        # General-use family desktop - KDE, users: jpolo, elena, padres
+        # General-use family desktop - KDE, users: jpolo, elena, fran, rosa
         janus = nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = {
             inherit inputs self;
           };
           modules = sharedModules ++ [
+            nix-flatpak.nixosModules.nix-flatpak
+            autofirma-nix.nixosModules.configuradorfnmt
             ./hosts/janus/configuration.nix
           ];
         };

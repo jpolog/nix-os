@@ -3,6 +3,9 @@
 let
   mkUser = (import ./lib.nix { inherit lib; }).mkUser;
 
+  # -----------------------------------------------------------------------
+  # Shared LibreOffice → familiar Windows name aliases (app-menu entries)
+  # -----------------------------------------------------------------------
   libreofficeAliasEntries = {
     "lo-word" = {
       name = "Word";
@@ -49,8 +52,8 @@ let
   };
 in
 mkUser {
-  username = "elena";
-  fullName = "Elena";
+  username = "rosa";
+  fullName = "Rosa";
   email = "";
 
   profiles = {
@@ -85,7 +88,7 @@ mkUser {
       };
       communication = {
         enable = true;
-        discord = true;    # Elena uses Discord
+        discord = false;
         telegram = true;
       };
       productivity = {

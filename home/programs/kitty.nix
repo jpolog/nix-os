@@ -3,7 +3,7 @@
 with lib;
 
 {
-  config = mkIf config.home.profiles.desktop.enable {
+  config = mkIf (config.home.profiles.desktop.enable && config.home.profiles.desktop.powerUserTools.enable) {
     programs.kitty = {
       enable = true;
       

@@ -1,8 +1,10 @@
 keys:
-  - &ares age1p7dmyj24fvjymk2g58cyp4r06jfcekhn05t34s3d5pl9343myvjszay7yp
+  - &ares  age1p7dmyj24fvjymk2g58cyp4r06jfcekhn05t34s3d5pl9343myvjszay7yp
+  - &janus age1zh7qc44ghsz2emhedtezswpfw3putzzm7rz6hjrf5ddmehuhkvssk7jlar
 
 creation_rules:
   - path_regex: secrets/secrets\.yaml$
     key_groups:
     - age:
       - *ares
+      - *janus

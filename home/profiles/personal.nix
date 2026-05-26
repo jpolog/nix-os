@@ -72,7 +72,17 @@ in
       # Media
       (optionals cfg.media.spotify [ spotify ]) ++
       (optionals cfg.media.plexamp [ plexamp ]) ++
-      (optionals cfg.media.plex [ plex-desktop ]) ++
+      (optionals cfg.media.plex [
+        plex-desktop
+        # Wrapper: plex exports LD_LIBRARY_PATH with bundled Qt 6.9, which breaks
+        # kde-open (used for OAuth login) when KDE requires Qt 6.10+.
+        # /etc/profiles/per-user/$USER/bin is earlier in PATH than /run/current-system/sw/bin
+        # (both inside and outside plex's bwrap), so this wrapper is found first.
+        (pkgs.writeShellScriptBin "kde-open" ''
+          export LD_LIBRARY_PATH=$(echo "$LD_LIBRARY_PATH" | tr ':' '\n' | grep -v 'plex-desktop' | tr '\n' ':')
+          exec /run/current-system/sw/bin/kde-open "$@"
+        '')
+      ]) ++
       (optionals cfg.media.vlc [ vlc ]) ++
       (optionals cfg.media.mpv [ mpv ]) ++
       
@@ -95,12 +105,12 @@ in
       (optionals cfg.tools.screenshot [ flameshot ]) ++
       (optionals cfg.tools.video-tools [ losslesscut-bin ]) ++
       
-      # Fun (Always enabled if profile is enabled)
-      [
+      # Fun (CLI users only)
+      (optionals config.home.profiles.cli.enable [
         cmatrix
         pipes
         cbonsai
-      ];
+      ]);
 
     # Enable Media Automations
     services.media-automations.enable = true;

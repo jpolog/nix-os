@@ -16,17 +16,14 @@
     ../programs
   ];
 
-  # Common packages for all users (beyond base profile)
-  # These are tools that everyone needs regardless of role
-  home.packages = with pkgs; [
-    # Essential CLI tools (if not in base profile)
-    ncdu # Disk usage analyzer
-    duf # Better df
-
-    # Security
-    age # Encryption
-    sops # Secrets management
-  ];
+  # CLI / power-user packages — only for users with cli profile enabled
+  home.packages = with pkgs;
+    lib.optionals config.home.profiles.cli.enable [
+      ncdu  # Disk usage analyser
+      duf   # Better df
+      age   # Encryption
+      sops  # Secrets management
+    ];
 
   # Centralized state version
   home.stateVersion = "25.11";

@@ -1,4 +1,7 @@
 { config, pkgs, lib, ... }:
+
+# Only active for CLI power users or desktop users with powerUserTools enabled.
+# Regular users (padres/fran/rosa/elena) never see neovim or its LSP toolchain.
 let
   # --- CUSTOM PLUGINS ---
   pathfinder-nvim = pkgs.vimUtils.buildVimPlugin {
@@ -115,6 +118,10 @@ let
   lazyPath = pkgs.linkFarm "lazy-plugins" (builtins.map mkEntryFromDrv plugins);
 
 in {
+  config = lib.mkIf (
+    config.home.profiles.cli.enable ||
+    (config.home.profiles.desktop.enable && config.home.profiles.desktop.powerUserTools.enable)
+  ) {
   # --- Environment variable ---
   home.sessionVariables = {
     NIX_LAZY_PATH = "${lazyPath}";
@@ -618,4 +625,5 @@ in {
     categories = [ "Utility" "TextEditor" ];
     mimeType = [ "text/plain" ];
   };
+  }; # end mkIf powerUserTools/cli
 }

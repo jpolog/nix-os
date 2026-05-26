@@ -23,13 +23,14 @@ with lib;
       systemsettings
     ];
 
-    # KDE specific packages
+    # KDE specific packages (system-wide, all users)
     environment.systemPackages = with pkgs; [
-      kdePackages.kcalc
-      kdePackages.spectacle
-      kdePackages.ark
-      kdePackages.dolphin
-      kdePackages.konsole
+      kdePackages.kcalc          # Calculator
+      kdePackages.spectacle      # Screenshots (replaces per-user Flameshot for KDE)
+      kdePackages.ark            # Archive manager (zip/tar/etc.)
+      kdePackages.dolphin        # File manager
+kdePackages.print-manager  # Printer management GUI (CUPS frontend)
+      kdePackages.gwenview       # Image viewer (ensure it's present)
     ];
     
     # Enable Partition Manager
