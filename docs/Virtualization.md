@@ -398,8 +398,34 @@ The Windows 11 VM uses virtio-net with user-mode NAT and RDP forwarding (`hostfw
 
 ---
 
+## VFIO GPU Passthrough (Dionysus)
+
+For hardware-level GPU passthrough using IOMMU/VFIO, see [[Dionysus]]. Dionysus takes a fundamentally different approach from the QEMU-based VMs on [[Ares]]:
+
+| Aspect | Ares (QEMU scripts) | Dionysus (VFIO appliance) |
+|--------|---------------------|---------------------------|
+| GPU | Emulated (QXL via SPICE) | Full hardware passthrough (native performance) |
+| Display | SPICE viewer window | Physical monitor via GPU |
+| VM management | Manual `win11-vm` script | Automatic: boot -> VM -> poweroff |
+| Network | NAT with port forwarding | Air-gapped (zero NICs) |
+| Use case | Productivity, Office, testing | Gaming with untrusted software |
+| Threat model | Trusted guest | Untrusted guest (malware isolation) |
+| VM definition | Raw QEMU CLI flags | Declarative libvirt XML defined in Nix |
+
+### Key differences
+
+- **VFIO**: The GPU, GPU audio, and NVMe controller are claimed by `vfio-pci` at initrd before any driver loads. The host has no framebuffer.
+- **Hypervisor cloaking**: KVM is hidden from the guest (`kvm.hidden`, fake vendor ID, disabled hypervisor CPUID) to bypass anti-VM checks in game cracks.
+- **Appliance lifecycle**: The host automatically powers off when the VM shuts down — no lingering attack surface.
+- **Declarative VM**: The VM is defined from a Nix-generated libvirt XML and `virsh define`d on every boot, ensuring the VM definition stays in sync with the Nix configuration.
+
+See [[Dionysus]] for full setup instructions, VFIO device configuration, and troubleshooting.
+
+---
+
 ## Related
 
 - [[Ares]] — the host that runs VMs (`virtualization.nix` is imported on ares)
+- [[Dionysus]] — headless VFIO gaming appliance with GPU passthrough
 - [[System Modules]] — full module reference including `virtualization.nix`
 - [[Scripts Reference]] — complete scripts catalog with `vmctl`, `vm-optimize`, `vm-backup`

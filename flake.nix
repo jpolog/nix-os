@@ -193,6 +193,17 @@
             ./hosts/vega/configuration.nix
           ];
         };
+
+        # Headless VFIO Gaming Appliance (Single-GPU passthrough to Windows VM)
+        dionysus = nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = {
+            inherit inputs self;
+          };
+          modules = sharedModules ++ [
+            ./hosts/dionysus/configuration.nix
+          ];
+        };
       };
 
       # ========================================================================
