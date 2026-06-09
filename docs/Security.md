@@ -183,6 +183,7 @@ Source: `modules/system/optimization.nix`
 | Ares | 22 | `PermitRootLogin = "no"` override in host config |
 | Janus | (inherited) | No SSH override |
 | Vega | 22, 11434 | Ollama port also open |
+| Dionysus | 22 | SSH only — management access for headless VFIO appliance |
 
 Source: `modules/system/ssh.nix`, `hosts/*/configuration.nix`
 
@@ -227,6 +228,7 @@ Source: `modules/system/secrets.nix`
 - BBR + Cake TCP stack for improved network performance and fairness
 - Nix builds run in sandboxes
 - Docker uses rootless mode (see [[Virtualization]])
+- **VFIO hardware isolation** on [[Dionysus]]: personal NVMe drive claimed by `vfio-pci` at initrd, air-gapped VM with zero NICs, hypervisor cloaking, appliance auto-poweroff
 
 ### Potential hardening steps
 
@@ -246,3 +248,4 @@ Source: `modules/system/secrets.nix`
 - [[System Modules]] — module index and configuration paths
 - [[Ares]] — Ares-specific security (Docker firewall rules, SSH overrides)
 - [[Vega]] — Vega-specific security (Ollama port exposure)
+- [[Dionysus]] — VFIO hardware isolation, air-gapped VM, hypervisor cloaking

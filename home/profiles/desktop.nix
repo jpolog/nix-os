@@ -28,6 +28,12 @@ with lib;
       description = "Desktop environment to configure for the user";
     };
 
+    configType = mkOption {
+      type = types.enum [ "hyprlang" "lua" ];
+      default = "lua";
+      description = "Configuration language to use for Hyprland";
+    };
+
     browsers = {
       firefox   = mkEnableOption "Firefox";
       chromium  = mkEnableOption "Chromium (open-source)";
@@ -73,7 +79,6 @@ with lib;
           kdePackages.okular
           zathura
           imv
-          feh
           wl-clipboard
           cliphist
           hyprpicker

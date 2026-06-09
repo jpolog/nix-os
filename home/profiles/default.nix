@@ -12,6 +12,5 @@
     ./personal.nix
     ./gaming.nix
     ./research.nix
-    ./master.nix
   ];
 }

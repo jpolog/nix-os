@@ -35,6 +35,7 @@ in
       onlyoffice = mkEnableOption "OnlyOffice Desktop Editors";
       libreoffice = mkEnableOption "LibreOffice" // { default = cfg.office.enable; };
       okular = mkEnableOption "Okular" // { default = cfg.office.enable; };
+      koreader = mkEnableOption "KOReader" // { default = cfg.office.enable; };
     };
     
     tools = {
@@ -99,6 +100,7 @@ in
         hunspellDicts.en_US
         hunspellDicts.es_ES
       ]) ++
+      (optionals cfg.office.koreader [ koreader ]) ++
       
       # General Tools
       (optionals cfg.tools.image-editing [ pinta ]) ++

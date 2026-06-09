@@ -28,6 +28,10 @@
   # Centralized state version
   home.stateVersion = "25.11";
 
+  xdg.userDirs.setSessionVariables = false;
+
+  wayland.windowManager.hyprland.configType = lib.mkDefault "hyprlang";
+
   # Common session variables
   home.sessionVariables = {
     # Set common environment variables here

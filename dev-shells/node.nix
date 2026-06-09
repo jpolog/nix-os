@@ -8,20 +8,19 @@ pkgs.mkShell {
     nodejs_22
     
     # Package managers
-    nodePackages.npm
-    nodePackages.yarn
-    nodePackages.pnpm
+    yarn
+    pnpm
     
     # TypeScript
-    nodePackages.typescript
-    nodePackages.typescript-language-server
+    typescript
+    typescript-language-server
     
     # Linting and formatting
-    nodePackages.eslint
-    nodePackages.prettier
+    eslint
+    prettier
     
     # Build tools
-    nodePackages.webpack-cli
+    webpack-cli
     vite  # Use standalone package
   ];
   

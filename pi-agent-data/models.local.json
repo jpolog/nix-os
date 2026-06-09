@@ -1,6 +1,24 @@
 {
   "local_models": [
     {
+      "id": "ollama/minimax-m3:cloud",
+      "name": "minimax-m3",
+      "params": "unknown",
+      "reasoning": false,
+      "context": 131072,
+      "max_tokens": 8192,
+      "local": false,
+      "cloud": true,
+      "source": "cloud",
+      "strengths": [
+        "Available via Ollama Cloud"
+      ],
+      "weaknesses": [
+        "Auto-discovered \u2014 metadata is inferred, not curated"
+      ],
+      "family": "minimax-m3"
+    },
+    {
       "id": "ollama/deepseek-v3.2:cloud",
       "name": "deepseek-v3.2",
       "params": "671B",
@@ -75,5 +93,5 @@
     }
   ],
   "ollama_url": "http://localhost:11434",
-  "generated_at": "2026-05-26T18:12:33.995129"
+  "generated_at": "2026-06-09T18:22:48.648528"
 }

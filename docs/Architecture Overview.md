@@ -6,7 +6,7 @@ tags:
 
 # Architecture Overview
 
-This repository is a **flake-based, multi-host NixOS configuration** with integrated Home Manager. It manages three machines — ares, janus, and vega — from a single source of truth, sharing system modules and home-manager modules across all hosts while allowing per-host overrides.
+This repository is a **flake-based, multi-host NixOS configuration** with integrated Home Manager. It manages four machines — ares, janus, vega, and dionysus — from a single source of truth, sharing system modules and home-manager modules across all hosts while allowing per-host overrides.
 
 ## Dependency Flow
 
@@ -33,6 +33,7 @@ graph TD
     ARES["hosts/ares/configuration.nix<br/><i>ThinkPad T14s Gen 6 AMD</i>"]
     JANUS["hosts/janus/configuration.nix<br/><i>Family desktop, KDE</i>"]
     VEGA["hosts/vega/configuration.nix<br/><i>Headless GPU compute</i>"]
+    DION["hosts/dionysus/configuration.nix<br/><i>Headless VFIO gaming appliance</i>"]
 
     FLAKE --> INPUTS
     FLAKE --> OVERLAYS
@@ -54,14 +55,17 @@ graph TD
     FLAKE --> ARES
     FLAKE --> JANUS
     FLAKE --> VEGA
+    FLAKE --> DION
 
     ARES -.->|"sharedModules ++"| SHARED
     JANUS -.->|"sharedModules ++"| SHARED
     VEGA -.->|"sharedModules ++"| SHARED
+    DION -.->|"sharedModules ++"| SHARED
 
     ARES ==>|"profiles.desktop.environment = hyprland"| DESK_MOD
     JANUS ==>|"profiles.desktop.environment = kde"| DESK_MOD
     VEGA ==>|"profiles.desktop.enable = false"| DESK_MOD
+    DION ==>|"profiles.desktop.enable = false<br/>VFIO + libvirtd"| VM_MOD
 
     style FLAKE fill:#ff6b00,color:#fff
     style SHARED fill:#2d2d2d,color:#fff
@@ -69,6 +73,7 @@ graph TD
     style ARES fill:#1a73e8,color:#fff
     style JANUS fill:#1a73e8,color:#fff
     style VEGA fill:#1a73e8,color:#fff
+    style DION fill:#7b1fa2,color:#fff
     style INPUTS fill:#555,color:#fff
     style OVERLAYS fill:#555,color:#fff
 ```
@@ -91,6 +96,9 @@ Each `nixosConfiguration` composes `sharedModules` with a single host-specific `
 │   │   ├── configuration.nix
 │   │   └── hardware-configuration.nix
 │   ├── vega/              # Headless GPU compute (Vega 56)
+│   │   ├── configuration.nix
+│   │   └── hardware-configuration.nix
+│   ├── dionysus/           # Headless VFIO gaming appliance (Single-GPU passthrough)
 │   │   ├── configuration.nix
 │   │   └── hardware-configuration.nix
 │   └── *-example.nix      # Template host configs (not in use)
@@ -238,7 +246,8 @@ All overlays use `nixpkgs.follows = "nixpkgs"` where applicable to avoid depende
 | **ares** | ThinkPad T14s Gen 6 AMD | Hyprland (Noctalia shell) | jpolo, gaming | base, desktop (hyprland), development |
 | **janus** | Intel i5 8th gen desktop | KDE Plasma 6 | jpolo, elena, padres | base, desktop (kde) |
 | **vega** | Vega 56 GPU, headless | None | jpolo | base, development (headless) |
+| **dionysus** | Ryzen 5 5600X + NVIDIA GPU, headless | None (VFIO passthrough) | jpolo | base (appliance: VFIO + libvirtd) |
 
 ---
 
-**Related pages**: [[Module System]] · [[Profile System]] · [[Flake Inputs]] · [[Deployment Guide]]
+**Related pages**: [[Module System]] · [[Profile System]] · [[Flake Inputs]] · [[Deployment Guide]] · [[Dionysus]]

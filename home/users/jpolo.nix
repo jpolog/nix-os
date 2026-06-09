@@ -27,7 +27,7 @@ mkUser {
     };
     creative = {
       enable = true;
-      video.enable = true;
+      video.enable = false;
     };
 
     power-user = {
@@ -55,8 +55,6 @@ mkUser {
       diagrams.enable = true;
     };
 
-    master.enable = true;
-
     personal = {
       enable = true;
       media = {
@@ -64,7 +62,7 @@ mkUser {
         spotify = false;
         plexamp = true;
         plex = true;
-        vlc = true;
+        vlc = false;
         mpv = true;
       };
       office = {
@@ -72,6 +70,7 @@ mkUser {
         onlyoffice = false;
         libreoffice = true;
         okular = true;
+        koreader = true;
       };
       productivity = {
         enable = true;
@@ -82,13 +81,13 @@ mkUser {
         enable = true;
         image-editing = true;
         screenshot = true;
-        video-tools = true;
+        video-tools = false;
       };
       communication.enable = true;
     };
   };
 
-  extraConfig = {
+  extraConfig = { config, ... }: {
 
     imports = [
 
@@ -103,6 +102,7 @@ mkUser {
     home.profiles.desktop.enable = true;
 
     home.profiles.desktop.environment = "hyprland";
+    wayland.windowManager.hyprland.configType = "lua";
 
     home.profiles.desktop.browsers = {
       firefox = true;
@@ -120,10 +120,14 @@ mkUser {
 
     programs.web-apps.apps.outlook = true;
 
+    programs.firefox = {
+      configPath = "${config.xdg.configHome}/mozilla/firefox";
+    };
+
     programs.ssh = {
       enable = true;
       enableDefaultConfig = false;
-      matchBlocks = {
+      settings = {
         "dgx-spark" = {
           hostname = "155.54.180.23";
           port = 25004;

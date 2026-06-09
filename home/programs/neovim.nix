@@ -132,32 +132,45 @@ in {
     rr = "ranger";
   };
 
-  # programs.neovim = {
-  #   enable = true;
-  #   defaultEditor = true;
-  #   viAlias = true;
-  #   vimAlias = true;
-  #   
-  #   # --- 3. RUNTIME BINARIES (Replacing Mason) ---
-  #   extraPackages = with pkgs; [
-  #     # ... (keeping it short for the tool)
-  #   ];
-  #
-  #   # --- 4. TREESITTER (keep for parser installation) ---
-  #   plugins = [
-  #     { plugin = pkgs.vimPlugins.nvim-treesitter.withAllGrammars; }
-  #   ];
-  #
-  #   # --- 5. LUA PACKAGES ---
-  #   extraLuaPackages = ps: [
-  #     ps.magick # For image.nvim
-  #   ];
-  #
-  #   # --- 6. CONFIGURATION ---
-  #   initLua = ''
-  #     -- ...
-  #   '';
-  # };
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+    viAlias = true;
+    vimAlias = true;
+    
+    withRuby = false;
+    withPython3 = false;
+
+    # --- 3. RUNTIME BINARIES (Replacing Mason) ---
+    extraPackages = with pkgs; [
+      # LSPs
+      lua-language-server
+      nil
+      nixd
+      pyright
+      rust-analyzer
+      gopls
+      vtsls
+      
+      # Tools
+      ripgrep
+      fd
+      fzf
+      tree-sitter
+      git
+      curl
+    ];
+
+    # --- 4. TREESITTER (keep for parser installation) ---
+    plugins = [
+      { plugin = pkgs.vimPlugins.nvim-treesitter.withAllGrammars; }
+    ];
+
+    # --- 5. LUA PACKAGES ---
+    extraLuaPackages = ps: [
+      ps.magick # For image.nvim
+    ];
+  };
 
   # --- 7. Ranger Configuration ---
   programs.ranger = {

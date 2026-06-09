@@ -168,10 +168,9 @@ in
       # Node.js
       (optionals cfg.languages.nodejs.enable (with pkgs; [
         nodejs_22
-        nodePackages.npm
-        nodePackages.yarn
-        nodePackages.pnpm
-        nodePackages.typescript-language-server
+        yarn
+        pnpm
+        typescript-language-server
         prettier
       ])) ++
       # Rust

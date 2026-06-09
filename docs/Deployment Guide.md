@@ -278,4 +278,4 @@ flowchart TD
 - [[Architecture Overview]] — how modules, profiles, and hosts connect
 - [[Profile System]] — full profile reference and options
 - [[Flake Inputs]] — input sources and versioning
-- [[Ares]], [[Janus]], [[Vega]] — per-host configuration details
+- [[Ares]], [[Janus]], [[Vega]], [[Dionysus]] — per-host configuration details

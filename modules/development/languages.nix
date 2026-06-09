@@ -10,9 +10,8 @@
     
     # Node.js
     nodejs_22
-    nodePackages.npm
-    nodePackages.yarn
-    nodePackages.pnpm
+    yarn
+    pnpm
     
     # Rust
     rustc
@@ -42,8 +41,8 @@
     pyright  # Python
     rust-analyzer  # Rust
     gopls  # Go
-    nodePackages.typescript-language-server  # TypeScript
-    nodePackages.bash-language-server  # Bash
+    typescript-language-server  # TypeScript
+    bash-language-server  # Bash
     lua-language-server  # Lua
     vscode-langservers-extracted  # HTML, CSS, JSON
     
