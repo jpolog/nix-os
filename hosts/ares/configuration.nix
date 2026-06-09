@@ -213,7 +213,6 @@
     {
       imports = [ ../../home/users/jpolo.nix ];
       home.profiles.desktop.environment = "hyprland";
-      wayland.windowManager.hyprland.settings.input.touchpad.natural_scroll = lib.mkForce false;
       services.ollama-service = {
         enable = true;
         acceleration = "rocm";

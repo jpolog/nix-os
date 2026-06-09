@@ -67,7 +67,6 @@ with lib;
       kdePackages.okular
       
       # Archive manager
-      file-roller
       kdePackages.ark
       
       # Polkit agent

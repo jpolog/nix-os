@@ -513,13 +513,9 @@ in {
 
 
     # 3. Hyprland integration (auto-launch Noctalia)
-    wayland.windowManager.hyprland.settings = {
-      # Remove manual exec-once if systemd is used, or keep it if systemd fails
-      exec-once = [
-        "systemctl --user start noctalia-shell"
-      ];
-
-    };
+    # Note: noctalia-shell startup is handled in hyprland.nix extraConfig
+    # and by the systemd service below. Do not use settings.exec-once here
+    # as it generates invalid Lua syntax (hl.exec-once with hyphens).
 
     # 4. Systemd service for reliable auto-start with crash recovery
     systemd.user.services.noctalia-shell = {
