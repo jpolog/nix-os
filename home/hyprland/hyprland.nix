@@ -120,7 +120,7 @@ with lib;
             -- Variables
             local terminal = "kitty"
             local browser = "firefox"
-            local osdclient = "swayosd-client --monitor \\"$(hyprctl monitors -j | jq -r '.[] | select(.focused == true).name')\\""
+            local osdclient = "swayosd-client --monitor \"$(hyprctl monitors -j | jq -r '.[] | select(.focused == true).name')\""
 
             -- Environment variables
             hl.env("XCURSOR_SIZE", "18")
@@ -296,15 +296,14 @@ with lib;
             })
 
             -- Autostart
+            -- Note: hypridle and mako are managed by systemd (services.hypridle / services.mako),
+            -- so they are NOT launched here to avoid duplicate instances.
             hl.on("hyprland.start", function()
-              hl.exec_cmd("hypridle &")
-              hl.exec_cmd("mako &")
               hl.exec_cmd("fcitx5 &")
               hl.exec_cmd("swayosd-server &")
               hl.exec_cmd("${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1 &")
               hl.exec_cmd("nm-applet --indicator &")
               hl.exec_cmd("blueman-applet &")
-              hl.exec_cmd("hyprpm reload -n &")
               hl.exec_cmd("systemctl --user start noctalia-shell &")
               hl.exec_cmd("systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP &")
               hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP &")
@@ -360,7 +359,6 @@ with lib;
             hl.bind(mainMod .. " + Escape",    dsp.exec_cmd("noctalia-shell ipc call sessionMenu toggle"))
 
             -- Lock
-            hl.bind(mainMod .. " + Shift + L",              dsp.exec_cmd("loginctl lock-session"))
             hl.bind(mainMod .. " + Ctrl + Shift + L",       dsp.exec_cmd("loginctl lock-session && sleep 1 && hyprctl dispatch dpms off"))
 
             -- Toggle Transparency
@@ -437,9 +435,9 @@ with lib;
             hl.bind(mainMod .. " + KP_Begin",    dsp.exec_cmd("pamixer -t"))
             hl.bind(mainMod .. " + KP_Right",    dsp.exec_cmd("pavucontrol"))
             hl.bind(mainMod .. " + KP_End",      dsp.exec_cmd("walker -m clipboard"))
-            hl.bind(mainMod .. " + KP_Down",     dsp.exec_cmd("grim -g \\"$(slurp)\\" - | tesseract - - | wl-copy"))
+            hl.bind(mainMod .. " + KP_Down",     dsp.exec_cmd("grim -g \"$(slurp)\" - | tesseract - - | wl-copy"))
             hl.bind(mainMod .. " + KP_Next",     dsp.layout("fit all"))
-            hl.bind(mainMod .. " + KP_Insert",   dsp.exec_cmd("pkill -USR1 wlsunset"))
+            hl.bind(mainMod .. " + KP_Insert",   dsp.exec_cmd("systemctl --user is-active --quiet hyprsunset && systemctl --user stop hyprsunset || systemctl --user start hyprsunset"))
             hl.bind(mainMod .. " + KP_Delete",   dsp.exec_cmd("makoctl mode -t dnd"))
             hl.bind(mainMod .. " + KP_Add",      dsp.exec_cmd("hyprctl keyword misc:cursor_zoom_factor 2.0"))
             hl.bind(mainMod .. " + KP_Subtract", dsp.exec_cmd("hyprctl keyword misc:cursor_zoom_factor 1.0"))

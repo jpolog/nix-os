@@ -102,7 +102,6 @@ mkUser {
     home.profiles.desktop.enable = true;
 
     home.profiles.desktop.environment = "hyprland";
-    wayland.windowManager.hyprland.configType = "lua";
 
     home.profiles.desktop.browsers = {
       firefox = true;
