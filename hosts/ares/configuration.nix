@@ -346,9 +346,9 @@
     ];
   };
 
-  # Ensure SDDM is enabled (you likely have this, but verify)
-  services.displayManager.sddm.enable = true;
-  services.displayManager.sddm.wayland.enable = true;
+  # Enable TTY autologin for jpolo (replaces SDDM)
+  services.displayManager.sddm.enable = lib.mkForce false;
+  services.getty.autologinUser = "jpolo";
 
   # Enable touchpad support (libinput)
   services.libinput = {
@@ -373,6 +373,14 @@
   };
 
   # ============================================================================
+  # Gaming — system-level Steam/Proton (jpolo home profile adds wine + utils)
+  # ============================================================================
+
+  programs.steam.enable = true; # steam + proton + controller udev rules
+  programs.steam.protontricks.enable = true;
+  programs.gamemode.enable = true; # gamemoded system daemon
+
+  # ============================================================================
   # Home Manager Integration -
   # ============================================================================
 
@@ -386,6 +394,16 @@
     "d /home/jpolo/.local/state/home-manager 0755 jpolo users -"
     "d /home/jpolo/.local/state/home-manager/gcroots 0755 jpolo users -"
   ];
+
+  # AccountsService avatar — SDDM reads icon from /var/lib/AccountsService/
+  system.activationScripts.accountsServiceAvatar = lib.stringAfter [ "users" ] ''
+    mkdir -p /var/lib/AccountsService/icons /var/lib/AccountsService/users
+    ln -sf ${../../home/users/assets/jpolo_profile.jpg} /var/lib/AccountsService/icons/jpolo
+    if ! grep -q "^Icon=" /var/lib/AccountsService/users/jpolo 2>/dev/null; then
+      printf '[User]\nIcon=/var/lib/AccountsService/icons/jpolo\nSystemAccount=false\n' \
+        > /var/lib/AccountsService/users/jpolo
+    fi
+  '';
 
   # ============================================================================
   # Compatibility
@@ -422,6 +440,13 @@
   # System Services
   # ============================================================================
 
+  # Disable sleep on lid close for remote access
+  services.logind.settings.Login = {
+    HandleLidSwitch = "ignore";
+    HandleLidSwitchExternalPower = "ignore";
+    HandleLidSwitchDocked = "ignore";
+  };
+
   # Disable HPLIP (HP Device Manager) as requested
   modules.services.printing.includeHplip = false;
 
@@ -430,6 +455,19 @@
 
   # Enable Plex Client firewall rules for downloads/sync
   services.plex-client.enable = true;
+
+  # Enable Sunshine for Remote Streaming
+  services.sunshine = {
+    enable = true;
+    autoStart = true;
+    capSysAdmin = true;
+    openFirewall = true;
+  };
+
+  # Udev rule for Moonlight Keyboard Passthrough
+  services.udev.extraRules = ''
+    KERNEL=="event*", SUBSYSTEM=="input", ATTRS{name}=="Keyboard passthrough", SYMLINK+="input/by-id/moonlight-keyboard"
+  '';
 
   # KMonad Keyboard Configuration
   modules.services.kmonad = {
@@ -630,6 +668,10 @@
           device = "/dev/input/by-id/usb-SEM_USB_Keyboard-event-kbd";
           config = mkStandardConfig "/dev/input/by-id/usb-SEM_USB_Keyboard-event-kbd";
         };
+        "moonlight-keyboard" = {
+          device = "/dev/input/by-id/moonlight-keyboard";
+          config = mkStandardConfig "/dev/input/by-id/moonlight-keyboard";
+        };
       };
   };
 
@@ -718,6 +760,64 @@ EOF
           ;;
       esac
     '')
+    (writeShellScriptBin "sunshine-headless-connect" ''
+      set -euo pipefail
+
+      export HYPRLAND_INSTANCE_SIGNATURE=$(systemctl --user show-environment | grep '^HYPRLAND_INSTANCE_SIGNATURE=' | cut -d= -f2-)
+      export WAYLAND_DISPLAY=$(systemctl --user show-environment | grep '^WAYLAND_DISPLAY=' | cut -d= -f2-)
+      
+      # 1. Create the headless output
+      hyprctl output create headless || true
+      
+      # Wait briefly to ensure Hyprland creates the monitor
+      sleep 1
+      
+      # 2. Get the name of the new headless monitor (usually HEADLESS-1)
+      HEADLESS_MON=$(hyprctl monitors all -j | jq -r '.[] | select(.name | startswith("HEADLESS")) | .name' | head -n 1)
+      
+      if [ -z "$HEADLESS_MON" ]; then
+          echo "Could not find headless monitor." >&2
+          exit 1
+      fi
+      
+      # Match the headless monitor resolution to the Moonlight client (e.g. iPad)
+      if [ -n "''${SUNSHINE_CLIENT_WIDTH:-}" ] && [ -n "''${SUNSHINE_CLIENT_HEIGHT:-}" ] && [ -n "''${SUNSHINE_CLIENT_FPS:-}" ]; then
+          MODE="''${SUNSHINE_CLIENT_WIDTH}x''${SUNSHINE_CLIENT_HEIGHT}@''${SUNSHINE_CLIENT_FPS}"
+          hyprctl eval "hl.monitor({ output = '$HEADLESS_MON', mode = '$MODE', position = 'auto', scale = 1.5 })"
+      fi
+      
+      # 3. Move all workspaces from eDP-1 to the new headless monitor
+      for ws in $(hyprctl workspaces -j | jq -r '.[] | select(.monitor == "eDP-1") | .id'); do
+          hyprctl dispatch "hl.dsp.workspace.move({ workspace = $ws, monitor = \"$HEADLESS_MON\" })"
+      done
+      
+      # 4. Disable the physical laptop display
+      hyprctl eval "hl.monitor({ output = 'eDP-1', disabled = true })"
+    '')
+    (writeShellScriptBin "sunshine-headless-disconnect" ''
+      set -euo pipefail
+
+      export HYPRLAND_INSTANCE_SIGNATURE=$(systemctl --user show-environment | grep '^HYPRLAND_INSTANCE_SIGNATURE=' | cut -d= -f2-)
+      export WAYLAND_DISPLAY=$(systemctl --user show-environment | grep '^WAYLAND_DISPLAY=' | cut -d= -f2-)
+      
+      # 1. Re-enable the physical laptop display
+      hyprctl eval "hl.monitor({ output = 'eDP-1', mode = 'preferred', position = 'auto', scale = 1 })"
+      
+      sleep 1
+      
+      # 2. Find the headless monitor
+      HEADLESS_MON=$(hyprctl monitors all -j | jq -r '.[] | select(.name | startswith("HEADLESS")) | .name' | head -n 1)
+      
+      if [ -n "$HEADLESS_MON" ]; then
+          # 3. Move all workspaces back to eDP-1
+          for ws in $(hyprctl workspaces -j | jq -r ".[] | select(.monitor == \"$HEADLESS_MON\") | .id"); do
+              hyprctl dispatch "hl.dsp.workspace.move({ workspace = $ws, monitor = \"eDP-1\" })"
+          done
+          
+          # 4. Remove the headless output
+          hyprctl output remove "$HEADLESS_MON" || true
+      fi
+    '')
   ];
 
   # ============================================================================
@@ -736,5 +836,13 @@ EOF
 
   # Disable kwallet as requested for a pure Hyprland system
   security.pam.services.login.enableKwallet = false;
-  security.pam.services.sddm.enableKwallet = false;
+
+  # ============================================================================
+  # SSD/NVMe Optimizations
+  # ============================================================================
+
+  # BTRFS optimizations to reduce wear and improve performance on NVMe
+  fileSystems."/".options = [ "noatime" "compress=zstd" "discard=async" "space_cache=v2" ];
+  fileSystems."/home".options = [ "noatime" "compress=zstd" "discard=async" "space_cache=v2" ];
+  fileSystems."/nix".options = [ "noatime" "compress=zstd" "discard=async" "space_cache=v2" ];
 }

@@ -21,6 +21,10 @@ with lib;
     diagrams = {
       enable = mkEnableOption "professional diagramming tools (Inkscape)" // { default = true; };
     };
+
+    presentation = {
+      enable = mkEnableOption "PDF presentation tools (pdfpc)" // { default = true; };
+    };
   };
 
   config = mkIf config.home.profiles.research.enable {
@@ -45,6 +49,12 @@ with lib;
       (mkIf config.home.profiles.research.visualization.enable [
         pkgs.zathura
         pkgs.sioyek # Another excellent PDF viewer for research
+      ])
+
+      # Presentation Tools
+      (mkIf config.home.profiles.research.presentation.enable [
+        pkgs.pdfpc # PDF Presenter Console
+        pkgs.pympress # Python-based presenter with great media support
       ])
     ];
 

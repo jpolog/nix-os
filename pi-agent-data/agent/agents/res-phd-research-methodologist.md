@@ -1,7 +1,7 @@
 ---
 name: res-phd-research-methodologist
 description: "Use when designing research methodology — choose methods, validate research design, plan data collection, ensure rigor and reproducibility, and navigate ethical considerations for your PhD research."
-model: ollama/kimi-k2.6
+model: ollama/kimi-k2.6:cloud
 tools: [read, write, edit, bash, find, search]
 ---
 

@@ -55,6 +55,16 @@ mkUser {
       diagrams.enable = true;
     };
 
+    gaming = {
+      enable = true;
+      steam.enable = false; # provided by system programs.steam (ares)
+      wine.enable = true; # wine + winetricks for non-steam Windows games
+      utils.enable = true; # mangohud, gamescope, gamemode client
+      lutris.enable = false;
+      heroic.enable = false;
+      emulation.enable = false;
+    };
+
     personal = {
       enable = true;
       media = {
@@ -72,6 +82,10 @@ mkUser {
         okular = true;
         koreader = true;
       };
+      education = {
+        enable = true;
+        anki = true;
+      };
       productivity = {
         enable = true;
         bitwarden = true;
@@ -83,7 +97,10 @@ mkUser {
         screenshot = true;
         video-tools = false;
       };
-      communication.enable = true;
+      communication = {
+        enable = true;
+        discord = true; # Enabled Discord as requested
+      };
     };
   };
 
@@ -115,6 +132,9 @@ mkUser {
       "Documents/books/.keep".text = "";
       "Documents/scans/.keep".text = "";
       "Documents/work/.keep".text = "";
+      # Profile photo — used by apps that read ~/.face (e.g. AccountsService fallback)
+      ".face".source = ./assets/jpolo_profile.jpg;
+      ".face.icon".source = ./assets/jpolo_profile.jpg;
     };
 
     programs.web-apps.apps.outlook = true;

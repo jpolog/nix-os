@@ -11,7 +11,7 @@ tags:
 
 ## Overview
 
-Ares is the main development laptop, configured for full-stack engineering, AI workloads, and research. It runs [[Hyprland]] with the Noctalia shell on SDDM (Wayland), and carries the most extensive profile stack of any host in the fleet. A secondary `gaming` user provides an isolated KDE session for leisure.
+Ares is the main development laptop, configured for full-stack engineering, AI workloads, and research. It runs [[Hyprland]] with the Noctalia shell, using TTY autologin and [[hyprlock]] for a streamlined login experience. It carries the most extensive profile stack of any host in the fleet.
 
 | Field | Value |
 |---|---|
@@ -19,7 +19,8 @@ Ares is the main development laptop, configured for full-stack engineering, AI w
 | State version | 25.11 |
 | Host ID | `8425e34f` (ZFS requirement) |
 | Boot | systemd-boot, `linuxPackages_latest` |
-| Desktop | Hyprland + Noctalia (Wayland via SDDM) |
+| Desktop | Hyprland + Noctalia (Wayland) |
+| Login | TTY autologin + [[hyprlock]] |
 | System profiles | `base` + `desktop(hyprland)` + `development` |
 | Home profiles (jpolo) | `desktop(hyprland)` + `cli` + `development` + `creative` + `power-user` + `work` + `research` + `master` + `personal` |
 
@@ -32,7 +33,7 @@ Ares is the main development laptop, configured for full-stack engineering, AI w
 - **RAM**: 32 GB+ LPDDR5
 - **Storage**: NVMe SSD, BTRFS on LUKS (`cryptroot`) with `@`, `@home`, `@nix` subvolumes
 - **TPM**: Firmware-level TPM via swtpm emulation (for Windows 11 VM)
-- **Fingerprint**: Goodix (libfprint-2-tod1-goodix) — PAM-enabled for `login`, `sudo`, `hyprlock`
+- **Fingerprint**: Goodix (libfprint-2-tod1-goodix) — PAM-enabled for `sudo`, `hyprlock`
 - **ThinkPad ACPI**: `thinkpad_acpi` loaded with `fan_control=1` for manual fan control
 - **Kernel modules**: `nvme`, `xhci_pci`, `thunderbolt`, `kvm-amd`
 
@@ -54,7 +55,6 @@ graph TD
         Base["profiles.base"]
         Desktop["profiles.desktop<br/><i>environment = hyprland</i>"]
         Dev["profiles.development<br/><i>python · nodejs · docker · ai</i>"]
-        GamingX["❌ profiles.gaming<br/><i>disabled — user-level only</i>"]
     end
 
     subgraph Host-Specific Modules
@@ -64,6 +64,7 @@ graph TD
         VPN["university-vpn (UM)"]
         FPrint["fprintd · Goodix"]
         PowerProfiles["power-profiles<br/><i>eco/balanced/performance scripts</i>"]
+        Autologin["TTY Autologin<br/><i>(jpolo)</i>"]
     end
 
     subgraph Home Manager — jpolo
@@ -78,12 +79,7 @@ graph TD
         HPersonal["home.profiles.personal<br/><i>Plex · Syncthing · Bitwarden</i>"]
         OllamaHM["services.ollama-service<br/><i>ROCm acceleration</i>"]
         Noctalia["Noctalia shell<br/><i>M3-Rainbow · matugen</i>"]
-        KritaTheme["KDE theme<br/><i>Krita Dark Orange</i>"]
-    end
-
-    subgraph Home Manager — gaming
-        GamingDesktop["home.profiles.desktop<br/><i>→ KDE override</i>"]
-        GamingProfile["home.profiles.gaming<br/><i>Steam · utils</i>"]
+        Hyprlock["Hyprlock<br/><i>Stylized Login Screen</i>"]
     end
 
     subgraph VMs & Services
@@ -95,13 +91,13 @@ graph TD
     Ares --> Base
     Ares --> Desktop
     Ares --> Dev
-    Ares -.->|"disabled"| GamingX
     Ares --> TLP
     Ares --> KMonad
     Ares --> Eduroam
     Ares --> VPN
     Ares --> FPrint
     Ares --> PowerProfiles
+    Ares --> Autologin
 
     Ares --> HDesktop
     Ares --> HCli
@@ -114,10 +110,7 @@ graph TD
     Ares --> HPersonal
     Ares --> OllamaHM
     Ares --> Noctalia
-    Ares --> KritaTheme
-
-    Ares --> GamingDesktop
-    Ares --> GamingProfile
+    Ares --> Hyprlock
 
     Ares --> Win11
     Ares --> Syncthing
@@ -139,6 +132,7 @@ See also: [[Profile System]], [[Home Profiles]], [[Module System]], [[System Mod
 | Kernel modules | `thinkpad_acpi` (fan control), `kvm-amd` |
 | Modprobe | `options thinkpad_acpi fan_control=1` |
 | EFI | `canTouchEfiVariables = true` |
+| Autologin | `jpolo` on TTY1 |
 
 Root filesystem is BTRFS on LUKS with subvolumes `@`, `@home`, `@nix`. See [[Architecture Overview]] for the full partition layout.
 
@@ -212,12 +206,13 @@ See also: [[Power Management]]
 
 ## Desktop Environment
 
-[[Hyprland]] with the **Noctalia** shell (QuickShell-based), SDDM Wayland session.
+[[Hyprland]] with the **Noctalia** shell (QuickShell-based), using TTY autologin + [[hyprlock]].
 
 | Setting | Value |
 |---|---|
 | Compositor | Hyprland (Wayland) |
 | Shell | Noctalia v3 (QuickShell) |
+| Login | TTY autologin + [[hyprlock]] |
 | Bar | Top, 42px, workspaces · media · clock · network · volume · brightness · battery |
 | Control center | Right panel, 400px |
 | Theme | Material You (M3-Rainbow), matugen color generation |
@@ -303,16 +298,6 @@ Right side provides bracket/operator grid:
 | `jureca` | `pologambn1` | `~/.ssh/cispa` | Jülich supercomputer |
 | `aws-public` | `ec2-user` | `~/.ssh/WebserverKey-PUBLIC-Prac2.pem` | |
 
-### gaming — Isolated Gaming User
-
-| Attribute | Value |
-|---|---|
-| Shell | `bash` |
-| Groups | `networkmanager`, `video`, `audio`, `input` |
-| Initial password | `gaming` |
-| Home profiles | desktop(KDE override), gaming (Steam, utils) |
-| Development | **disabled** |
-
 ---
 
 ## Home Manager — jpolo
@@ -362,17 +347,12 @@ KVM is enabled with `kvm-amd` module and nested virtualization. See [[Virtualiza
 
 ---
 
-## Gaming Hardware
-
-Although `profiles.gaming` is **disabled** at the system level, hardware graphics support is configured directly on ares for the gaming user:
+## Graphics Support
 
 | Component | Value |
 |---|---|
-| `hardware.graphics.enable` | ✅ (with 32-bit) |
+| `hardware.graphics.enable` | ✅ |
 | VA-API/VDPAU | `libva-utils`, `libvdpau-va-gl` |
-| GameMode | ✅ enabled (`amd_performance_level = high`) |
-
-The `gaming` user gets KDE desktop via home-manager with `home.profiles.desktop.environment = "kde"`.
 
 ---
 
@@ -428,7 +408,7 @@ The `gaming` user gets KDE desktop via home-manager with `home.profiles.desktop.
 - [[Network & VPN]] — Tailscale, eduroam, university VPN
 - [[System Modules]] — Audio, Bluetooth, Security, etc.
 - [[Hyprland]] — Compositor and shell configuration
-- [[KDE Plasma]] — KDE configuration (gaming user)
+- [[KDE Plasma]] — KDE configuration
 - [[Virtualization]] — VM module and Windows 11 setup
 - [[Power Management]] — TLP, thinkfan, power profiles
 - [[AI Agent Reference]] — Ollama, Claude Code, AI services

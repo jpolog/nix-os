@@ -22,9 +22,9 @@ with lib;
 
             if [[ "$CLASS" =~ $TERMINAL_REGEX ]]; then
               # Terminal copy shortcut
-              ${pkgs.hyprland}/bin/hyprctl dispatch sendshortcut "CTRL SHIFT, C, address:$ADDR"
+              ${pkgs.hyprland}/bin/hyprctl eval "hl.dispatch(hl.dsp.send_shortcut({ mods = 'CTRL SHIFT', key = 'C', window = 'address:$ADDR' }))"
             else
-              ${pkgs.hyprland}/bin/hyprctl dispatch sendshortcut "CTRL, C, address:$ADDR"
+              ${pkgs.hyprland}/bin/hyprctl eval "hl.dispatch(hl.dsp.send_shortcut({ mods = 'CTRL', key = 'C', window = 'address:$ADDR' }))"
             fi
           '')
 
@@ -36,9 +36,9 @@ with lib;
 
             if [[ "$CLASS" =~ $TERMINAL_REGEX ]]; then
               # Terminal paste shortcut
-              ${pkgs.hyprland}/bin/hyprctl dispatch sendshortcut "CTRL SHIFT, V, address:$ADDR"
+              ${pkgs.hyprland}/bin/hyprctl eval "hl.dispatch(hl.dsp.send_shortcut({ mods = 'CTRL SHIFT', key = 'V', window = 'address:$ADDR' }))"
             else
-              ${pkgs.hyprland}/bin/hyprctl dispatch sendshortcut "CTRL, V, address:$ADDR"
+              ${pkgs.hyprland}/bin/hyprctl eval "hl.dispatch(hl.dsp.send_shortcut({ mods = 'CTRL', key = 'V', window = 'address:$ADDR' }))"
             fi
           '')
 
@@ -46,9 +46,19 @@ with lib;
             ACTIVE_OPACITY=$(${pkgs.hyprland}/bin/hyprctl getoption decoration:active_opacity | ${pkgs.gawk}/bin/awk '/float/ {print $2}')
             IS_OPAQUE=$(${pkgs.gawk}/bin/awk -v active_opacity="$ACTIVE_OPACITY" 'BEGIN {print (active_opacity >= 1.0)}')
             if [ "$IS_OPAQUE" = "1" ]; then
-              ${pkgs.hyprland}/bin/hyprctl --batch "keyword decoration:active_opacity 0.9; keyword decoration:inactive_opacity 0.8"
+              if [ -f /tmp/hypr_opacity_active ]; then
+                read -r PREV_ACTIVE < /tmp/hypr_opacity_active
+                read -r PREV_INACTIVE < /tmp/hypr_opacity_inactive
+              else
+                PREV_ACTIVE=0.9
+                PREV_INACTIVE=0.8
+              fi
+              ${pkgs.hyprland}/bin/hyprctl eval "hl.config({ decoration = { active_opacity = $PREV_ACTIVE, inactive_opacity = $PREV_INACTIVE } })"
             else
-              ${pkgs.hyprland}/bin/hyprctl --batch "keyword decoration:active_opacity 1.0; keyword decoration:inactive_opacity 1.0"
+              INACTIVE_OPACITY=$(${pkgs.hyprland}/bin/hyprctl getoption decoration:inactive_opacity | ${pkgs.gawk}/bin/awk '/float/ {print $2}')
+              echo "$ACTIVE_OPACITY" > /tmp/hypr_opacity_active
+              echo "$INACTIVE_OPACITY" > /tmp/hypr_opacity_inactive
+              ${pkgs.hyprland}/bin/hyprctl eval "hl.config({ decoration = { active_opacity = 1.0, inactive_opacity = 1.0 } })"
             fi
           '')
 
@@ -56,16 +66,16 @@ with lib;
             ADDR=$(${pkgs.hyprland}/bin/hyprctl clients -j | ${pkgs.jq}/bin/jq -r '[.[] | select(.class == "obsidian")] | sort_by(.focusHistoryID) | .[0].address')
 
             if [ "$ADDR" != "null" ] && [ -n "$ADDR" ]; then
-               ${pkgs.hyprland}/bin/hyprctl dispatch focuswindow address:"$ADDR"
+               ${pkgs.hyprland}/bin/hyprctl eval "hl.dispatch(hl.dsp.focuswindow('address:$ADDR'))"
             else
                obsidian
             fi
           '')
 
           (pkgs.writeShellScriptBin "walker-launcher" ''
-            ${pkgs.hyprland}/bin/hyprctl dispatch submap walker
+            ${pkgs.hyprland}/bin/hyprctl eval "hl.dispatch(hl.dsp.submap('walker'))"
             ${pkgs.walker}/bin/walker
-            ${pkgs.hyprland}/bin/hyprctl dispatch submap reset
+            ${pkgs.hyprland}/bin/hyprctl eval "hl.dispatch(hl.dsp.submap('reset'))"
           '')
 
           (pkgs.writeShellScriptBin "smart-resize" ''
@@ -85,15 +95,15 @@ with lib;
 
             if [ "$IS_FLOATING" = "true" ]; then
               if [ "$ORIENTATION" = "h" ]; then
-                [ "$DIRECTION" = "up" ] && ${pkgs.hyprland}/bin/hyprctl dispatch resizeactive $PX_STEP 0 || ${pkgs.hyprland}/bin/hyprctl dispatch resizeactive -$PX_STEP 0
+                [ "$DIRECTION" = "up" ] && ${pkgs.hyprland}/bin/hyprctl eval "hl.dispatch(hl.dsp.resizeactive('$PX_STEP 0'))" || ${pkgs.hyprland}/bin/hyprctl eval "hl.dispatch(hl.dsp.resizeactive('-$PX_STEP 0'))"
               else
-                [ "$DIRECTION" = "up" ] && ${pkgs.hyprland}/bin/hyprctl dispatch resizeactive 0 $PX_STEP || ${pkgs.hyprland}/bin/hyprctl dispatch resizeactive 0 -$PX_STEP
+                [ "$DIRECTION" = "up" ] && ${pkgs.hyprland}/bin/hyprctl eval "hl.dispatch(hl.dsp.resizeactive('0 $PX_STEP'))" || ${pkgs.hyprland}/bin/hyprctl eval "hl.dispatch(hl.dsp.resizeactive('0 -$PX_STEP'))"
               fi
             else
               if [ "$ORIENTATION" = "h" ]; then
-                [ "$DIRECTION" = "up" ] && ${pkgs.hyprland}/bin/hyprctl dispatch layoutmsg "colresize +$TIL_STEP" || ${pkgs.hyprland}/bin/hyprctl dispatch layoutmsg "colresize -$TIL_STEP"
+                [ "$DIRECTION" = "up" ] && ${pkgs.hyprland}/bin/hyprctl eval "hl.dispatch(hl.dsp.layout('colresize +$TIL_STEP'))" || ${pkgs.hyprland}/bin/hyprctl eval "hl.dispatch(hl.dsp.layout('colresize -$TIL_STEP'))"
               else
-                [ "$DIRECTION" = "up" ] && ${pkgs.hyprland}/bin/hyprctl dispatch resizeactive 0 $PX_STEP || ${pkgs.hyprland}/bin/hyprctl dispatch resizeactive 0 -$PX_STEP
+                [ "$DIRECTION" = "up" ] && ${pkgs.hyprland}/bin/hyprctl eval "hl.dispatch(hl.dsp.resizeactive('0 $PX_STEP'))" || ${pkgs.hyprland}/bin/hyprctl eval "hl.dispatch(hl.dsp.resizeactive('0 -$PX_STEP'))"
               fi
             fi
           '')
@@ -260,7 +270,7 @@ with lib;
 
             -- Window rules
             hl.window_rule({ name = "floating",          match = { class = "^(floating)$" },                  float = true })
-            hl.window_rule({ name = "zoom-stayfocused",  match = { class = "zoom", title = "menu window" },  stayfocused = true })
+            hl.window_rule({ name = "zoom-menu-pin",  match = { class = "zoom", title = "menu window" },  pin = true })
             hl.window_rule({ name = "zoom-ws4",          match = { class = "^(zoom)$" },                     workspace = "4" })
             hl.window_rule({ name = "discord-ws4",       match = { class = "^(discord)$" },                  workspace = "4" })
             hl.window_rule({ name = "teams-ws4",         match = { class = "^(teams-for-linux)$" },          workspace = "4" })
@@ -268,11 +278,7 @@ with lib;
             hl.window_rule({ name = "obsidian-ws10",     match = { class = "^(obsidian)$" },                 workspace = "10" })
 
             -- Initial class rules (for window placement on startup)
-            hl.window_rule({ name = "zoom-ws4-init",     match = { initialClass = "^(zoom)$" },                     workspace = "4" })
-            hl.window_rule({ name = "discord-ws4-init",  match = { initialClass = "^(discord)$" },                  workspace = "4" })
-            hl.window_rule({ name = "teams-ws4-init",    match = { initialClass = "^(teams-for-linux)$" },          workspace = "4" })
-            hl.window_rule({ name = "whatsapp-ws4-init", match = { initialClass = "^(chrome-web.whatsapp.com.*)$" },workspace = "4" })
-            hl.window_rule({ name = "obsidian-ws10-init",match = { initialClass = "^(obsidian)$" },                 workspace = "10" })
+            -- (Removed because initialClass is unsupported by the Lua parser and redundant with the class rules above)
 
             -- Suppress maximize requests from apps (prevents apps from forcing fullscreen)
             hl.window_rule({
@@ -304,7 +310,7 @@ with lib;
               hl.exec_cmd("${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1 &")
               hl.exec_cmd("nm-applet --indicator &")
               hl.exec_cmd("blueman-applet &")
-              hl.exec_cmd("systemctl --user start noctalia-shell &")
+              hl.exec_cmd("systemctl --user start noctalia &")
               hl.exec_cmd("systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP &")
               hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP &")
             end)
@@ -339,27 +345,27 @@ with lib;
             -- Apps
             hl.bind(mainMod .. " + Return",   dsp.exec_cmd(terminal))
             hl.bind(mainMod .. " + Y",        dsp.exec_cmd(terminal .. " --class floating -e tmux-sessionizer"))
-            hl.bind(mainMod .. " + Shift + F", dsp.exec_cmd("dolphin"))
+            hl.bind(mainMod .. " + SHIFT + F", dsp.exec_cmd("dolphin"))
             hl.bind(mainMod .. " + B",        dsp.exec_cmd(browser))
-            hl.bind(mainMod .. " + Alt + B",  dsp.exec_cmd(browser .. " --private"))
+            hl.bind(mainMod .. " + ALT + B",  dsp.exec_cmd(browser .. " --private"))
             hl.bind(mainMod .. " + D",        dsp.exec_cmd(terminal .. " -e lazydocker"))
-            hl.bind(mainMod .. " + Shift + T", dsp.exec_cmd(terminal .. " -e btop"))
+            hl.bind(mainMod .. " + SHIFT + T", dsp.exec_cmd(terminal .. " -e btop"))
             hl.bind(mainMod .. " + O",        dsp.exec_cmd("focus-obsidian"))
             hl.bind(mainMod .. " + A",        dsp.exec_cmd("gtk-launch perplexity"))
 
             -- Web Apps
-            hl.bind(mainMod .. " + Shift + E", dsp.exec_cmd("gtk-launch outlook"))
-            hl.bind(mainMod .. " + Shift + G", dsp.exec_cmd("gtk-launch github"))
+            hl.bind(mainMod .. " + SHIFT + E", dsp.exec_cmd("gtk-launch outlook"))
+            hl.bind(mainMod .. " + SHIFT + G", dsp.exec_cmd("gtk-launch github"))
 
             -- Menus
             hl.bind(mainMod .. " + space",     dsp.exec_cmd("walker-launcher"))
-            hl.bind(mainMod .. " + N",         dsp.exec_cmd("noctalia-shell ipc call controlCenter toggle"))
-            hl.bind(mainMod .. " + Shift + P", dsp.exec_cmd("power-profile-menu"))
-            hl.bind(mainMod .. " + Alt + space", dsp.exec_cmd("kitty --class floating -e nix-search"))
-            hl.bind(mainMod .. " + Escape",    dsp.exec_cmd("noctalia-shell ipc call sessionMenu toggle"))
+            hl.bind(mainMod .. " + N",         dsp.exec_cmd("noctalia ipc call controlCenter toggle"))
+            hl.bind(mainMod .. " + SHIFT + P", dsp.exec_cmd("power-profile-menu"))
+            hl.bind(mainMod .. " + ALT + space", dsp.exec_cmd("kitty --class floating -e nix-search"))
+            hl.bind(mainMod .. " + Escape",    dsp.exec_cmd("noctalia ipc call sessionMenu toggle"))
 
             -- Lock
-            hl.bind(mainMod .. " + Ctrl + Shift + L",       dsp.exec_cmd("loginctl lock-session && sleep 1 && hyprctl dispatch dpms off"))
+            hl.bind(mainMod .. " + CTRL + SHIFT + L",       dsp.exec_cmd("loginctl lock-session && sleep 1 && hyprctl eval \"hl.dispatch(hl.dsp.dpms('off'))\""))
 
             -- Toggle Transparency
             hl.bind(mainMod .. " + BackSpace", dsp.exec_cmd("toggle-transparency"))
@@ -367,39 +373,39 @@ with lib;
             -- Clipboard
             hl.bind(mainMod .. " + C",        dsp.exec_cmd("universal-copy"))
             hl.bind(mainMod .. " + V",        dsp.exec_cmd("universal-paste"))
-            hl.bind(mainMod .. " + X",        dsp.send_shortcut("CTRL, X"))
-            hl.bind(mainMod .. " + Ctrl + V", dsp.exec_cmd("walker -m clipboard"))
+            hl.bind(mainMod .. " + X",        dsp.send_shortcut({ mods = "CTRL", key = "X" }))
+            hl.bind(mainMod .. " + CTRL + V", dsp.exec_cmd("walker -m clipboard"))
 
             -- Window Management
             hl.bind(mainMod .. " + W",        dsp.window.close())
-            hl.bind("Ctrl + Alt + Delete",    dsp.exit())
+            hl.bind("CTRL + ALT + Delete",    dsp.exit())
             hl.bind(mainMod .. " + T",        dsp.window.float({ action = "toggle" }))
             hl.bind(mainMod .. " + F",        dsp.window.fullscreen(0))
-            hl.bind(mainMod .. " + Alt + F",  dsp.window.fullscreen(1))
+            hl.bind(mainMod .. " + ALT + F",  dsp.window.fullscreen(1))
 
             -- Scrolling Layout
             hl.bind(mainMod .. " + period",    dsp.layout("move +col"))
             hl.bind(mainMod .. " + comma",     dsp.layout("move -col"))
             hl.bind(mainMod .. " + R",         dsp.layout("setmode toggle"))
             hl.bind(mainMod .. " + P",         dsp.layout("promote"))
-            hl.bind(mainMod .. " + Shift + H",  dsp.layout("swapcol l"))
-            hl.bind(mainMod .. " + Shift + L",  dsp.layout("swapcol r"))
-            hl.bind(mainMod .. " + Ctrl + period", dsp.layout("swapcol r"))
-            hl.bind(mainMod .. " + Ctrl + comma",  dsp.layout("swapcol l"))
-            hl.bind(mainMod .. " + Shift + J", dsp.window.move({ direction = "down" }))
-            hl.bind(mainMod .. " + Shift + K", dsp.window.move({ direction = "up" }))
+            hl.bind(mainMod .. " + SHIFT + H",  dsp.layout("swapcol l"))
+            hl.bind(mainMod .. " + SHIFT + L",  dsp.layout("swapcol r"))
+            hl.bind(mainMod .. " + CTRL + period", dsp.layout("swapcol r"))
+            hl.bind(mainMod .. " + CTRL + comma",  dsp.layout("swapcol l"))
+            hl.bind(mainMod .. " + SHIFT + J", dsp.window.move({ direction = "down" }))
+            hl.bind(mainMod .. " + SHIFT + K", dsp.window.move({ direction = "up" }))
             hl.bind(mainMod .. " + M",         dsp.layout("togglefit"))
 
             -- Workspace Management
             hl.bind(mainMod .. " + S",         dsp.workspace.toggle_special("magic"))
-            hl.bind(mainMod .. " + Shift + S", dsp.window.move({ workspace = "special:magic" }))
+            hl.bind(mainMod .. " + SHIFT + S", dsp.window.move({ workspace = "special:magic" }))
 
             for i = 1, 9 do
               hl.bind(mainMod .. " + " .. i,             dsp.focus({ workspace = i }))
-              hl.bind(mainMod .. " + Shift + " .. i,     dsp.window.move({ workspace = i }))
+              hl.bind(mainMod .. " + SHIFT + " .. i,     dsp.window.move({ workspace = i }))
             end
             hl.bind(mainMod .. " + 0",         dsp.focus({ workspace = 10 }))
-            hl.bind(mainMod .. " + Shift + 0", dsp.window.move({ workspace = 10 }))
+            hl.bind(mainMod .. " + SHIFT + 0", dsp.window.move({ workspace = 10 }))
 
             -- Focus (arrow keys)
             hl.bind(mainMod .. " + left",  dsp.focus({ direction = "left" }))
@@ -414,18 +420,18 @@ with lib;
             hl.bind(mainMod .. " + J", dsp.focus({ direction = "down" }))
 
             -- Move workspace to monitor
-            hl.bind(mainMod .. " + Ctrl + L", dsp.workspace.move("+1"))
-            hl.bind(mainMod .. " + Ctrl + H", dsp.workspace.move("-1"))
+            hl.bind(mainMod .. " + CTRL + L", dsp.workspace.move({ monitor = "+1" }))
+            hl.bind(mainMod .. " + CTRL + H", dsp.workspace.move({ monitor = "-1" }))
 
             -- Resize (repeating)
             hl.bind(mainMod .. " + equal",                  dsp.exec_cmd("smart-resize h up normal"),   { repeating = true })
             hl.bind(mainMod .. " + minus",                  dsp.exec_cmd("smart-resize h down normal"), { repeating = true })
-            hl.bind(mainMod .. " + Alt + equal",            dsp.exec_cmd("smart-resize h up fine"),     { repeating = true })
-            hl.bind(mainMod .. " + Alt + minus",            dsp.exec_cmd("smart-resize h down fine"),   { repeating = true })
-            hl.bind(mainMod .. " + Shift + equal",          dsp.exec_cmd("smart-resize v up normal"),   { repeating = true })
-            hl.bind(mainMod .. " + Shift + minus",          dsp.exec_cmd("smart-resize v down normal"), { repeating = true })
-            hl.bind(mainMod .. " + Shift + Alt + equal",    dsp.exec_cmd("smart-resize v up fine"),     { repeating = true })
-            hl.bind(mainMod .. " + Shift + Alt + minus",    dsp.exec_cmd("smart-resize v down fine"),   { repeating = true })
+            hl.bind(mainMod .. " + ALT + equal",            dsp.exec_cmd("smart-resize h up fine"),     { repeating = true })
+            hl.bind(mainMod .. " + ALT + minus",            dsp.exec_cmd("smart-resize h down fine"),   { repeating = true })
+            hl.bind(mainMod .. " + SHIFT + equal",          dsp.exec_cmd("smart-resize v up normal"),   { repeating = true })
+            hl.bind(mainMod .. " + SHIFT + minus",          dsp.exec_cmd("smart-resize v down normal"), { repeating = true })
+            hl.bind(mainMod .. " + SHIFT + ALT + equal",    dsp.exec_cmd("smart-resize v up fine"),     { repeating = true })
+            hl.bind(mainMod .. " + SHIFT + ALT + minus",    dsp.exec_cmd("smart-resize v down fine"),   { repeating = true })
 
             -- Numpad "Stream Deck"
             hl.bind(mainMod .. " + KP_Home",     dsp.exec_cmd("playerctl previous"))
@@ -446,11 +452,11 @@ with lib;
             hl.bind(mainMod .. " + KP_Multiply", dsp.exec_cmd("loginctl lock-session"))
 
             -- Group Navigation (move window into group)
-            hl.bind(mainMod .. " + Alt + left",  dsp.group.move_window({ direction = "left" }))
-            hl.bind(mainMod .. " + Alt + right", dsp.group.move_window({ direction = "right" }))
-            hl.bind(mainMod .. " + Alt + up",    dsp.group.move_window({ direction = "up" }))
-            hl.bind(mainMod .. " + Alt + down",  dsp.group.move_window({ direction = "down" }))
-            hl.bind(mainMod .. " + Alt + Tab",   dsp.group.next())
+            hl.bind(mainMod .. " + ALT + left",  dsp.group.move_window({ direction = "left" }))
+            hl.bind(mainMod .. " + ALT + right", dsp.group.move_window({ direction = "right" }))
+            hl.bind(mainMod .. " + ALT + up",    dsp.group.move_window({ direction = "up" }))
+            hl.bind(mainMod .. " + ALT + down",  dsp.group.move_window({ direction = "down" }))
+            hl.bind(mainMod .. " + ALT + Tab",   dsp.group.next())
 
             -- Media Keys (locked + repeating = work on lockscreen, repeat on hold)
             hl.bind("XF86AudioRaiseVolume",      dsp.exec_cmd("pamixer -i 5; " .. osdclient .. " --output-volume raise"),          { locked = true, repeating = true })
@@ -459,8 +465,8 @@ with lib;
             hl.bind("XF86AudioMicMute",          dsp.exec_cmd("pamixer --default-source -t; " .. osdclient .. " --input-volume mute-toggle"), { locked = true, repeating = true })
             hl.bind("XF86MonBrightnessUp",       dsp.exec_cmd("brightnessctl set +5%; " .. osdclient .. " --brightness raise"),    { locked = true, repeating = true })
             hl.bind("XF86MonBrightnessDown",     dsp.exec_cmd("brightnessctl set 5%-; " .. osdclient .. " --brightness lower"),    { locked = true, repeating = true })
-            hl.bind("Alt + XF86AudioRaiseVolume", dsp.exec_cmd("pamixer -i 1; " .. osdclient .. " --output-volume +1"),            { locked = true, repeating = true })
-            hl.bind("Alt + XF86AudioLowerVolume", dsp.exec_cmd("pamixer -d 1; " .. osdclient .. " --output-volume -1"),            { locked = true, repeating = true })
+            hl.bind("ALT + XF86AudioRaiseVolume", dsp.exec_cmd("pamixer -i 1; " .. osdclient .. " --output-volume +1"),            { locked = true, repeating = true })
+            hl.bind("ALT + XF86AudioLowerVolume", dsp.exec_cmd("pamixer -d 1; " .. osdclient .. " --output-volume -1"),            { locked = true, repeating = true })
 
             -- Media Playback (locked = work on lockscreen)
             hl.bind("XF86AudioNext",  dsp.exec_cmd(osdclient .. " --playerctl next"),       { locked = true })
@@ -470,7 +476,7 @@ with lib;
 
             -- Screenshots
             hl.bind("Print",         dsp.exec_cmd("grimblast copy area"))
-            hl.bind("Shift + Print", dsp.exec_cmd("grimblast copy screen"))
+            hl.bind("SHIFT + Print", dsp.exec_cmd("grimblast copy screen"))
 
             -- Mouse binds
             hl.bind(mainMod .. " + mouse:272", dsp.window.drag(),   { mouse = true })
@@ -478,18 +484,18 @@ with lib;
 
             -- Walker Submap
             hl.define_submap("walker", function()
-              hl.bind("Alt + Q", dsp.send_shortcut(", F1"))
-              hl.bind("Alt + W", dsp.send_shortcut(", F2"))
-              hl.bind("Alt + E", dsp.send_shortcut(", F3"))
-              hl.bind("Alt + R", dsp.send_shortcut(", F4"))
-              hl.bind("Alt + T", dsp.send_shortcut(", F5"))
-              hl.bind("Alt + Y", dsp.send_shortcut(", F6"))
-              hl.bind("Alt + U", dsp.send_shortcut(", F7"))
-              hl.bind("Alt + I", dsp.send_shortcut(", F8"))
-              hl.bind("Alt + O", dsp.send_shortcut(", F9"))
-              hl.bind("Alt + P", dsp.send_shortcut(", F10"))
-              hl.bind("Alt + A", dsp.send_shortcut(", F11"))
-              hl.bind("Alt + S", dsp.send_shortcut(", F12"))
+              hl.bind("ALT + Q", dsp.send_shortcut({ mods = "", key = "F1" }))
+              hl.bind("ALT + W", dsp.send_shortcut({ mods = "", key = "F2" }))
+              hl.bind("ALT + E", dsp.send_shortcut({ mods = "", key = "F3" }))
+              hl.bind("ALT + R", dsp.send_shortcut({ mods = "", key = "F4" }))
+              hl.bind("ALT + T", dsp.send_shortcut({ mods = "", key = "F5" }))
+              hl.bind("ALT + Y", dsp.send_shortcut({ mods = "", key = "F6" }))
+              hl.bind("ALT + U", dsp.send_shortcut({ mods = "", key = "F7" }))
+              hl.bind("ALT + I", dsp.send_shortcut({ mods = "", key = "F8" }))
+              hl.bind("ALT + O", dsp.send_shortcut({ mods = "", key = "F9" }))
+              hl.bind("ALT + P", dsp.send_shortcut({ mods = "", key = "F10" }))
+              hl.bind("ALT + A", dsp.send_shortcut({ mods = "", key = "F11" }))
+              hl.bind("ALT + S", dsp.send_shortcut({ mods = "", key = "F12" }))
             end)
           '';
         };

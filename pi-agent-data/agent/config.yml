@@ -1,6 +1,5 @@
-lastChangelogVersion: 15.0.0
 modelRoles: 
-  default: ollama-cloud/glm-5
+  default: ollama/glm-5.1:cloud:high
   smol: ollama/devstral-small-2:24b-cloud
   slow: ollama/glm-5.1:cloud
   plan: ollama/glm-5.1:cloud
@@ -12,6 +11,10 @@ display:
   showTokenUsage: true
 extensions: 
   - ./extensions/xpert
+  - ./extensions/tokens
+  - ./extensions/activity
+  - ./extensions/model-switcher
+  - ./extensions/agent-model-display
 disabledExtensions: 
   []
 versioning: 
@@ -33,10 +36,8 @@ task:
     - biz-technical-writer
     - biz-ux-researcher
     - biz-wordpress-master
-    - data-ai-engineer
     - data-data-analyst
     - data-data-engineer
-    - data-data-scientist
     - data-database-optimizer
     - data-llm-architect
     - data-machine-learning-engineer
@@ -46,8 +47,6 @@ task:
     - data-postgres-pro
     - data-prompt-engineer
     - data-reinforcement-learning-engineer
-    - dev-api-designer
-    - dev-backend-developer
     - dev-design-bridge
     - dev-electron-pro
     - dev-frontend-developer
@@ -55,12 +54,9 @@ task:
     - dev-graphql-architect
     - dev-microservices-architect
     - dev-mobile-developer
-    - dev-ui-designer
     - dev-websocket-engineer
-    - dx-build-engineer
     - dx-cli-developer
     - dx-dependency-manager
-    - dx-documentation-engineer
     - dx-dx-optimizer
     - dx-git-workflow-manager
     - dx-legacy-modernizer
@@ -74,7 +70,6 @@ task:
     - infra-azure-infra-engineer
     - infra-cloud-architect
     - infra-database-administrator
-    - infra-deployment-engineer
     - infra-devops-engineer
     - infra-devops-incident-responder
     - infra-docker-expert
@@ -90,12 +85,10 @@ task:
     - lang-angular-architect
     - lang-cpp-pro
     - lang-csharp-developer
-    - lang-django-developer
     - lang-dotnet-core-expert
     - lang-dotnet-framework-4.8-expert
     - lang-elixir-expert
     - lang-expo-react-native-expert
-    - lang-fastapi-developer
     - lang-flutter-expert
     - lang-golang-pro
     - lang-java-architect
@@ -111,11 +104,9 @@ task:
     - lang-react-specialist
     - lang-rust-engineer
     - lang-spring-boot-engineer
-    - lang-sql-pro
     - lang-swift-expert
     - lang-symfony-specialist
     - lang-typescript-pro
-    - lang-vue-expert
     - meta-agent-installer
     - meta-error-coordinator
     - meta-it-ops-orchestrator
@@ -136,7 +127,6 @@ task:
     - qual-qa-expert
     - qual-security-auditor
     - qual-test-automator
-    - qual-ui-ux-tester
     - res-competitive-analyst
     - res-data-researcher
     - res-market-researcher
@@ -167,4 +157,30 @@ task:
     - spec-quant-analyst
     - spec-risk-manager
     - spec-seo-specialist
+  eager: true
+  maxConcurrency: 8
+  enableLsp: true
 hideThinkingBlock: true
+symbolPreset: nerd
+setupVersion: 1
+personality: pragmatic
+steeringMode: all
+followUpMode: one-at-a-time
+interruptMode: immediate
+treeFilterMode: default
+tools: 
+  approvalMode: yolo
+collapseChangelog: true
+memory: 
+  backend: local
+renderMermaid: 
+  enabled: true
+inspect_image: 
+  enabled: true
+checkpoint: 
+  enabled: true
+vault: 
+  enabled: true
+exa: 
+  enableResearcher: true
+  enableWebsets: true

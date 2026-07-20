@@ -5,418 +5,384 @@
 # "roles" (defined at the bottom), not concrete model IDs.
 #
 # When you add a new model or a model improves:
-#   1. Add it under [models]
-#   2. Update [roles] to point the best model for each role
+#   1. Add it under models
+#   2. Update roles to point the best model for each role
 #   3. Run: /update-agents reconcile
 #      This rewrites all agent frontmatter to use current role→model mappings.
 #
 # When a model is retired or you want to stop using it:
-#   1. Remove it from [models]
-#   2. Update [roles] to point to a replacement
+#   1. Remove it from models
+#   2. Update roles to point to a replacement
 #   3. Run: /update-agents reconcile
 
-[models]
+models:
 
-# ═══════════════════════════════════════════════════════════════════════
-# TIER 1 — FRONTIER REASONING
-# Best for: architecture, security audit, complex multi-step reasoning,
-#           adversarial analysis, deep code understanding
-# ═══════════════════════════════════════════════════════════════════════
+  # ═══════════════════════════════════════════════════════════════════════
+  # TIER 1 — FRONTIER REASONING
+  # Best for: architecture, security audit, complex multi-step reasoning,
+  #           adversarial analysis, deep code understanding
+  # ═══════════════════════════════════════════════════════════════════════
 
-[models.deepseek-v4-pro]
-id       = "ollama/deepseek-v4-pro"
-name     = "DeepSeek V4 Pro"
-params   = "284B MoE (13B active)"
-reasoning = true
-thinking  = "effort"  # three modes: minimal/low/high
-context   = 1048576
-max_tokens = 384000
-cost_input = 1.74
-cost_output = 3.48
-strengths = [
-    "Deepest reasoning available on ollama-cloud",
-    "Three-mode thinking: minimal for speed, low for balanced, high for depth",
-    "1M token context — can hold entire large codebases",
-    "Best-in-class for security audits, architecture review, adversarial analysis",
-    "Excellent at multi-step logical proofs and complex refactoring plans",
-    "Superior at understanding subtle invariants and cross-file dependencies",
-]
-weaknesses = [
-    "Slowest and most expensive model",
-    "Overkill for simple edits or formatting",
-    "Large output can be verbose without tight prompts",
-]
+  deepseek-v4-pro:
+    id: "ollama/deepseek-v4-pro"
+    name: "DeepSeek V4 Pro"
+    params: "284B MoE (13B active)"
+    reasoning: true
+    thinking: "effort"
+    context: 1048576
+    max_tokens: 384000
+    cost_input: 1.74
+    cost_output: 3.48
+    strengths:
+      - "Deepest reasoning available on ollama-cloud"
+      - "Three-mode thinking: minimal for speed, low for balanced, high for depth"
+      - "1M token context — can hold entire large codebases"
+      - "Best-in-class for security audits, architecture review, adversarial analysis"
+      - "Excellent at multi-step logical proofs and complex refactoring plans"
+      - "Superior at understanding subtle invariants and cross-file dependencies"
+    weaknesses:
+      - "Slowest and most expensive model"
+      - "Overkill for simple edits or formatting"
+      - "Large output can be verbose without tight prompts"
 
-[models.kimi-k2.6]
-id       = "ollama/kimi-k2.6"
-name     = "Kimi K2.6"
-params   = "large MoE"
-reasoning = true
-thinking  = "effort"
-context   = 262144
-max_tokens = 65536
-cost_input = 0.95
-cost_output = 4.0
-strengths = [
-    "Excellent at long-horizon coding tasks and code-driven design",
-    "Proactive autonomous execution — good for agent workflows",
-    "Swarm-based task orchestration capability",
-    "Multimodal (text + image) — can reason about screenshots, diagrams, UIs",
-    "Strong at understanding and generating multi-file changes",
-    "Good at following complex multi-step instructions with tool use",
-]
-weaknesses = [
-    "More expensive per output token than Qwen/GLM",
-    "Context window smaller than DeepSeek V4 Pro",
-]
+  kimi-k2.6:
+    id: "ollama/kimi-k2.6:cloud"
+    name: "Kimi K2.6"
+    params: "large MoE"
+    reasoning: true
+    thinking: "effort"
+    context: 262144
+    max_tokens: 65536
+    cost_input: 0.95
+    cost_output: 4.0
+    strengths:
+      - "Excellent at long-horizon coding tasks and code-driven design"
+      - "Proactive autonomous execution — good for agent workflows"
+      - "Swarm-based task orchestration capability"
+      - "Multimodal (text + image) — can reason about screenshots, diagrams, UIs"
+      - "Strong at understanding and generating multi-file changes"
+      - "Good at following complex multi-step instructions with tool use"
+    weaknesses:
+      - "More expensive per output token than Qwen/GLM"
+      - "Context window smaller than DeepSeek V4 Pro"
 
-[models.qwen3.5-397b]
-id       = "ollama/qwen3.5:cloud"
-name     = "Qwen 3.5 Cloud"
-params   = "397B MoE"
-reasoning = true
-thinking  = "effort"
-context   = 262144
-max_tokens = 8192
-cost_input = 0.0  # free on ollama-cloud
-cost_output = 0.0
-strengths = [
-    "Largest free open-weight model on ollama-cloud",
-    "Exceptional at knowledge synthesis and research",
-    "Strong multilingual (Chinese, English, and 30+ languages)",
-    "Good at formal specification and contract writing",
-    "Excellent for legal, compliance, and documentation-heavy tasks",
-    "Strong at summarizing and synthesizing large codebases",
-]
-weaknesses = [
-    "Only 8192 max output tokens — can't produce very long responses",
-    "Slower than smaller models",
-    "Not as code-specialized as qwen3-coder or devstral",
-]
+  qwen3.5-397b:
+    id: "ollama/qwen3.5:cloud"
+    name: "Qwen 3.5 Cloud"
+    params: "397B MoE"
+    reasoning: true
+    thinking: "effort"
+    context: 262144
+    max_tokens: 8192
+    cost_input: 0.0
+    cost_output: 0.0
+    strengths:
+      - "Largest free open-weight model on ollama-cloud"
+      - "Exceptional at knowledge synthesis and research"
+      - "Strong multilingual (Chinese, English, and 30+ languages)"
+      - "Good at formal specification and contract writing"
+      - "Excellent for legal, compliance, and documentation-heavy tasks"
+      - "Strong at summarizing and synthesizing large codebases"
+    weaknesses:
+      - "Only 8192 max output tokens — can't produce very long responses"
+      - "Slower than smaller models"
+      - "Not as code-specialized as qwen3-coder or devstral"
 
-[models.glm-5.1]
-id       = "ollama/glm-5.1:cloud"
-name     = "GLM-5.1 Cloud"
-params   = "744B total (40B active)"
-reasoning = true
-thinking  = "effort"
-context   = 202752
-max_tokens = 131072
-cost_input = 0.0
-cost_output = 0.0
-strengths = [
-    "Flagship agentic engineering model — SOTA on SWE-Bench Pro",
-    "Excellent at complex multi-file edits and refactoring",
-    "Strong tool use and agentic workflow capability",
-    "Large 131K output window — can produce very long responses",
-    "Best instruction following in its class",
-    "Good at understanding project-wide context and making coherent changes",
-    "Free on ollama-cloud — best value for balanced coding",
-]
-weaknesses = [
-    "Not the deepest reasoner (DeepSeek V4 Pro is deeper)",
-    "Not multimodal",
-    "Context window smaller than DeepSeek V4 Pro",
-]
+  glm-5.1:
+    id: "ollama/glm-5.1:cloud"
+    name: "GLM-5.1 Cloud"
+    params: "744B total (40B active)"
+    reasoning: true
+    thinking: "effort"
+    context: 202752
+    max_tokens: 131072
+    cost_input: 0.0
+    cost_output: 0.0
+    strengths:
+      - "Flagship agentic engineering model — SOTA on SWE-Bench Pro"
+      - "Excellent at complex multi-file edits and refactoring"
+      - "Strong tool use and agentic workflow capability"
+      - "Large 131K output window — can produce very long responses"
+      - "Best instruction following in its class"
+      - "Good at understanding project-wide context and making coherent changes"
+      - "Free on ollama-cloud — best value for balanced coding"
+    weaknesses:
+      - "Not the deepest reasoner (DeepSeek V4 Pro is deeper)"
+      - "Not multimodal"
+      - "Context window smaller than DeepSeek V4 Pro"
 
-# ═══════════════════════════════════════════════════════════════════════
-# TIER 2 — BALANCED PERFORMANCE
-# Best for: day-to-day coding, debugging, refactoring, API design,
-#           general development tasks
-# ═══════════════════════════════════════════════════════════════════════
+  # ═══════════════════════════════════════════════════════════════════════
+  # TIER 2 — BALANCED PERFORMANCE
+  # Best for: day-to-day coding, debugging, refactoring, API design,
+  #           general development tasks
+  # ═══════════════════════════════════════════════════════════════════════
 
-[models.deepseek-v4-flash]
-id       = "ollama/deepseek-v4-flash"
-name     = "DeepSeek V4 Flash"
-params   = "284B MoE (13B active)"
-reasoning = true
-thinking  = "effort"
-context   = 1048576
-max_tokens = 384000
-cost_input = 0.14
-cost_output = 0.28
-strengths = [
-    "1M context window at a fraction of V4 Pro cost",
-    "Fast reasoning with effort mode",
-    "Excellent for code generation and editing at scale",
-    "Good for reviewing large PRs with full repo context",
-    "Strong at generating tests, docs, and boilerplate",
-    "Best cost/performance ratio for reasoning tasks",
-]
-weaknesses = [
-    "Less deep reasoning than V4 Pro",
-    "Can be verbose",
-]
+  deepseek-v4-flash:
+    id: "ollama/deepseek-v4-flash"
+    name: "DeepSeek V4 Flash"
+    params: "284B MoE (13B active)"
+    reasoning: true
+    thinking: "effort"
+    context: 1048576
+    max_tokens: 384000
+    cost_input: 0.14
+    cost_output: 0.28
+    strengths:
+      - "1M context window at a fraction of V4 Pro cost"
+      - "Fast reasoning with effort mode"
+      - "Excellent for code generation and editing at scale"
+      - "Good for reviewing large PRs with full repo context"
+      - "Strong at generating tests, docs, and boilerplate"
+      - "Best cost/performance ratio for reasoning tasks"
+    weaknesses:
+      - "Less deep reasoning than V4 Pro"
+      - "Can be verbose"
 
-[models.qwen3-coder-next]
-id       = "ollama/qwen3-coder-next:cloud"
-name     = "Qwen3 Coder Next Cloud"
-params   = "large"
-reasoning = false
-context   = 262144
-max_tokens = 65536
-cost_input = 0.0
-cost_output = 0.0
-strengths = [
-    "Purpose-built for agentic coding workflows",
-    "Extremely good at multi-file editing and codebase exploration",
-    "Large 262K context — can hold large repos",
-    "65K output — can generate substantial code in one shot",
-    "Fast inference for its quality level",
-    "Best-in-class for day-to-day coding tasks: write, edit, refactor, debug",
-    "Excels at understanding existing code and making targeted changes",
-]
-weaknesses = [
-    "No reasoning/chain-of-thought mode — less good for planning without code",
-    "Text-only, no multimodal",
-]
+  qwen3-coder-next:
+    id: "ollama/qwen3-coder-next:cloud"
+    name: "Qwen3 Coder Next Cloud"
+    params: "large"
+    reasoning: false
+    context: 262144
+    max_tokens: 65536
+    cost_input: 0.0
+    cost_output: 0.0
+    strengths:
+      - "Purpose-built for agentic coding workflows"
+      - "Extremely good at multi-file editing and codebase exploration"
+      - "Large 262K context — can hold large repos"
+      - "65K output — can generate substantial code in one shot"
+      - "Fast inference for its quality level"
+      - "Best-in-class for day-to-day coding tasks: write, edit, refactor, debug"
+      - "Excels at understanding existing code and making targeted changes"
+    weaknesses:
+      - "No reasoning/chain-of-thought mode — less good for planning without code"
+      - "Text-only, no multimodal"
 
-[models.devstral-2-123b]
-id       = "ollama/devstral-2:123b"
-name     = "Devstral 2 123B"
-params   = "123B"
-reasoning = false
-context   = 262144
-max_tokens = 8192
-cost_input = 0.0
-cost_output = 0.0
-strengths = [
-    "Designed specifically for software engineering agents",
-    "Excellent at tool use and codebase exploration",
-    "Good at multi-file edits and understanding project structure",
-    "Strong at following agentic workflows",
-    "Large 123B model — deeper understanding than smaller variants",
-]
-weaknesses = [
-    "No reasoning/chain-of-thought mode",
-    "Only 8K output tokens",
-    "Not multimodal",
-]
+  devstral-2-123b:
+    id: "ollama/devstral-2:123b"
+    name: "Devstral 2 123B"
+    params: "123B"
+    reasoning: false
+    context: 262144
+    max_tokens: 8192
+    cost_input: 0.0
+    cost_output: 0.0
+    strengths:
+      - "Designed specifically for software engineering agents"
+      - "Excellent at tool use and codebase exploration"
+      - "Good at multi-file edits and understanding project structure"
+      - "Strong at following agentic workflows"
+      - "Large 123B model — deeper understanding than smaller variants"
+    weaknesses:
+      - "No reasoning/chain-of-thought mode"
+      - "Only 8K output tokens"
+      - "Not multimodal"
 
-[models.ministral-3-14b]
-id       = "ollama/ministral-3:14b-cloud"
-name     = "Ministral 3 14B Cloud"
-params   = "14B"
-reasoning = true
-thinking  = "effort"
-context   = 131072
-max_tokens = 32768
-cost_input = 0.0
-cost_output = 0.0
-strengths = [
-    "Efficient and capable for long-form document generation",
-    "Balanced performance and speed",
-    "Good instruction following",
-]
-weaknesses = [
-    "Smaller context than flagship models",
-]
+  ministral-3-14b:
+    id: "ollama/ministral-3:14b-cloud"
+    name: "Ministral 3 14B Cloud"
+    params: "14B"
+    reasoning: true
+    thinking: "effort"
+    context: 131072
+    max_tokens: 32768
+    cost_input: 0.0
+    cost_output: 0.0
+    strengths:
+      - "Efficient and capable for long-form document generation"
+      - "Balanced performance and speed"
+      - "Good instruction following"
+    weaknesses:
+      - "Smaller context than flagship models"
 
-[models.gpt-oss-120b]
-id       = "ollama/gpt-oss:120b"
-name     = "GPT-OSS 120B"
-params   = "120B"
-reasoning = true
-thinking  = "effort"
-context   = 131072
-max_tokens = 16384
-cost_input = 0.0
-cost_output = 0.0
-strengths = [
-    "Strong general reasoning and tool use",
-    "Good at agentic workflows and structured output",
-    "Balanced reasoning depth for its size",
-    "Free on ollama-cloud",
-]
-weaknesses = [
-    "Only 16K output tokens",
-    "Not as deep as DeepSeek V4 Pro or Kimi K2.6",
-    "Not code-specialized",
-]
+  gpt-oss-120b:
+    id: "ollama/gpt-oss:120b"
+    name: "GPT-OSS 120B"
+    params: "120B"
+    reasoning: true
+    thinking: "effort"
+    context: 131072
+    max_tokens: 16384
+    cost_input: 0.0
+    cost_output: 0.0
+    strengths:
+      - "Strong general reasoning and tool use"
+      - "Good at agentic workflows and structured output"
+      - "Balanced reasoning depth for its size"
+      - "Free on ollama-cloud"
+    weaknesses:
+      - "Only 16K output tokens"
+      - "Not as deep as DeepSeek V4 Pro or Kimi K2.6"
+      - "Not code-specialized"
 
-[models.gpt-oss-20b]
-id       = "ollama/gpt-oss:20b"
-name     = "GPT-OSS 20B"
-params   = "20B"
-reasoning = true
-thinking  = "effort"
-context   = 131072
-max_tokens = 16384
-cost_input = 0.0
-cost_output = 0.0
-strengths = [
-    "Fast inference — good for quick reasoning tasks",
-    "Good at structured output and tool use",
-    "Lightweight enough for rapid iteration",
-    "Best for when you need reasoning but also speed",
-]
-weaknesses = [
-    "Not as capable as larger models for complex tasks",
-    "Only 16K output",
-]
+  gpt-oss-20b:
+    id: "ollama/gpt-oss:20b"
+    name: "GPT-OSS 20B"
+    params: "20B"
+    reasoning: true
+    thinking: "effort"
+    context: 131072
+    max_tokens: 16384
+    cost_input: 0.0
+    cost_output: 0.0
+    strengths:
+      - "Fast inference — good for quick reasoning tasks"
+      - "Good at structured output and tool use"
+      - "Lightweight enough for rapid iteration"
+      - "Best for when you need reasoning but also speed"
+    weaknesses:
+      - "Not as capable as larger models for complex tasks"
+      - "Only 16K output"
 
-# ═══════════════════════════════════════════════════════════════════════
-# TIER 3 — MULTIMODAL & SPECIALIST
-# Best for: vision tasks, UI/UX, accessibility, diagram interpretation
-# ═══════════════════════════════════════════════════════════════════════
+  # ═══════════════════════════════════════════════════════════════════════
+  # TIER 3 — MULTIMODAL & SPECIALIST
+  # Best for: vision tasks, UI/UX, accessibility, diagram interpretation
+  # ═══════════════════════════════════════════════════════════════════════
 
-[models.gemini-3-flash-preview]
-id       = "ollama/gemini-3-flash-preview"
-name     = "Gemini 3 Flash Preview"
-params   = "unknown"
-reasoning = true
-thinking  = "google-level"
-context   = 1048576
-max_tokens = 65536
-cost_input = 0.5
-cost_output = 3.0
-strengths = [
-    "Multimodal (text + image) — can analyze UIs, screenshots, diagrams, wireframes",
-    "1M context — can hold entire codebases + images",
-    "Google-level thinking mode for deep reasoning",
-    "Excellent at visual QA, accessibility testing, UI review",
-    "Strong at understanding design specs and mockups",
-    "Best for tasks requiring visual understanding: UI design, diagram reading, chart analysis",
-]
-weaknesses = [
-    "Most expensive model in the catalog",
-    "Preview — may have quirks",
-    "Not as code-specialized as devstral or qwen3-coder",
-]
+  gemini-3-flash-preview:
+    id: "ollama/gemini-3-flash-preview"
+    name: "Gemini 3 Flash Preview"
+    params: "unknown"
+    reasoning: true
+    thinking: "google-level"
+    context: 1048576
+    max_tokens: 65536
+    cost_input: 0.5
+    cost_output: 3.0
+    strengths:
+      - "Multimodal (text + image) — can analyze UIs, screenshots, diagrams, wireframes"
+      - "1M context — can hold entire codebases + images"
+      - "Google-level thinking mode for deep reasoning"
+      - "Excellent at visual QA, accessibility testing, UI review"
+      - "Strong at understanding design specs and mockups"
+      - "Best for tasks requiring visual understanding: UI design, diagram reading, chart analysis"
+    weaknesses:
+      - "Most expensive model in the catalog"
+      - "Preview — may have quirks"
+      - "Not as code-specialized as devstral or qwen3-coder"
 
-[models.qwen3-vl-235b]
-id       = "ollama/qwen3-vl:235b"
-name     = "Qwen3 VL 235B"
-params   = "235B MoE"
-reasoning = true
-thinking  = "effort"
-context   = 262144
-max_tokens = 8192
-cost_input = 0.0
-cost_output = 0.0
-strengths = [
-    "Multimodal (text + image) — understands screenshots, diagrams, charts",
-    "Free on ollama-cloud",
-    "Strong at visual reasoning and image understanding",
-    "Good for UI/UX analysis and design review",
-]
-weaknesses = [
-    "Only 8K output tokens",
-    "Less reasoning depth than Gemini 3 Flash",
-]
+  qwen3-vl-235b:
+    id: "ollama/qwen3-vl:235b"
+    name: "Qwen3 VL 235B"
+    params: "235B MoE"
+    reasoning: true
+    thinking: "effort"
+    context: 262144
+    max_tokens: 8192
+    cost_input: 0.0
+    cost_output: 0.0
+    strengths:
+      - "Multimodal (text + image) — understands screenshots, diagrams, charts"
+      - "Free on ollama-cloud"
+      - "Strong at visual reasoning and image understanding"
+      - "Good for UI/UX analysis and design review"
+    weaknesses:
+      - "Only 8K output tokens"
+      - "Less reasoning depth than Gemini 3 Flash"
 
-[models.gemma4-31b]
-id       = "ollama/gemma4:31b"
-name     = "Gemma 4 31B"
-params   = "31B"
-reasoning = true
-thinking  = "effort"
-context   = 256000
-max_tokens = 16384
-cost_input = 0.0
-cost_output = 0.0
-strengths = [
-    "Multimodal (text + image) — can analyze UI screenshots and diagrams",
-    "Good reasoning at a lightweight size",
-    "Free on ollama-cloud",
-    "Good balance of multimodal capability and speed",
-    "Strong for quick visual QA tasks",
-]
-weaknesses = [
-    "Less capable than Gemini 3 Flash or Qwen3 VL for complex visual tasks",
-    "16K output limit",
-]
+  gemma4-31b:
+    id: "ollama/gemma4:31b"
+    name: "Gemma 4 31B"
+    params: "31B"
+    reasoning: true
+    thinking: "effort"
+    context: 256000
+    max_tokens: 16384
+    cost_input: 0.0
+    cost_output: 0.0
+    strengths:
+      - "Multimodal (text + image) — can analyze UI screenshots and diagrams"
+      - "Good reasoning at a lightweight size"
+      - "Free on ollama-cloud"
+      - "Good balance of multimodal capability and speed"
+      - "Strong for quick visual QA tasks"
+    weaknesses:
+      - "Less capable than Gemini 3 Flash or Qwen3 VL for complex visual tasks"
+      - "16K output limit"
 
-# ═══════════════════════════════════════════════════════════════════════
-# TIER 4 — FAST / LIGHTWEIGHT
-# Best for: quick edits, formatting, scaffolding, simple one-file changes,
-#           documentation stubs, mechanical refactoring
-# ═══════════════════════════════════════════════════════════════════════
+  # ═══════════════════════════════════════════════════════════════════════
+  # TIER 4 — FAST / LIGHTWEIGHT
+  # Best for: quick edits, formatting, scaffolding, simple one-file changes,
+  #           documentation stubs, mechanical refactoring
+  # ═══════════════════════════════════════════════════════════════════════
 
-[models.devstral-small-2]
-id       = "ollama/devstral-small-2:24b-cloud"
-name     = "Devstral Small 2 24B Cloud"
-params   = "24B"
-reasoning = false
-context   = 262144
-max_tokens = 8192
-cost_input = 0.0
-cost_output = 0.0
-strengths = [
-    "Purpose-built for agentic coding — best fast coding model",
-    "Excellent at single-file and small multi-file edits",
-    "Good at understanding codebase structure for its size",
-    "Fast inference — good for quick iterations",
-    "Can handle tool use effectively",
-    "Best for: scaffolding, boilerplate, formatting, simple refactors, doc stubs",
-]
-weaknesses = [
-    "No reasoning mode — can't plan complex multi-step changes",
-    "Only 8K output tokens",
-    "Not multimodal",
-]
+  devstral-small-2:
+    id: "ollama/devstral-small-2:24b-cloud"
+    name: "Devstral Small 2 24B Cloud"
+    params: "24B"
+    reasoning: false
+    context: 262144
+    max_tokens: 8192
+    cost_input: 0.0
+    cost_output: 0.0
+    strengths:
+      - "Purpose-built for agentic coding — best fast coding model"
+      - "Excellent at single-file and small multi-file edits"
+      - "Good at understanding codebase structure for its size"
+      - "Fast inference — good for quick iterations"
+      - "Can handle tool use effectively"
+      - "Best for: scaffolding, boilerplate, formatting, simple refactors, doc stubs"
+    weaknesses:
+      - "No reasoning mode — can't plan complex multi-step changes"
+      - "Only 8K output tokens"
+      - "Not multimodal"
 
-[models.nemotron-3-super]
-id       = "ollama/nemotron-3-super"
-name     = "Nemotron 3 Super"
-params   = "120B MoE (12B active)"
-reasoning = true
-thinking  = "effort"
-context   = 262144
-max_tokens = 8192
-cost_input = 0.0
-cost_output = 0.0
-strengths = [
-    "120B MoE but only 12B active — efficient inference",
-    "Reasoning mode available",
-    "Good for multi-agent orchestration",
-    "Strong at task decomposition and delegation",
-]
-weaknesses = [
-    "Only 8K output tokens",
-    "Not code-specialized",
-    "MoE activation pattern may produce inconsistent quality",
-]
+  nemotron-3-super:
+    id: "ollama/nemotron-3-super"
+    name: "Nemotron 3 Super"
+    params: "120B MoE (12B active)"
+    reasoning: true
+    thinking: "effort"
+    context: 262144
+    max_tokens: 8192
+    cost_input: 0.0
+    cost_output: 0.0
+    strengths:
+      - "120B MoE but only 12B active — efficient inference"
+      - "Reasoning mode available"
+      - "Good for multi-agent orchestration"
+      - "Strong at task decomposition and delegation"
+    weaknesses:
+      - "Only 8K output tokens"
+      - "Not code-specialized"
+      - "MoE activation pattern may produce inconsistent quality"
 
-[models.nemotron-3-nano-30b]
-id       = "ollama/nemotron-3-nano:30b"
-name     = "Nemotron 3 Nano 30B"
-params   = "30B MoE"
-reasoning = true
-thinking  = "effort"
-context   = 262144
-max_tokens = 8192
-cost_input = 0.0
-cost_output = 0.0
-strengths = [
-    "Reasoning at a smaller size",
-    "Good for quick thinking tasks that don't need full frontier reasoning",
-    "Faster than larger models",
-]
-weaknesses = [
-    "8K output limit",
-    "Not as capable as larger reasoning models",
-]
+  nemotron-3-nano-30b:
+    id: "ollama/nemotron-3-nano:30b"
+    name: "Nemotron 3 Nano 30B"
+    params: "30B MoE"
+    reasoning: true
+    thinking: "effort"
+    context: 262144
+    max_tokens: 8192
+    cost_input: 0.0
+    cost_output: 0.0
+    strengths:
+      - "Reasoning at a smaller size"
+      - "Good for quick thinking tasks that don't need full frontier reasoning"
+      - "Faster than larger models"
+    weaknesses:
+      - "8K output limit"
+      - "Not as capable as larger reasoning models"
 
-[models.rnj-1-8b]
-id       = "ollama/rnj-1:8b"
-name     = "RNJ-1 8B"
-params   = "8B"
-reasoning = false
-context   = 32768
-max_tokens = 8192
-cost_input = 0.0
-cost_output = 0.0
-strengths = [
-    "Very fast — best for trivial tasks",
-    "Good for simple code formatting, linting, and mechanical edits",
-    "STEM-optimized — decent at math and simple logic",
-]
-weaknesses = [
-    "Very small context (32K)",
-    "No reasoning mode",
-    "Limited capability for complex tasks",
-]
+  rnj-1-8b:
+    id: "ollama/rnj-1:8b"
+    name: "RNJ-1 8B"
+    params: "8B"
+    reasoning: false
+    context: 32768
+    max_tokens: 8192
+    cost_input: 0.0
+    cost_output: 0.0
+    strengths:
+      - "Very fast — best for trivial tasks"
+      - "Good for simple code formatting, linting, and mechanical edits"
+      - "STEM-optimized — decent at math and simple logic"
+    weaknesses:
+      - "Very small context (32K)"
+      - "No reasoning mode"
+      - "Limited capability for complex tasks"
 
 
 # ═══════════════════════════════════════════════════════════════════════
@@ -425,84 +391,84 @@ weaknesses = [
 # upgrade ALL agents in that role at once. Then run: /update-agents reconcile
 # ═══════════════════════════════════════════════════════════════════════
 
-[roles]
+roles:
 
-# ── Deep Analysis & Audit ──────────────────────────────────────────────
-# Security audits, architecture reviews, adversarial analysis, formal verification
-# Requires: deepest reasoning, large context, high accuracy
-deep-audit                = "ollama/qwen3.5:cloud"
+  # ── Deep Analysis & Audit ──────────────────────────────────────────────
+  # Security audits, architecture reviews, adversarial analysis, formal verification
+  # Requires: deepest reasoning, large context, high accuracy
+  deep-audit: "ollama/qwen3.5:cloud"
 
-# ── Complex Planning & Architecture ─────────────────────────────────────
-# System design, multi-file refactoring plans, migration strategies
-# Requires: deep reasoning, long context, instruction following
-architecture-planning     = "ollama/glm-5.1:cloud"
+  # ── Complex Planning & Architecture ─────────────────────────────────────
+  # System design, multi-file refactoring plans, migration strategies
+  # Requires: deep reasoning, long context, instruction following
+  architecture-planning: "ollama/glm-5.1:cloud"
 
-# ── Research & Synthesis ───────────────────────────────────────────────
-# Literature review, competitive analysis, knowledge synthesis, formal specs
-# Requires: knowledge breadth, long output, structured writing
-research-synthesis        = "ollama/qwen3.5:cloud"
+  # ── Research & Synthesis ───────────────────────────────────────────────
+  # Literature review, competitive analysis, knowledge synthesis, formal specs
+  # Requires: knowledge breadth, long output, structured writing
+  research-synthesis: "ollama/qwen3.5:cloud"
 
-# ── Agentic Engineering (DEFAULT) ──────────────────────────────────────
-# Day-to-day coding, debugging, feature implementation, API design
-# Requires: strong coding, tool use, multi-file editing, instruction following
-agentic-engineering       = "ollama/glm-5.1:cloud"
+  # ── Agentic Engineering (DEFAULT) ──────────────────────────────────────
+  # Day-to-day coding, debugging, feature implementation, API design
+  # Requires: strong coding, tool use, multi-file editing, instruction following
+  agentic-engineering: "ollama/glm-5.1:cloud"
 
-# ── Code-Specialized Engineering ───────────────────────────────────────
-# Language-specific coding: Rust, Go, Python, TypeScript, etc.
-# Requires: best code generation, repo-scale understanding, multi-file edits
-code-specialist           = "ollama/qwen3-coder-next:cloud"
+  # ── Code-Specialized Engineering ───────────────────────────────────────
+  # Language-specific coding: Rust, Go, Python, TypeScript, etc.
+  # Requires: best code generation, repo-scale understanding, multi-file edits
+  code-specialist: "ollama/qwen3-coder-next:cloud"
 
-# ── Large-Scale Code Editing ───────────────────────────────────────────
-# Multi-file refactors, bulk edits, codebase exploration with agentic tools
-# Requires: tool use, large context, multi-file editing
-large-edit                = "ollama/qwen3-coder-next:cloud"
+  # ── Large-Scale Code Editing ───────────────────────────────────────────
+  # Multi-file refactors, bulk edits, codebase exploration with agentic tools
+  # Requires: tool use, large context, multi-file editing
+  large-edit: "ollama/qwen3-coder-next:cloud"
 
-# ── Long-Form Document Generation ──────────────────────────────────────
-# Technical writing, specifications, reports, documentation, contracts
-# Requires: very long output (100K+ tokens), structured formatting, consistency
-long-document             = "ollama/ministral-3:14b-cloud"
+  # ── Long-Form Document Generation ──────────────────────────────────────
+  # Technical writing, specifications, reports, documentation, contracts
+  # Requires: very long output (100K+ tokens), structured formatting, consistency
+  long-document: "ollama/ministral-3:14b-cloud"
 
-# ── Fast Reasoning ────────────────────────────────────────────────────
-# Quick analysis, structured output, moderate-complexity tasks, code review
-# Requires: reasoning ability but faster than frontier models
-fast-reasoning            = "ollama/glm-5.1:cloud"
+  # ── Fast Reasoning ────────────────────────────────────────────────────
+  # Quick analysis, structured output, moderate-complexity tasks, code review
+  # Requires: reasoning ability but faster than frontier models
+  fast-reasoning: "ollama/glm-5.1:cloud"
 
-# ── Balanced Reasoning ────────────────────────────────────────────────
-# General-purpose reasoning when you need thinking but not frontier depth
-# Requires: good reasoning, decent speed, reasonable output length
-balanced-reasoning        = "ollama/ministral-3:14b-cloud"
+  # ── Balanced Reasoning ────────────────────────────────────────────────
+  # General-purpose reasoning when you need thinking but not frontier depth
+  # Requires: good reasoning, decent speed, reasonable output length
+  balanced-reasoning: "ollama/ministral-3:14b-cloud"
 
-# ── UI / Visual Analysis ──────────────────────────────────────────────
-# UI/UX review, accessibility testing, screenshot analysis, design review
-# Requires: multimodal (text + image), visual reasoning
-visual-analysis           = "ollama/qwen3-coder-next:cloud"
+  # ── UI / Visual Analysis ──────────────────────────────────────────────
+  # UI/UX review, accessibility testing, screenshot analysis, design review
+  # Requires: multimodal (text + image), visual reasoning
+  visual-analysis: "ollama/qwen3-coder-next:cloud"
 
-# ── Lightweight Visual ─────────────────────────────────────────────────
-# Quick visual QA, simple screenshot review, image captioning
-# Requires: multimodal, fast
-lightweight-visual        = "ollama/qwen3-coder-next:cloud"
+  # ── Lightweight Visual ─────────────────────────────────────────────────
+  # Quick visual QA, simple screenshot review, image captioning
+  # Requires: multimodal, fast
+  lightweight-visual: "ollama/qwen3-coder-next:cloud"
 
-# ── Visual + Reasoning ─────────────────────────────────────────────────
-# Complex visual reasoning tasks requiring both multimodal and deep thinking
-# Requires: multimodal + reasoning + large context
-visual-reasoning          = "ollama/qwen3-coder-next:cloud"
+  # ── Visual + Reasoning ─────────────────────────────────────────────────
+  # Complex visual reasoning tasks requiring both multimodal and deep thinking
+  # Requires: multimodal + reasoning + large context
+  visual-reasoning: "ollama/qwen3-coder-next:cloud"
 
-# ── Fast Coding / Mechanical ───────────────────────────────────────────
-# Formatting, scaffolding, simple edits, documentation stubs, linting
-# Requires: speed, code understanding, no deep reasoning needed
-fast-coding               = "ollama/devstral-small-2:24b-cloud"
+  # ── Fast Coding / Mechanical ───────────────────────────────────────────
+  # Formatting, scaffolding, simple edits, documentation stubs, linting
+  # Requires: speed, code understanding, no deep reasoning needed
+  fast-coding: "ollama/devstral-small-2:24b-cloud"
 
-# ── Multi-Agent Orchestration ─────────────────────────────────────────
-# Coordinating multiple agents, task delegation, workflow management
-# Requires: structured output, task decomposition, moderate reasoning
-multi-agent               = "ollama/glm-5.1:cloud"
+  # ── Multi-Agent Orchestration ─────────────────────────────────────────
+  # Coordinating multiple agents, task delegation, workflow management
+  # Requires: structured output, task decomposition, moderate reasoning
+  multi-agent: "ollama/glm-5.1:cloud"
 
-# ── Quick Thinking ────────────────────────────────────────────────────
-# Quick thinking tasks that need some reasoning but must be fast
-# Requires: small reasoning, fast inference
-quick-thinking            = "ollama/devstral-small-2:24b-cloud"
+  # ── Quick Thinking ────────────────────────────────────────────────────
+  # Quick thinking tasks that need some reasoning but must be fast
+  # Requires: small reasoning, fast inference
+  quick-thinking: "ollama/devstral-small-2:24b-cloud"
 
-# ── Trivial / Maximum Speed ────────────────────────────────────────────
-# Formatting only, linting, trivial mechanical edits
-# Requires: maximum speed, minimal reasoning
-trivial                   = "ollama/devstral-small-2:24b-cloud"
+  # ── Trivial / Maximum Speed ────────────────────────────────────────────
+  # Formatting only, linting, trivial mechanical edits
+  # Requires: maximum speed, minimal reasoning
+  trivial: "ollama/devstral-small-2:24b-cloud"

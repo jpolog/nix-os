@@ -66,7 +66,7 @@ with lib;
     };
 
     # Security
-    security.unprivilegedUserns.enable = true;
+    security.unprivilegedUsernsClone.enable = true;
     security.sudo.execWheelOnly = true;
 
     # sops-nix secrets

@@ -5,7 +5,7 @@
     ./base.nix
     ./desktop.nix
     ./development.nix
-    ./gaming.nix
+    ./homelab.nix
     ./power-user.nix
     ./server.nix
   ];

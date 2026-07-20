@@ -1,6 +1,82 @@
 {
   "local_models": [
     {
+      "id": "ollama/nomic-embed-text:latest",
+      "name": "nomic-embed-text",
+      "params": "137M",
+      "reasoning": false,
+      "context": 131072,
+      "max_tokens": 8192,
+      "local": true,
+      "cloud": false,
+      "source": "local",
+      "strengths": [
+        "Available via Ollama (locally pulled)"
+      ],
+      "weaknesses": [
+        "Auto-discovered \u2014 metadata is inferred, not curated"
+      ],
+      "family": "nomic-bert",
+      "quantization": "F16"
+    },
+    {
+      "id": "ollama/gemma4:31b-cloud",
+      "name": "gemma4",
+      "params": "31B",
+      "reasoning": true,
+      "context": 256000,
+      "max_tokens": 16384,
+      "local": true,
+      "cloud": false,
+      "source": "local",
+      "strengths": [
+        "Available via Ollama (locally pulled)",
+        "Multimodal (text + image)"
+      ],
+      "weaknesses": [
+        "Auto-discovered \u2014 metadata is inferred, not curated"
+      ],
+      "multimodal": true,
+      "thinking": "effort"
+    },
+    {
+      "id": "ollama/glm-5.2:cloud",
+      "name": "glm-5.2",
+      "params": "756B",
+      "reasoning": true,
+      "context": 202752,
+      "max_tokens": 131072,
+      "local": false,
+      "cloud": true,
+      "source": "cloud",
+      "strengths": [
+        "Available via Ollama Cloud"
+      ],
+      "weaknesses": [
+        "Auto-discovered \u2014 metadata is inferred, not curated"
+      ],
+      "family": "glm",
+      "thinking": "effort"
+    },
+    {
+      "id": "ollama/nemotron-3-super:cloud",
+      "name": "nemotron-3-super",
+      "params": "unknown",
+      "reasoning": true,
+      "context": 131072,
+      "max_tokens": 8192,
+      "local": false,
+      "cloud": true,
+      "source": "cloud",
+      "strengths": [
+        "Available via Ollama Cloud"
+      ],
+      "weaknesses": [
+        "Auto-discovered \u2014 metadata is inferred, not curated"
+      ],
+      "thinking": "effort"
+    },
+    {
       "id": "ollama/minimax-m3:cloud",
       "name": "minimax-m3",
       "params": "unknown",
@@ -38,6 +114,26 @@
       "quantization": "fp8"
     },
     {
+      "id": "ollama/kimi-k2.6:cloud",
+      "name": "kimi-k2.6",
+      "params": "1T",
+      "reasoning": true,
+      "context": 262144,
+      "max_tokens": 65536,
+      "local": false,
+      "cloud": true,
+      "source": "cloud",
+      "strengths": [
+        "Available via Ollama Cloud"
+      ],
+      "weaknesses": [
+        "Auto-discovered \u2014 metadata is inferred, not curated"
+      ],
+      "family": "kimi-k2",
+      "quantization": "int4",
+      "thinking": "effort"
+    },
+    {
       "id": "ollama/minimax-m2.5:cloud",
       "name": "minimax-m2.5",
       "params": "unknown",
@@ -73,6 +169,99 @@
       "thinking": "effort"
     },
     {
+      "id": "ollama/deepseek-v4-pro:cloud",
+      "name": "deepseek-v4-pro",
+      "params": "unknown",
+      "reasoning": true,
+      "context": 1048576,
+      "max_tokens": 384000,
+      "local": false,
+      "cloud": true,
+      "source": "cloud",
+      "strengths": [
+        "Available via Ollama Cloud"
+      ],
+      "weaknesses": [
+        "Auto-discovered \u2014 metadata is inferred, not curated"
+      ],
+      "thinking": "effort"
+    },
+    {
+      "id": "ollama/ministral-3:14b-cloud",
+      "name": "ministral-3",
+      "params": "14B",
+      "reasoning": true,
+      "context": 131072,
+      "max_tokens": 32768,
+      "local": true,
+      "cloud": false,
+      "source": "local",
+      "strengths": [
+        "Available via Ollama (locally pulled)"
+      ],
+      "weaknesses": [
+        "Auto-discovered \u2014 metadata is inferred, not curated"
+      ],
+      "family": "mistral3",
+      "quantization": "fp8",
+      "thinking": "effort"
+    },
+    {
+      "id": "ollama/qwen3.5:cloud",
+      "name": "qwen3.5",
+      "params": "unknown",
+      "reasoning": true,
+      "context": 262144,
+      "max_tokens": 32768,
+      "local": false,
+      "cloud": true,
+      "source": "cloud",
+      "strengths": [
+        "Available via Ollama Cloud"
+      ],
+      "weaknesses": [
+        "Auto-discovered \u2014 metadata is inferred, not curated"
+      ],
+      "thinking": "effort"
+    },
+    {
+      "id": "ollama/glm-5.1:cloud",
+      "name": "glm-5.1",
+      "params": "unknown",
+      "reasoning": true,
+      "context": 202752,
+      "max_tokens": 131072,
+      "local": false,
+      "cloud": true,
+      "source": "cloud",
+      "strengths": [
+        "Available via Ollama Cloud"
+      ],
+      "weaknesses": [
+        "Auto-discovered \u2014 metadata is inferred, not curated"
+      ],
+      "thinking": "effort"
+    },
+    {
+      "id": "ollama/devstral-small-2:24b-cloud",
+      "name": "devstral-small-2",
+      "params": "24B",
+      "reasoning": false,
+      "context": 262144,
+      "max_tokens": 65536,
+      "local": true,
+      "cloud": false,
+      "source": "local",
+      "strengths": [
+        "Available via Ollama (locally pulled)"
+      ],
+      "weaknesses": [
+        "Auto-discovered \u2014 metadata is inferred, not curated"
+      ],
+      "family": "mistral3",
+      "quantization": "fp8"
+    },
+    {
       "id": "ollama/qwen3-coder-next:latest",
       "name": "qwen3-coder-next",
       "params": "80B",
@@ -90,8 +279,27 @@
       ],
       "family": "qwen3next",
       "quantization": "FP8"
+    },
+    {
+      "id": "ollama/qwen3-coder-next:cloud",
+      "name": "qwen3-coder-next",
+      "params": "80B",
+      "reasoning": false,
+      "context": 262144,
+      "max_tokens": 65536,
+      "local": false,
+      "cloud": true,
+      "source": "cloud",
+      "strengths": [
+        "Available via Ollama Cloud"
+      ],
+      "weaknesses": [
+        "Auto-discovered \u2014 metadata is inferred, not curated"
+      ],
+      "family": "qwen3next",
+      "quantization": "FP8"
     }
   ],
   "ollama_url": "http://localhost:11434",
-  "generated_at": "2026-06-09T18:22:48.648528"
+  "generated_at": "2026-07-20T13:15:34.774148"
 }

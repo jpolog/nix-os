@@ -39,173 +39,646 @@ in {
       ripgrep
     ];
 
-    # 2. Best-practice Noctalia configuration with all features
-    xdg.configFile."quickshell/noctalia/settings.json".text = builtins.toJSON {
-      # ===== GENERAL SETTINGS =====
-      "General" = {
-        "scale" = 1.0;                    # UI scale factor
-        "backend" = "hyprland";           # Compositor (hyprland/niri/sway)
-        "cursorTheme" = "Bibata-Modern-Classic";
+    # 2. Declarative Noctalia Configuration (v5 layout)
+    xdg.configFile."noctalia/settings.json".text = builtins.toJSON {
+      "appLauncher" = {
+        "autoPasteClipboard" = false;
+        "clipboardWatchImageCommand" = "wl-paste --type image --watch cliphist store";
+        "clipboardWatchTextCommand" = "wl-paste --type text --watch cliphist store";
+        "clipboardWrapText" = true;
+        "customLaunchPrefix" = "";
+        "customLaunchPrefixEnabled" = false;
+        "density" = "default";
+        "enableClipPreview" = true;
+        "enableClipboardChips" = true;
+        "enableClipboardHistory" = false;
+        "enableClipboardSmartIcons" = true;
+        "enableSessionSearch" = true;
+        "enableSettingsSearch" = true;
+        "enableWindowsSearch" = true;
+        "iconMode" = "tabler";
+        "ignoreMouseInput" = false;
+        "overviewLayer" = false;
+        "pinnedApps" = [ ];
+        "position" = "center";
+        "screenshotAnnotationTool" = "";
+        "showCategories" = true;
+        "showIconBackground" = false;
+        "sortByMostUsed" = true;
+        "terminalCommand" = "alacritty -e";
+        "viewMode" = "list";
       };
-
-      # ===== BAR CONFIGURATION =====
-      "Bar" = {
-        "enabled" = true;
-        "position" = "top";               # top, bottom, left, right
-        "height" = 42;
-        "floating" = false;               # Better for tiling
-        "exclusivity" = "exclusive";      # Full height exclusion for tiling
-
-        # Module layout: Left | Center | Right
-        "modulesLeft" = [
-          "workspaces"
+      "audio" = {
+        "mprisBlacklist" = [ ];
+        "preferredPlayer" = "";
+        "spectrumFrameRate" = 30;
+        "spectrumMirrored" = true;
+        "visualizerType" = "linear";
+        "volumeFeedback" = false;
+        "volumeFeedbackSoundFile" = "";
+        "volumeOverdrive" = false;
+        "volumeStep" = 5;
+      };
+      "bar" = {
+        "autoHideDelay" = 500;
+        "autoShowDelay" = 150;
+        "backgroundOpacity" = 0.93;
+        "barType" = "simple";
+        "capsuleColorKey" = "none";
+        "capsuleOpacity" = 1;
+        "contentPadding" = 0;
+        "density" = "compact";
+        "displayMode" = "always_visible";
+        "enableExclusionZoneInset" = true;
+        "fontScale" = 0.65;
+        "frameRadius" = 12;
+        "frameThickness" = 4;
+        "hideOnOverview" = false;
+        "marginHorizontal" = 4;
+        "marginVertical" = 0;
+        "middleClickAction" = "none";
+        "middleClickCommand" = "";
+        "middleClickFollowMouse" = false;
+        "monitors" = [ ];
+        "mouseWheelAction" = "none";
+        "mouseWheelWrap" = true;
+        "outerCorners" = true;
+        "position" = "top";
+        "reverseScroll" = false;
+        "rightClickAction" = "controlCenter";
+        "rightClickCommand" = "";
+        "rightClickFollowMouse" = true;
+        "screenOverrides" = [ ];
+        "showCapsule" = true;
+        "showOnWorkspaceSwitch" = true;
+        "showOutline" = false;
+        "useSeparateOpacity" = false;
+        "widgetSpacing" = 6;
+        "widgets" = {
+          "left" = [
+            ({
+              "clockColor" = "none";
+              "customFont" = "";
+              "formatHorizontal" = "HH:mm";
+              "formatVertical" = "HH mm - dd MM";
+              "id" = "Clock";
+              "tooltipFormat" = "HH:mm ddd, MMM dd";
+              "useCustomFont" = false;
+            })
+            ({
+              "compactMode" = true;
+              "diskPath" = "/";
+              "iconColor" = "none";
+              "id" = "SystemMonitor";
+              "showCpuCores" = false;
+              "showCpuFreq" = false;
+              "showCpuTemp" = true;
+              "showCpuUsage" = true;
+              "showDiskAvailable" = false;
+              "showDiskUsage" = false;
+              "showDiskUsageAsPercent" = false;
+              "showGpuTemp" = false;
+              "showLoadAverage" = false;
+              "showMemoryAsPercent" = false;
+              "showMemoryUsage" = true;
+              "showNetworkStats" = false;
+              "showSwapUsage" = false;
+              "textColor" = "none";
+              "useMonospaceFont" = true;
+              "usePadding" = false;
+            })
+            ({
+              "compactMode" = false;
+              "hideMode" = "hidden";
+              "hideWhenIdle" = false;
+              "id" = "MediaMini";
+              "maxWidth" = 145;
+              "panelShowAlbumArt" = true;
+              "scrollingMode" = "hover";
+              "showAlbumArt" = true;
+              "showArtistFirst" = true;
+              "showProgressRing" = true;
+              "showVisualizer" = false;
+              "textColor" = "none";
+              "useFixedWidth" = false;
+              "visualizerType" = "linear";
+            })
+          ];
+          "center" = [
+            ({
+              "characterCount" = 2;
+              "colorizeIcons" = false;
+              "emptyColor" = "secondary";
+              "enableScrollWheel" = true;
+              "focusedColor" = "primary";
+              "followFocusedScreen" = false;
+              "fontWeight" = "bold";
+              "groupedBorderOpacity" = 1;
+              "hideUnoccupied" = false;
+              "iconScale" = 0.8;
+              "id" = "Workspace";
+              "labelMode" = "index";
+              "occupiedColor" = "secondary";
+              "pillSize" = 0.6;
+              "showApplications" = false;
+              "showApplicationsHover" = false;
+              "showBadge" = true;
+              "showLabelsOnlyWhenOccupied" = true;
+              "unfocusedIconsOpacity" = 1;
+            })
+          ];
+          "right" = [
+            ({
+              "blacklist" = [ ];
+              "chevronColor" = "none";
+              "colorizeIcons" = false;
+              "drawerEnabled" = true;
+              "hidePassive" = false;
+              "id" = "Tray";
+              "pinned" = [ ];
+            })
+            ({
+              "displayMode" = "onhover";
+              "iconColor" = "none";
+              "id" = "Volume";
+              "middleClickCommand" = "pwvucontrol || pavucontrol";
+              "textColor" = "none";
+            })
+            ({
+              "applyToAllMonitors" = false;
+              "displayMode" = "onhover";
+              "iconColor" = "none";
+              "id" = "Brightness";
+              "textColor" = "none";
+            })
+            ({
+              "deviceNativePath" = "__default__";
+              "displayMode" = "graphic";
+              "hideIfIdle" = false;
+              "hideIfNotDetected" = true;
+              "id" = "Battery";
+              "showNoctaliaPerformance" = false;
+              "showPowerProfiles" = false;
+            })
+            ({
+              "colorizeDistroLogo" = false;
+              "colorizeSystemIcon" = "none";
+              "colorizeSystemText" = "none";
+              "customIconPath" = "";
+              "enableColorization" = false;
+              "icon" = "noctalia";
+              "id" = "ControlCenter";
+              "useDistroLogo" = false;
+            })
+          ];
+        };
+      };
+      "brightness" = {
+        "backlightDeviceMappings" = [ ];
+        "brightnessStep" = 5;
+        "enableDdcSupport" = false;
+        "enforceMinimum" = true;
+      };
+      "calendar" = {
+        "cards" = [
+          ({
+            "enabled" = true;
+            "id" = "calendar-header-card";
+          })
+          ({
+            "enabled" = true;
+            "id" = "calendar-month-card";
+          })
+          ({
+            "enabled" = true;
+            "id" = "weather-card";
+          })
         ];
-        "modulesCenter" = [
-          "media"
-          "clock"
-        ];
-        "modulesRight" = [
-          "updates"
-          "vpn"
-          "network"
-          "volume"
-          "brightness"
-          "battery"
-          "quicksettings"
-        ];
-      };
-
-      # ===== CONTROL CENTER / PANEL =====
-      "ControlCenter" = {
-        "enabled" = true;
-        "position" = "right";             # right or left
-        "width" = 400;
-        "modulesEnabled" = [
-          "brightness"
-          "volume"
-          "network"
-          "bluetooth"
-          "settings"
-        ];
-      };
-
-      # ===== NOTIFICATION SETTINGS =====
-      "Notifications" = {
-        "enabled" = true;
-        "position" = "top-right";
-        "displayTime" = 5;                # seconds before auto-dismiss
-        "maxNotifications" = 3;
-      };
-
-      # ===== THEME & APPEARANCE =====
-      "Wallpaper" = {
-        "enabled" = true;
-        "directory" = "/home/jpolo/Pictures/Wallpapers";
-        "viewMode" = "single";
-        "fillMode" = "crop";
-      };
-      "Theme" = {
-        "mode" = "dark";                  # dark or light
-        "useSystemColors" = true;         # Use matugen colors
-        "blur" = true;
-        "blurOpacity" = 0.9;
-        "cornerRadius" = 8;
-        "accentColor" = "#b4a7e6";        # Noctalia's signature lavender
-        "fontFamily" = "JetBrains Mono";
-        "fontSize" = 12;
       };
       "colorSchemes" = {
-        "schemeType" = "M3-Rainbow";
+        "darkMode" = true;
+        "generationMethod" = "tonal-spot";
+        "manualSunrise" = "06:30";
+        "manualSunset" = "18:30";
+        "monitorForColors" = "";
+        "predefinedScheme" = "Noctalia (default)";
+        "schedulingMode" = "off";
+        "syncGsettings" = true;
         "useWallpaperColors" = true;
       };
-
-      # ===== LAUNCHER CONFIGURATION =====
-      "Launcher" = {
+      "controlCenter" = {
+        "cards" = [
+          ({
+            "enabled" = true;
+            "id" = "profile-card";
+          })
+          ({
+            "enabled" = true;
+            "id" = "shortcuts-card";
+          })
+          ({
+            "enabled" = true;
+            "id" = "audio-card";
+          })
+          ({
+            "enabled" = false;
+            "id" = "brightness-card";
+          })
+          ({
+            "enabled" = true;
+            "id" = "weather-card";
+          })
+          ({
+            "enabled" = true;
+            "id" = "media-sysmon-card";
+          })
+        ];
+        "diskPath" = "/";
+        "position" = "close_to_bar_button";
+        "shortcuts" = {
+          "left" = [
+            ({
+              "id" = "Network";
+            })
+            ({
+              "id" = "Bluetooth";
+            })
+            ({
+              "id" = "WallpaperSelector";
+            })
+            ({
+              "id" = "NoctaliaPerformance";
+            })
+          ];
+          "right" = [
+            ({
+              "id" = "Notifications";
+            })
+            ({
+              "id" = "PowerProfile";
+            })
+            ({
+              "id" = "KeepAwake";
+            })
+            ({
+              "id" = "NightLight";
+            })
+          ];
+        };
+      };
+      "desktopWidgets" = {
+        "enabled" = false;
+        "gridSnap" = false;
+        "gridSnapScale" = false;
+        "monitorWidgets" = [ ];
+        "overviewEnabled" = true;
+      };
+      "dock" = {
+        "animationSpeed" = 1;
+        "backgroundOpacity" = 1;
+        "colorizeIcons" = false;
+        "deadOpacity" = 0.6;
+        "displayMode" = "auto_hide";
+        "dockType" = "floating";
         "enabled" = true;
+        "floatingRatio" = 1;
+        "groupApps" = false;
+        "groupClickAction" = "cycle";
+        "groupContextMenuMode" = "extended";
+        "groupIndicatorStyle" = "dots";
+        "inactiveIndicators" = false;
+        "indicatorColor" = "primary";
+        "indicatorOpacity" = 0.6;
+        "indicatorThickness" = 3;
+        "launcherIcon" = "";
+        "launcherIconColor" = "none";
+        "launcherPosition" = "end";
+        "launcherUseDistroLogo" = false;
+        "monitors" = [ ];
+        "onlySameOutput" = true;
+        "pinnedApps" = [ ];
+        "pinnedStatic" = false;
+        "position" = "bottom";
+        "showDockIndicator" = false;
+        "showLauncherIcon" = false;
+        "sitOnFrame" = false;
+        "size" = 1;
+      };
+      "general" = {
+        "allowPanelsOnScreenWithoutBar" = true;
+        "allowPasswordWithFprintd" = false;
+        "animationDisabled" = false;
+        "animationSpeed" = 1;
+        "autoStartAuth" = false;
+        "avatarImage" = "/home/jpolo/.face";
+        "boxRadiusRatio" = 1;
+        "clockFormat" = "hh\\nmm";
+        "clockStyle" = "custom";
+        "compactLockScreen" = false;
+        "dimmerOpacity" = 0.2;
+        "enableBlurBehind" = true;
+        "enableLockScreenCountdown" = true;
+        "enableLockScreenMediaControls" = false;
+        "enableShadows" = true;
+        "forceBlackScreenCorners" = false;
+        "iRadiusRatio" = 1;
+        "keybinds" = {
+          "keyDown" = [
+            "Down"
+          ];
+          "keyEnter" = [
+            "Return"
+            "Enter"
+          ];
+          "keyEscape" = [
+            "Esc"
+          ];
+          "keyLeft" = [
+            "Left"
+          ];
+          "keyRemove" = [
+            "Del"
+          ];
+          "keyRight" = [
+            "Right"
+          ];
+          "keyUp" = [
+            "Up"
+          ];
+        };
+        "language" = "";
+        "lockOnSuspend" = true;
+        "lockScreenAnimations" = false;
+        "lockScreenBlur" = 0;
+        "lockScreenCountdownDuration" = 10000;
+        "lockScreenMonitors" = [ ];
+        "lockScreenTint" = 0;
+        "passwordChars" = false;
+        "radiusRatio" = 1;
+        "reverseScroll" = false;
+        "scaleRatio" = 1;
+        "screenRadiusRatio" = 1;
+        "shadowDirection" = "bottom_right";
+        "shadowOffsetX" = 2;
+        "shadowOffsetY" = 3;
+        "showChangelogOnStartup" = true;
+        "showHibernateOnLockScreen" = false;
+        "showScreenCorners" = false;
+        "showSessionButtonsOnLockScreen" = true;
+        "smoothScrollEnabled" = true;
+        "telemetryEnabled" = false;
+      };
+      "hooks" = {
+        "colorGeneration" = "";
+        "darkModeChange" = "";
+        "enabled" = false;
+        "performanceModeDisabled" = "";
+        "performanceModeEnabled" = "";
+        "screenLock" = "";
+        "screenUnlock" = "";
+        "session" = "";
+        "startup" = "";
+        "wallpaperChange" = "";
+      };
+      "idle" = {
+        "customCommands" = "[]";
+        "enabled" = false;
+        "fadeDuration" = 5;
+        "lockCommand" = "";
+        "lockTimeout" = 660;
+        "resumeLockCommand" = "";
+        "resumeScreenOffCommand" = "";
+        "resumeSuspendCommand" = "";
+        "screenOffCommand" = "";
+        "screenOffTimeout" = 600;
+        "suspendCommand" = "";
+        "suspendTimeout" = 1800;
+      };
+      "location" = {
+        "analogClockInCalendar" = false;
+        "autoLocate" = true;
+        "firstDayOfWeek" = -1;
+        "hideWeatherCityName" = false;
+        "hideWeatherTimezone" = false;
+        "name" = "";
+        "showCalendarEvents" = true;
+        "showCalendarWeather" = true;
+        "showWeekNumberInCalendar" = false;
+        "use12hourFormat" = false;
+        "useFahrenheit" = false;
+        "weatherEnabled" = true;
+        "weatherShowEffects" = true;
+        "weatherTaliaMascotAlways" = false;
+      };
+      "network" = {
+        "bluetoothAutoConnect" = true;
+        "bluetoothDetailsViewMode" = "grid";
+        "bluetoothHideUnnamedDevices" = false;
+        "bluetoothRssiPollIntervalMs" = 60000;
+        "bluetoothRssiPollingEnabled" = false;
+        "disableDiscoverability" = false;
+        "networkPanelView" = "wifi";
+        "wifiDetailsViewMode" = "grid";
+      };
+      "nightLight" = {
+        "autoSchedule" = true;
+        "dayTemp" = "6500";
+        "enabled" = false;
+        "forced" = false;
+        "manualSunrise" = "06:30";
+        "manualSunset" = "18:30";
+        "nightTemp" = "4000";
+      };
+      "noctaliaPerformance" = {
+        "disableDesktopWidgets" = true;
+        "disableWallpaper" = true;
+      };
+      "notifications" = {
+        "backgroundOpacity" = 1;
+        "clearDismissed" = true;
+        "criticalUrgencyDuration" = 15;
+        "density" = "default";
+        "enableBatteryToast" = true;
+        "enableKeyboardLayoutToast" = true;
+        "enableMarkdown" = false;
+        "enableMediaToast" = false;
+        "enabled" = true;
+        "location" = "top_right";
+        "lowUrgencyDuration" = 3;
+        "monitors" = [ ];
+        "normalUrgencyDuration" = 8;
+        "overlayLayer" = true;
+        "respectExpireTimeout" = false;
+        "saveToHistory" = {
+          "critical" = true;
+          "low" = true;
+          "normal" = true;
+        };
+        "sounds" = {
+          "criticalSoundFile" = "";
+          "enabled" = false;
+          "excludedApps" = "discord,firefox,chrome,chromium,edge";
+          "lowSoundFile" = "";
+          "normalSoundFile" = "";
+          "separateSounds" = false;
+          "volume" = 0.5;
+        };
+      };
+      "osd" = {
+        "autoHideMs" = 2000;
+        "backgroundOpacity" = 1;
+        "enabled" = true;
+        "enabledTypes" = [
+          0
+          1
+          2
+        ];
+        "location" = "top_right";
+        "monitors" = [ ];
+        "overlayLayer" = true;
+      };
+      "plugins" = {
+        "autoUpdate" = false;
+        "notifyUpdates" = true;
+      };
+      "sessionMenu" = {
+        "countdownDuration" = 10000;
+        "enableCountdown" = true;
+        "largeButtonsLayout" = "single-row";
+        "largeButtonsStyle" = true;
         "position" = "center";
-        "width" = 400;
-        "height" = 500;
-        "showDescriptions" = true;
-        "categoryIcons" = true;
+        "powerOptions" = [
+          ({
+            "action" = "lock";
+            "enabled" = true;
+            "keybind" = "1";
+          })
+          ({
+            "action" = "suspend";
+            "enabled" = true;
+            "keybind" = "2";
+          })
+          ({
+            "action" = "hibernate";
+            "enabled" = true;
+            "keybind" = "3";
+          })
+          ({
+            "action" = "reboot";
+            "enabled" = true;
+            "keybind" = "4";
+          })
+          ({
+            "action" = "logout";
+            "enabled" = true;
+            "keybind" = "5";
+          })
+          ({
+            "action" = "shutdown";
+            "enabled" = true;
+            "keybind" = "6";
+          })
+          ({
+            "action" = "rebootToUefi";
+            "enabled" = true;
+            "keybind" = "7";
+          })
+        ];
+        "showHeader" = true;
+        "showKeybinds" = true;
       };
-
-      # ===== WORKSPACE INDICATOR =====
-      "Workspaces" = {
-        "enabled" = true;
-        "displayNumbers" = true;
-        "displayNames" = true;
-        "visibleWorkspaces" = 10;
-        "scrollOnHover" = true;
+      "settingsVersion" = 59;
+      "systemMonitor" = {
+        "batteryCriticalThreshold" = 5;
+        "batteryWarningThreshold" = 20;
+        "cpuCriticalThreshold" = 90;
+        "cpuWarningThreshold" = 80;
+        "criticalColor" = "";
+        "diskAvailCriticalThreshold" = 10;
+        "diskAvailWarningThreshold" = 20;
+        "diskCriticalThreshold" = 90;
+        "diskWarningThreshold" = 80;
+        "enableDgpuMonitoring" = false;
+        "externalMonitor" = "resources || missioncenter || jdsystemmonitor || corestats || system-monitoring-center || gnome-system-monitor || plasma-systemmonitor || mate-system-monitor || ukui-system-monitor || deepin-system-monitor || pantheon-system-monitor";
+        "gpuCriticalThreshold" = 90;
+        "gpuWarningThreshold" = 80;
+        "memCriticalThreshold" = 90;
+        "memWarningThreshold" = 80;
+        "swapCriticalThreshold" = 90;
+        "swapWarningThreshold" = 80;
+        "tempCriticalThreshold" = 90;
+        "tempWarningThreshold" = 80;
+        "useCustomColors" = false;
+        "warningColor" = "";
       };
-
-      # ===== MEDIA PLAYER WIDGET =====
-      "Media" = {
-        "enabled" = true;
-        "showArtwork" = true;
-        "visualizer" = false;
-        "maxTitleLength" = 30;
+      "templates" = {
+        "activeTemplates" = [ ];
+        "enableUserTheming" = false;
       };
-
-      # ===== CLOCK SETTINGS =====
-      "Clock" = {
-        "enabled" = true;
-        "format" = "%H:%M";               # 24-hour format
-        "showSeconds" = false;
-        "showDate" = false;               # Hover to see full date
+      "ui" = {
+        "boxBorderEnabled" = false;
+        "fontDefault" = "Noto Sans";
+        "fontDefaultScale" = 1;
+        "fontFixed" = "monospace";
+        "fontFixedScale" = 1;
+        "panelBackgroundOpacity" = 0.93;
+        "panelsAttachedToBar" = true;
+        "scrollbarAlwaysVisible" = true;
+        "settingsPanelMode" = "attached";
+        "settingsPanelSideBarCardStyle" = false;
+        "tooltipsEnabled" = true;
+        "translucentWidgets" = false;
       };
-
-      # ===== POWER/BATTERY =====
-      "Battery" = {
+      "wallpaper" = {
+        "automationEnabled" = false;
+        "directory" = "/home/jpolo/Pictures/Wallpapers";
+        "enableMultiMonitorDirectories" = false;
         "enabled" = true;
-        "showPercentage" = true;
-        "showEstimate" = true;
-        "lowBatteryWarning" = 20;
-        "criticalBatteryLevel" = 5;
-      };
-
-      # ===== NIGHT LIGHT / WLSUNSET =====
-      "NightLight" = {
-        "enabled" = true;
-        "startTime" = "20:00";
-        "endTime" = "08:00";
-        "temperature" = 4000;             # Kelvin (warmer = lower)
-      };
-
-      # ===== NETWORK INDICATOR =====
-      "Network" = {
-        "enabled" = true;
-        "showDetails" = true;
-        "showSignalStrength" = true;
-      };
-
-      # ===== VOLUME CONTROL =====
-      "Volume" = {
-        "enabled" = true;
-        "maxVolume" = 150;                # Allow overshoot above 100%
-      };
-
-      # ===== BRIGHTNESS CONTROL =====
-      "Brightness" = {
-        "enabled" = true;
-        "minBrightness" = 5;
-        "maxBrightness" = 100;
-      };
-
-      # ===== SYSTEM UPDATES CHECK =====
-      "Updates" = {
-        "enabled" = true;
-        "checkInterval" = 3600;           # Check every hour
-      };
-
-      # ===== VPN QUICK TOGGLE =====
-      "VPN" = {
-        "enabled" = true;
-        "showConnectionName" = true;
-        "autoConnect" = false;            # Manual control only
-        "defaultConnection" = "um-vpn";   # Your university VPN
+        "favorites" = [ ];
+        "fillColor" = "#000000";
+        "fillMode" = "crop";
+        "hideWallpaperFilenames" = false;
+        "linkLightAndDarkWallpapers" = true;
+        "monitorDirectories" = [ ];
+        "overviewBlur" = 0.4;
+        "overviewEnabled" = false;
+        "overviewTint" = 0.6;
+        "panelPosition" = "follow_bar";
+        "randomIntervalSec" = 300;
+        "setWallpaperOnAllMonitors" = true;
+        "showHiddenFiles" = false;
+        "skipStartupTransition" = false;
+        "solidColor" = "#1a1a2e";
+        "sortOrder" = "name";
+        "transitionDuration" = 1500;
+        "transitionEdgeSmoothness" = 0.05;
+        "transitionType" = [
+          "fade"
+          "disc"
+          "stripes"
+          "wipe"
+          "pixelate"
+          "honeycomb"
+        ];
+        "useOriginalImages" = false;
+        "useSolidColor" = false;
+        "useWallhaven" = false;
+        "viewMode" = "single";
+        "wallhavenApiKey" = "";
+        "wallhavenCategories" = "111";
+        "wallhavenOrder" = "desc";
+        "wallhavenPurity" = "100";
+        "wallhavenQuery" = "";
+        "wallhavenRatios" = "";
+        "wallhavenResolutionHeight" = "";
+        "wallhavenResolutionMode" = "atleast";
+        "wallhavenResolutionWidth" = "";
+        "wallhavenSorting" = "relevance";
+        "wallpaperChangeMode" = "random";
       };
     };
-    
+
+
     # 2.2 Configure Matugen to use the template
     xdg.configFile."matugen/config.toml".text = ''
       [config]
@@ -513,12 +986,12 @@ in {
 
 
     # 3. Hyprland integration (auto-launch Noctalia)
-    # Note: noctalia-shell startup is handled in hyprland.nix extraConfig
+    # Note: noctalia startup is handled in hyprland.nix extraConfig
     # and by the systemd service below. Do not use settings.exec-once here
     # as it generates invalid Lua syntax (hl.exec-once with hyphens).
 
     # 4. Systemd service for reliable auto-start with crash recovery
-    systemd.user.services.noctalia-shell = {
+    systemd.user.services.noctalia = {
       Unit = {
         Description = "Noctalia Shell - Minimal Wayland Desktop";
         Documentation = "https://docs.noctalia.dev/";
@@ -528,7 +1001,7 @@ in {
       
       Service = {
         Type = "simple";
-        ExecStart = "${inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/noctalia-shell";
+        ExecStart = "${inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/noctalia";
         Restart = "on-failure";
         RestartSec = 3;
         StandardOutput = "journal";

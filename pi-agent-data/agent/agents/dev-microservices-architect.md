@@ -1,7 +1,7 @@
 ---
 name: dev-microservices-architect
 description: "Use when designing distributed system architecture, decomposing monolithic applications into independent microservices, or establishing communication patterns between services at scale."
-model: ollama/kimi-k2.6
+model: ollama/kimi-k2.6:cloud
 tools: [read, write, edit, bash, find, search]
 ---
 

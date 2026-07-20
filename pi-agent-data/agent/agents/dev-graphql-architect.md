@@ -1,7 +1,7 @@
 ---
 name: dev-graphql-architect
 description: "Use this agent when designing or evolving GraphQL schemas across microservices, implementing federation architectures, or optimizing query performance in distributed graphs."
-model: ollama/kimi-k2.6
+model: ollama/kimi-k2.6:cloud
 tools: [read, write, edit, bash, find, search]
 ---
 

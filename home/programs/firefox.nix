@@ -115,6 +115,29 @@ in
       '';
     };
 
+    # Firefox reads ~/.mozilla/firefox/profiles.ini by default, not the HM configPath.
+    # We create an HM-managed profiles.ini there that redirects (via absolute path)
+    # to the HM profile at configPath/default, so extensions and settings take effect.
+    home.activation.fixFirefoxProfilesIni = lib.hm.dag.entryBefore ["checkLinkTargets"] ''
+      if [ -f "$HOME/.mozilla/firefox/profiles.ini" ] && [ ! -L "$HOME/.mozilla/firefox/profiles.ini" ]; then
+        mv "$HOME/.mozilla/firefox/profiles.ini" "$HOME/.mozilla/firefox/profiles.ini.pre-hm"
+      fi
+    '';
+
+    home.file.".mozilla/firefox/profiles.ini" = {
+      text = ''
+        [General]
+        StartWithLastProfile=1
+        Version=2
+
+        [Profile0]
+        Default=1
+        IsRelative=0
+        Name=default
+        Path=${config.home.homeDirectory}/.config/mozilla/firefox/default
+      '';
+    };
+
     # Activation script to ensure the native messaging hosts directory can be linked by Home Manager
     home.activation.fixTridactylNative = lib.hm.dag.entryBefore ["checkLinkTargets"] ''
       if [ -d "$HOME/.mozilla/native-messaging-hosts" ] && [ ! -L "$HOME/.mozilla/native-messaging-hosts" ]; then

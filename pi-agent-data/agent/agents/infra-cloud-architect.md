@@ -1,7 +1,7 @@
 ---
 name: infra-cloud-architect
 description: "Use this agent when you need to design, evaluate, or optimize cloud infrastructure architecture at scale. Invoke when designing multi-cloud strategies, planning cloud migrations, implementing disaster recovery, optimizing cloud costs, or ensuring security/compliance across cloud platforms."
-model: ollama/kimi-k2.6
+model: ollama/kimi-k2.6:cloud
 tools: [read, write, edit, bash, find, search]
 ---
 

@@ -137,9 +137,17 @@ in {
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
+    vimdiffAlias = true;
     
     withRuby = false;
     withPython3 = false;
+
+    # Bootstrap lazy.nvim then load LazyVim config (HM's generated init.lua doesn't do this)
+    initLua = ''
+      vim.opt.rtp:prepend("${pkgs.vimPlugins.lazy-nvim}")
+      require("config.options")
+      require("config.lazy")
+    '';
 
     # --- 3. RUNTIME BINARIES (Replacing Mason) ---
     extraPackages = with pkgs; [
@@ -159,6 +167,7 @@ in {
       tree-sitter
       git
       curl
+      markdownlint-cli2 # Linter used by LazyVim markdown extra (nvim-lint)
     ];
 
     # --- 4. TREESITTER (keep for parser installation) ---
@@ -348,7 +357,7 @@ in {
         -- Disable Oil
         { "stevearc/oil.nvim", enabled = false },
         -- Disable mini.files
-        { "echasnovski/mini.files", enabled = false },
+        { "nvim-mini/mini.files", enabled = false },
       }
     '';
 
@@ -530,9 +539,10 @@ in {
             workspaces = {
               {
                 name = "personal",
-                path = "~/obsidian",
+                path = "~/Vault",
               },
             },
+            legacy_commands = false,
           },
         }
       }

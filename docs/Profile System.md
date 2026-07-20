@@ -306,16 +306,6 @@ Academic and research tools — LaTeX, reference managers, PDF viewers.
 
 LaTeX: texlive.combined.scheme-full. Tools: pandoc, Zotero, Obsidian. Visualization: zathura (with synctex), sioyek.
 
-### `home.profiles.master`
-
-AI Master's degree profile — Python data science stack and Orange.
-
-| Option | Type | Default |
-|--------|------|---------|
-| `enable` | bool | `false` |
-
-Provides: Python 3 with numpy, pandas, scikit-learn, matplotlib, seaborn, jupyter, scipy, torch, xgboost. Orange Data Mining (isolated launcher with patched PyQt5→6).
-
 ---
 
 ## Profile Composition per Host
@@ -365,7 +355,6 @@ home.profiles.research.enable = true;
 home.profiles.research.latex.enable = true;
 home.profiles.research.tools.enable = true;
 home.profiles.research.diagrams.enable = true;
-home.profiles.master.enable = true;
 home.profiles.personal.enable = true;
 ```
 
@@ -389,7 +378,6 @@ home.profiles.desktop.environment = "kde";
 home.profiles.development.enable = lib.mkForce false;
 home.profiles.work.enable = lib.mkForce false;
 home.profiles.research.enable = lib.mkForce false;
-home.profiles.master.enable = lib.mkForce false;
 home.profiles.creative.enable = lib.mkForce false;
 home.profiles.power-user = {
   enable = true;
@@ -450,7 +438,6 @@ graph TD
         HPERS["home.profiles.personal<br/><i>discord, plex, office</i>"]
         HGAME["home.profiles.gaming<br/><i>steam, wine, lutris</i>"]
         HRES["home.profiles.research<br/><i>latex, zotero, zathura</i>"]
-        HMAS["home.profiles.master<br/><i>python DS, orange</i>"]
     end
 
     subgraph ARES["ares (jpolo)"]

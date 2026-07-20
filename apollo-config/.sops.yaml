@@ -1,0 +1,27 @@
+# .sops.yaml — SOPS configuration for apollo
+#
+# Before deploying, generate an age key for the server:
+#   mkdir -p ~/.config/sops/age
+#   age-keygen -o ~/.config/sops/age/keys.txt
+#
+# Then copy the PUBLIC key (starts with "age1…") and replace below.
+#
+# If you have a GPG key, add it to the pgp list.
+# If you have an SSH host key, add it to the age list (age from ssh keys works).
+# See: https://github.com/Mic92/sops-nix
+
+keys:
+  # Server age key (required)
+  - &server_age age1___REPLACE_WITH_YOUR_AGE_PUBLIC_KEY___
+
+  # Your personal GPG key (optional — lets you decrypt locally)
+  # - &jpolo_gpg ___REPLACE_WITH_YOUR_GPG_FINGERPRINT___
+
+creation_rules:
+  # Secrets for the apollo server only
+  - path_regex: secrets/[^/]+\.ya?ml$
+    key_groups:
+      - age:
+        - *server_age
+        # pgp:
+        # - *jpolo_gpg

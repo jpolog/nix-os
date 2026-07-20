@@ -27,6 +27,8 @@ in
       ] ++ (optionals cfg.includeHplip [ hplip ]);
     };
 
+    environment.systemPackages = [ pkgs.system-config-printer ];
+
     # Scanner support
     hardware.sane = {
       enable = true;

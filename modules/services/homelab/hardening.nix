@@ -45,10 +45,8 @@ let
     };
   };
 
-in
-{
   # Tight hardening for standard containers
-  systemd.services = lib.genAttrs [
+  tightContainerNames = [
     "podman-sonarr_en" "podman-sonarr_es"
     "podman-radarr_en" "podman-radarr_es"
     "podman-lidarr" "podman-bazarr"
@@ -68,10 +66,10 @@ in
     "podman-n8n" "podman-mermaid"
     "podman-overleaf-redis"
     "podman-homepage" "podman-gotify" "podman-portainer"
-  ] (_: tightContainer);
+  ];
 
   # Partial hardening for containers needing more access
-  systemd.services = lib.genAttrs [
+  containerHardeningNames = [
     "podman-paperless-webserver"
     "podman-nextcloud-aio"
     "podman-overleaf-mongo"
@@ -81,54 +79,65 @@ in
     "podman-hoarder-chrome"
     "podman-scrutiny"
     "podman-dispatcharr"
-  ] (_: containerHardening);
+  ];
 
   # Minimal hardening for privileged containers
-  systemd.services = lib.genAttrs [
+  privilegedContainerNames = [
     "podman-gluetun"
     "podman-qbittorrent"
     "podman-jackett"
     "podman-cadvisor"
-  ] (_: privilegedContainer);
+  ];
+in
+{
+  systemd.services = lib.mkMerge [
+    # Tight hardening
+    (lib.genAttrs tightContainerNames (_: tightContainer))
+    # Partial hardening
+    (lib.genAttrs containerHardeningNames (_: containerHardening))
+    # Minimal hardening
+    (lib.genAttrs privilegedContainerNames (_: privilegedContainer))
+    # Native service hardening
+    {
+      postgresql.serviceConfig = {
+        ProtectSystem = "full";
+        ProtectHome = true;
+        PrivateTmp = true;
+        NoNewPrivileges = true;
+        RestrictSUIDSGID = true;
+        MemoryDenyWriteExecute = true;
+        ProtectKernelTunables = true;
+        ProtectKernelModules = true;
+        ReadWritePaths = [
+          "/var/lib/postgresql"
+          "/run/postgresql"
+        ];
+      };
 
-  # Native service hardening
-  systemd.services.postgresql.serviceConfig = {
-    ProtectSystem = "full";
-    ProtectHome = true;
-    PrivateTmp = true;
-    NoNewPrivileges = true;
-    RestrictSUIDSGID = true;
-    MemoryDenyWriteExecute = true;
-    ProtectKernelTunables = true;
-    ProtectKernelModules = true;
-    ReadWritePaths = [
-      "/var/lib/postgresql"
-      "/run/postgresql"
-    ];
-  };
+      nginx.serviceConfig = {
+        ProtectSystem = "strict";
+        ProtectHome = true;
+        PrivateTmp = true;
+        NoNewPrivileges = true;
+        RestrictSUIDSGID = true;
+        MemoryDenyWriteExecute = true;
+        ProtectKernelTunables = true;
+        ProtectKernelModules = true;
+        ProtectControlGroups = true;
+        RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" ];
+        SystemCallFilter = [ "@system-service" "~@privileged" ];
+      };
 
-  systemd.services.nginx.serviceConfig = {
-    ProtectSystem = "strict";
-    ProtectHome = true;
-    PrivateTmp = true;
-    NoNewPrivileges = true;
-    RestrictSUIDSGID = true;
-    MemoryDenyWriteExecute = true;
-    ProtectKernelTunables = true;
-    ProtectKernelModules = true;
-    ProtectControlGroups = true;
-    RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" ];
-    SystemCallFilter = [ "@system-service" "~@privileged" ];
-  };
-
-  systemd.services.redis-default.serviceConfig = {
-    ProtectSystem = "strict";
-    ProtectHome = true;
-    PrivateTmp = true;
-    NoNewPrivileges = true;
-    RestrictSUIDSGID = true;
-    MemoryDenyWriteExecute = true;
-    ProtectKernelTunables = true;
-    RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" ];
-  };
+      redis-default.serviceConfig = {
+        ProtectSystem = "strict";
+        ProtectHome = true;
+        PrivateTmp = true;
+        NoNewPrivileges = true;
+        RestrictSUIDSGID = true;
+        MemoryDenyWriteExecute = true;
+        ProtectKernelTunables = true;
+        RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" ];
+      };
+    }
+  ];
 }

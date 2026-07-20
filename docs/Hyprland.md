@@ -113,18 +113,7 @@ All are gated on `home.profiles.desktop.enable && home.profiles.desktop.environm
 
 **Package**: `null` (managed by the system module to avoid version mismatch).
 
-**Plugin**: `hyprscrolling` from `inputs.hyprland-plugins` — provides a scrollable tiling layout (columns).
-
-**Monitors**:
-
-| Output | Resolution | Position | Notes |
-|--------|-----------|----------|-------|
-| `eDP-1` | 1920×1200@60 | 0×0 | Internal laptop |
-| `HDMI-A-1` | 1920×1080@60 | 1920×0 | External HDMI |
-| `DP-1` | 1920×1080@60 | 3840×0, rotated | Portrait display port |
-| fallback | preferred | auto | Unmatched outputs |
-
-**Layout**: Scrolling layout with `gaps_in = 5`, `gaps_out = 10`, `border_size = 2`, `rounding = 3`, `active_opacity = 0.9`, `inactive_opacity = 0.8`.
+**Layout**: Built-in **scrolling layout** with `gaps_in = 5`, `gaps_out = 10`, `border_size = 2`, `rounding = 3`, `active_opacity = 0.9`, `inactive_opacity = 0.8`. Configured natively via the `scrolling` block in Lua.
 
 **Custom scripts** (packaged as shell wrappers):
 

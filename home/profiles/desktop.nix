@@ -151,7 +151,7 @@ with lib;
           "text/html" = [ "firefox.desktop" ];
           "text/xml" = [ "nvim.desktop" ];
           "application/xml" = [ "nvim.desktop" ];
-          "application/pdf" = [ "okular.desktop" ];
+          "application/pdf" = [ "org.kde.okular.desktop" ];
           "application/x-shellscript" = [ "nvim.desktop" ];
           "application/json" = [ "nvim.desktop" ];
           "application/yaml" = [ "nvim.desktop" ];
@@ -178,28 +178,29 @@ with lib;
           "x-scheme-handler/http" = [ "firefox.desktop" ];
           "x-scheme-handler/https" = [ "firefox.desktop" ];
           "x-scheme-handler/mailto" = [ "firefox.desktop" ];
-          "inode/directory" = [ "dolphin.desktop" ];
-          "application/zip" = [ "ark.desktop" ];
-          "application/x-tar" = [ "ark.desktop" ];
-          "application/x-7z-compressed" = [ "ark.desktop" ];
-          "application/x-rar" = [ "ark.desktop" ];
+          "inode/directory" = [ "org.kde.dolphin.desktop" ];
+          "application/zip" = [ "org.kde.ark.desktop" ];
+          "application/x-tar" = [ "org.kde.ark.desktop" ];
+          "application/x-7z-compressed" = [ "org.kde.ark.desktop" ];
+          "application/x-rar" = [ "org.kde.ark.desktop" ];
         };
         associations.added = {
           "text/plain" = [ "nvim.desktop" ];
           "text/markdown" = [ "nvim.desktop" ];
           "text/html" = [ "firefox.desktop" ];
-          "application/pdf" = [ "okular.desktop" ];
+          "application/pdf" = [ "org.kde.okular.desktop" ];
           "image/png" = [ "imv.desktop" ];
           "image/jpeg" = [ "imv.desktop" ];
           "image/gif" = [ "imv.desktop" ];
           "video/mp4" = [ "mpv.desktop" ];
           "video/mkv" = [ "mpv.desktop" ];
-          "inode/directory" = [ "dolphin.desktop" ];
+          "inode/directory" = [ "org.kde.dolphin.desktop" ];
         };
       };
 
       # Configure Cursor Theme
       home.pointerCursor = {
+        enable = true;
         gtk.enable = true;
         x11.enable = true;
         package = pkgs.bibata-cursors;

@@ -33,7 +33,7 @@ in
     ai = {
       enable = mkEnableOption "AI development tools" // { default = true; };
       tools = {
-        gemini-cli.enable = mkEnableOption "Gemini CLI" // { default = true; };
+        antigravity-cli.enable = mkEnableOption "Antigravity CLI" // { default = true; };
         github-copilot-cli.enable = mkEnableOption "GitHub Copilot CLI" // { default = true; };
         claude-code.enable = mkEnableOption "Claude Code" // { default = false; };
         pi-coding-agent.enable = mkEnableOption "Pi Coding Agent (omp)" // { default = true; };
@@ -46,7 +46,7 @@ in
     programs.ai-tools = {
       enable = config.home.profiles.development.ai.enable;
       tools = {
-        gemini-cli.enable = config.home.profiles.development.ai.tools.gemini-cli.enable;
+        antigravity-cli.enable = config.home.profiles.development.ai.tools.antigravity-cli.enable;
         github-copilot-cli.enable = config.home.profiles.development.ai.tools.github-copilot-cli.enable;
         claude-code.enable = config.home.profiles.development.ai.tools.claude-code.enable;
         pi-coding-agent.enable = config.home.profiles.development.ai.tools.pi-coding-agent.enable;

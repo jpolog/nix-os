@@ -13,7 +13,7 @@ in
     enable = mkEnableOption "AI development tools";
 
     tools = {
-      gemini-cli.enable = mkEnableOption "Gemini CLI";
+      antigravity-cli.enable = mkEnableOption "Antigravity CLI";
       github-copilot-cli.enable = mkEnableOption "GitHub Copilot CLI";
       claude-code.enable = mkEnableOption "Claude Code";
       pi-coding-agent.enable = mkEnableOption "Pi Coding Agent (omp)";
@@ -22,14 +22,15 @@ in
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-    ] ++ (lib.optionals cfg.tools.gemini-cli.enable [
-      gemini-cli
+    ] ++ (lib.optionals cfg.tools.antigravity-cli.enable [
+      antigravity-cli
     ]) ++ (lib.optionals cfg.tools.github-copilot-cli.enable [
       github-copilot-cli
     ]) ++ (lib.optionals cfg.tools.claude-code.enable [
       claude-code
     ]) ++ (lib.optionals cfg.tools.pi-coding-agent.enable [
-      omp
+      omp.omp
+      omp.pp
     ]);
 
     home.file.".pi/agent" = mkIf cfg.tools.pi-coding-agent.enable {
@@ -40,8 +41,15 @@ in
       source = config.lib.file.mkOutOfStoreSymlink "/etc/nixos/pi-agent-data";
     };
 
-    home.shellAliases = mkIf cfg.tools.pi-coding-agent.enable {
-      pi = "omp";
-    };
+    home.shellAliases = mkMerge [
+      (mkIf cfg.tools.antigravity-cli.enable { 
+        gemini = "agy"; 
+        antigravity-cli = "agy";
+      })
+      (mkIf cfg.tools.pi-coding-agent.enable { 
+        pi = "omp"; 
+        pp = "omp-sandbox"; 
+      })
+    ];
   };
 }

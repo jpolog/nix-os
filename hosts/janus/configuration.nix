@@ -289,7 +289,6 @@
       home.profiles.development.enable = lib.mkForce false;
       home.profiles.work.enable = lib.mkForce false;
       home.profiles.research.enable = lib.mkForce false;
-      home.profiles.master.enable = lib.mkForce false;
       home.profiles.creative.enable = lib.mkForce false;
 
       # janus is a family multimedia PC — keep admin tools, strip dev/hacking tools

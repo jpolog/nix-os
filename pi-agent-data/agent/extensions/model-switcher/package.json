@@ -1,0 +1,6 @@
+{
+  "name": "model-switcher",
+  "omp": {
+    "extensions": ["./index.ts"]
+  }
+}

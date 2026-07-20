@@ -1,7 +1,7 @@
 ---
 name: data-llm-architect
 description: "Use when designing LLM systems for production, implementing fine-tuning or RAG architectures, optimizing inference serving infrastructure, or managing multi-model deployments."
-model: ollama/kimi-k2.6
+model: ollama/kimi-k2.6:cloud
 tools: [read, write, edit, bash, find, search]
 ---
 

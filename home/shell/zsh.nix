@@ -183,7 +183,7 @@ with lib;
 
         # Quick edits
         ezshrc = "nvim ~/.zshrc";
-        ehypr = "nvim ~/.config/hypr/hyprland.conf";
+        ehypr = "nvim ~/.config/hypr/hyprland.lua";
         ewaybar = "nvim ~/.config/waybar/config";
 
         # Custom scripts
@@ -483,8 +483,41 @@ with lib;
           fi
         }
 
-        if [ -n ''${IN_NIX_SHELL:-} ]; then
+        if [ -n "''${IN_NIX_SHELL:-}" ]; then
           echo "🐚 In nix-shell"
+        fi
+
+        # Auto-start Hyprland on TTY1 with bootloop protection and hyprlock login screen
+        if [ -z "$WAYLAND_DISPLAY" ] && [ "$XDG_VTNR" = 1 ]; then
+          if command -v Hyprland >/dev/null 2>&1; then
+            # Launch hyprlock as login screen before Hyprland
+            if command -v hyprlock >/dev/null 2>&1; then
+              hyprlock &
+              local hyprlock_pid=$!
+              # Wait for successful unlock (hyprlock exits after unlock)
+              wait $hyprlock_pid 2>/dev/null || true
+            fi
+            
+            # Small delay to ensure graphics drivers are loaded
+            sleep 1
+            
+            # Start Hyprland and track execution duration
+            local start_time
+            start_time=$(date +%s)
+            Hyprland -c ~/.config/hypr/hyprland.lua
+            local end_time
+            end_time=$(date +%s)
+            
+            # If Hyprland ran for less than 5 seconds, it likely crashed
+            if [ $((end_time - start_time)) -lt 5 ]; then
+              echo -e "\n\033[1;31m⚠️ Hyprland crashed or exited too quickly!\033[0m"
+              echo "Staying in TTY1 shell for debugging. Check ~/.hyprland.log if available."
+            else
+              logout
+            fi
+          else
+            echo "Hyprland command not found. Staying in interactive shell."
+          fi
         fi
       '';
 

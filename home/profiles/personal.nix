@@ -37,6 +37,11 @@ in
       okular = mkEnableOption "Okular" // { default = cfg.office.enable; };
       koreader = mkEnableOption "KOReader" // { default = cfg.office.enable; };
     };
+
+    education = {
+      enable = mkEnableOption "education apps";
+      anki = mkEnableOption "Anki Flashcards" // { default = cfg.education.enable; };
+    };
     
     tools = {
       enable = mkEnableOption "general utility tools" // { default = true; };
@@ -102,6 +107,9 @@ in
       ]) ++
       (optionals cfg.office.koreader [ koreader ]) ++
       
+      # Education
+      (optionals cfg.education.anki [ anki ]) ++
+      
       # General Tools
       (optionals cfg.tools.image-editing [ pinta ]) ++
       (optionals cfg.tools.screenshot [ flameshot ]) ++
@@ -116,5 +124,14 @@ in
 
     # Enable Media Automations
     services.media-automations.enable = true;
+
+    # BTRFS optimizations for Anki
+    # Disables Copy-on-Write for the SQLite database to prevent fragmentation
+    home.activation.ankiDisableCoW = mkIf cfg.education.anki (lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      if [ ! -d "$HOME/.local/share/Anki2" ]; then
+        $DRY_RUN_CMD mkdir -p "$HOME/.local/share/Anki2"
+        $DRY_RUN_CMD chattr +C "$HOME/.local/share/Anki2" 2>/dev/null || true
+      fi
+    '');
   };
 }

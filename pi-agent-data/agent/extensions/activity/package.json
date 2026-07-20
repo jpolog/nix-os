@@ -1,0 +1,6 @@
+{
+  "name": "activity",
+  "omp": {
+    "extensions": ["./index.ts"]
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "tokens",
+  "omp": {
+    "extensions": ["./index.ts"]
+  }
+}

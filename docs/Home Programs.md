@@ -435,7 +435,7 @@ Full Hyprland window manager configuration. Key settings:
 
 **Monitors:** eDP-1 (1920×1200@60), HDMI-A-1 (1920×1080@60), DP-1 (1920×1080@60, rotated)
 
-**Layout:** Scrolling (hyprscrolling plugin), column width 50%
+**Layout:** Native scrolling, column width 75%
 
 **General:** gaps_in=5, gaps_out=10, border_size=2, rounding=3, active_opacity=0.9, inactive_opacity=0.8
 

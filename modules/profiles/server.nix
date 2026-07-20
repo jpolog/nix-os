@@ -70,6 +70,12 @@ with lib;
       autoUpgrade = mkEnableOption "automatic system updates";
       autoGC = mkEnableOption "automatic garbage collection" // { default = true; };
     };
+
+    containerRuntime = mkOption {
+      type = types.enum [ "docker" "podman" ];
+      default = "docker";
+      description = "Container runtime to use. Set to 'podman' for rootless containers.";
+    };
   };
 
   config = mkIf config.profiles.server.enable {

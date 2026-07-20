@@ -85,9 +85,9 @@ mindmap
 ## Users
 
 - [[User jpolo]] — primary developer, full development + power-user setup
+- [[Family Users]] — accounts for elena and padres
 - [[User elena]] — family user, KDE desktop with personal apps
 - [[User padres]] — family user, restricted desktop
-- [[User gaming]] — isolated gaming environment
 
 ## Operations
 

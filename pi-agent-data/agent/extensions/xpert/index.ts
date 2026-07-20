@@ -843,6 +843,87 @@ function renderStatusOverview(disabled: Set<string>): string {
 	return lines.join("\n");
 }
 
+function renderActiveTeams(disabled: Set<string>, agents: AgentInfo[]): string {
+	const lines: string[] = [];
+
+	lines.push("Active Agents by Team");
+	lines.push("═".repeat(70));
+	lines.push("");
+
+	// Find teams with at least one active agent
+	const teamsWithActive = TEAMS.filter(team =>
+		team.agents.some(id => !disabled.has(id))
+	);
+
+	if (teamsWithActive.length === 0) {
+		lines.push("_No custom agents are currently active._");
+		lines.push("");
+		lines.push("Use `/xpert switch <team>` to activate a team exclusively.");
+		lines.push("Use `/xpert on <team>` to enable a team alongside others.");
+		return lines.join("\n");
+	}
+
+	// Group by kind
+	const workflowTeams = teamsWithActive.filter(t => t.kind === "workflow");
+	const languageTeams = teamsWithActive.filter(t => t.kind === "language");
+	const categoryTeams = teamsWithActive.filter(t => t.kind === "category");
+
+	if (workflowTeams.length > 0) {
+		lines.push("WORKFLOW TEAMS");
+		for (const team of workflowTeams) {
+			const activeAgents = team.agents.filter(id => !disabled.has(id));
+			if (activeAgents.length === 0) continue;
+			lines.push("");
+			lines.push(`${team.emoji} ${team.label}`);
+			for (const agentId of activeAgents) {
+				const agent = agents.find(a => a.name === agentId);
+				const modelLabel = agent ? (agent.model.split("/").pop() || agent.model) : "?";
+				lines.push(`  ✓ ${agentId} (${modelLabel})`);
+			}
+		}
+	}
+
+	if (languageTeams.length > 0) {
+		lines.push("");
+		lines.push("LANGUAGE TEAMS");
+		for (const team of languageTeams) {
+			const activeAgents = team.agents.filter(id => !disabled.has(id));
+			if (activeAgents.length === 0) continue;
+			lines.push("");
+			lines.push(`${team.emoji} ${team.label}`);
+			for (const agentId of activeAgents) {
+				const agent = agents.find(a => a.name === agentId);
+				const modelLabel = agent ? (agent.model.split("/").pop() || agent.model) : "?";
+				lines.push(`  ✓ ${agentId} (${modelLabel})`);
+			}
+		}
+	}
+
+	if (categoryTeams.length > 0) {
+		lines.push("");
+		lines.push("CATEGORY TEAMS");
+		for (const team of categoryTeams) {
+			const activeAgents = team.agents.filter(id => !disabled.has(id));
+			if (activeAgents.length === 0) continue;
+			lines.push("");
+			lines.push(`${team.emoji} ${team.label}`);
+			for (const agentId of activeAgents) {
+				const agent = agents.find(a => a.name === agentId);
+				const modelLabel = agent ? (agent.model.split("/").pop() || agent.model) : "?";
+				lines.push(`  ✓ ${agentId} (${modelLabel})`);
+			}
+		}
+	}
+
+	// Summary
+	const totalActive = [...new Set(teamsWithActive.flatMap(t => t.agents))].filter(id => !disabled.has(id)).length;
+	lines.push("");
+	lines.push("─".repeat(70));
+	lines.push(`Total: ${totalActive} custom agents active across ${teamsWithActive.length} teams`);
+
+	return lines.join("\n");
+}
+
 function renderCategoryDetail(team: Team, disabled: Set<string>, agents: AgentInfo[]): string {
 	const lines: string[] = [];
 	let activeCount = 0;
@@ -973,7 +1054,59 @@ export default function xpertExtension(pi: ExtensionAPI) {
 					display: true,
 					attribution: "user",
 				}, { triggerTurn: false });
-				ctx.ui.notify(`${team.label} deactivated`, "info");
+				return;
+			}
+
+			// ── /xpert switch <team-id> ────────────────────────────────────
+			// Exclusive activation: disable all agents, enable only this team
+			if (arg.startsWith("switch ")) {
+				const teamId = arg.slice(6).trim();
+				const team = TEAMS.find(t => t.id === teamId);
+				if (!team) {
+					ctx.ui.notify(`Unknown team: "${teamId}". Available: ${TEAMS.map(t => t.id).join(", ")}`, "warning");
+					return;
+				}
+
+				// Get ALL custom agents from ALL teams
+				const allCustomAgents = new Set<string>();
+				for (const t of TEAMS) {
+					for (const agentId of t.agents) {
+						allCustomAgents.add(agentId);
+					}
+				}
+
+				// Disable all custom agents, then enable only the target team
+				const newDisabled = new Set<string>();
+				for (const agentId of allCustomAgents) {
+					if (!team.agents.includes(agentId)) {
+						newDisabled.add(agentId);
+					}
+				}
+				setDisabledAgents(newDisabled);
+
+				pi.sendMessage({
+					customType: "xpert-switch",
+					content: `${team.emoji} **Switched to ${team.label}**\n\n` +
+						`Disabled ${newDisabled.size} agents, enabled ${team.agents.length} agents for this team.\n\n` +
+						renderTeamDetail(team, newDisabled, agents),
+					display: true,
+					attribution: "user",
+				}, { triggerTurn: false });
+				ctx.ui.notify(`Switched to ${team.label} (${team.agents.length} agents)`, "info");
+				return;
+			}
+
+			// ── /xpert active ─────────────────────────────────────────────
+			// Show active agents grouped by team
+			if (arg === "active") {
+				const content = renderActiveTeams(disabled, agents);
+				pi.sendMessage({
+					customType: "xpert-active",
+					content,
+					display: true,
+					attribution: "user",
+				}, { triggerTurn: false });
+				ctx.ui.notify("Active agents loaded", "info");
 				return;
 			}
 
@@ -984,6 +1117,8 @@ export default function xpertExtension(pi: ExtensionAPI) {
 				"📂 Browse Teams",
 				"🏷️ Browse Categories",
 				"⚡ Quick Toggle",
+				"🔄 Switch Team (Exclusive)",
+				"✅ Active Teams",
 				"📊 Status Overview",
 				"🔮 Discovered Models",
 			];
@@ -1006,6 +1141,24 @@ export default function xpertExtension(pi: ExtensionAPI) {
 			// ── Quick Toggle ────────────────────────────────────────────
 			if (mainChoice === "⚡ Quick Toggle") {
 				await quickToggle(pi, ctx, agents);
+				return;
+			}
+
+			// ── Switch Team (Exclusive) ────────────────────────────────────
+			if (mainChoice === "🔄 Switch Team (Exclusive)") {
+				await switchTeamExclusive(pi, ctx, agents);
+				return;
+			}
+
+			// ── Active Teams ────────────────────────────────────────────────
+			if (mainChoice === "✅ Active Teams") {
+				pi.sendMessage({
+					customType: "xpert-active",
+					content: renderActiveTeams(getDisabledAgents(), agents),
+					display: true,
+					attribution: "user",
+				}, { triggerTurn: false });
+				ctx.ui.notify("Active teams loaded", "info");
 				return;
 			}
 
@@ -1339,4 +1492,68 @@ async function toggleIndividualAgents(pi: ExtensionAPI, ctx: CommandContext, tea
 		attribution: "user",
 	}, { triggerTurn: false });
 	ctx.ui.notify(`${agentId} ${newStatus}`, "info");
+}
+
+// ── Switch to a team exclusively (disable all others) ────────────────────
+
+async function switchTeamExclusive(pi: ExtensionAPI, ctx: CommandContext, agents: AgentInfo[]): Promise<void> {
+	// Build options for all workflow and language teams
+	const teamOptions: string[] = [];
+
+	// Workflow teams first
+	const workflowTeams = TEAMS.filter(t => t.kind === "workflow");
+	const languageTeams = TEAMS.filter(t => t.kind === "language");
+
+	teamOptions.push("─ WORKFLOW TEAMS ─");
+	for (const team of workflowTeams) {
+		const active = team.agents.filter(id => !getDisabledAgents().has(id)).length;
+		const status = active === team.agents.length ? "✓" : active > 0 ? "◐" : "✗";
+		teamOptions.push(`${status} ${team.emoji} ${team.label}`);
+	}
+
+	teamOptions.push("");
+	teamOptions.push("─ LANGUAGE TEAMS ─");
+	for (const team of languageTeams) {
+		const active = team.agents.filter(id => !getDisabledAgents().has(id)).length;
+		const status = active === team.agents.length ? "✓" : active > 0 ? "◐" : "✗";
+		teamOptions.push(`${status} ${team.emoji} ${team.label}`);
+	}
+
+	teamOptions.push("");
+	teamOptions.push("← Cancel");
+
+	const choice = await ctx.ui.select("Switch to Team (Exclusive)", teamOptions);
+	if (!choice || choice === "← Cancel" || choice.startsWith("─")) return;
+
+	// Extract team label from choice (remove status indicator)
+	const label = choice.replace(/^[✓◐✗] . /, "").replace(/^[✓◐✗] /, "");
+	const team = TEAMS.find(t => t.label === label);
+	if (!team) return;
+
+	// Get ALL custom agents from ALL teams
+	const allCustomAgents = new Set<string>();
+	for (const t of TEAMS) {
+		for (const agentId of t.agents) {
+			allCustomAgents.add(agentId);
+		}
+	}
+
+	// Disable all custom agents, then enable only the target team
+	const newDisabled = new Set<string>();
+	for (const agentId of allCustomAgents) {
+		if (!team.agents.includes(agentId)) {
+			newDisabled.add(agentId);
+		}
+	}
+	setDisabledAgents(newDisabled);
+
+	pi.sendMessage({
+		customType: "xpert-switch",
+		content: `${team.emoji} **Switched to ${team.label}**\n\n` +
+			`Disabled ${newDisabled.size} agents, enabled ${team.agents.length} agents for this team.\n\n` +
+			renderTeamDetail(team, newDisabled, agents),
+		display: true,
+		attribution: "user",
+	}, { triggerTurn: false });
+	ctx.ui.notify(`Switched to ${team.label} (${team.agents.length} agents)`, "info");
 }

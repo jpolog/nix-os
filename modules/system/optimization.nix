@@ -70,11 +70,10 @@
       DefaultLimitNOFILE = 1048576;
     };
 
-    # User session limits - CHANGE THIS
-    # 'user.settings' is invalid in NixOS. Use 'user.extraConfig'.
-    user.extraConfig = ''
-      DefaultLimitNOFILE=1048576
-    '';
+    # User session limits
+    user.settings.Manager = {
+      DefaultLimitNOFILE = 1048576;
+    };
   };
 
   # Better boot settings
@@ -105,8 +104,8 @@
       "net.ipv4.tcp_fastopen" = 3;
 
       # File system optimizations
-      "fs.inotify.max_user_watches" = 524288;
-      "fs.inotify.max_user_instances" = 512;
+      "fs.inotify.max_user_watches" = 5242880;
+      "fs.inotify.max_user_instances" = 1024;
       "fs.file-max" = 2097152;
 
       # Virtual memory optimizations

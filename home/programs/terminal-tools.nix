@@ -81,11 +81,19 @@ with lib;
         "--color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
       ];
       
-      fileWidgetCommand = "fd --type f --hidden --follow --exclude .git";
-      fileWidgetOptions = [ "--preview 'bat --color=always --line-range :500 {}'" ];
+      fileWidget = {
+        command = "fd --type f --hidden --follow --exclude .git";
+        options = [ "--preview 'bat --color=always --line-range :500 {}'" ];
+      };
       
-      changeDirWidgetCommand = "fd --type d --hidden --follow --exclude .git";
-      changeDirWidgetOptions = [ "--preview 'tree -C {} | head -200'" ];
+      changeDirWidget = {
+        command = "fd --type d --hidden --follow --exclude .git";
+        options = [ "--preview 'tree -C {} | head -200'" ];
+      };
+
+      historyWidget = {
+        command = "";
+      };
     };
     
     # Bat - Better cat
@@ -144,7 +152,7 @@ with lib;
             { mime = "text/*"; use = "edit_text"; }
             { mime = "application/{json,javascript,typescript,xml,x-yaml,x-toml,x-shellscript}"; use = "edit_text"; }
             # Catch-all for other files: try nvim first, then xdg-open
-            { name = "*"; use = [ "edit_text" "default_open" ]; }
+            { url = "*"; use = [ "edit_text" "default_open" ]; }
           ];
         };
       };
