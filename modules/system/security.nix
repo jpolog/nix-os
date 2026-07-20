@@ -27,9 +27,7 @@
 
   # PAM configuration for fingerprint
   security.pam.services = {
-    login.fprintAuth = true;
     sudo.fprintAuth = true;
-    hyprlock.fprintAuth = true;
   };
 
   # GnuPG

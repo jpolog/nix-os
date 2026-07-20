@@ -15,7 +15,6 @@
     # Hyprland ecosystem
     hyprland = {
       url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     hyprland-plugins = {
@@ -25,17 +24,14 @@
 
     hypridle = {
       url = "github:hyprwm/hypridle";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     hyprlock = {
       url = "github:hyprwm/hyprlock";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     hyprsunset = {
       url = "github:hyprwm/hyprsunset";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     quickshell = {
@@ -45,7 +41,6 @@
 
     noctalia = {
       url = "github:noctalia-dev/noctalia-shell";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Nix-index for command-not-found
